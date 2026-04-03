@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MainContent, Card, Button } from "..";
+import { useAppSelector } from "../../hooks/useRedux";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { generateDummyStudents } from "../../data/dummyGenerator";
 
 interface Program {
@@ -12,7 +14,7 @@ interface Program {
 }
 
 const allStudents = generateDummyStudents(1000);
-const programs: Program[] = Array.from(
+const allPrograms: Program[] = Array.from(
   new Set(allStudents.map((s) => s.program)),
 )
   .map((programName) => {
@@ -34,6 +36,18 @@ const programs: Program[] = Array.from(
   .sort((a, b) => b.enrollmentCount - a.enrollmentCount);
 
 export default function ProgramsPage() {
+  // Role guard - only admin, hod, qa can access
+  useRoleGuard(["admin", "hod", "qa"]);
+  const user = useAppSelector((state) => state.auth.user);
+  const userRole = user?.role;
+
+  // Filter programs based on role
+  let programs = allPrograms;
+  if (userRole === "hod") {
+    // HOD only sees their department
+    programs = allPrograms.filter((p) => p.name === "Engineering");
+  }
+
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   return (
