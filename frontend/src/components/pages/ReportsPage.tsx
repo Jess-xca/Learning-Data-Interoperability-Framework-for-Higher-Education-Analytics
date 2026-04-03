@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MainContent, Card, Button, Badge } from "..";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 
 interface Report {
   id: string;
@@ -107,6 +108,8 @@ const getStatusVariant = (
 };
 
 export default function ReportsPage() {
+  // Role guard - admin, qa, analyst can access
+  useRoleGuard(["admin", "qa", "analyst"]);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
   const [activeTab, setActiveTab] = useState<"generated" | "templates">(
     "generated",
@@ -117,8 +120,12 @@ export default function ReportsPage() {
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Reports</h1>
-          <p className="text-on-surface-variant font-medium mt-2">Generate and manage institutional compliance reports.</p>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
+            Reports
+          </h1>
+          <p className="text-on-surface-variant font-medium mt-2">
+            Generate and manage institutional compliance reports.
+          </p>
         </div>
         <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
           <span className="material-symbols-outlined text-sm">add</span>
