@@ -18,7 +18,9 @@ function AdminDashboard() {
     {
       key: "gpa",
       label: "GPA",
-      render: (value) => <span className="font-black text-primary">{String(value)}</span>,
+      render: (value) => (
+        <span className="font-black text-primary">{String(value)}</span>
+      ),
     },
     {
       key: "status",
@@ -100,12 +102,17 @@ function AdminDashboard() {
           >
             <div className="flex items-end justify-around h-full p-4 gap-2">
               {[32, 45, 38, 52, 61, 55].map((value, i) => (
-                <div key={i} className="flex flex-col items-center gap-1 flex-1">
+                <div
+                  key={i}
+                  className="flex flex-col items-center gap-1 flex-1"
+                >
                   <div
                     className="w-full bg-gradient-to-t from-primary to-primary-fixed rounded-t-lg"
                     style={{ height: `${(value / 65) * 100}%` }}
                   />
-                  <span className="text-xs text-on-surface-variant">M{i + 1}</span>
+                  <span className="text-xs text-on-surface-variant">
+                    M{i + 1}
+                  </span>
                 </div>
               ))}
             </div>
@@ -113,7 +120,9 @@ function AdminDashboard() {
         </div>
 
         <div className="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-lg p-6 border border-outline-variant">
-          <span className="text-sm font-bold text-primary uppercase">Active Pipelines</span>
+          <span className="text-sm font-bold text-primary uppercase">
+            Active Pipelines
+          </span>
           <div className="space-y-4 mt-4">
             {[
               { name: "Banner SIS", pct: 85, status: "LIVE" },
@@ -123,7 +132,9 @@ function AdminDashboard() {
               <div key={p.name}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="font-bold text-on-surface">{p.name}</span>
-                  <span className="text-xs text-primary font-bold">{p.status}</span>
+                  <span className="text-xs text-primary font-bold">
+                    {p.status}
+                  </span>
                 </div>
                 <div className="w-full bg-surface-container rounded-full h-2">
                   <div
@@ -151,8 +162,12 @@ function AdminDashboard() {
         <Card className="p-6 border-l-4 border-primary">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-xl font-bold text-primary">{selectedStudent.name}</h3>
-              <p className="text-sm text-on-surface-variant">{selectedStudent.id}</p>
+              <h3 className="text-xl font-bold text-primary">
+                {selectedStudent.name}
+              </h3>
+              <p className="text-sm text-on-surface-variant">
+                {selectedStudent.id}
+              </p>
             </div>
             <button
               onClick={() => setSelectedStudent(null)}
@@ -168,7 +183,9 @@ function AdminDashboard() {
             </div>
             <div>
               <p className="text-on-surface-variant">GPA</p>
-              <p className="font-bold text-primary">{selectedStudent.gpa.toFixed(2)}</p>
+              <p className="font-bold text-primary">
+                {selectedStudent.gpa.toFixed(2)}
+              </p>
             </div>
             <div>
               <p className="text-on-surface-variant">Status</p>
@@ -247,12 +264,14 @@ function QADashboard() {
               },
               {
                 label: "Graduated",
-                count: allStudents.filter((s) => s.status === "graduated").length,
+                count: allStudents.filter((s) => s.status === "graduated")
+                  .length,
                 color: "bg-secondary",
               },
               {
                 label: "Suspended",
-                count: allStudents.filter((s) => s.status === "suspended").length,
+                count: allStudents.filter((s) => s.status === "suspended")
+                  .length,
                 color: "bg-error",
               },
             ].map((item) => (
@@ -262,7 +281,9 @@ function QADashboard() {
                 >
                   {Math.round((item.count / allStudents.length) * 100)}%
                 </div>
-                <p className="text-xs text-on-surface-variant mt-2">{item.label}</p>
+                <p className="text-xs text-on-surface-variant mt-2">
+                  {item.label}
+                </p>
                 <p className="font-bold text-sm">{item.count}</p>
               </div>
             ))}
@@ -273,11 +294,26 @@ function QADashboard() {
           <h3 className="font-bold text-primary mb-4">Recent Audits</h3>
           <div className="space-y-3">
             {[
-              { audit: "FERPA Privacy Check", date: "2025-03-27", status: "Passed" },
-              { audit: "Data Backup Verification", date: "2025-03-25", status: "Passed" },
-              { audit: "Access Control Review", date: "2025-03-20", status: "Passed" },
+              {
+                audit: "FERPA Privacy Check",
+                date: "2025-03-27",
+                status: "Passed",
+              },
+              {
+                audit: "Data Backup Verification",
+                date: "2025-03-25",
+                status: "Passed",
+              },
+              {
+                audit: "Access Control Review",
+                date: "2025-03-20",
+                status: "Passed",
+              },
             ].map((a, i) => (
-              <div key={i} className="flex justify-between items-center p-3 bg-surface-container-low rounded">
+              <div
+                key={i}
+                className="flex justify-between items-center p-3 bg-surface-container-low rounded"
+              >
                 <div>
                   <p className="font-bold text-sm">{a.audit}</p>
                   <p className="text-xs text-on-surface-variant">{a.date}</p>
@@ -297,7 +333,9 @@ function QADashboard() {
 // ============================================================================
 function AnalystDashboard() {
   const allStudents = generateDummyStudents(1000);
-  const avgGPA = (allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length).toFixed(2);
+  const avgGPA = (
+    allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
+  ).toFixed(2);
 
   return (
     <MainContent>
@@ -323,7 +361,9 @@ function AnalystDashboard() {
         />
         <MetricCard
           label="Programs"
-          value={Array.from(new Set(allStudents.map((s) => s.program))).length.toString()}
+          value={Array.from(
+            new Set(allStudents.map((s) => s.program)),
+          ).length.toString()}
           trend={{ value: 0, direction: "up" }}
           icon="school"
         />
@@ -336,22 +376,27 @@ function AnalystDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <ChartCard
-          title="GPA Distribution"
-          subtitle="Performance analytics"
-        >
+        <ChartCard title="GPA Distribution" subtitle="Performance analytics">
           <div className="flex flex-col justify-around h-full p-4">
             {[
-              { range: "3.5+", count: allStudents.filter((s) => s.gpa >= 3.5).length },
+              {
+                range: "3.5+",
+                count: allStudents.filter((s) => s.gpa >= 3.5).length,
+              },
               {
                 range: "3.0-3.5",
-                count: allStudents.filter((s) => s.gpa >= 3.0 && s.gpa < 3.5).length,
+                count: allStudents.filter((s) => s.gpa >= 3.0 && s.gpa < 3.5)
+                  .length,
               },
               {
                 range: "2.5-3.0",
-                count: allStudents.filter((s) => s.gpa >= 2.5 && s.gpa < 3.0).length,
+                count: allStudents.filter((s) => s.gpa >= 2.5 && s.gpa < 3.0)
+                  .length,
               },
-              { range: "< 2.5", count: allStudents.filter((s) => s.gpa < 2.5).length },
+              {
+                range: "< 2.5",
+                count: allStudents.filter((s) => s.gpa < 2.5).length,
+              },
             ].map((item) => (
               <div key={item.range}>
                 <div className="flex justify-between text-xs mb-1">
@@ -387,7 +432,9 @@ function AnalystDashboard() {
                   className="flex justify-between items-center p-3 bg-surface-container-low rounded"
                 >
                   <span className="font-bold text-sm">{p.program}</span>
-                  <span className="text-lg font-bold text-primary">{p.count}</span>
+                  <span className="text-lg font-bold text-primary">
+                    {p.count}
+                  </span>
                 </div>
               ))}
           </div>
@@ -407,7 +454,9 @@ function HODDashboard() {
   return (
     <MainContent>
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Department Dashboard</h1>
+        <h1 className="text-4xl font-black text-primary">
+          Department Dashboard
+        </h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Engineering Department Overview
         </p>
@@ -434,7 +483,9 @@ function HODDashboard() {
         />
         <MetricCard
           label="Avg Dept GPA"
-          value={(allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length).toFixed(2)}
+          value={(
+            allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
+          ).toFixed(2)}
           trend={{ value: 1.5, direction: "up" }}
           icon="grade"
         />
@@ -458,7 +509,9 @@ function HODDashboard() {
                     <p className="font-bold text-sm">
                       {c.code}: {c.title}
                     </p>
-                    <p className="text-xs text-on-surface-variant">{c.enrollment} enrolled</p>
+                    <p className="text-xs text-on-surface-variant">
+                      {c.enrollment} enrolled
+                    </p>
                   </div>
                   <Badge variant="success">{c.enrollment}</Badge>
                 </div>
@@ -467,10 +520,7 @@ function HODDashboard() {
           </div>
         </Card>
 
-        <ChartCard
-          title="Student Performance"
-          subtitle="By year"
-        >
+        <ChartCard title="Student Performance" subtitle="By year">
           <div className="flex items-end justify-around h-full px-4 gap-2">
             {[60, 65, 70, 75].map((value, i) => (
               <div key={i} className="flex flex-col items-center flex-1 gap-1">
@@ -478,7 +528,9 @@ function HODDashboard() {
                   className="w-full bg-gradient-to-t from-primary to-primary-fixed rounded-t-lg"
                   style={{ height: `${value}%` }}
                 />
-                <span className="text-xs text-on-surface-variant">Y{i + 1}</span>
+                <span className="text-xs text-on-surface-variant">
+                  Y{i + 1}
+                </span>
               </div>
             ))}
           </div>
@@ -512,7 +564,9 @@ function LecturerDashboard() {
         />
         <MetricCard
           label="Class Avg GPA"
-          value={(allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length).toFixed(2)}
+          value={(
+            allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
+          ).toFixed(2)}
           trend={{ value: 0.3, direction: "up" }}
           icon="grade"
         />
@@ -545,7 +599,9 @@ function LecturerDashboard() {
               >
                 <div>
                   <p className="font-bold text-sm">{a.name}</p>
-                  <p className="text-xs text-on-surface-variant">Due: {a.due}</p>
+                  <p className="text-xs text-on-surface-variant">
+                    Due: {a.due}
+                  </p>
                 </div>
                 <Badge variant={a.submissions > 30 ? "success" : "primary"}>
                   {a.submissions}
@@ -555,10 +611,7 @@ function LecturerDashboard() {
           </div>
         </Card>
 
-        <ChartCard
-          title="Grade Distribution"
-          subtitle="Current term"
-        >
+        <ChartCard title="Grade Distribution" subtitle="Current term">
           <div className="flex items-end justify-around h-full p-4 gap-2">
             {[30, 50, 45, 35, 20].map((value, i) => (
               <div key={i} className="flex flex-col items-center gap-1 flex-1">
@@ -566,7 +619,9 @@ function LecturerDashboard() {
                   className="w-full bg-gradient-to-t from-secondary to-secondary-container rounded-t-lg"
                   style={{ height: `${(value / 60) * 100}%` }}
                 />
-                <span className="text-xs text-on-surface-variant">{"A+ABCD"[i]}</span>
+                <span className="text-xs text-on-surface-variant">
+                  {"A+ABCD"[i]}
+                </span>
               </div>
             ))}
           </div>
@@ -624,7 +679,12 @@ function StudentDashboard() {
           <div className="space-y-3">
             {[
               { code: "CS201", title: "Algorithms", grade: "A-", credits: 4 },
-              { code: "MATH301", title: "Linear Algebra", grade: "B+", credits: 3 },
+              {
+                code: "MATH301",
+                title: "Linear Algebra",
+                grade: "B+",
+                credits: 3,
+              },
               { code: "ENG101", title: "English Comp", grade: "A", credits: 3 },
             ].map((c, i) => (
               <div
@@ -635,7 +695,9 @@ function StudentDashboard() {
                   <p className="font-bold text-sm">
                     {c.code}: {c.title}
                   </p>
-                  <p className="text-xs text-on-surface-variant">{c.credits} credits</p>
+                  <p className="text-xs text-on-surface-variant">
+                    {c.credits} credits
+                  </p>
                 </div>
                 <Badge variant="success">{c.grade}</Badge>
               </div>
@@ -643,10 +705,7 @@ function StudentDashboard() {
           </div>
         </Card>
 
-        <ChartCard
-          title="GPA Trend"
-          subtitle="Last 4 semesters"
-        >
+        <ChartCard title="GPA Trend" subtitle="Last 4 semesters">
           <div className="flex items-end justify-around h-full p-4 gap-2">
             {[3.2, 3.4, 3.6, 3.78].map((value, i) => (
               <div key={i} className="flex flex-col items-center gap-2 flex-1">
@@ -654,7 +713,9 @@ function StudentDashboard() {
                   className="w-full bg-gradient-to-t from-tertiary to-tertiary-fixed rounded-t-lg"
                   style={{ height: `${(value / 4) * 100}%` }}
                 />
-                <span className="text-xs text-on-surface-variant">S{i + 1}</span>
+                <span className="text-xs text-on-surface-variant">
+                  S{i + 1}
+                </span>
               </div>
             ))}
           </div>
@@ -672,7 +733,9 @@ function StudentDashboard() {
             </div>
           </div>
           <div className="p-4 bg-surface-container-low rounded-lg">
-            <p className="text-on-surface-variant text-sm">On Track for Graduation</p>
+            <p className="text-on-surface-variant text-sm">
+              On Track for Graduation
+            </p>
             <p className="text-2xl font-bold text-tertiary">May 2027</p>
           </div>
         </div>
