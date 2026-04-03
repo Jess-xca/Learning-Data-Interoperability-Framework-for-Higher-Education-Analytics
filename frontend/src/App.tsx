@@ -1,42 +1,42 @@
 import { useState } from "react";
-import { Sidebar, Header, MainContent } from "./components";
-import { LoginPage, DashboardPage } from "./components/pages";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Sidebar, Header } from "./components";
+import { LoginPage } from "./components/pages";
+import { appRoutes } from "./routes/routes";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function AppLayout() {
   const [activeNav, setActiveNav] = useState("dashboard");
+  const navigate = useNavigate();
 
-  if (!isLoggedIn) {
-    return <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />;
-  }
+  const handleNavClick = (id: string) => {
+    setActiveNav(id);
+    navigate(`/${id === "dashboard" ? "" : id}`);
+  };
 
   return (
     <div className="min-h-screen bg-surface">
-      <Sidebar activeNav={activeNav} onNavClick={setActiveNav} />
-      <Header title="Dashboard" />
-
-      {activeNav === "dashboard" && <DashboardPage />}
-
-      {activeNav === "settings" && (
-        <MainContent>
-          <h1 className="text-4xl font-bold text-primary mb-2">Settings</h1>
-          <p className="text-lg text-on-surface-variant mb-10">
-            Settings page coming soon...
-          </p>
-        </MainContent>
-      )}
-
-      {!["dashboard", "settings"].includes(activeNav) && (
-        <MainContent>
-          <h1 className="text-4xl font-bold text-primary mb-2 capitalize">
-            {activeNav}
-          </h1>
-          <p className="text-lg text-on-surface-variant mb-10">
-            {activeNav} page coming soon...
-          </p>
-        </MainContent>
-      )}
+      <Sidebar activeNav={activeNav} onNavClick={handleNavClick} />
+      <Header />
+      <Routes>
+        {appRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
+      </Routes>
     </div>
+  );
+}
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return (
+    <BrowserRouter>
+      {!isLoggedIn ? (
+        <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />
+      ) : (
+        <AppLayout />
+      )}
+    </BrowserRouter>
   );
 }
 

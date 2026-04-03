@@ -15,10 +15,8 @@ const navItems: NavItem[] = [
   { icon: "school", label: "Programs", id: "programs" },
   { icon: "group_work", label: "Courses", id: "courses" },
   { icon: "analytics", label: "Analytics", id: "analytics" },
-  { icon: "verified", label: "Accreditation", id: "accreditation" },
   { icon: "description", label: "Reports", id: "reports" },
   { icon: "gavel", label: "Governance", id: "governance" },
-  { icon: "security", label: "Security", id: "security" },
   { icon: "settings", label: "Settings", id: "settings" },
 ];
 
