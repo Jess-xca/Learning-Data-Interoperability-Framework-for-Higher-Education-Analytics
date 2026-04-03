@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface User {
   id: string;
   email: string;
   name: string;
-  role: 'admin' | 'qa' | 'analyst' | 'hod' | 'lecturer' | 'student';
+  role: "admin" | "qa" | "analyst" | "hod" | "lecturer" | "student";
   institution: string;
   mfaEnabled: boolean;
 }
@@ -24,7 +25,7 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     loginRequest: (state) => {
@@ -53,5 +54,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout, setUser } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout, setUser } =
+  authSlice.actions;
 export default authSlice.reducer;

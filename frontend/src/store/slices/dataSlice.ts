@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface Student {
   id: string;
@@ -7,7 +8,7 @@ export interface Student {
   gpa: number;
   program: string;
   enrollmentYear: number;
-  status: 'active' | 'graduated' | 'suspended';
+  status: "active" | "graduated" | "suspended";
 }
 
 export interface Course {
@@ -34,7 +35,7 @@ const initialState: DataState = {
 };
 
 const dataSlice = createSlice({
-  name: 'data',
+  name: "data",
   initialState,
   reducers: {
     setStudents: (state, action: PayloadAction<Student[]>) => {
@@ -47,13 +48,13 @@ const dataSlice = createSlice({
       state.students.push(action.payload);
     },
     updateStudent: (state, action: PayloadAction<Student>) => {
-      const index = state.students.findIndex(s => s.id === action.payload.id);
+      const index = state.students.findIndex((s) => s.id === action.payload.id);
       if (index !== -1) {
         state.students[index] = action.payload;
       }
     },
     deleteStudent: (state, action: PayloadAction<string>) => {
-      state.students = state.students.filter(s => s.id !== action.payload);
+      state.students = state.students.filter((s) => s.id !== action.payload);
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;

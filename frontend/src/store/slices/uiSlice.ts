@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface Notification {
   id: string;
   message: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+  type: "info" | "success" | "warning" | "error";
   duration?: number;
 }
 
@@ -11,18 +12,18 @@ export interface UIState {
   sidebarOpen: boolean;
   notifications: Notification[];
   darkMode: boolean;
-  language: 'en' | 'fr' | 'kn' | 'sw';
+  language: "en" | "fr" | "kn" | "sw";
 }
 
 const initialState: UIState = {
   sidebarOpen: true,
   notifications: [],
   darkMode: false,
-  language: 'en',
+  language: "en",
 };
 
 const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     toggleSidebar: (state) => {
@@ -35,12 +36,14 @@ const uiSlice = createSlice({
       state.notifications.push(action.payload);
     },
     removeNotification: (state, action: PayloadAction<string>) => {
-      state.notifications = state.notifications.filter(n => n.id !== action.payload);
+      state.notifications = state.notifications.filter(
+        (n) => n.id !== action.payload,
+      );
     },
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
-    setLanguage: (state, action: PayloadAction<'en' | 'fr' | 'kn' | 'sw'>) => {
+    setLanguage: (state, action: PayloadAction<"en" | "fr" | "kn" | "sw">) => {
       state.language = action.payload;
     },
   },

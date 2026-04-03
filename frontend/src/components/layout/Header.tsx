@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface HeaderProps {
   title?: string;
@@ -6,8 +6,8 @@ interface HeaderProps {
   onSearch?: (query: string) => void;
 }
 
-export default function Header({ title, showSearch = true, onSearch }: HeaderProps) {
-  const [searchQuery, setSearchQuery] = React.useState('');
+export default function Header({ showSearch = true, onSearch }: HeaderProps) {
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -43,7 +43,9 @@ export default function Header({ title, showSearch = true, onSearch }: HeaderPro
 
         {/* Notifications */}
         <button className="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors relative">
-          <span className="material-symbols-outlined text-xl">notifications</span>
+          <span className="material-symbols-outlined text-xl">
+            notifications
+          </span>
           <span className="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
         </button>
 

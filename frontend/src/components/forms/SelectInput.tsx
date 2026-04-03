@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface SelectInputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -27,8 +27,8 @@ export default function SelectInput({
       <div className="relative">
         <select
           className={`w-full h-12 pl-4 pr-10 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium appearance-none cursor-pointer ${
-            error ? 'border-error focus:border-error' : ''
-          } ${className || ''}`}
+            error ? "border-error focus:border-error" : ""
+          } ${className || ""}`}
           {...props}
         >
           {placeholder && (
@@ -46,9 +46,7 @@ export default function SelectInput({
           expand_more
         </span>
       </div>
-      {error && (
-        <p className="text-xs text-error font-medium">{error}</p>
-      )}
+      {error && <p className="text-xs text-error font-medium">{error}</p>}
       {helperText && !error && (
         <p className="text-xs text-on-surface-variant">{helperText}</p>
       )}

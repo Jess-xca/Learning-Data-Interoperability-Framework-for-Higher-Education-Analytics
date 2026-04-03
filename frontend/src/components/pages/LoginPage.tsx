@@ -1,68 +1,72 @@
-import React, { useState } from 'react';
-import { Button, TextInput, SelectInput, Alert } from '../components';
-import { Card } from '../components';
+import { useState } from "react";
+import { Button, TextInput, SelectInput, Alert, Card } from "..";
 
 interface LoginPageProps {
   onLoginSuccess?: () => void;
 }
 
 export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
-  const [step, setStep] = useState<'institution' | 'credentials' | 'mfa'>('institution');
-  const [institution, setInstitution] = useState('');
-  const [role, setRole] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [mfaCode, setMfaCode] = useState('');
+  const [step, setStep] = useState<"institution" | "credentials" | "mfa">(
+    "institution",
+  );
+  const [institution, setInstitution] = useState("");
+  const [role, setRole] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mfaCode, setMfaCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const institutions = [
-    { value: 'univ-kigali', label: 'Université de Kigali' },
-    { value: 'kigali-institute', label: 'Kigali Institute of Science & Technology' },
-    { value: 'aub', label: 'African University of Business' },
-    { value: 'demo', label: 'Demo Institution (Testing)' },
+    { value: "univ-kigali", label: "Université de Kigali" },
+    {
+      value: "kigali-institute",
+      label: "Kigali Institute of Science & Technology",
+    },
+    { value: "aub", label: "African University of Business" },
+    { value: "demo", label: "Demo Institution (Testing)" },
   ];
 
   const roles = [
-    { value: 'admin', label: 'Academic Administrator' },
-    { value: 'qa', label: 'Quality Assurance Officer' },
-    { value: 'analyst', label: 'Data Analyst' },
-    { value: 'hod', label: 'Department Head' },
-    { value: 'lecturer', label: 'Lecturer' },
+    { value: "admin", label: "Academic Administrator" },
+    { value: "qa", label: "Quality Assurance Officer" },
+    { value: "analyst", label: "Data Analyst" },
+    { value: "hod", label: "Department Head" },
+    { value: "lecturer", label: "Lecturer" },
   ];
 
   const handleInstitutionSelect = () => {
     if (institution && role) {
-      setStep('credentials');
+      setStep("credentials");
     } else {
-      setError('Please select both institution and role');
+      setError("Please select both institution and role");
     }
   };
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError('Please enter email and password');
+      setError("Please enter email and password");
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
-      setStep('mfa');
+      setStep("mfa");
     }, 1000);
   };
 
   const handleMFAVerify = async () => {
     if (!mfaCode) {
-      setError('Please enter MFA code');
+      setError("Please enter MFA code");
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     // Simulate API call
     setTimeout(() => {
@@ -78,30 +82,42 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           {/* Logo */}
           <div className="text-center">
             <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="material-symbols-outlined text-on-primary text-2xl">school</span>
+              <span className="material-symbols-outlined text-on-primary text-2xl">
+                school
+              </span>
             </div>
-            <h1 className="text-3xl font-bold text-primary">Academic Curator</h1>
-            <p className="text-sm text-on-surface-variant mt-2">Higher Education Data Interoperability</p>
+            <h1 className="text-3xl font-bold text-primary">
+              Academic Curator
+            </h1>
+            <p className="text-sm text-on-surface-variant mt-2">
+              Higher Education Data Interoperability
+            </p>
           </div>
 
           {error && <Alert variant="error">{error}</Alert>}
 
-          {step === 'institution' && (
+          {step === "institution" && (
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-primary">Select Your Institution</h2>
+              <h2 className="text-lg font-bold text-primary">
+                Select Your Institution
+              </h2>
               <SelectInput
                 label="Institution"
                 placeholder="Choose your institution..."
                 options={institutions}
                 value={institution}
-                onChange={(e) => setInstitution(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setInstitution(e.target.value)
+                }
               />
               <SelectInput
                 label="Role"
                 placeholder="Select your role..."
                 options={roles}
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setRole(e.target.value)
+                }
               />
               <Button
                 variant="primary"
@@ -115,11 +131,11 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
             </div>
           )}
 
-          {step === 'credentials' && (
+          {step === "credentials" && (
             <div className="space-y-4">
               <h2 className="text-lg font-bold text-primary">Sign In</h2>
               <p className="text-sm text-on-surface-variant">
-                {institutions.find(i => i.value === institution)?.label}
+                {institutions.find((i) => i.value === institution)?.label}
               </p>
               <TextInput
                 label="Email"
@@ -127,7 +143,9 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 type="email"
                 icon="mail"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
               <TextInput
                 label="Password"
@@ -135,7 +153,9 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 type="password"
                 icon="lock"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
               />
               <Button
                 variant="primary"
@@ -149,7 +169,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
               <Button
                 variant="secondary"
                 size="md"
-                onClick={() => setStep('institution')}
+                onClick={() => setStep("institution")}
                 className="w-full"
               >
                 Back
@@ -157,11 +177,14 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
             </div>
           )}
 
-          {step === 'mfa' && (
+          {step === "mfa" && (
             <div className="space-y-4">
-              <h2 className="text-lg font-bold text-primary">Multi-Factor Authentication</h2>
+              <h2 className="text-lg font-bold text-primary">
+                Multi-Factor Authentication
+              </h2>
               <Alert variant="info" icon="security">
-                A verification code has been sent to your registered email and authenticator app.
+                A verification code has been sent to your registered email and
+                authenticator app.
               </Alert>
               <TextInput
                 label="MFA Code"
@@ -169,7 +192,9 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 type="text"
                 icon="verified_user"
                 value={mfaCode}
-                onChange={(e) => setMfaCode(e.target.value.slice(0, 6))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setMfaCode(e.target.value.slice(0, 6))
+                }
                 maxLength={6}
               />
               <Button
@@ -184,7 +209,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
               <Button
                 variant="secondary"
                 size="md"
-                onClick={() => setStep('credentials')}
+                onClick={() => setStep("credentials")}
                 className="w-full"
               >
                 Back
@@ -194,7 +219,10 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
           {/* Footer */}
           <div className="text-center text-xs text-on-surface-variant pt-4 border-t border-outline-variant/20">
-            <p>Academic Curator v2.1 | Built for Higher Education Data Interoperability</p>
+            <p>
+              Academic Curator v2.1 | Built for Higher Education Data
+              Interoperability
+            </p>
           </div>
         </Card>
       </div>

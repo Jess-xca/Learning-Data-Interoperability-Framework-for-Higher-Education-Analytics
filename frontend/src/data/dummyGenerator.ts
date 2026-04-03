@@ -5,23 +5,28 @@
 // NNN = Sequential number (001-999)
 
 const DEPARTMENT_CODES: Record<string, string> = {
-  'Engineering': 'ENG',
-  'Business Administration': 'BUS',
-  'Computer Science': 'CSC',
-  'Information Technology': 'ITE',
-  'Medicine': 'MED',
-  'Law': 'LAW',
-  'Education': 'EDU',
-  'Agriculture': 'AGR',
-  'Science': 'SCI',
+  Engineering: "ENG",
+  "Business Administration": "BUS",
+  "Computer Science": "CSC",
+  "Information Technology": "ITE",
+  Medicine: "MED",
+  Law: "LAW",
+  Education: "EDU",
+  Agriculture: "AGR",
+  Science: "SCI",
 };
 
-export function generateStudentId(enrollmentYear: number, semester: number, department: string, sequenceNumber: number): string {
-  const deptCode = DEPARTMENT_CODES[department] || 'GEN';
-  const semesterCode = semester.toString().padStart(2, '0');
+export function generateStudentId(
+  enrollmentYear: number,
+  semester: number,
+  department: string,
+  sequenceNumber: number,
+): string {
+  const deptCode = DEPARTMENT_CODES[department] || "GEN";
+  const semesterCode = semester.toString().padStart(2, "0");
   const deptPart = deptCode.substring(0, 3);
-  const seqPart = sequenceNumber.toString().padStart(3, '0');
-  
+  const seqPart = sequenceNumber.toString().padStart(3, "0");
+
   return `${enrollmentYear}${semesterCode}${deptPart}${seqPart}`;
 }
 
@@ -32,32 +37,72 @@ export interface DummyStudent {
   gpa: number;
   program: string;
   enrollmentYear: number;
-  status: 'active' | 'graduated' | 'suspended';
+  status: "active" | "graduated" | "suspended";
   phone?: string;
   address?: string;
 }
 
 const FIRST_NAMES = [
-  'Jean', 'Claire', 'David', 'Marie', 'Pierre', 'Anne', 'Michel', 'Sophie',
-  'Robert', 'Isabelle', 'Philippe', 'Catherine', 'Georges', 'Édith', 'André', 'Martine',
-  'Claudette', 'Alain', 'Véronique', 'Dominique', 'Marcus', 'Julia', 'Lucas', 'Emma',
+  "Jean",
+  "Claire",
+  "David",
+  "Marie",
+  "Pierre",
+  "Anne",
+  "Michel",
+  "Sophie",
+  "Robert",
+  "Isabelle",
+  "Philippe",
+  "Catherine",
+  "Georges",
+  "Édith",
+  "André",
+  "Martine",
+  "Claudette",
+  "Alain",
+  "Véronique",
+  "Dominique",
+  "Marcus",
+  "Julia",
+  "Lucas",
+  "Emma",
 ];
 
 const LAST_NAMES = [
-  'Umucyo', 'Habimana', 'Mugisha', 'Kamanzi', 'Kubwimana', 'Tsingyun', 'Nsabimana',
-  'Makuza', 'Gasana', 'Bizimungu', 'Kagame', 'Tutsi', 'Hutu', 'Twa', 'Bantu',
-  'Swahili', 'Kinyarwanda', 'Ikinyarwanda', 'Ikirundi', 'Kinande', 'Kinyabwisha', 'Ashanti',
+  "Umucyo",
+  "Habimana",
+  "Mugisha",
+  "Kamanzi",
+  "Kubwimana",
+  "Tsingyun",
+  "Nsabimana",
+  "Makuza",
+  "Gasana",
+  "Bizimungu",
+  "Kagame",
+  "Tutsi",
+  "Hutu",
+  "Twa",
+  "Bantu",
+  "Swahili",
+  "Kinyarwanda",
+  "Ikinyarwanda",
+  "Ikirundi",
+  "Kinande",
+  "Kinyabwisha",
+  "Ashanti",
 ];
 
 const PROGRAMS = [
-  'Engineering',
-  'Business Administration',
-  'Computer Science',
-  'Information Technology',
-  'Medicine',
-  'Law',
-  'Education',
-  'Agriculture',
+  "Engineering",
+  "Business Administration",
+  "Computer Science",
+  "Information Technology",
+  "Medicine",
+  "Law",
+  "Education",
+  "Agriculture",
 ];
 
 function getRandomItem<T>(array: T[]): T {
@@ -87,8 +132,15 @@ export function generateDummyStudents(count: number = 1000): DummyStudent[] {
       gpa: generateRandomGPA(),
       program,
       enrollmentYear,
-      status: Math.random() > 0.9 ? 'suspended' : Math.random() > 0.8 ? 'graduated' : 'active',
-      phone: `+250${Math.floor(Math.random() * 900000000).toString().padStart(9, '0')}`,
+      status:
+        Math.random() > 0.9
+          ? "suspended"
+          : Math.random() > 0.8
+            ? "graduated"
+            : "active",
+      phone: `+250${Math.floor(Math.random() * 900000000)
+        .toString()
+        .padStart(9, "0")}`,
       address: `Kigali, Rwanda`,
     };
 
@@ -98,10 +150,16 @@ export function generateDummyStudents(count: number = 1000): DummyStudent[] {
   return students;
 }
 
-export function getDummyStudentsByProgram(students: DummyStudent[], program: string): DummyStudent[] {
-  return students.filter(s => s.program === program);
+export function getDummyStudentsByProgram(
+  students: DummyStudent[],
+  program: string,
+): DummyStudent[] {
+  return students.filter((s) => s.program === program);
 }
 
-export function getDummyStudentsByStatus(students: DummyStudent[], status: DummyStudent['status']): DummyStudent[] {
-  return students.filter(s => s.status === status);
+export function getDummyStudentsByStatus(
+  students: DummyStudent[],
+  status: DummyStudent["status"],
+): DummyStudent[] {
+  return students.filter((s) => s.status === status);
 }

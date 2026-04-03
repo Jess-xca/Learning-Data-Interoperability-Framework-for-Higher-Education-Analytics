@@ -1,15 +1,16 @@
 // Layout
-export * from './layout';
-export { Sidebar, Header, MainContent } from './layout';
+export * from "./layout";
+export { Sidebar, Header, MainContent } from "./layout";
 
 // Forms
-export * from './forms';
-export { Button, TextInput, SelectInput } from './forms';
+export * from "./forms";
+export { Button, TextInput, SelectInput } from "./forms";
 
 // Common
-export * from './common';
-export { Card, Badge, Alert } from './common';
+export * from "./common";
+export { Card, Badge, Alert } from "./common";
 
 // Dashboard
-export * from './dashboard';
-export { MetricCard } from './dashboard';
+export * from "./dashboard";
+export { MetricCard, ChartCard, Table } from "./dashboard";
+export type { TableColumn } from "./dashboard";

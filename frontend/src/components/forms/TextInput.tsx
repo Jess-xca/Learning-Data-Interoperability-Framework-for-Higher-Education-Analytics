@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -29,15 +29,13 @@ export default function TextInput({
           </span>
         )}
         <input
-          className={`w-full h-12 ${icon ? 'pl-10' : 'pl-4'} pr-4 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium ${
-            error ? 'border-error focus:border-error' : ''
-          } ${className || ''}`}
+          className={`w-full h-12 ${icon ? "pl-10" : "pl-4"} pr-4 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium ${
+            error ? "border-error focus:border-error" : ""
+          } ${className || ""}`}
           {...props}
         />
       </div>
-      {error && (
-        <p className="text-xs text-error font-medium">{error}</p>
-      )}
+      {error && <p className="text-xs text-error font-medium">{error}</p>}
       {helperText && !error && (
         <p className="text-xs text-on-surface-variant">{helperText}</p>
       )}

@@ -10,20 +10,22 @@ interface SidebarProps {
 }
 
 const navItems: NavItem[] = [
-  { icon: 'dashboard', label: 'Dashboard', id: 'dashboard' },
-  { icon: 'people', label: 'Students', id: 'students' },
-  { icon: 'school', label: 'Programs', id: 'programs' },
-  { icon: 'group_work', label: 'Courses', id: 'courses' },
-  { icon: 'analytics', label: 'Analytics', id: 'analytics' },
-  { icon: 'verified', label: 'Accreditation', id: 'accreditation' },
-  { icon: 'description', label: 'Reports', id: 'reports' },
-  { icon: 'gavel', label: 'Governance', id: 'governance' },
-  { icon: 'security', label: 'Security', id: 'security' },
-  { icon: 'settings', label: 'Settings', id: 'settings' },
+  { icon: "dashboard", label: "Dashboard", id: "dashboard" },
+  { icon: "people", label: "Students", id: "students" },
+  { icon: "school", label: "Programs", id: "programs" },
+  { icon: "group_work", label: "Courses", id: "courses" },
+  { icon: "analytics", label: "Analytics", id: "analytics" },
+  { icon: "verified", label: "Accreditation", id: "accreditation" },
+  { icon: "description", label: "Reports", id: "reports" },
+  { icon: "gavel", label: "Governance", id: "governance" },
+  { icon: "security", label: "Security", id: "security" },
+  { icon: "settings", label: "Settings", id: "settings" },
 ];
 
-export default function Sidebar({ activeNav = 'dashboard', onNavClick }: SidebarProps)
-
+export default function Sidebar({
+  activeNav = "dashboard",
+  onNavClick,
+}: SidebarProps) {
   return (
     <aside className="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/20 z-50">
       {/* Branding */}
@@ -53,11 +55,13 @@ export default function Sidebar({ activeNav = 'dashboard', onNavClick }: Sidebar
               onClick={() => onNavClick?.(item.id)}
               className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 w-full text-left ${
                 isActive
-                  ? 'bg-white shadow-sm text-primary font-bold'
-                  : 'text-on-surface-variant hover:bg-white/50 hover:text-on-surface'
+                  ? "bg-white shadow-sm text-primary font-bold"
+                  : "text-on-surface-variant hover:bg-white/50 hover:text-on-surface"
               }`}
             >
-              <span className="material-symbols-outlined text-xl">{item.icon}</span>
+              <span className="material-symbols-outlined text-xl">
+                {item.icon}
+              </span>
               <span className="text-sm font-medium">{item.label}</span>
             </button>
           );
@@ -73,7 +77,9 @@ export default function Sidebar({ activeNav = 'dashboard', onNavClick }: Sidebar
             className="w-10 h-10 rounded-full"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-on-surface truncate">Admin User</p>
+            <p className="text-sm font-bold text-on-surface truncate">
+              Admin User
+            </p>
             <p className="text-xs text-on-surface-variant">System Admin</p>
           </div>
         </div>

@@ -1,44 +1,85 @@
-import React, { useEffect } from 'react';
-import { MainContent, MetricCard, ChartCard, Table } from '../components';
-import { TableColumn } from '../components/dashboard/Table';
+import { useState } from "react";
+import { MainContent, MetricCard, ChartCard, Table } from "..";
+import type { TableColumn } from "../dashboard/Table";
 
 interface DashboardStudent {
   id: string;
   name: string;
   program: string;
   gpa: number;
-  status: 'active' | 'graduated' | 'suspended';
+  status: "active" | "graduated" | "suspended";
 }
 
 const dashboardStudents: DashboardStudent[] = [
-  { id: '202502SENG001', name: 'Jean Umucyo', program: 'Engineering', gpa: 3.92, status: 'active' },
-  { id: '202502SENG002', name: 'Claire Habimana', program: 'Engineering', gpa: 3.65, status: 'active' },
-  { id: '202502BUS001', name: 'David Mugisha', program: 'Business', gpa: 3.45, status: 'active' },
-  { id: '202502CSC001', name: 'Marie Kamanzi', program: 'Computer Science', gpa: 3.78, status: 'active' },
-  { id: '202502ITE001', name: 'Pierre Kubwimana', program: 'Information Technology', gpa: 3.32, status: 'active' },
+  {
+    id: "202502SENG001",
+    name: "Jean Umucyo",
+    program: "Engineering",
+    gpa: 3.92,
+    status: "active",
+  },
+  {
+    id: "202502SENG002",
+    name: "Claire Habimana",
+    program: "Engineering",
+    gpa: 3.65,
+    status: "active",
+  },
+  {
+    id: "202502BUS001",
+    name: "David Mugisha",
+    program: "Business",
+    gpa: 3.45,
+    status: "active",
+  },
+  {
+    id: "202502CSC001",
+    name: "Marie Kamanzi",
+    program: "Computer Science",
+    gpa: 3.78,
+    status: "active",
+  },
+  {
+    id: "202502ITE001",
+    name: "Pierre Kubwimana",
+    program: "Information Technology",
+    gpa: 3.32,
+    status: "active",
+  },
 ];
 
 const tableColumns: TableColumn<DashboardStudent>[] = [
-  { key: 'id', label: 'Student ID', sortable: true },
-  { key: 'name', label: 'Name', sortable: true },
-  { key: 'program', label: 'Program', sortable: true },
+  { key: "id", label: "Student ID", sortable: true },
+  { key: "name", label: "Name", sortable: true },
+  { key: "program", label: "Program", sortable: true },
   {
-    key: 'gpa',
-    label: 'GPA',
-    render: (value) => <span className="font-bold text-primary">{value}</span>,
+    key: "gpa",
+    label: "GPA",
+    render: (value: unknown) => (
+      <span className="font-bold text-primary">{String(value)}</span>
+    ),
   },
   {
-    key: 'status',
-    label: 'Status',
-    render: (value) => {
-      const statusColor = value === 'active' ? 'success' : value === 'graduated' ? 'primary' : 'error';
+    key: "status",
+    label: "Status",
+    render: (value: unknown) => {
+      const statusColor =
+        String(value) === "active"
+          ? "success"
+          : String(value) === "graduated"
+            ? "primary"
+            : "error";
       return (
-        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase ${
-          statusColor === 'success' ? 'bg-tertiary-fixed text-on-tertiary' :
-          statusColor === 'primary' ? 'bg-primary-container text-on-primary-container' :
-          'bg-error-container text-on-error-container'
-        }`}>
-          {value}
+        <span
+          className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase ${
+            statusColor === "success"
+              ? "bg-tertiary-fixed text-on-tertiary"
+              : statusColor === "primary"
+                ? "bg-primary-container text-on-primary-container"
+                : "bg-error-container text-on-error-container"
+          }`}
+        >
+          {String(value)}
         </span>
       );
     },
@@ -46,7 +87,8 @@ const tableColumns: TableColumn<DashboardStudent>[] = [
 ];
 
 export default function DashboardPage() {
-  const [selectedStudent, setSelectedStudent] = React.useState<DashboardStudent | null>(null);
+  const [selectedStudent, setSelectedStudent] =
+    useState<DashboardStudent | null>(null);
 
   return (
     <MainContent>
@@ -63,25 +105,25 @@ export default function DashboardPage() {
         <MetricCard
           label="Total Students"
           value="1,250"
-          trend={{ value: 5.2, direction: 'up' }}
+          trend={{ value: 5.2, direction: "up" }}
           icon="people"
         />
         <MetricCard
           label="Graduation Rate"
           value="84.2%"
-          trend={{ value: 2.1, direction: 'up' }}
+          trend={{ value: 2.1, direction: "up" }}
           icon="school"
         />
         <MetricCard
           label="Faculty-to-Student"
           value="1:18"
-          trend={{ value: 1.5, direction: 'down' }}
+          trend={{ value: 1.5, direction: "down" }}
           icon="group"
         />
         <MetricCard
           label="Programs Active"
           value="42"
-          trend={{ value: 8.3, direction: 'up' }}
+          trend={{ value: 8.3, direction: "up" }}
           icon="menu_book"
         />
       </div>
@@ -104,7 +146,9 @@ export default function DashboardPage() {
                   className="bg-gradient-to-t from-primary to-primary-container rounded-t-lg w-8"
                   style={{ height: `${(value / 65) * 100}%` }}
                 ></div>
-                <span className="text-xs text-on-surface-variant">M{i + 1}</span>
+                <span className="text-xs text-on-surface-variant">
+                  M{i + 1}
+                </span>
               </div>
             ))}
           </div>
@@ -121,15 +165,21 @@ export default function DashboardPage() {
         >
           <div className="flex items-center justify-around h-full space-x-4 p-4">
             {[
-              { name: 'Engineering', value: 320, color: 'from-primary' },
-              { name: 'Business', value: 240, color: 'from-secondary' },
-              { name: 'Science', value: 280, color: 'from-tertiary' },
+              { name: "Engineering", value: 320, color: "from-primary" },
+              { name: "Business", value: 240, color: "from-secondary" },
+              { name: "Science", value: 280, color: "from-tertiary" },
             ].map((program, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${program.color} to-surface-container flex items-center justify-center`}>
-                  <span className="text-sm font-bold text-white">{program.value}</span>
+                <div
+                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${program.color} to-surface-container flex items-center justify-center`}
+                >
+                  <span className="text-sm font-bold text-white">
+                    {program.value}
+                  </span>
                 </div>
-                <span className="text-xs text-on-surface-variant text-center">{program.name}</span>
+                <span className="text-xs text-on-surface-variant text-center">
+                  {program.name}
+                </span>
               </div>
             ))}
           </div>
@@ -138,11 +188,13 @@ export default function DashboardPage() {
 
       {/* Data Table */}
       <div className="space-y-4 mb-12">
-        <h2 className="text-2xl font-bold text-primary">Recent Student Records</h2>
+        <h2 className="text-2xl font-bold text-primary">
+          Recent Student Records
+        </h2>
         <Table
           columns={tableColumns}
           data={dashboardStudents}
-          keyExtractor={(row) => row.id}
+          keyExtractor={(row: DashboardStudent) => row.id}
           onRowClick={setSelectedStudent}
         />
       </div>
@@ -151,7 +203,9 @@ export default function DashboardPage() {
       {selectedStudent && (
         <div className="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/30 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-primary">{selectedStudent.name}</h3>
+            <h3 className="text-xl font-bold text-primary">
+              {selectedStudent.name}
+            </h3>
             <button
               onClick={() => setSelectedStudent(null)}
               className="text-on-surface-variant hover:text-primary"
@@ -161,20 +215,32 @@ export default function DashboardPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <p className="text-xs text-on-surface-variant uppercase">Student ID</p>
-              <p className="text-sm font-bold text-primary">{selectedStudent.id}</p>
+              <p className="text-xs text-on-surface-variant uppercase">
+                Student ID
+              </p>
+              <p className="text-sm font-bold text-primary">
+                {selectedStudent.id}
+              </p>
             </div>
             <div>
-              <p className="text-xs text-on-surface-variant uppercase">Program</p>
+              <p className="text-xs text-on-surface-variant uppercase">
+                Program
+              </p>
               <p className="text-sm font-bold">{selectedStudent.program}</p>
             </div>
             <div>
               <p className="text-xs text-on-surface-variant uppercase">GPA</p>
-              <p className="text-sm font-bold text-primary">{selectedStudent.gpa}</p>
+              <p className="text-sm font-bold text-primary">
+                {selectedStudent.gpa}
+              </p>
             </div>
             <div>
-              <p className="text-xs text-on-surface-variant uppercase">Status</p>
-              <p className="text-sm font-bold capitalize text-tertiary">{selectedStudent.status}</p>
+              <p className="text-xs text-on-surface-variant uppercase">
+                Status
+              </p>
+              <p className="text-sm font-bold capitalize text-tertiary">
+                {selectedStudent.status}
+              </p>
             </div>
           </div>
         </div>
