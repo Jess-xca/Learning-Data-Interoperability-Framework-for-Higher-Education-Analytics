@@ -5,6 +5,7 @@
 **Pattern**: `YYYYSSDDDNNN`
 
 Where:
+
 - **YYYY** = Academic Year (4 digits)
 - **SS** = Semester (2 digits: 01 or 02)
 - **DDD** = Department Code (3 letters)
@@ -15,13 +16,15 @@ Where:
 ## Component Details
 
 ### Academic Year (YYYY)
+
 - **Format**: 4-digit calendar year or fiscal year
 - **Examples**: 2024, 2025, 2026
-- **Notes**: 
+- **Notes**:
   - Should match enrollment year
   - Used to identify student cohort
 
 ### Semester (SS)
+
 - **Format**: 2-digit month/semester indicator
 - **Values**:
   - `01` = First semester (typically Jan-May in Rwanda)
@@ -31,6 +34,7 @@ Where:
   - Adapt based on institution's academic calendar
 
 ### Department Code (DDD)
+
 - **Format**: 3-letter uppercase abbreviation
 - **Examples**:
   - `SENG` = Software Engineering
@@ -44,39 +48,41 @@ Where:
 
 **Department Code Table**:
 
-| Code | Department | Facility |
-|------|-----------|----------|
-| SENG | Software Engineering | Computing |
-| CENG | Civil Engineering | Engineering |
+| Code | Department             | Facility    |
+| ---- | ---------------------- | ----------- |
+| SENG | Software Engineering   | Computing   |
+| CENG | Civil Engineering      | Engineering |
 | EENG | Electrical Engineering | Engineering |
 | MENG | Mechanical Engineering | Engineering |
-| BUS | Business Management | Business |
-| ECO | Economics | Business |
-| ACC | Accounting | Business |
-| SCI | General Science | Science |
-| BIO | Biology | Science |
-| CHEM | Chemistry | Science |
-| PHYS | Physics | Science |
-| MATH | Mathematics | Science |
-| ARTS | Arts & Humanities | Arts |
-| ENG | English Language | Arts |
-| HIST | History | Arts |
-| MED | Medicine | Health |
-| NUR | Nursing | Health |
-| DENT | Dentistry | Health |
-| LAW | Law | Law |
-| AGR | Agriculture | Agriculture |
-| VET | Veterinary | Agriculture |
+| BUS  | Business Management    | Business    |
+| ECO  | Economics              | Business    |
+| ACC  | Accounting             | Business    |
+| SCI  | General Science        | Science     |
+| BIO  | Biology                | Science     |
+| CHEM | Chemistry              | Science     |
+| PHYS | Physics                | Science     |
+| MATH | Mathematics            | Science     |
+| ARTS | Arts & Humanities      | Arts        |
+| ENG  | English Language       | Arts        |
+| HIST | History                | Arts        |
+| MED  | Medicine               | Health      |
+| NUR  | Nursing                | Health      |
+| DENT | Dentistry              | Health      |
+| LAW  | Law                    | Law         |
+| AGR  | Agriculture            | Agriculture |
+| VET  | Veterinary             | Agriculture |
 
 ---
 
 ### Sequential Number (NNN)
+
 - **Format**: 3-digit zero-padded number
 - **Range**: 001 to 999
 - **Assignment**: Sequential within department + year + semester
 - **Reset**: Typically resets each semester or year (depends on policy)
 
 **Examples**:
+
 - `201502SENG001` = First engineering student enrolled in 2015/semester 2
 - `202501BUS150` = 150th business student enrolled in 2025/semester 1
 - `202502LAW001` = First law student enrolled in 2025/semester 2
@@ -86,6 +92,7 @@ Where:
 ## Full Examples
 
 ### Example 1: Engineering Student
+
 ```
 Student ID: 202502SENG001
 
@@ -99,6 +106,7 @@ Meaning: First Software Engineering student enrolled in 2025, semester 2
 ```
 
 ### Example 2: Business Student
+
 ```
 Student ID: 202401BUS045
 
@@ -112,6 +120,7 @@ Meaning: 45th Business student enrolled in 2024, semester 1
 ```
 
 ### Example 3: Medical Student
+
 ```
 Student ID: 202502MED018
 
@@ -136,13 +145,17 @@ function generateStudentId(year, semester, departmentCode, sequentialNumber) {
   if (!/^\d{4}$/.test(year)) throw new Error("Invalid year");
   if (!["01", "02"].includes(semester)) throw new Error("Invalid semester");
   if (!/^[A-Z]{3}$/.test(departmentCode)) throw new Error("Invalid department");
-  if (!Number.isInteger(sequentialNumber) || sequentialNumber < 1 || sequentialNumber > 999) {
+  if (
+    !Number.isInteger(sequentialNumber) ||
+    sequentialNumber < 1 ||
+    sequentialNumber > 999
+  ) {
     throw new Error("Invalid sequential number (1-999)");
   }
 
   // Format sequential number with leading zeros
   const paddedNumber = String(sequentialNumber).padStart(3, "0");
-  
+
   // Concatenate components
   return `${year}${semester}${departmentCode}${paddedNumber}`;
 }
@@ -170,23 +183,23 @@ interface StudentIdValidator {
 
 class StudentIdValidator implements StudentIdValidator {
   private readonly pattern = /^(\d{4})(01|02)([A-Z]{3})(\d{3})$/;
-  
+
   isValid(id: string): boolean {
     return this.pattern.test(id);
   }
-  
+
   parse(id: string): StudentIdComponents | null {
     const match = id.match(this.pattern);
     if (!match) return null;
-    
+
     return {
       year: parseInt(match[1]),
       semester: match[2] as "01" | "02",
       departmentCode: match[3],
-      sequentialNumber: parseInt(match[4])
+      sequentialNumber: parseInt(match[4]),
     };
   }
-  
+
   generate(components: StudentIdComponents): string {
     const paddedNumber = String(components.sequentialNumber).padStart(3, "0");
     return `${components.year}${components.semester}${components.departmentCode}${paddedNumber}`;
@@ -204,7 +217,7 @@ class StudentIdValidator implements StudentIdValidator {
 // During registration:
 const enrollmentData = {
   year: 2025,
-  semester: 2,  // Current semester
+  semester: 2, // Current semester
   department: "SENG",
   // Sequential number assigned by system
 };
@@ -224,14 +237,14 @@ function validateStudentId(id) {
   if (!validator.isValid(id)) {
     throw new Error("Invalid student ID format");
   }
-  
+
   const components = validator.parse(id);
   const { year, semester, departmentCode, sequentialNumber } = components;
-  
+
   // Additional checks:
   if (year < 2015) throw new Error("Year out of range");
   if (year > new Date().getFullYear() + 1) throw new Error("Year in future");
-  
+
   return true;
 }
 ```
@@ -242,16 +255,22 @@ function validateStudentId(id) {
 function generateDummyStudentIds(count = 1000) {
   const students = [];
   const departments = ["SENG", "CENG", "BUS", "SCI", "ARTS", "MED"];
-  
+
   for (let i = 0; i < count; i++) {
     const randomYear = Math.floor(Math.random() * 4) + 2022;
     const randomSemester = Math.random() > 0.5 ? "01" : "02";
-    const randomDept = departments[Math.floor(Math.random() * departments.length)];
-    
+    const randomDept =
+      departments[Math.floor(Math.random() * departments.length)];
+
     // Track sequential numbers per department+year+semester
     const seq = getNextSequentialNumber(randomYear, randomSemester, randomDept);
-    
-    const studentId = generateStudentId(randomYear, randomSemester, randomDept, seq);
+
+    const studentId = generateStudentId(
+      randomYear,
+      randomSemester,
+      randomDept,
+      seq,
+    );
     students.push({
       studentId,
       name: generateRandomName(),
@@ -259,7 +278,7 @@ function generateDummyStudentIds(count = 1000) {
       // ... other fields
     });
   }
-  
+
   return students;
 }
 ```
@@ -283,7 +302,7 @@ CREATE TABLE Students (
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   -- ... other fields
-  
+
   -- Indexes for fast lookup
   INDEX idx_enrollment_year (enrollment_year),
   INDEX idx_department (department_code),
@@ -295,20 +314,20 @@ CREATE TABLE Students (
 
 ```sql
 -- Find all students from 2025, semester 2
-SELECT * FROM Students 
+SELECT * FROM Students
 WHERE enrollment_year = 2025 AND enrollment_semester = '02';
 
 -- Find all engineering students
-SELECT * FROM Students 
+SELECT * FROM Students
 WHERE department_code = 'SENG';
 
 -- Get student by full ID
-SELECT * FROM Students 
+SELECT * FROM Students
 WHERE student_id = '202502SENG001';
 
 -- Get last sequential number for a department
 SELECT MAX(sequential_number) FROM Students
-WHERE enrollment_year = 2025 
+WHERE enrollment_year = 2025
   AND enrollment_semester = '02'
   AND department_code = 'SENG';
 ```
@@ -332,11 +351,11 @@ Student IDs are displayed in various reports:
 function getEnrollmentStats(year, semester) {
   const students = db.Students.find({
     enrollment_year: year,
-    enrollment_semester: semester
+    enrollment_semester: semester,
   });
-  
+
   const statsByDepartment = {};
-  
+
   for (const student of students) {
     const dept = student.department_code;
     if (!statsByDepartment[dept]) {
@@ -345,7 +364,7 @@ function getEnrollmentStats(year, semester) {
     statsByDepartment[dept].count++;
     statsByDepartment[dept].ids.push(student.student_id);
   }
-  
+
   return statsByDepartment;
 }
 
@@ -363,11 +382,13 @@ function getEnrollmentStats(year, semester) {
 ## Internationalization
 
 The Student ID format is consistent across regions and languages:
+
 - **Digits** (0-9): Universal across all languages
 - **Department codes**: English abbreviations for international consistency
 - **No special characters**: Ensures compatibility across systems
 
 **Multi-language Label Examples**:
+
 - English: "Student ID"
 - Kiswahili: "Kitambulisho cha Mwanafunzi"
 - French: "Numéro d'Étudiant"
@@ -378,6 +399,7 @@ The Student ID format is consistent across regions and languages:
 ## Validation Rules
 
 ### Input Validation
+
 - Length must be exactly 12 characters
 - Characters 1-4 must be digits (year)
 - Characters 5-6 must be "01" or "02" (semester)
@@ -385,6 +407,7 @@ The Student ID format is consistent across regions and languages:
 - Characters 10-12 must be digits (sequential number)
 
 ### Business Logic Validation
+
 - Year must be between institution's founding year and current year + 1
 - Department code must exist in approved department list
 - Sequential number must be unique within (year, semester, department)
@@ -398,7 +421,7 @@ const validationErrors = {
   INVALID_SEMESTER: "Semester must be 01 or 02",
   INVALID_DEPARTMENT: "Department code not recognized",
   INVALID_SEQUENTIAL: "Sequential number must be between 001 and 999",
-  DUPLICATE_ID: "This student ID already exists"
+  DUPLICATE_ID: "This student ID already exists",
 };
 ```
 
@@ -407,6 +430,7 @@ const validationErrors = {
 ## Migration Path (Future)
 
 If the format needs to change:
+
 1. New students get new format
 2. Old student IDs remain valid
 3. System maintains mapping between old and new formats

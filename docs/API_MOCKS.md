@@ -11,6 +11,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### POST /api/auth/login
 
 **Request**:
+
 ```json
 {
   "email": "user@university.rw",
@@ -19,6 +20,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ```
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -38,6 +40,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ```
 
 **Response (401)**:
+
 ```json
 {
   "success": false,
@@ -50,6 +53,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### POST /api/auth/register
 
 **Request**:
+
 ```json
 {
   "firstName": "Jean",
@@ -64,6 +68,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ```
 
 **Response (201)**:
+
 ```json
 {
   "success": true,
@@ -83,6 +88,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 **Request**: (Bearer token in Authorization header)
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -95,6 +101,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### POST /api/auth/mfa/setup
 
 **Request**:
+
 ```json
 {
   "method": "TOTP"
@@ -102,6 +109,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ```
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -115,6 +123,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### POST /api/auth/mfa/verify
 
 **Request**:
+
 ```json
 {
   "code": "123456",
@@ -123,6 +132,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ```
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -137,6 +147,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/students
 
 **Query Parameters**:
+
 - `page`: default 1
 - `pageSize`: default 20
 - `search`: search by name/ID
@@ -144,6 +155,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 - `status`: Active, Graduated, Withdrawn
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -175,6 +187,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/students/:studentId
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -208,11 +221,14 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/students/:studentId/record
 
 **Response (200)** - Complete Student 360° Record:
+
 ```json
 {
   "success": true,
   "data": {
-    "student": { /* basic info */ },
+    "student": {
+      /* basic info */
+    },
     "enrollmentHistory": [
       {
         "enrollmentId": "ENROLL001",
@@ -259,6 +275,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/courses
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -275,7 +292,9 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
       "enrollmentCapacity": 40
     }
   ],
-  "pagination": { /* ... */ }
+  "pagination": {
+    /* ... */
+  }
 }
 ```
 
@@ -284,6 +303,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/courses/:courseId
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -318,6 +338,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/analytics/dashboard
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -346,11 +367,13 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/analytics/learning
 
 **Query Parameters**:
+
 - `programId`: Filter by program
 - `departmentId`: Filter by department
 - `startDate`, `endDate`: Date range
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -389,6 +412,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/analytics/success
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -432,6 +456,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/analytics/curriculum
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -471,6 +496,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/data-governance/quality
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -508,6 +534,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/data-governance/lineage
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -554,6 +581,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/compliance/accreditation
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -589,6 +617,7 @@ This document defines the mock API endpoints that will be intercepted by Mock Se
 ### GET /api/compliance/hec-reports
 
 **Response (200)**:
+
 ```json
 {
   "success": true,
@@ -638,42 +667,51 @@ All endpoints follow this error format:
 ### Example Handler File (authHandlers.js)
 
 ```javascript
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from "msw";
 
 export const authHandlers = [
-  http.post('/api/auth/login', async ({ request }) => {
+  http.post("/api/auth/login", async ({ request }) => {
     const body = await request.json();
-    
+
     if (!body.email || !body.password) {
-      return HttpResponse.json({
-        success: false,
-        error: 'Missing email or password'
-      }, { status: 400 });
+      return HttpResponse.json(
+        {
+          success: false,
+          error: "Missing email or password",
+        },
+        { status: 400 },
+      );
     }
-    
+
     // Mock authentication
-    const user = dummyUsers.find(u => u.email === body.email);
+    const user = dummyUsers.find((u) => u.email === body.email);
     if (!user || !validatePassword(body.password, user.password)) {
-      return HttpResponse.json({
-        success: false,
-        error: 'Invalid credentials'
-      }, { status: 401 });
+      return HttpResponse.json(
+        {
+          success: false,
+          error: "Invalid credentials",
+        },
+        { status: 401 },
+      );
     }
-    
-    return HttpResponse.json({
-      success: true,
-      user: {
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role
+
+    return HttpResponse.json(
+      {
+        success: true,
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+        },
+        token: generateToken(user),
+        mfaRequired: false,
       },
-      token: generateToken(user),
-      mfaRequired: false
-    }, { status: 200 });
+      { status: 200 },
+    );
   }),
-  
+
   // More handlers...
 ];
 ```
@@ -688,7 +726,7 @@ Add artificial delay to simulate network latency:
 http.post('/api/auth/login', async ({ request }) => {
   // Simulate 500ms network delay
   await delay(500);
-  
+
   // Return response
   return HttpResponse.json({...});
 }),

@@ -11,6 +11,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ### 1. Form Components
 
 #### Input Field
+
 ```jsx
 <Input
   label="Email Address"
@@ -26,6 +27,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ```
 
 **Props**:
+
 - `label`: Label text
 - `type`: email, password, text, number, etc.
 - `placeholder`: Placeholder text
@@ -39,13 +41,14 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Select/Dropdown
+
 ```jsx
 <Select
   label="Department"
   options={[
     { value: "SENG", label: "Software Engineering" },
     { value: "BUS", label: "Business" },
-    { value: "SCI", label: "Science" }
+    { value: "SCI", label: "Science" },
   ]}
   value={selectedDept}
   onChange={handleDeptChange}
@@ -55,6 +58,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ```
 
 **Props**:
+
 - `label`: Label text
 - `options`: Array of {value, label} objects
 - `value`: Selected value
@@ -66,6 +70,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Checkbox
+
 ```jsx
 <Checkbox
   label="I agree to terms"
@@ -79,13 +84,14 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Radio Button
+
 ```jsx
 <RadioGroup
   label="Select Role"
   options={[
     { value: "STUDENT", label: "Student" },
     { value: "FACULTY", label: "Faculty" },
-    { value: "ADMIN", label: "Administrator" }
+    { value: "ADMIN", label: "Administrator" },
   ]}
   selectedValue={role}
   onChange={handleRoleChange}
@@ -96,6 +102,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Date Picker
+
 ```jsx
 <DatePicker
   label="Date of Birth"
@@ -111,6 +118,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### File Upload
+
 ```jsx
 <FileUpload
   label="Upload Document"
@@ -127,6 +135,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ### 2. Button Components
 
 #### Primary Button
+
 ```jsx
 <Button
   variant="primary"
@@ -145,6 +154,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Button Group
+
 ```jsx
 <ButtonGroup>
   <Button variant="primary">Save</Button>
@@ -158,15 +168,22 @@ The Component Library provides reusable, accessible UI components built with Rea
 ### 3. Data Display Components
 
 #### Table
+
 ```jsx
 <Table
   columns={[
     { key: "studentId", label: "Student ID", sortable: true },
     { key: "name", label: "Full Name", sortable: true },
     { key: "gpa", label: "GPA", sortable: true, type: "number" },
-    { key: "actions", label: "Actions", render: (row) => (
-      <Button size="sm" onClick={() => viewStudent(row.studentId)}>View</Button>
-    )}
+    {
+      key: "actions",
+      label: "Actions",
+      render: (row) => (
+        <Button size="sm" onClick={() => viewStudent(row.studentId)}>
+          View
+        </Button>
+      ),
+    },
   ]}
   data={students}
   pagination={{ pageSize: 10 }}
@@ -176,6 +193,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ```
 
 #### Card
+
 ```jsx
 <Card
   title="Student Performance"
@@ -193,11 +211,9 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Badge
+
 ```jsx
-<Badge 
-  variant="success"
-  size="md"
->
+<Badge variant="success" size="md">
   Active
 </Badge>
 ```
@@ -207,11 +223,12 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### List
+
 ```jsx
 <List
   items={[
     { id: 1, title: "First Item", subtitle: "Description" },
-    { id: 2, title: "Second Item", subtitle: "Description" }
+    { id: 2, title: "Second Item", subtitle: "Description" },
   ]}
   renderItem={(item) => (
     <div key={item.id}>
@@ -227,6 +244,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ### 4. Feedback Components
 
 #### Alert
+
 ```jsx
 <Alert
   type="error"
@@ -242,6 +260,7 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Modal
+
 ```jsx
 <Modal
   isOpen={showModal}
@@ -249,7 +268,7 @@ The Component Library provides reusable, accessible UI components built with Rea
   onClose={handleCloseModal}
   actions={[
     { label: "Cancel", onClick: handleCloseModal },
-    { label: "Confirm", onClick: handleConfirm, variant: "danger" }
+    { label: "Confirm", onClick: handleConfirm, variant: "danger" },
   ]}
 >
   <p>Are you sure you want to delete this record?</p>
@@ -259,23 +278,22 @@ The Component Library provides reusable, accessible UI components built with Rea
 ---
 
 #### Toast Notification
+
 ```jsx
 // In component or Redux action:
 showToast({
   type: "success",
   message: "Student record updated successfully",
-  duration: 3000
+  duration: 3000,
 });
 ```
 
 ---
 
 #### Loading Spinner
+
 ```jsx
-<Spinner 
-  size="lg"
-  color="primary"
-/>
+<Spinner size="lg" color="primary" />
 ```
 
 ---
@@ -283,23 +301,23 @@ showToast({
 ### 5. Layout Components
 
 #### Layout
+
 ```jsx
 <Layout
   title="Dashboard"
   breadcrumbs={[
     { label: "Home", href: "/" },
-    { label: "Dashboard", href: "/dashboard" }
+    { label: "Dashboard", href: "/dashboard" },
   ]}
 >
-  <MainContent>
-    {/* Page content */}
-  </MainContent>
+  <MainContent>{/* Page content */}</MainContent>
 </Layout>
 ```
 
 ---
 
 #### Sidebar
+
 ```jsx
 <Sidebar collapsed={sidebarCollapsed}>
   <nav className="space-y-4">
@@ -313,6 +331,7 @@ showToast({
 ---
 
 #### Header
+
 ```jsx
 <Header
   title="Application"
@@ -331,6 +350,7 @@ showToast({
 ### 6. Dashboard Components
 
 #### Stat Card
+
 ```jsx
 <StatCard
   title="Total Students"
@@ -346,26 +366,20 @@ showToast({
 ---
 
 #### Chart Card
+
 ```jsx
 <ChartCard
   title="Student Performance Trends"
   subtitle="Last 6 months"
-  chart={
-    <LineChart
-      data={performanceData}
-      xAxisKey="month"
-      yAxisKey="gpa"
-    />
-  }
-  actions={[
-    { label: "Export", onClick: handleExport }
-  ]}
+  chart={<LineChart data={performanceData} xAxisKey="month" yAxisKey="gpa" />}
+  actions={[{ label: "Export", onClick: handleExport }]}
 />
 ```
 
 ---
 
 #### Widget Grid
+
 ```jsx
 <WidgetGrid
   columns={3}
@@ -385,11 +399,12 @@ showToast({
 ### 7. Chart Components
 
 #### Line Chart
+
 ```jsx
 <LineChart
   data={[
     { month: "Jan", gpa: 3.2, attendance: 0.95 },
-    { month: "Feb", gpa: 3.4, attendance: 0.93 }
+    { month: "Feb", gpa: 3.4, attendance: 0.93 },
   ]}
   xAxisKey="month"
   yAxisKeys={["gpa", "attendance"]}
@@ -400,6 +415,7 @@ showToast({
 ---
 
 #### Bar Chart
+
 ```jsx
 <BarChart
   data={departmentStats}
@@ -412,12 +428,13 @@ showToast({
 ---
 
 #### Pie Chart
+
 ```jsx
 <PieChart
   data={[
     { name: "Active", value: 800 },
     { name: "On Leave", value: 50 },
-    { name: "Graduated", value: 150 }
+    { name: "Graduated", value: 150 },
   ]}
   title="Student Status Distribution"
 />
@@ -428,18 +445,19 @@ showToast({
 ### 8. Data Lineage Component
 
 #### Data Lineage Viewer
+
 ```jsx
 <DataLineageViewer
   nodes={[
     { id: "lms", label: "LMS (Moodle)", type: "source" },
     { id: "sis", label: "SIS", type: "source" },
     { id: "transform", label: "ETL Transform", type: "process" },
-    { id: "record", label: "Student Record", type: "target" }
+    { id: "record", label: "Student Record", type: "target" },
   ]}
   edges={[
     { from: "lms", to: "transform" },
     { from: "sis", to: "transform" },
-    { from: "transform", to: "record" }
+    { from: "transform", to: "record" },
   ]}
   onNodeClick={handleNodeClick}
 />
@@ -453,15 +471,15 @@ showToast({
 
 ```jsx
 // StudentListComponent.jsx
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Table, Button, Modal, Alert } from '../components';
-import { deleteStudent } from '../redux/slices/dataSlice';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Table, Button, Modal, Alert } from "../components";
+import { deleteStudent } from "../redux/slices/dataSlice";
 
 export function StudentListComponent() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const { students, loading } = useSelector(state => state.data);
+  const { students, loading } = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
   const columns = [
@@ -477,9 +495,9 @@ export function StudentListComponent() {
           <Button size="sm" variant="outline" onClick={() => viewStudent(row)}>
             View
           </Button>
-          <Button 
-            size="sm" 
-            variant="danger" 
+          <Button
+            size="sm"
+            variant="danger"
             onClick={() => {
               setSelectedStudent(row);
               setShowDeleteModal(true);
@@ -488,8 +506,8 @@ export function StudentListComponent() {
             Delete
           </Button>
         </div>
-      )
-    }
+      ),
+    },
   ];
 
   const handleDelete = () => {
@@ -512,7 +530,7 @@ export function StudentListComponent() {
         onClose={() => setShowDeleteModal(false)}
         actions={[
           { label: "Cancel", onClick: () => setShowDeleteModal(false) },
-          { label: "Delete", onClick: handleDelete, variant: "danger" }
+          { label: "Delete", onClick: handleDelete, variant: "danger" },
         ]}
       >
         <p>Are you sure you want to delete {selectedStudent?.name}?</p>
@@ -529,6 +547,7 @@ export function StudentListComponent() {
 ### Tailwind CSS Classes
 
 **Colors**:
+
 ```
 Primary: text-blue-600, bg-blue-500, hover:bg-blue-600
 Success: text-green-600, bg-green-500
@@ -537,6 +556,7 @@ Warning: text-yellow-600, bg-yellow-500
 ```
 
 **Spacing**:
+
 ```
 p-2, p-4, p-6, p-8 (padding)
 m-2, m-4, m-6, m-8 (margin)
@@ -544,6 +564,7 @@ gap-2, gap-4, gap-6, gap-8 (gaps)
 ```
 
 **Responsive**:
+
 ```
 md:w-1/2  (50% width on medium screens and up)
 lg:p-6   (6 units padding on large screens)
@@ -566,6 +587,7 @@ xl:text-2xl (2xl text size on extra-large screens)
 ## Component Storybook
 
 When implemented, document each component with:
+
 - Component description
 - Required props
 - Optional props

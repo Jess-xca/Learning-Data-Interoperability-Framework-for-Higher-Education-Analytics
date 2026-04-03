@@ -3,6 +3,7 @@
 ## System Requirements
 
 ### Prerequisites
+
 - **Node.js**: v18+ (LTS recommended)
 - **npm**: v9+ or **yarn** v3+
 - **Git**: v2.30+
@@ -10,6 +11,7 @@
 - **OS**: Windows, macOS, or Linux
 
 ### Optional Tools
+
 - VS Code Extensions:
   - ES7+ React/Redux/React-Native snippets
   - Tailwind CSS IntelliSense
@@ -48,39 +50,48 @@ yarn install
 The project will install:
 
 **Core Framework**:
+
 - react@18+
 - react-dom@18+
 - react-router-dom@6+
 
 **State Management**:
+
 - @reduxjs/toolkit
 - react-redux
 
 **Styling**:
+
 - tailwindcss@3+
 - tailwind-merge
 
 **UI & Forms**:
+
 - react-hook-form
 - zod
 
 **Visualization**:
+
 - recharts
 - plotly.js (optional for advanced charts)
 
 **Mock API**:
+
 - msw (mock service worker)
 
 **Utilities**:
+
 - axios
 - date-fns
 - lodash
 
 **Localization**:
+
 - i18next
 - react-i18next
 
 **Development**:
+
 - vite
 - @vitejs/plugin-react
 - eslint
@@ -117,23 +128,20 @@ npm install --save-dev \
 ```javascript
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: '#3B82F6',
-        secondary: '#10B981',
+        primary: "#3B82F6",
+        secondary: "#10B981",
       },
       spacing: {
-        'safe': 'var(--safe-margin)',
+        safe: "var(--safe-margin)",
       },
     },
   },
   plugins: [],
-}
+};
 ```
 
 ---
@@ -141,8 +149,8 @@ export default {
 ### 3.2 vite.config.js
 
 ```javascript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
@@ -151,10 +159,10 @@ export default defineConfig({
     open: true,
   },
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     sourcemap: false,
   },
-})
+});
 ```
 
 ---
@@ -177,6 +185,7 @@ VITE_APP_VERSION=0.1.0
 ```
 
 **Usage**:
+
 ```bash
 # Create local .env file
 cp .env.example .env
@@ -194,11 +203,11 @@ cp .env.example .env
 Create `src/mocks/browser.js`:
 
 ```javascript
-import { setupWorker } from 'msw/browser';
-import { authHandlers } from './handlers/authHandlers';
-import { dataHandlers } from './handlers/dataHandlers';
-import { analyticsHandlers } from './handlers/analyticsHandlers';
-import { governanceHandlers } from './handlers/governanceHandlers';
+import { setupWorker } from "msw/browser";
+import { authHandlers } from "./handlers/authHandlers";
+import { dataHandlers } from "./handlers/dataHandlers";
+import { analyticsHandlers } from "./handlers/analyticsHandlers";
+import { governanceHandlers } from "./handlers/governanceHandlers";
 
 export const worker = setupWorker(
   ...authHandlers,
@@ -211,23 +220,23 @@ export const worker = setupWorker(
 ### 4.2 Start MSW in main.jsx
 
 ```javascript
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
 
 // Start Mock Service Worker
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = await import('./mocks/browser');
+if (process.env.NODE_ENV === "development") {
+  const { worker } = await import("./mocks/browser");
   await worker.start({
-    onUnhandledRequest: 'warn', // Log unhandled requests
+    onUnhandledRequest: "warn", // Log unhandled requests
   });
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-)
+);
 ```
 
 ---
@@ -237,10 +246,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 Create `src/redux/store.js`:
 
 ```javascript
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
-import uiReducer from './slices/uiSlice';
-import dataReducer from './slices/dataSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./slices/authSlice";
+import uiReducer from "./slices/uiSlice";
+import dataReducer from "./slices/dataSlice";
 
 export const store = configureStore({
   reducer: {
@@ -248,7 +257,7 @@ export const store = configureStore({
     ui: uiReducer,
     data: dataReducer,
   },
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;
@@ -261,28 +270,26 @@ export default store;
 Create `src/i18n/i18n.js`:
 
 ```javascript
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import enTranslations from './locales/en.json';
-import swTranslations from './locales/sw.json';
-import frTranslations from './locales/fr.json';
-import rwTranslations from './locales/rw.json';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import enTranslations from "./locales/en.json";
+import swTranslations from "./locales/sw.json";
+import frTranslations from "./locales/fr.json";
+import rwTranslations from "./locales/rw.json";
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: enTranslations },
-      sw: { translation: swTranslations },
-      fr: { translation: frTranslations },
-      rw: { translation: rwTranslations },
-    },
-    lng: localStorage.getItem('language') || 'en',
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: enTranslations },
+    sw: { translation: swTranslations },
+    fr: { translation: frTranslations },
+    rw: { translation: rwTranslations },
+  },
+  lng: localStorage.getItem("language") || "en",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18n;
 ```
@@ -299,6 +306,7 @@ npm run dev
 ```
 
 ### Development Server Features
+
 - Hot Module Replacement (HMR) for instant updates
 - Redux DevTools integration
 - MSW request logging
@@ -374,22 +382,27 @@ Prototype/
 After setup, verify everything works:
 
 ### 1. Run Development Server
+
 ```bash
 npm run dev
 ```
+
 ✅ Should open http://localhost:3000 without errors
 
 ### 2. Check Console
+
 - Should see "MSW mocking enabled" message
 - No 404 errors for mock API calls
 - Redux DevTools should be available
 
 ### 3. Test Login Flow
+
 - Navigate to login page
 - Try dummy credentials: `demo@university.rw` / `password123`
 - Should successfully authenticate and redirect to dashboard
 
 ### 4. Test Data Display
+
 - Dashboard should display mock data (students, courses, etc.)
 - Charts and tables should render without errors
 
@@ -398,6 +411,7 @@ npm run dev
 ## Git Workflow
 
 ### Initial Setup
+
 ```bash
 # Configure git
 git config user.name "Your Name"
@@ -408,6 +422,7 @@ git config user.email "your.email@university.rw"
 ```
 
 ### Daily Workflow
+
 ```bash
 # Create feature branch
 git checkout -b feature/module-name
@@ -423,6 +438,7 @@ git push origin feature/module-name
 ```
 
 ### .gitignore Template
+
 ```
 # Dependencies
 node_modules/
@@ -462,6 +478,7 @@ yarn-error.log*
 ## Common Issues & Solutions
 
 ### Issue: Port 3000 Already in Use
+
 ```bash
 # Windows
 netstat -ano | findstr :3000
@@ -472,6 +489,7 @@ lsof -ti:3000 | xargs kill -9
 ```
 
 ### Issue: Module Not Found
+
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
@@ -479,11 +497,13 @@ npm install
 ```
 
 ### Issue: Tailwind Styles Not Applying
+
 - Ensure `tailwind.config.js` content paths are correct
 - Check that CSS is imported: `import 'tailwindcss/tailwind.css'`
 - Restart dev server: `npm run dev`
 
 ### Issue: MSW Requests Failing
+
 - MSW must be started before app renders
 - Check browser console for MSW warnings
 - Verify mock handlers are defined correctly

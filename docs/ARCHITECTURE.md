@@ -250,6 +250,7 @@ d:\Innovation\Prototype/
 ## Component Hierarchy
 
 ### Authentication Flow
+
 ```
 LoginPage
   ├── LoginForm
@@ -271,6 +272,7 @@ RegisterPage
 ```
 
 ### Dashboard Layout
+
 ```
 DashboardPage
   ├── Layout
@@ -295,6 +297,7 @@ DashboardPage
 ```
 
 ### Data Integration Flow
+
 ```
 DataIntegrationPage
   ├── DataSourceSummary
@@ -320,6 +323,7 @@ DataIntegrationPage
 ```
 
 ### Analytics Dashboard
+
 ```
 LearningAnalyticsPage
   ├── FilterBar
@@ -377,6 +381,7 @@ LearningAnalyticsPage
 ## State Management Structure
 
 ### Redux Store
+
 ```javascript
 {
   auth: {
@@ -386,7 +391,7 @@ LearningAnalyticsPage
     isLoading: boolean,
     error: null
   },
-  
+
   ui: {
     currentLanguage: "en" | "sw" | "fr" | "rw",
     sidebarOpen: boolean,
@@ -394,13 +399,13 @@ LearningAnalyticsPage
     notifications: [],
     notificationCount: 0
   },
-  
+
   dashboard: {
     customLayout: { widget1: position, ... },
     isCustomizing: boolean,
     refreshRate: number
   },
-  
+
   data: {
     students: [],
     courses: [],
@@ -408,7 +413,7 @@ LearningAnalyticsPage
     loading: boolean,
     error: null
   },
-  
+
   analytics: {
     performanceMetrics: {},
     engagementMetrics: {},
@@ -462,17 +467,20 @@ GET  /api/security/users             → User management
 ## Performance Considerations
 
 ### Code Splitting
+
 - Each page component lazy-loaded
 - Heavy visualization components loaded on-demand
 - Redux store normalized for efficient updates
 
 ### Caching Strategy
+
 - Redux store caches API responses
 - localStorage for user preferences
 - sessionStorage for temporary data
 - MSW mock data generated once per session
 
 ### Optimization
+
 - React.memo for expensive components
 - useCallback for event handlers
 - Virtual scrolling for large tables
@@ -483,16 +491,19 @@ GET  /api/security/users             → User management
 ## Testing Strategy
 
 ### Unit Tests
+
 - Components: React Testing Library
 - Utilities: Jest
 - Redux: Redux Thunk middleware
 
 ### Integration Tests
+
 - Page flows (auth → dashboard → analytics)
 - Cross-component data passing
 - Route navigation
 
 ### Mock Data Testing
+
 - MSW handler validation
 - Data consistency checks
 - API response shapes

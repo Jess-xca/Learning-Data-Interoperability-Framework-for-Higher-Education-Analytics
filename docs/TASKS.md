@@ -1,6 +1,7 @@
 # Project Tasks & Work Breakdown
 
 ## Overview
+
 This document tracks all development tasks for the Learning Data Interoperability Framework MVP. Tasks are organized by phase and module, with status tracking and assignments.
 
 ---
@@ -8,6 +9,7 @@ This document tracks all development tasks for the Learning Data Interoperabilit
 ## Phase 1: Foundation (CURRENT)
 
 ### 1.1 Project Setup
+
 - [ ] **1.1.1** Initialize React project (Vite + TypeScript)
   - Status: `Not Started`
   - Assigned to: -
@@ -794,15 +796,15 @@ This document tracks all development tasks for the Learning Data Interoperabilit
 
 ## Summary by Phase
 
-| Phase | Task Count | Estimated Hours | Status |
-|-------|-----------|-----------------|--------|
-| **Phase 1: Foundation** | 16 | 30-35 | Not Started |
-| **Phase 2: Auth & Dashboard** | 10 | 20-23 | Not Started |
-| **Phase 3: Data Integration** | 12 | 25-28 | Not Started |
-| **Phase 4: Analytics** | 13 | 28-32 | Not Started |
-| **Phase 5: Governance** | 12 | 24-27 | Not Started |
-| **Phase 6: Integration** | 2 | 7-9 | Not Started |
-| **TOTAL** | 65 | 135-155 | Not Started |
+| Phase                         | Task Count | Estimated Hours | Status      |
+| ----------------------------- | ---------- | --------------- | ----------- |
+| **Phase 1: Foundation**       | 16         | 30-35           | Not Started |
+| **Phase 2: Auth & Dashboard** | 10         | 20-23           | Not Started |
+| **Phase 3: Data Integration** | 12         | 25-28           | Not Started |
+| **Phase 4: Analytics**        | 13         | 28-32           | Not Started |
+| **Phase 5: Governance**       | 12         | 24-27           | Not Started |
+| **Phase 6: Integration**      | 2          | 7-9             | Not Started |
+| **TOTAL**                     | 65         | 135-155         | Not Started |
 
 ---
 
