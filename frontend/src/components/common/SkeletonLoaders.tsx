@@ -15,7 +15,10 @@ export function SkeletonTable() {
   return (
     <div className="space-y-3">
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="bg-surface-container-low rounded p-4 animate-pulse flex gap-4">
+        <div
+          key={i}
+          className="bg-surface-container-low rounded p-4 animate-pulse flex gap-4"
+        >
           <div className="h-4 bg-surface-container rounded flex-1"></div>
           <div className="h-4 bg-surface-container rounded w-1/4"></div>
           <div className="h-4 bg-surface-container rounded w-1/4"></div>
