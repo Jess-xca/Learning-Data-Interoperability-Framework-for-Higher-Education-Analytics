@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { store } from './store/store'
 import { worker } from './services/mocks/worker'
+import './i18n/config'
 
 // Initialize MSW before rendering
 worker.start()

@@ -1,0 +1,52 @@
+{
+  "common": {
+    "appName": "Academic Curator",
+    "appDescription": "Higher Education Data Interoperability Framework",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "settings": "Settings",
+    "help": "Help",
+    "notifications": "Notifications"
+  },
+  "auth": {
+    "institution": "Institution",
+    "role": "Role",
+    "email": "Email",
+    "password": "Password",
+    "mfaCode": "MFA Code",
+    "selectInstitution": "Select Your Institution",
+    "selectRole": "Select Your Role",
+    "signInMessage": "Sign In",
+    "mfaVerification": "Multi-Factor Authentication",
+    "mfaMessage": "A verification code has been sent to your registered email and authenticator app.",
+    "invalidCredentials": "Invalid email or password"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "welcomeBack": "Welcome back! Here's your institutional overview.",
+    "totalStudents": "Total Students",
+    "graduationRate": "Graduation Rate",
+    "facultyToStudent": "Faculty-to-Student",
+    "programsActive": "Programs Active",
+    "enrollmentTrends": "Enrollment Trends",
+    "programDistribution": "Program Distribution",
+    "recentStudents": "Recent Student Records",
+    "studentId": "Student ID",
+    "name": "Name",
+    "program": "Program",
+    "gpa": "GPA",
+    "status": "Status"
+  },
+  "roles": {
+    "admin": "Academic Administrator",
+    "qa": "Quality Assurance Officer",
+    "analyst": "Data Analyst",
+    "hod": "Department Head",
+    "lecturer": "Lecturer",
+    "student": "Student"
+  }
+}
