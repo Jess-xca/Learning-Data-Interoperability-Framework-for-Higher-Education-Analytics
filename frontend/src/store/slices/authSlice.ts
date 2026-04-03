@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { loadPersistedAuth } from "../middleware/persistAuth";
 
 export interface User {
   id: string;
@@ -18,7 +19,10 @@ export interface AuthState {
   error: string | null;
 }
 
-const initialState: AuthState = {
+// Load persisted auth state
+const persistedAuth = loadPersistedAuth();
+
+const initialState: AuthState = persistedAuth || {
   user: null,
   isAuthenticated: false,
   isLoading: false,
