@@ -304,8 +304,130 @@ export default function StudentsPage() {
               <p className="font-bold">{selectedStudent.enrollmentYear}</p>
             </div>
           </div>
+          
+          {/* Action Buttons */}
+          <div className="flex gap-3 pt-4 border-t border-outline-variant/20">
+            {userRole === "admin" && (
+              <>
+                <Button variant="primary" size="sm" className="gap-2">
+                  <span className="material-symbols-outlined text-sm">edit</span>
+                  Edit Student
+                </Button>
+                <Button variant="secondary" size="sm" className="gap-2">
+                  <span className="material-symbols-outlined text-sm">contact_mail</span>
+                  Send Message
+                </Button>
+                <Button variant="danger" size="sm" className="gap-2">
+                  <span className="material-symbols-outlined text-sm">delete</span>
+                  Delete
+                </Button>
+              </>
+            )}
+          </div>
         </Card>
       )}
+
+      {/* Related Courses Section */}
+      {selectedStudent && (
+        <div className="mt-8">
+          <h3 className="text-xl font-black text-primary mb-4">
+            Enrolled Courses
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { id: "C001", code: "CS101", name: "Intro to Programming", instructor: "Dr. Smith" },
+              { id: "C002", code: "CS201", name: "Data Structures", instructor: "Prof. Johnson" },
+              { id: "C003", code: "MATH301", name: "Calculus III", instructor: "Dr. Williams" },
+            ].map((course) => (
+              <Card key={course.id} className="p-4 hover:shadow-lg transition-all">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <p className="text-sm font-bold text-on-surface-variant uppercase">{course.code}</p>
+                    <p className="font-bold text-primary">{course.name}</p>
+                  </div>
+                  <Badge variant="primary">Current</Badge>
+                </div>
+                <p className="text-sm text-on-surface-variant">Instructor: {course.instructor}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Analytics Section */}
+      <div className="mt-12 mb-8">
+        <h3 className="text-xl font-black text-primary mb-6">Student Analytics</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h4 className="font-bold text-primary mb-4">GPA Distribution</h4>
+            <div className="space-y-3">
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-on-surface-variant">4.0 - 3.8</span>
+                  <span className="font-bold">{Math.ceil(filteredStudents.filter(s => s.gpa >= 3.8).length)}</span>
+                </div>
+                <div className="w-full bg-surface-container-highest rounded-full h-2">
+                  <div 
+                    className="bg-primary h-2 rounded-full" 
+                    style={{ width: `${((filteredStudents.filter(s => s.gpa >= 3.8).length / filteredStudents.length) || 0) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-on-surface-variant">3.8 - 3.5</span>
+                  <span className="font-bold">{Math.ceil(filteredStudents.filter(s => s.gpa >= 3.5 && s.gpa < 3.8).length)}</span>
+                </div>
+                <div className="w-full bg-surface-container-highest rounded-full h-2">
+                  <div 
+                    className="bg-secondary h-2 rounded-full" 
+                    style={{ width: `${((filteredStudents.filter(s => s.gpa >= 3.5 && s.gpa < 3.8).length / filteredStudents.length) || 0) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-on-surface-variant">Below 3.5</span>
+                  <span className="font-bold">{Math.ceil(filteredStudents.filter(s => s.gpa < 3.5).length)}</span>
+                </div>
+                <div className="w-full bg-surface-container-highest rounded-full h-2">
+                  <div 
+                    className="bg-tertiary h-2 rounded-full" 
+                    style={{ width: `${((filteredStudents.filter(s => s.gpa < 3.5).length / filteredStudents.length) || 0) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <h4 className="font-bold text-primary mb-4">Status Breakdown</h4>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface-variant">Active</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-success"></div>
+                  <span className="font-bold">{filteredStudents.filter(s => s.status === "active").length}</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface-variant">Graduated</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-primary"></div>
+                  <span className="font-bold">{filteredStudents.filter(s => s.status === "graduated").length}</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface-variant">Suspended</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-error"></div>
+                  <span className="font-bold">{filteredStudents.filter(s => s.status === "suspended").length}</span>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
     </MainContent>
   );
 }
