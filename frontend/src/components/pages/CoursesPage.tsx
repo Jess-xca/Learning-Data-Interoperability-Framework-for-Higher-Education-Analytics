@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MainContent, Card, Button, Badge, TextInput } from "..";
+import { useAppSelector } from "../../hooks/useRedux";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 
 interface Course {
   id: string;
@@ -13,7 +15,7 @@ interface Course {
   status: "active" | "archived" | "planned";
 }
 
-const courses: Course[] = [
+const allCourses: Course[] = [
   {
     id: "C001",
     code: "CS101",
@@ -105,6 +107,26 @@ const courses: Course[] = [
 ];
 
 export default function CoursesPage() {
+  // Role guard - admin, hod, lecturer, student can access
+  useRoleGuard(["admin", "hod", "lecturer", "student"]);
+  const user = useAppSelector((state) => state.auth.user);
+  const userRole = user?.role;
+
+  // Filter courses based on role
+  let courses = allCourses;
+  if (userRole === "hod") {
+    // HOD sees engineering courses
+    courses = allCourses.filter((c) =>
+      ["CS", "ENG", "MATH"].includes(c.code.substring(0, c.code.search(/\d/))),
+    );
+  } else if (userRole === "lecturer") {
+    // Lecturer sees their taught courses (first 3)
+    courses = allCourses.slice(0, 3);
+  } else if (userRole === "student") {
+    // Student sees only active/enrolled courses
+    courses = allCourses.filter((c) => c.status === "active").slice(0, 4);
+  }
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>("");
