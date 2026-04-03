@@ -12,7 +12,7 @@ export default function ProgramsPage() {
   useRoleGuard(["admin", "hod", "qa"]);
   const dispatch = useAppDispatch();
   const { addToast } = useToast();
-  
+
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
   const programs = useAppSelector((state) => state.data.programs);
@@ -23,7 +23,7 @@ export default function ProgramsPage() {
 
   // Fetch programs on component mount
   useEffect(() => {
-    dispatch(fetchPrograms() as any);
+    dispatch(fetchPrograms());
   }, [dispatch]);
 
   // Handle error display
@@ -37,7 +37,9 @@ export default function ProgramsPage() {
   let filteredPrograms = programs;
   if (userRole === "hod") {
     // HOD only sees their department
-    filteredPrograms = programs.filter((p) => p.name === "Engineering");
+    filteredPrograms = programs.filter(
+      (p) => p.department === user?.department,
+    );
   }
 
   return (
@@ -69,7 +71,7 @@ export default function ProgramsPage() {
           </Card>
           <Card className="p-6">
             <p className="text-on-surface-variant text-sm mb-2">
-              Total Enrollment
+              Total Courses
             </p>
             <p className="text-4xl font-bold text-secondary">
               {filteredPrograms.reduce((sum, p) => sum + p.totalCourses, 0)}
@@ -82,7 +84,7 @@ export default function ProgramsPage() {
             <p className="text-4xl font-bold text-tertiary">
               {Math.round(
                 filteredPrograms.reduce((sum, p) => sum + p.totalCourses, 0) /
-                  (filteredPrograms.length || 1)
+                  (filteredPrograms.length || 1),
               )}
             </p>
           </Card>
@@ -90,9 +92,9 @@ export default function ProgramsPage() {
       )}
 
       {/* Programs Grid */}
-      {loading && programs.length === 0 ? (
+      {loading && filteredPrograms.length === 0 ? (
         <SkeletonGrid />
-      ) : programs.length === 0 ? (
+      ) : filteredPrograms.length === 0 ? (
         <Card className="p-8 text-center mb-8">
           <p className="text-on-surface-variant">No programs found.</p>
         </Card>
@@ -130,7 +132,9 @@ export default function ProgramsPage() {
                 </div>
                 <div className="text-center">
                   <p className="text-on-surface-variant text-xs">Courses</p>
-                  <p className="font-bold text-tertiary">{program.totalCourses}</p>
+                  <p className="font-bold text-tertiary">
+                    {program.totalCourses}
+                  </p>
                 </div>
               </div>
             </Card>

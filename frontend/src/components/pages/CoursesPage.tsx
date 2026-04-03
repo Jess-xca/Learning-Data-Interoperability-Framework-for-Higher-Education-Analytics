@@ -23,7 +23,7 @@ export default function CoursesPage() {
   useRoleGuard(["admin", "hod", "lecturer", "student"]);
   const dispatch = useAppDispatch();
   const { addToast } = useToast();
-  
+
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
   const reduxCourses = useAppSelector((state) => state.data.courses);
@@ -49,7 +49,7 @@ export default function CoursesPage() {
 
   // Fetch courses on component mount
   useEffect(() => {
-    dispatch(fetchCourses() as any);
+    dispatch(fetchCourses());
   }, [dispatch]);
 
   // Handle error display

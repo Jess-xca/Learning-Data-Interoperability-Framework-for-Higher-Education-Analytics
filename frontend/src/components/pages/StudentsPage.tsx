@@ -14,7 +14,7 @@ export default function StudentsPage() {
   useRoleGuard(["admin", "hod", "lecturer"]);
   const dispatch = useAppDispatch();
   const { addToast } = useToast();
-  
+
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
   const students = useAppSelector((state) => state.data.students);
@@ -27,7 +27,7 @@ export default function StudentsPage() {
 
   // Fetch students on component mount
   useEffect(() => {
-    dispatch(fetchStudents() as any);
+    dispatch(fetchStudents());
   }, [dispatch]);
 
   // Handle error display
@@ -57,7 +57,9 @@ export default function StudentsPage() {
     return matchesSearch && matchesProgram;
   });
 
-  const programs = Array.from(new Set(filteredByRole.map((s) => s.program))).sort();
+  const programs = Array.from(
+    new Set(filteredByRole.map((s) => s.program)),
+  ).sort();
 
   // Role-aware page header
   const headerConfig: Record<string, { title: string; desc: string }> = {
@@ -221,7 +223,9 @@ export default function StudentsPage() {
             Student Records
           </h2>
           <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
-            {loading && students.length === 0 ? "Loading..." : `${filteredStudents.length} results`}
+            {loading && students.length === 0
+              ? "Loading..."
+              : `${filteredStudents.length} results`}
           </span>
         </div>
 
@@ -230,7 +234,8 @@ export default function StudentsPage() {
         ) : students.length === 0 ? (
           <Card className="p-8 text-center">
             <p className="text-on-surface-variant">
-              No students found. {error ? "Try loading again." : "Start by adding a student."}
+              No students found.{" "}
+              {error ? "Try loading again." : "Start by adding a student."}
             </p>
           </Card>
         ) : (
