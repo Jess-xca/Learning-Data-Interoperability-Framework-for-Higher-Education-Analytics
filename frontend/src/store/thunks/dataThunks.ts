@@ -7,7 +7,9 @@ export const fetchStudents = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/students");
-      return response.data;
+      const data = response.data;
+      // Handle both direct array and wrapped {data: [...]} responses
+      return Array.isArray(data) ? data : (data?.data || []);
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to fetch students";
@@ -67,7 +69,9 @@ export const fetchPrograms = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/programs");
-      return response.data;
+      const data = response.data;
+      // Handle both direct array and wrapped {data: [...]} responses
+      return Array.isArray(data) ? data : (data?.data || []);
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to fetch programs";
@@ -82,7 +86,9 @@ export const fetchCourses = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/courses");
-      return response.data;
+      const data = response.data;
+      // Handle both direct array and wrapped {data: [...]} responses
+      return Array.isArray(data) ? data : (data?.data || []);
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to fetch courses";
