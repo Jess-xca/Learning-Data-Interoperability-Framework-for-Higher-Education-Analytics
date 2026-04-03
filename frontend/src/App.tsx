@@ -4,6 +4,9 @@ import { Sidebar, Header } from "./components";
 import { LoginPage } from "./components/pages";
 import { appRoutes } from "./routes/routes";
 import { useAppSelector } from "./hooks/useRedux";
+import { ToastProvider } from "./context/ToastContext";
+import { ToastContainer } from "./components/common/ToastContainer";
+import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
 function AppLayout() {
   const [activeNav, setActiveNav] = useState("dashboard");
@@ -31,9 +34,14 @@ function App() {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <BrowserRouter>
-      {!isAuthenticated ? <LoginPage /> : <AppLayout />}
-    </BrowserRouter>
+    <ErrorBoundary>
+      <ToastProvider>
+        <BrowserRouter>
+          {!isAuthenticated ? <LoginPage /> : <AppLayout />}
+          <ToastContainer />
+        </BrowserRouter>
+      </ToastProvider>
+    </ErrorBoundary>
   );
 }
 
