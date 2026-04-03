@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MainContent, Card, Button, Badge } from "..";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 import type { BadgeVariant } from "../common/Badge";
 
 interface AuditLog {
@@ -119,6 +120,9 @@ const complianceItems: ComplianceItem[] = [
 ];
 
 export default function GovernancePage() {
+  // Role guard - only admin and qa can access
+  useRoleGuard(["admin", "qa"]);
+
   const [selectedLog, setSelectedLog] = useState<AuditLog | null>(null);
   const [selectedCompliance, setSelectedCompliance] =
     useState<ComplianceItem | null>(null);
@@ -135,7 +139,9 @@ export default function GovernancePage() {
     return status === "success" ? "text-tertiary" : "text-error";
   };
 
-  const getComplianceVariant = (status: ComplianceItem["status"]): BadgeVariant => {
+  const getComplianceVariant = (
+    status: ComplianceItem["status"],
+  ): BadgeVariant => {
     const variants: Record<ComplianceItem["status"], BadgeVariant> = {
       compliant: "success",
       warning: "warning",
@@ -149,8 +155,12 @@ export default function GovernancePage() {
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Governance</h1>
-          <p className="text-on-surface-variant font-medium mt-2">Compliance, audit logs, and governance controls.</p>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
+            Governance
+          </h1>
+          <p className="text-on-surface-variant font-medium mt-2">
+            Compliance, audit logs, and governance controls.
+          </p>
         </div>
         <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
           <span className="material-symbols-outlined text-sm">download</span>
@@ -379,9 +389,7 @@ export default function GovernancePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-primary-container/10 p-4 rounded-lg">
               <p className="text-on-surface-variant text-sm mb-2">Status</p>
-              <Badge
-                variant={getComplianceVariant(selectedCompliance.status)}
-              >
+              <Badge variant={getComplianceVariant(selectedCompliance.status)}>
                 {selectedCompliance.status}
               </Badge>
             </div>
