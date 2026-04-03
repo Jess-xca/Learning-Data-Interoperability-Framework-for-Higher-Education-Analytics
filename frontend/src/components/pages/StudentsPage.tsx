@@ -2,6 +2,8 @@ import { useState } from "react";
 import { MainContent, Card, Button, TextInput, Badge } from "..";
 import { Table } from "../dashboard";
 import type { TableColumn } from "../dashboard/Table";
+import { useAppSelector } from "../../hooks/useRedux";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { generateDummyStudents } from "../../data/dummyGenerator";
 
 interface Student {
@@ -14,7 +16,7 @@ interface Student {
   enrollmentDate: string;
 }
 
-const students = generateDummyStudents(50).map((student) => ({
+const allStudents = generateDummyStudents(50).map((student) => ({
   id: student.id,
   name: student.name,
   email: `${student.name.toLowerCase().replace(/\s+/g, ".")}@institution.edu`,
@@ -25,9 +27,24 @@ const students = generateDummyStudents(50).map((student) => ({
 }));
 
 export default function StudentsPage() {
+  // Role guard - only admin, hod, lecturer can access
+  useRoleGuard(["admin", "hod", "lecturer"]);
+  const user = useAppSelector((state) => state.auth.user);
+  const userRole = user?.role;
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [filterProgram, setFilterProgram] = useState<string>("");
+
+  // Filter students based on role
+  let students = allStudents;
+  if (userRole === "hod") {
+    // HOD only sees students from their department (Engineering)
+    students = allStudents.filter((s) => s.program === "Engineering");
+  } else if (userRole === "lecturer") {
+    // Lecturer sees a subset as their class roster
+    students = allStudents.slice(0, 20);
+  }
 
   const filteredStudents = students.filter((student) => {
     const matchesSearch =
@@ -40,6 +57,24 @@ export default function StudentsPage() {
   });
 
   const programs = Array.from(new Set(students.map((s) => s.program))).sort();
+
+  // Role-aware page header
+  const headerConfig: Record<string, { title: string; desc: string }> = {
+    admin: {
+      title: "Students",
+      desc: "Manage and view student records across all programs.",
+    },
+    hod: {
+      title: "Department Students",
+      desc: "Manage engineering department students and their academic progress.",
+    },
+    lecturer: {
+      title: "My Class Roster",
+      desc: "View detailed information about your enrolled students.",
+    },
+  };
+
+  const header = headerConfig[userRole || "admin"] || headerConfig.admin;
 
   const columns: TableColumn<Student>[] = [
     { key: "id", label: "Student ID", sortable: true },
@@ -72,40 +107,61 @@ export default function StudentsPage() {
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Students</h1>
-          <p className="text-on-surface-variant font-medium mt-2">Manage and view student records across all programs.</p>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
+            {header.title}
+          </h1>
+          <p className="text-on-surface-variant font-medium mt-2">
+            {header.desc}
+          </p>
         </div>
-        <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
-          <span className="material-symbols-outlined text-sm">person_add</span>
-          Add Student
-        </button>
+        {userRole === "admin" && (
+          <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+            <span className="material-symbols-outlined text-sm">
+              person_add
+            </span>
+            Add Student
+          </button>
+        )}
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card className="border-l-4 border-on-tertiary-container">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">Total Students</div>
+          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+            Total Students
+          </div>
           <div className="flex items-center justify-between">
-            <p className="text-3xl font-black text-primary">{filteredStudents.length}</p>
+            <p className="text-3xl font-black text-primary">
+              {filteredStudents.length}
+            </p>
             <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
               <span className="material-symbols-outlined">people</span>
             </div>
           </div>
         </Card>
         <Card className="border-l-4 border-primary">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">Active</div>
+          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+            Active
+          </div>
           <div className="flex items-center justify-between">
-            <p className="text-3xl font-black text-primary">{filteredStudents.filter((s) => s.status === "active").length}</p>
+            <p className="text-3xl font-black text-primary">
+              {filteredStudents.filter((s) => s.status === "active").length}
+            </p>
             <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
               <span className="material-symbols-outlined">check_circle</span>
             </div>
           </div>
         </Card>
         <Card className="border-l-4 border-secondary">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">Avg GPA</div>
+          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+            Avg GPA
+          </div>
           <div className="flex items-center justify-between">
             <p className="text-3xl font-black text-primary">
-              {(filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / (filteredStudents.length || 1)).toFixed(2)}
+              {(
+                filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
+                (filteredStudents.length || 1)
+              ).toFixed(2)}
             </p>
             <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
               <span className="material-symbols-outlined">grade</span>
@@ -125,7 +181,9 @@ export default function StudentsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Filter by Program</label>
+            <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+              Filter by Program
+            </label>
             <div className="relative">
               <select
                 className="w-full h-12 pl-4 pr-10 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium appearance-none cursor-pointer outline-none"
@@ -134,10 +192,14 @@ export default function StudentsPage() {
               >
                 <option value="">All Programs</option>
                 {programs.map((program) => (
-                  <option key={program} value={program}>{program}</option>
+                  <option key={program} value={program}>
+                    {program}
+                  </option>
                 ))}
               </select>
-              <span className="material-symbols-outlined absolute right-3 top-3 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+              <span className="material-symbols-outlined absolute right-3 top-3 text-on-surface-variant pointer-events-none text-sm">
+                expand_more
+              </span>
             </div>
           </div>
         </div>
@@ -146,7 +208,9 @@ export default function StudentsPage() {
       {/* Data Table */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-black text-primary tracking-tight">Student Records</h2>
+          <h2 className="text-xl font-black text-primary tracking-tight">
+            Student Records
+          </h2>
           <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
             {filteredStudents.length} results
           </span>
