@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainContent, Card, Button, Badge, TextInput } from "..";
-import { useAppSelector } from "../../hooks/useRedux";
+import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
+import { useToast } from "../../context/ToastContext";
+import { fetchCourses } from "../../store/thunks/dataThunks";
+import { SkeletonTable, SkeletonMetricCard } from "../common/SkeletonLoaders";
 
 interface Course {
   id: string;
@@ -15,102 +18,46 @@ interface Course {
   status: "active" | "archived" | "planned";
 }
 
-const allCourses: Course[] = [
-  {
-    id: "C001",
-    code: "CS101",
-    title: "Introduction to Computer Science",
-    instructor: "Dr. Jane Smith",
-    credit: 3,
-    enrollment: 45,
-    capacity: 50,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C002",
-    code: "CS201",
-    title: "Data Structures and Algorithms",
-    instructor: "Prof. John Doe",
-    credit: 4,
-    enrollment: 38,
-    capacity: 40,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C003",
-    code: "MATH101",
-    title: "Calculus I",
-    instructor: "Dr. Maria Garcia",
-    credit: 4,
-    enrollment: 52,
-    capacity: 50,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C004",
-    code: "PHYS101",
-    title: "Physics I",
-    instructor: "Prof. Robert Wilson",
-    credit: 4,
-    enrollment: 40,
-    capacity: 45,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C005",
-    code: "ENG101",
-    title: "English Composition",
-    instructor: "Dr. Sarah Johnson",
-    credit: 3,
-    enrollment: 28,
-    capacity: 30,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C006",
-    code: "BIO101",
-    title: "Biology I",
-    instructor: "Prof. Michael Brown",
-    credit: 4,
-    enrollment: 35,
-    capacity: 40,
-    semester: "Spring 2025",
-    status: "active",
-  },
-  {
-    id: "C007",
-    code: "CHEM101",
-    title: "Chemistry I",
-    instructor: "Dr. Emily Garcia",
-    credit: 4,
-    enrollment: 42,
-    capacity: 45,
-    semester: "Fall 2025",
-    status: "planned",
-  },
-  {
-    id: "C008",
-    code: "HIST101",
-    title: "World History",
-    instructor: "Prof. David Lee",
-    credit: 3,
-    enrollment: 0,
-    capacity: 35,
-    semester: "Fall 2025",
-    status: "planned",
-  },
-];
-
 export default function CoursesPage() {
   // Role guard - admin, hod, lecturer, student can access
   useRoleGuard(["admin", "hod", "lecturer", "student"]);
+  const dispatch = useAppDispatch();
+  const { addToast } = useToast();
+  
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
+  const reduxCourses = useAppSelector((state) => state.data.courses);
+  const loading = useAppSelector((state) => state.data.loading);
+  const error = useAppSelector((state) => state.data.error);
+
+  // Convert Redux courses to local format
+  const allCourses: Course[] = reduxCourses.map((course) => ({
+    id: course.id,
+    code: course.code,
+    title: course.name,
+    instructor: course.instructor,
+    credit: course.credits,
+    enrollment: course.enrollment,
+    capacity: 50,
+    semester: "Spring 2025",
+    status: "active" as const,
+  }));
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [filterStatus, setFilterStatus] = useState<string>("");
+
+  // Fetch courses on component mount
+  useEffect(() => {
+    dispatch(fetchCourses() as any);
+  }, [dispatch]);
+
+  // Handle error display
+  useEffect(() => {
+    if (error) {
+      addToast(error, "error", 3000);
+    }
+  }, [error, addToast]);
 
   // Filter courses based on role
   let courses = allCourses;
@@ -126,10 +73,6 @@ export default function CoursesPage() {
     // Student sees only active/enrolled courses
     courses = allCourses.filter((c) => c.status === "active").slice(0, 4);
   }
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [filterStatus, setFilterStatus] = useState<string>("");
 
   const filteredCourses = courses.filter((course) => {
     const matchesSearch =
@@ -185,93 +128,113 @@ export default function CoursesPage() {
         </div>
       </Card>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Total Courses</p>
-          <p className="text-4xl font-bold text-primary">
-            {filteredCourses.length}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Active Courses</p>
-          <p className="text-4xl font-bold text-tertiary">
-            {filteredCourses.filter((c) => c.status === "active").length}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">
-            Total Enrollment
-          </p>
-          <p className="text-4xl font-bold text-secondary">
-            {filteredCourses.reduce((sum, c) => sum + c.enrollment, 0)}
-          </p>
-        </Card>
-      </div>
+      {/* Summary Stats - Show skeletons while loading */}
+      {loading && reduxCourses.length === 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">
+              Total Courses
+            </p>
+            <p className="text-4xl font-bold text-primary">
+              {filteredCourses.length}
+            </p>
+          </Card>
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">
+              Active Courses
+            </p>
+            <p className="text-4xl font-bold text-tertiary">
+              {filteredCourses.filter((c) => c.status === "active").length}
+            </p>
+          </Card>
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">
+              Total Enrollment
+            </p>
+            <p className="text-4xl font-bold text-secondary">
+              {filteredCourses.reduce((sum, c) => sum + c.enrollment, 0)}
+            </p>
+          </Card>
+        </div>
+      )}
 
       {/* Courses List */}
       <div className="space-y-4 mb-8">
         <h2 className="text-2xl font-bold text-primary">Course Listings</h2>
-        {filteredCourses.map((course) => (
-          <Card
-            key={course.id}
-            className="p-6 hover:shadow-lg transition-all cursor-pointer border-l-4 border-outline-variant/20 hover:border-primary"
-            onClick={() => setSelectedCourse(course)}
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xl font-bold text-primary">
-                    {course.code}
-                  </h3>
-                  <Badge variant={getStatusVariant(course.status)}>
-                    {course.status}
-                  </Badge>
-                </div>
-                <p className="text-lg text-on-surface mb-1">{course.title}</p>
-                <p className="text-sm text-on-surface-variant">
-                  Instructor: {course.instructor}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold text-secondary">
-                  {course.enrollment}
-                </p>
-                <p className="text-xs text-on-surface-variant">
-                  / {course.capacity} seats
-                </p>
-                <p className="text-xs text-on-surface-variant mt-2">
-                  {Math.round((course.enrollment / course.capacity) * 100)}%
-                  Full
-                </p>
-              </div>
-            </div>
-
-            <div className="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
-              <div
-                className="bg-primary h-full transition-all"
-                style={{
-                  width: `${Math.min((course.enrollment / course.capacity) * 100, 100)}%`,
-                }}
-              />
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-outline-variant/20 text-sm">
-              <div>
-                <p className="text-on-surface-variant">Credits</p>
-                <p className="font-bold">{course.credit}</p>
-              </div>
-              <div>
-                <p className="text-on-surface-variant">Semester</p>
-                <p className="font-bold">{course.semester}</p>
-              </div>
-              <div>
-                <p className="text-on-surface-variant">Capacity</p>
-                <p className="font-bold">{course.capacity}</p>
-              </div>
-            </div>
+        {loading && reduxCourses.length === 0 ? (
+          <SkeletonTable />
+        ) : filteredCourses.length === 0 ? (
+          <Card className="p-8 text-center">
+            <p className="text-on-surface-variant">No courses found.</p>
           </Card>
-        ))}
+        ) : (
+          filteredCourses.map((course) => (
+            <Card
+              key={course.id}
+              className="p-6 hover:shadow-lg transition-all cursor-pointer border-l-4 border-outline-variant/20 hover:border-primary"
+              onClick={() => setSelectedCourse(course)}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-xl font-bold text-primary">
+                      {course.code}
+                    </h3>
+                    <Badge variant={getStatusVariant(course.status)}>
+                      {course.status}
+                    </Badge>
+                  </div>
+                  <p className="text-lg text-on-surface mb-1">{course.title}</p>
+                  <p className="text-sm text-on-surface-variant">
+                    Instructor: {course.instructor}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-secondary">
+                    {course.enrollment}
+                  </p>
+                  <p className="text-xs text-on-surface-variant">
+                    / {course.capacity} seats
+                  </p>
+                  <p className="text-xs text-on-surface-variant mt-2">
+                    {Math.round((course.enrollment / course.capacity) * 100)}%
+                    Full
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-primary h-full transition-all"
+                  style={{
+                    width: `${Math.min((course.enrollment / course.capacity) * 100, 100)}%`,
+                  }}
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-outline-variant/20 text-sm">
+                <div>
+                  <p className="text-on-surface-variant">Credits</p>
+                  <p className="font-bold">{course.credit}</p>
+                </div>
+                <div>
+                  <p className="text-on-surface-variant">Semester</p>
+                  <p className="font-bold">{course.semester}</p>
+                </div>
+                <div>
+                  <p className="text-on-surface-variant">Capacity</p>
+                  <p className="font-bold">{course.capacity}</p>
+                </div>
+              </div>
+            </Card>
+          ))
+        )}
       </div>
 
       {/* Selected Course Details */}
