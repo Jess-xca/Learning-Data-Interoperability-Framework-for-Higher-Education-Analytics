@@ -4,6 +4,7 @@ import { Sidebar, Header } from "./components";
 import { LoginPage } from "./components/pages";
 import { appRoutes } from "./routes/routes";
 import { useAppSelector } from "./hooks/useRedux";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { ToastProvider } from "./context/ToastContext";
 import { ToastContainer } from "./components/common/ToastContainer";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
@@ -11,6 +12,7 @@ import { ErrorBoundary } from "./components/common/ErrorBoundary";
 function AppLayout() {
   const [activeNav, setActiveNav] = useState("dashboard");
   const navigate = useNavigate();
+  useKeyboardShortcuts();
 
   const handleNavClick = (id: string) => {
     setActiveNav(id);
