@@ -2,16 +2,21 @@ import { useState } from "react";
 import { MainContent, MetricCard, ChartCard, Table, Card, Badge } from "..";
 import type { TableColumn } from "../dashboard/Table";
 import { useAppSelector } from "../../hooks/useRedux";
-import { generateDummyStudents } from "../../data/dummyGenerator";
+import {
+  generateDummyStudents,
+  type DummyStudent,
+} from "../../data/dummyGenerator";
 
 // ============================================================================
 // ADMIN DASHBOARD - System Hub
 // ============================================================================
 function AdminDashboard() {
-  const [selectedStudent, setSelectedStudent] = useState<any>(null);
+  const [selectedStudent, setSelectedStudent] = useState<DummyStudent | null>(
+    null,
+  );
   const dashboardStudents = generateDummyStudents(5);
 
-  const tableColumns: TableColumn<any>[] = [
+  const tableColumns: TableColumn<DummyStudent>[] = [
     { key: "id", label: "Student ID", sortable: true },
     { key: "name", label: "Name", sortable: true },
     { key: "program", label: "Program", sortable: true },

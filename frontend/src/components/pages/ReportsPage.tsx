@@ -83,11 +83,16 @@ const reports: Report[] = [
   },
 ];
 
-const getTypeVariant = (type: Report["type"]) => {
-  const variants: Record<Report["type"], string> = {
+const getTypeVariant = (
+  type: Report["type"],
+): "primary" | "secondary" | "error" | "warning" => {
+  const variants: Record<
+    Report["type"],
+    "primary" | "secondary" | "error" | "warning"
+  > = {
     enrollment: "primary",
     academic: "secondary",
-    financial: "tertiary",
+    financial: "warning",
     compliance: "error",
   };
   return variants[type];
@@ -200,7 +205,7 @@ export default function ReportsPage() {
                   <Badge variant={getStatusVariant(report.status)}>
                     {report.status}
                   </Badge>
-                  <Badge variant={getTypeVariant(report.type) as any}>
+                  <Badge variant={getTypeVariant(report.type)}>
                     {report.type}
                   </Badge>
                 </div>
