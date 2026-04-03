@@ -10,7 +10,7 @@ export interface ValidationResult {
 
 // Validation rules
 export const validators = {
-  required: (value: any, fieldName: string): ValidationError | null => {
+  required: (value: string | number | boolean | null | undefined, fieldName: string): ValidationError | null => {
     if (!value || (typeof value === "string" && value.trim() === "")) {
       return { field: fieldName, message: `${fieldName} is required` };
     }
@@ -27,7 +27,7 @@ export const validators = {
 
   minLength: (
     min: number,
-    fieldName: string
+    fieldName: string,
   ): ((value: string) => ValidationError | null) => {
     return (value: string) => {
       if (value && value.length < min) {
@@ -43,7 +43,7 @@ export const validators = {
   pattern: (
     regex: RegExp,
     fieldName: string,
-    message?: string
+    message?: string,
   ): ((value: string) => ValidationError | null) => {
     return (value: string) => {
       if (value && !regex.test(value)) {
@@ -80,12 +80,12 @@ export const validators = {
 
 // Validation schema builder
 export interface ValidationSchema {
-  [fieldName: string]: ((value: any) => ValidationError | null)[];
+  [fieldName: string]: ((value: unknown) => ValidationError | null)[];
 }
 
 export function validateForm(
-  data: Record<string, any>,
-  schema: ValidationSchema
+  data: Record<string, unknown>,
+  schema: ValidationSchema,
 ): ValidationResult {
   const errors: ValidationError[] = [];
 
@@ -110,7 +110,7 @@ export function validateForm(
 // Get error by field name
 export function getFieldError(
   errors: ValidationError[],
-  fieldName: string
+  fieldName: string,
 ): string | null {
   const error = errors.find((e) => e.field === fieldName);
   return error ? error.message : null;
