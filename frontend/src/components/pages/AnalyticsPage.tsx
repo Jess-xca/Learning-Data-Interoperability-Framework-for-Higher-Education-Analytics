@@ -1,5 +1,6 @@
 import { MainContent, Card, Button } from "..";
 import { ChartCard } from "../dashboard";
+import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { generateDummyStudents } from "../../data/dummyGenerator";
 
 const students = generateDummyStudents(1000);
@@ -103,14 +104,20 @@ const gpaDistribution: GPADistribution[] = [
 ];
 
 export default function AnalyticsPage() {
+  // Role guard - admin, analyst, hod, qa, student can access
+  useRoleGuard(["admin", "analyst", "hod", "qa", "student"]);
   return (
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Analytics</h1>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
+            Analytics
+          </h1>
           <p className="text-on-surface-variant font-medium mt-2 flex items-center gap-2">
-            <span className="material-symbols-outlined text-on-tertiary-container">analytics</span>
+            <span className="material-symbols-outlined text-on-tertiary-container">
+              analytics
+            </span>
             Advanced institutional analytics and performance intelligence.
           </p>
         </div>
