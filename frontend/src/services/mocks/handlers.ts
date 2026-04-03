@@ -111,11 +111,11 @@ export const handlers = [
     );
   }),
 
-  http.put(`${API_BASE}/students/:id`, async ({ request }) => {
+  http.put(`${API_BASE}/students/:id`, async ({ request, params }) => {
     const updatedStudent = (await request.json()) as Record<string, unknown>;
     return HttpResponse.json({
       success: true,
-      data: { id: (request as any).params.id, ...updatedStudent },
+      data: { id: params.id, ...updatedStudent },
     });
   }),
 
