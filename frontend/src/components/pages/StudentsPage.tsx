@@ -1,52 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainContent, Card, Button, TextInput, Badge } from "..";
 import { Table } from "../dashboard";
 import type { TableColumn } from "../dashboard/Table";
-import { useAppSelector } from "../../hooks/useRedux";
+import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
-import { generateDummyStudents } from "../../data/dummyGenerator";
-
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  program: string;
-  gpa: number;
-  status: "active" | "graduated" | "suspended";
-  enrollmentDate: string;
-}
-
-const allStudents = generateDummyStudents(50).map((student) => ({
-  id: student.id,
-  name: student.name,
-  email: `${student.name.toLowerCase().replace(/\s+/g, ".")}@institution.edu`,
-  program: student.program,
-  gpa: student.gpa,
-  status: student.status,
-  enrollmentDate: "2025-01-15",
-}));
+import { useToast } from "../../context/ToastContext";
+import { fetchStudents } from "../../store/thunks/dataThunks";
+import { SkeletonTable, SkeletonMetricCard } from "../common/SkeletonLoaders";
+import type { Student } from "../../store/slices/dataSlice";
 
 export default function StudentsPage() {
   // Role guard - only admin, hod, lecturer can access
   useRoleGuard(["admin", "hod", "lecturer"]);
+  const dispatch = useAppDispatch();
+  const { addToast } = useToast();
+  
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
+  const students = useAppSelector((state) => state.data.students);
+  const loading = useAppSelector((state) => state.data.loading);
+  const error = useAppSelector((state) => state.data.error);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [filterProgram, setFilterProgram] = useState<string>("");
 
+  // Fetch students on component mount
+  useEffect(() => {
+    dispatch(fetchStudents() as any);
+  }, [dispatch]);
+
+  // Handle error display
+  useEffect(() => {
+    if (error) {
+      addToast(error, "error", 3000);
+    }
+  }, [error, addToast]);
+
   // Filter students based on role
-  let students = allStudents;
+  let filteredByRole = students;
   if (userRole === "hod") {
     // HOD only sees students from their department (Engineering)
-    students = allStudents.filter((s) => s.program === "Engineering");
+    filteredByRole = students.filter((s) => s.program === "Engineering");
   } else if (userRole === "lecturer") {
     // Lecturer sees a subset as their class roster
-    students = allStudents.slice(0, 20);
+    filteredByRole = students.slice(0, 20);
   }
 
-  const filteredStudents = students.filter((student) => {
+  const filteredStudents = filteredByRole.filter((student) => {
     const matchesSearch =
       student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.id.toLowerCase().includes(searchQuery.toLowerCase());
@@ -56,7 +57,7 @@ export default function StudentsPage() {
     return matchesSearch && matchesProgram;
   });
 
-  const programs = Array.from(new Set(students.map((s) => s.program))).sort();
+  const programs = Array.from(new Set(filteredByRole.map((s) => s.program))).sort();
 
   // Role-aware page header
   const headerConfig: Record<string, { title: string; desc: string }> = {
@@ -124,51 +125,59 @@ export default function StudentsPage() {
         )}
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-on-tertiary-container">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-            Total Students
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-3xl font-black text-primary">
-              {filteredStudents.length}
-            </p>
-            <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
-              <span className="material-symbols-outlined">people</span>
+      {/* Stats - Show skeletons while loading */}
+      {loading && students.length === 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+          <SkeletonMetricCard />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="border-l-4 border-on-tertiary-container">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Total Students
             </div>
-          </div>
-        </Card>
-        <Card className="border-l-4 border-primary">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-            Active
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-3xl font-black text-primary">
-              {filteredStudents.filter((s) => s.status === "active").length}
-            </p>
-            <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined">check_circle</span>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {filteredStudents.length}
+              </p>
+              <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
+                <span className="material-symbols-outlined">people</span>
+              </div>
             </div>
-          </div>
-        </Card>
-        <Card className="border-l-4 border-secondary">
-          <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-            Avg GPA
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-3xl font-black text-primary">
-              {(
-                filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
-                (filteredStudents.length || 1)
-              ).toFixed(2)}
-            </p>
-            <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
-              <span className="material-symbols-outlined">grade</span>
+          </Card>
+          <Card className="border-l-4 border-primary">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Active
             </div>
-          </div>
-        </Card>
-      </div>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {filteredStudents.filter((s) => s.status === "active").length}
+              </p>
+              <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
+                <span className="material-symbols-outlined">check_circle</span>
+              </div>
+            </div>
+          </Card>
+          <Card className="border-l-4 border-secondary">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Avg GPA
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {(
+                  filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
+                  (filteredStudents.length || 1)
+                ).toFixed(2)}
+              </p>
+              <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
+                <span className="material-symbols-outlined">grade</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="bg-surface-container-low rounded-xl p-5 mb-6">
@@ -205,22 +214,33 @@ export default function StudentsPage() {
         </div>
       </div>
 
-      {/* Data Table */}
+      {/* Data Table - Show skeleton while loading, error state if failed */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-black text-primary tracking-tight">
             Student Records
           </h2>
           <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
-            {filteredStudents.length} results
+            {loading && students.length === 0 ? "Loading..." : `${filteredStudents.length} results`}
           </span>
         </div>
-        <Table
-          columns={columns}
-          data={filteredStudents}
-          keyExtractor={(row) => row.id}
-          onRowClick={setSelectedStudent}
-        />
+
+        {loading && students.length === 0 ? (
+          <SkeletonTable />
+        ) : students.length === 0 ? (
+          <Card className="p-8 text-center">
+            <p className="text-on-surface-variant">
+              No students found. {error ? "Try loading again." : "Start by adding a student."}
+            </p>
+          </Card>
+        ) : (
+          <Table
+            columns={columns}
+            data={filteredStudents}
+            keyExtractor={(row) => row.id}
+            onRowClick={setSelectedStudent}
+          />
+        )}
       </div>
 
       {/* Selected Student Detail */}
@@ -272,8 +292,8 @@ export default function StudentsPage() {
               </Badge>
             </div>
             <div>
-              <p className="text-on-surface-variant">Enrollment Date</p>
-              <p className="font-bold">{selectedStudent.enrollmentDate}</p>
+              <p className="text-on-surface-variant">Enrollment Year</p>
+              <p className="font-bold">{selectedStudent.enrollmentYear}</p>
             </div>
           </div>
         </Card>
