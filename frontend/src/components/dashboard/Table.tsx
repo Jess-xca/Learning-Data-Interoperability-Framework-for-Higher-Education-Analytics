@@ -28,7 +28,7 @@ export default function Table<T extends Record<string, any>>({
 }: TableProps<T>) {
   const getRowKey = (row: T, index: number) => {
     if (keyExtractor) return keyExtractor(row, index);
-    const id = (row as any).id || (row as any).key;
+    const id = row["id"] || row["key"];
     return id || index;
   };
 

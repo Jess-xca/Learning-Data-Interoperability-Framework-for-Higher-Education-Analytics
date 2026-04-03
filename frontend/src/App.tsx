@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Sidebar, Header } from "./components";
 import { LoginPage } from "./components/pages";
 import { appRoutes } from "./routes/routes";
+import { useAppSelector } from "./hooks/useRedux";
 
 function AppLayout() {
   const [activeNav, setActiveNav] = useState("dashboard");
@@ -27,15 +28,11 @@ function AppLayout() {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
     <BrowserRouter>
-      {!isLoggedIn ? (
-        <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />
-      ) : (
-        <AppLayout />
-      )}
+      {!isAuthenticated ? <LoginPage /> : <AppLayout />}
     </BrowserRouter>
   );
 }

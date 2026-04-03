@@ -19,16 +19,16 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseClasses =
-    "font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantClasses = {
     primary:
-      "bg-primary text-on-primary hover:bg-primary-container active:scale-95 shadow-md",
+      "bg-primary text-on-primary hover:opacity-90 active:scale-95 shadow-md shadow-primary/20",
     secondary:
       "bg-surface-container-low text-primary border border-outline-variant/30 hover:bg-surface-container active:scale-95",
     danger:
-      "bg-error text-on-error hover:bg-error-container active:scale-95 shadow-md",
-    ghost: "text-primary hover:bg-surface-container-low",
+      "bg-error text-on-error hover:opacity-90 active:scale-95 shadow-md",
+    ghost: "text-primary hover:bg-surface-container-low rounded-lg",
   };
 
   const sizeClasses = {

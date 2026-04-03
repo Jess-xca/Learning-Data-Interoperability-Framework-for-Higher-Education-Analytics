@@ -1,8 +1,10 @@
 import React from "react";
 
+export type BadgeVariant = "primary" | "secondary" | "success" | "error" | "warning";
+
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "success" | "error" | "warning";
+  variant?: BadgeVariant;
   className?: string;
 }
 

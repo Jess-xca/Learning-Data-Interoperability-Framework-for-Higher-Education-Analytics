@@ -1,4 +1,4 @@
-import type { RouteObject } from 'react-router-dom';
+import type { RouteObject } from "react-router-dom";
 import {
   DashboardPage,
   StudentsPage,
@@ -8,43 +8,43 @@ import {
   ReportsPage,
   GovernancePage,
   SettingsPage,
-} from '../components/pages';
+} from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
   {
-    path: '/',
+    path: "/",
     element: <DashboardPage />,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: <DashboardPage />,
   },
   {
-    path: '/students',
+    path: "/students",
     element: <StudentsPage />,
   },
   {
-    path: '/programs',
+    path: "/programs",
     element: <ProgramsPage />,
   },
   {
-    path: '/courses',
+    path: "/courses",
     element: <CoursesPage />,
   },
   {
-    path: '/analytics',
+    path: "/analytics",
     element: <AnalyticsPage />,
   },
   {
-    path: '/reports',
+    path: "/reports",
     element: <ReportsPage />,
   },
   {
-    path: '/governance',
+    path: "/governance",
     element: <GovernancePage />,
   },
   {
-    path: '/settings',
+    path: "/settings",
     element: <SettingsPage />,
   },
 ];

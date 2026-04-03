@@ -18,7 +18,7 @@ const metrics: AnalyticsMetrics = {
   activeStudents: students.filter((s) => s.status === "active").length,
   graduatedStudents: students.filter((s) => s.status === "graduated").length,
   avgGPA: parseFloat(
-    (students.reduce((sum, s) => sum + s.gpa, 0) / students.length).toFixed(2)
+    (students.reduce((sum, s) => sum + s.gpa, 0) / students.length).toFixed(2),
   ),
   enrollmentGrowth: 12.5,
   retentionRate: 92.3,
@@ -33,9 +33,7 @@ const programAnalytics = Array.from(new Set(students.map((s) => s.program)))
       program,
       students: total,
       avgGPA: parseFloat(
-        (
-          programStudents.reduce((sum, s) => sum + s.gpa, 0) / total
-        ).toFixed(2)
+        (programStudents.reduce((sum, s) => sum + s.gpa, 0) / total).toFixed(2),
       ),
       enrollmentRate: Math.round((active / total) * 100),
     };
@@ -52,13 +50,15 @@ const statusDistribution: StatusDistribution[] = [
   {
     status: "Active",
     count: metrics.activeStudents,
-    percentage: Math.round((metrics.activeStudents / metrics.totalStudents) * 100),
+    percentage: Math.round(
+      (metrics.activeStudents / metrics.totalStudents) * 100,
+    ),
   },
   {
     status: "Graduated",
     count: metrics.graduatedStudents,
     percentage: Math.round(
-      (metrics.graduatedStudents / metrics.totalStudents) * 100
+      (metrics.graduatedStudents / metrics.totalStudents) * 100,
     ),
   },
   {
@@ -103,19 +103,31 @@ const gpaDistribution: GPADistribution[] = [
 ];
 
 export default function AnalyticsPage() {
-
   return (
     <MainContent>
       {/* Page Header */}
-      <div className="mb-10 space-y-2">
-        <h1 className="text-4xl font-bold text-primary">Analytics</h1>
-        <p className="text-lg text-on-surface-variant">
-          View advanced institutional analytics and reports
-        </p>
+      <div className="mb-10 flex justify-between items-end">
+        <div>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Analytics</h1>
+          <p className="text-on-surface-variant font-medium mt-2 flex items-center gap-2">
+            <span className="material-symbols-outlined text-on-tertiary-container">analytics</span>
+            Advanced institutional analytics and performance intelligence.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <button className="px-5 py-2.5 rounded-xl border border-outline-variant text-primary font-semibold flex items-center gap-2 hover:bg-surface-container-low transition-colors text-sm">
+            <span className="material-symbols-outlined text-sm">download</span>
+            Export
+          </button>
+          <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+            <span className="material-symbols-outlined text-sm">add_chart</span>
+            Create Insight
+          </button>
+        </div>
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         <Card className="p-4 text-center">
           <p className="text-on-surface-variant text-xs mb-1">Total Students</p>
           <p className="text-2xl font-bold text-primary">

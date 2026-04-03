@@ -13,10 +13,12 @@ interface Program {
 
 const allStudents = generateDummyStudents(1000);
 const programs: Program[] = Array.from(
-  new Set(allStudents.map((s) => s.program))
+  new Set(allStudents.map((s) => s.program)),
 )
   .map((programName) => {
-    const programStudents = allStudents.filter((s) => s.program === programName);
+    const programStudents = allStudents.filter(
+      (s) => s.program === programName,
+    );
     return {
       name: programName,
       code: programName.substring(0, 3).toUpperCase(),
@@ -51,17 +53,21 @@ export default function ProgramsPage() {
           <p className="text-4xl font-bold text-primary">{programs.length}</p>
         </Card>
         <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Total Enrollment</p>
+          <p className="text-on-surface-variant text-sm mb-2">
+            Total Enrollment
+          </p>
           <p className="text-4xl font-bold text-secondary">
             {programs.reduce((sum, p) => sum + p.enrollmentCount, 0)}
           </p>
         </Card>
         <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Avg Program Size</p>
+          <p className="text-on-surface-variant text-sm mb-2">
+            Avg Program Size
+          </p>
           <p className="text-4xl font-bold text-tertiary">
             {Math.round(
               programs.reduce((sum, p) => sum + p.enrollmentCount, 0) /
-                programs.length
+                programs.length,
             )}
           </p>
         </Card>
@@ -101,9 +107,7 @@ export default function ProgramsPage() {
               </div>
               <div className="text-center">
                 <p className="text-on-surface-variant text-xs">Active</p>
-                <p className="font-bold text-tertiary">
-                  {program.activeCount}
-                </p>
+                <p className="font-bold text-tertiary">{program.activeCount}</p>
               </div>
               <div className="text-center">
                 <p className="text-on-surface-variant text-xs">Graduated</p>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MainContent, Card, Button, Badge } from "..";
+import type { BadgeVariant } from "../common/Badge";
 
 interface AuditLog {
   id: string;
@@ -122,7 +123,7 @@ export default function GovernancePage() {
   const [selectedCompliance, setSelectedCompliance] =
     useState<ComplianceItem | null>(null);
   const [logFilter, setLogFilter] = useState<"all" | "success" | "failure">(
-    "all"
+    "all",
   );
 
   const filteredLogs =
@@ -134,8 +135,8 @@ export default function GovernancePage() {
     return status === "success" ? "text-tertiary" : "text-error";
   };
 
-  const getComplianceVariant = (status: ComplianceItem["status"]) => {
-    const variants: Record<ComplianceItem["status"], string> = {
+  const getComplianceVariant = (status: ComplianceItem["status"]): BadgeVariant => {
+    const variants: Record<ComplianceItem["status"], BadgeVariant> = {
       compliant: "success",
       warning: "warning",
       "non-compliant": "error",
@@ -146,11 +147,15 @@ export default function GovernancePage() {
   return (
     <MainContent>
       {/* Page Header */}
-      <div className="mb-10 space-y-2">
-        <h1 className="text-4xl font-bold text-primary">Governance</h1>
-        <p className="text-lg text-on-surface-variant">
-          Compliance, audit logs, and governance controls
-        </p>
+      <div className="mb-10 flex justify-between items-end">
+        <div>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Governance</h1>
+          <p className="text-on-surface-variant font-medium mt-2">Compliance, audit logs, and governance controls.</p>
+        </div>
+        <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+          <span className="material-symbols-outlined text-sm">download</span>
+          Export Audit Log
+        </button>
       </div>
 
       {/* Summary Stats */}
@@ -196,7 +201,7 @@ export default function GovernancePage() {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h3 className="font-bold text-on-surface">{item.name}</h3>
-                  <Badge variant={getComplianceVariant(item.status) as any}>
+                  <Badge variant={getComplianceVariant(item.status)}>
                     {item.status}
                   </Badge>
                 </div>
@@ -207,10 +212,14 @@ export default function GovernancePage() {
                   Framework: {item.framework} | Last Checked: {item.lastChecked}
                 </p>
               </div>
-              <Button variant="ghost" size="sm" onClick={(e) => {
-                e.stopPropagation();
-                setSelectedCompliance(item);
-              }}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedCompliance(item);
+                }}
+              >
                 <span className="material-symbols-outlined">arrow_forward</span>
               </Button>
             </div>
@@ -294,7 +303,9 @@ export default function GovernancePage() {
                   <td className="px-4 py-3 font-mono text-xs">
                     {log.resource}
                   </td>
-                  <td className={`px-4 py-3 font-bold ${getStatusColor(log.status)}`}>
+                  <td
+                    className={`px-4 py-3 font-bold ${getStatusColor(log.status)}`}
+                  >
                     {log.status.toUpperCase()}
                   </td>
                 </tr>
@@ -341,9 +352,7 @@ export default function GovernancePage() {
             <div>
               <p className="text-on-surface-variant">Status</p>
               <Badge
-                variant={
-                  selectedLog.status === "success" ? "success" : "error"
-                }
+                variant={selectedLog.status === "success" ? "success" : "error"}
               >
                 {selectedLog.status}
               </Badge>
@@ -371,7 +380,7 @@ export default function GovernancePage() {
             <div className="bg-primary-container/10 p-4 rounded-lg">
               <p className="text-on-surface-variant text-sm mb-2">Status</p>
               <Badge
-                variant={getComplianceVariant(selectedCompliance.status) as any}
+                variant={getComplianceVariant(selectedCompliance.status)}
               >
                 {selectedCompliance.status}
               </Badge>
@@ -383,7 +392,9 @@ export default function GovernancePage() {
               </p>
             </div>
             <div className="bg-tertiary-fixed/20 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">Last Checked</p>
+              <p className="text-on-surface-variant text-sm mb-2">
+                Last Checked
+              </p>
               <p className="font-bold text-tertiary">
                 {selectedCompliance.lastChecked}
               </p>
@@ -397,7 +408,9 @@ export default function GovernancePage() {
               </p>
             </div>
           </div>
-          <p className="text-on-surface mb-4">{selectedCompliance.description}</p>
+          <p className="text-on-surface mb-4">
+            {selectedCompliance.description}
+          </p>
           <div className="flex gap-3">
             <Button variant="primary" size="md">
               <span className="material-symbols-outlined">check_circle</span>

@@ -93,9 +93,12 @@ const getTypeVariant = (type: Report["type"]) => {
 };
 
 const getStatusVariant = (
-  status: Report["status"]
+  status: Report["status"],
 ): "success" | "primary" | "error" | "warning" => {
-  const variants: Record<Report["status"], "success" | "primary" | "error" | "warning"> = {
+  const variants: Record<
+    Report["status"],
+    "success" | "primary" | "error" | "warning"
+  > = {
     active: "success",
     scheduled: "primary",
     archived: "error",
@@ -106,21 +109,25 @@ const getStatusVariant = (
 export default function ReportsPage() {
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
   const [activeTab, setActiveTab] = useState<"generated" | "templates">(
-    "generated"
+    "generated",
   );
 
   return (
     <MainContent>
       {/* Page Header */}
-      <div className="mb-10 space-y-2">
-        <h1 className="text-4xl font-bold text-primary">Reports</h1>
-        <p className="text-lg text-on-surface-variant">
-          Generate and manage institutional reports
-        </p>
+      <div className="mb-10 flex justify-between items-end">
+        <div>
+          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Reports</h1>
+          <p className="text-on-surface-variant font-medium mt-2">Generate and manage institutional compliance reports.</p>
+        </div>
+        <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+          <span className="material-symbols-outlined text-sm">add</span>
+          New Report
+        </button>
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
         <Card className="p-6">
           <p className="text-on-surface-variant text-sm mb-2">Total Reports</p>
           <p className="text-3xl font-bold text-primary">{reports.length}</p>
@@ -258,7 +265,9 @@ export default function ReportsPage() {
               </p>
             </div>
             <div className="bg-primary-container/10 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">Last Generated</p>
+              <p className="text-on-surface-variant text-sm mb-2">
+                Last Generated
+              </p>
               <p className="text-lg font-bold text-primary">
                 {selectedReport.lastGenerated || "Never"}
               </p>
@@ -266,7 +275,9 @@ export default function ReportsPage() {
           </div>
 
           <div>
-            <h3 className="font-bold text-on-surface mb-3">Available Formats</h3>
+            <h3 className="font-bold text-on-surface mb-3">
+              Available Formats
+            </h3>
             <div className="flex flex-wrap gap-2">
               {selectedReport.format.map((fmt) => (
                 <Button key={fmt} variant="secondary" size="sm">

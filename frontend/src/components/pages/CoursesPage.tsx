@@ -167,7 +167,9 @@ export default function CoursesPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <Card className="p-6">
           <p className="text-on-surface-variant text-sm mb-2">Total Courses</p>
-          <p className="text-4xl font-bold text-primary">{filteredCourses.length}</p>
+          <p className="text-4xl font-bold text-primary">
+            {filteredCourses.length}
+          </p>
         </Card>
         <Card className="p-6">
           <p className="text-on-surface-variant text-sm mb-2">Active Courses</p>
@@ -217,7 +219,8 @@ export default function CoursesPage() {
                   / {course.capacity} seats
                 </p>
                 <p className="text-xs text-on-surface-variant mt-2">
-                  {Math.round((course.enrollment / course.capacity) * 100)}% Full
+                  {Math.round((course.enrollment / course.capacity) * 100)}%
+                  Full
                 </p>
               </div>
             </div>
@@ -289,7 +292,10 @@ export default function CoursesPage() {
             <div className="bg-tertiary-fixed/20 p-4 rounded-lg">
               <p className="text-on-surface-variant text-sm mb-2">Occupancy</p>
               <p className="text-3xl font-bold text-tertiary">
-                {Math.round((selectedCourse.enrollment / selectedCourse.capacity) * 100)}%
+                {Math.round(
+                  (selectedCourse.enrollment / selectedCourse.capacity) * 100,
+                )}
+                %
               </p>
             </div>
             <div className="bg-primary-container/10 p-4 rounded-lg">
