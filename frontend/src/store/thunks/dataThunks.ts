@@ -8,34 +8,43 @@ export const fetchStudents = createAsyncThunk(
     try {
       const response = await api.get("/students");
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch students");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch students";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const createStudent = createAsyncThunk(
   "data/createStudent",
-  async (studentData: any, { rejectWithValue }) => {
+  async (studentData: Record<string, unknown>, { rejectWithValue }) => {
     try {
       const response = await api.post("/students", studentData);
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to create student");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to create student";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const updateStudent = createAsyncThunk(
   "data/updateStudent",
-  async ({ id, data }: { id: string; data: any }, { rejectWithValue }) => {
+  async (
+    { id, data }: { id: string; data: Record<string, unknown> },
+    { rejectWithValue },
+  ) => {
     try {
       const response = await api.put(`/students/${id}`, data);
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to update student");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to update student";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const deleteStudent = createAsyncThunk(
@@ -44,10 +53,12 @@ export const deleteStudent = createAsyncThunk(
     try {
       await api.delete(`/students/${id}`);
       return id;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to delete student");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to delete student";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 // Program thunks
@@ -57,10 +68,12 @@ export const fetchPrograms = createAsyncThunk(
     try {
       const response = await api.get("/programs");
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch programs");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch programs";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 // Course thunks
@@ -70,22 +83,26 @@ export const fetchCourses = createAsyncThunk(
     try {
       const response = await api.get("/courses");
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch courses");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch courses";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const createCourse = createAsyncThunk(
   "data/createCourse",
-  async (courseData: any, { rejectWithValue }) => {
+  async (courseData: Record<string, unknown>, { rejectWithValue }) => {
     try {
       const response = await api.post("/courses", courseData);
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to create course");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to create course";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 // Analytics thunks
@@ -95,10 +112,12 @@ export const fetchAnalytics = createAsyncThunk(
     try {
       const response = await api.get("/analytics/summary");
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch analytics");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch analytics";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
 
 export const fetchReports = createAsyncThunk(
@@ -107,8 +126,10 @@ export const fetchReports = createAsyncThunk(
     try {
       const response = await api.get("/reports");
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch reports");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to fetch reports";
+      return rejectWithValue(message);
     }
-  }
+  },
 );
