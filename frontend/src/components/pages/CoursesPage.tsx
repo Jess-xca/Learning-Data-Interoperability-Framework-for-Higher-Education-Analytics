@@ -26,7 +26,10 @@ export default function CoursesPage() {
 
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
-  const reduxCourses = useAppSelector((state) => state.data.courses);
+  const reduxCourses = useAppSelector((state) => {
+    const data = state.data.courses;
+    return Array.isArray(data) ? data : [];
+  });
   const loading = useAppSelector((state) => state.data.loading);
   const error = useAppSelector((state) => state.data.error);
 

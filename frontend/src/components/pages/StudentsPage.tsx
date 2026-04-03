@@ -17,7 +17,10 @@ export default function StudentsPage() {
 
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
-  const students = useAppSelector((state) => state.data.students);
+  const students = useAppSelector((state) => {
+    const data = state.data.students;
+    return Array.isArray(data) ? data : [];
+  });
   const loading = useAppSelector((state) => state.data.loading);
   const error = useAppSelector((state) => state.data.error);
 

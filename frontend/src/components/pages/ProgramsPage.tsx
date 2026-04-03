@@ -15,7 +15,10 @@ export default function ProgramsPage() {
 
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
-  const programs = useAppSelector((state) => state.data.programs);
+  const programs = useAppSelector((state) => {
+    const data = state.data.programs;
+    return Array.isArray(data) ? data : [];
+  });
   const loading = useAppSelector((state) => state.data.loading);
   const error = useAppSelector((state) => state.data.error);
 
