@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator | Data Governance &amp; Privacy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for clean editorial look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        
+        .lineage-node {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .lineage-node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f8fafc",
+                        "surface-container-low": "#f1f5f9",
+                        "surface-bright": "#ffffff",
+                        "on-surface-variant": "#64748b",
+                        "primary": "#0f172a",
+                        "primary-container": "#1e293b",
+                        "on-primary-container": "#f1f5f9",
+                        "secondary": "#334155",
+                        "tertiary": "#059669",
+                        "tertiary-container": "#dcfce7",
+                        "on-tertiary-container": "#065f46",
+                        "error": "#b91c1c",
+                        "error-container": "#fee2e2",
+                        "on-error-container": "#991b1b",
+                        "outline": "#cbd5e1",
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                    },
+                    borderRadius: {"DEFAULT": "0.375rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-slate-900 flex overflow-hidden h-screen">
+<!-- SideNavBar Component -->
+<aside class="flex flex-col h-full py-8 bg-white border-r border-slate-200 w-72 flex-shrink-0 z-50">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-slate-200 overflow-hidden">
+<img alt="University Crest" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjULHSdwplqnOh5q2TUUVQrQ1QzYncPyAsaCiMFiptVMzEK1p9-n8q_Ojn18IvjnkHpuf3wx7J3lHNHoz6qY_DpRki1JfJ25UYkj596af-MWU8xFYME5V5jT8GIJpfT9rNJoHeSrVwWojWz_teAipBpD97pv9HytiBSPqzym4aqozcY9p668qhybggQibn2kU6bc6HWFVkETLy6b8LuSKR0wQ-lSZgnfJhWnuYWC2xLxJ8O5RJmJhykjg0RRjr-X6qL7nqrwGvOTc"/>
+</div>
+<div>
+<h1 class="text-lg font-extrabold text-primary leading-tight tracking-tight">Academic Curator</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">Institutional Intelligence</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+<div class="px-4 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Main Menu</div>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="dashboard">dashboard</span>
+<span>Executive Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="database">database</span>
+<span>Data Lake Connectivity</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="sync_alt">sync_alt</span>
+<span>ETL &amp; Interoperability</span>
+</a>
+<div class="px-4 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Governance &amp; Privacy</div>
+<a class="flex items-center gap-3 px-4 py-2.5 text-primary bg-slate-100 rounded-lg text-sm font-semibold border-r-4 border-primary" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="shield_lock">shield_lock</span>
+<span>Governance &amp; Privacy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="list_alt">list_alt</span>
+<span>Metadata Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="history_edu">history_edu</span>
+<span>Policy Catalog</span>
+</a>
+<div class="px-4 py-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Operations</div>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="verified">verified</span>
+<span>Accreditation Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:text-primary hover:bg-slate-50 transition-all rounded-lg text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-xl opacity-70" data-icon="description">description</span>
+<span>Regulatory Reporting</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-6 border-t border-slate-100">
+<div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+<div class="relative">
+<img alt="User" class="w-10 h-10 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJs3lS2rh6wnk6SebXT04DNeis00mZDCiey8Irv_mckmCh1PqlHDnYaBZNfAWmcPltnsXVjIl9qfR6QXc9MVG8buih1ITgsvKt1iUc6vx8vJJLRoHFxIz1rTzJRVztg14S6xeXO9zDozBFTalfaNby7KpIMFm1ebFYQJZEmXt_3MQisDmPDAdjipWZgXXnHtzi25PdM1X2xi9p8SJzCUzf4hi8dnb-xbd6PG1QKOIBXoEdwt1viay9eMqnVyKTUhheU1eizOUxq-g"/>
+<span class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-slate-900 truncate">Academic Registrar</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold tracking-tight">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-10 h-20 bg-white border-b border-slate-200 flex-shrink-0 z-40">
+<div class="flex items-center gap-8 flex-1">
+<div class="relative w-full max-w-lg group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-slate-50 border-slate-200 rounded-xl pl-12 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all" placeholder="Search lineage, datasets, or policy documents..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-slate-50 rounded-full border border-slate-100">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-[10px] font-bold text-slate-600 uppercase">Systems: Healthy</span>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined text-2xl" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<div class="h-6 w-px bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-semibold text-slate-700">QA Officer</span>
+<button class="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-10 space-y-10">
+<!-- Hero Header -->
+<section class="flex justify-between items-end">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-primary/60 text-sm font-semibold uppercase tracking-widest mb-1">
+<span class="material-symbols-outlined text-base" data-icon="gavel">gavel</span>
+                    Compliance Framework
+                </div>
+<h2 class="text-4xl font-extrabold text-primary tracking-tight font-headline">Data Governance &amp; Privacy</h2>
+<p class="text-slate-500 max-w-2xl text-lg leading-relaxed">Centralized oversight for institutional data lifecycles, regulatory adherence, and cross-departmental data transparency.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 transition-all flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-lg" data-icon="file_upload">file_upload</span>
+                    Export Compliance
+                </button>
+<button class="px-6 py-3 bg-primary text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition-all flex items-center gap-2 shadow-lg shadow-slate-200">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+                    New Audit Request
+                </button>
+</div>
+</section>
+<!-- Monitoring Section: Quality & Privacy -->
+<section class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Data Quality Monitoring Card -->
+<div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600" data-icon="analytics">analytics</span>
+                            Data Quality Monitoring
+                        </h3>
+<p class="text-sm text-slate-500 mt-1">Real-time integrity metrics across primary institutional systems.</p>
+</div>
+<div class="flex bg-slate-50 p-1 rounded-lg">
+<button class="px-3 py-1.5 text-xs font-bold bg-white text-primary rounded-md shadow-sm">Grid View</button>
+<button class="px-3 py-1.5 text-xs font-bold text-slate-500 hover:text-primary transition-colors">Trends</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- SIS Metric -->
+<div class="p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-slate-300 transition-all group">
+<div class="flex justify-between mb-4">
+<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Banner SIS SQL</span>
+<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded uppercase">Attention</span>
+</div>
+<div class="flex items-baseline gap-3 mb-2">
+<span class="text-4xl font-black text-slate-900 tracking-tight">85.4%</span>
+<span class="text-red-600 text-xs font-bold flex items-center">
+<span class="material-symbols-outlined text-xs mr-0.5" data-icon="arrow_downward">arrow_downward</span> 3.1%
+                            </span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-4">
+<div class="bg-red-500 h-full w-[85.4%] rounded-full"></div>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span class="material-symbols-outlined text-base text-slate-400" data-icon="warning">warning</span>
+                            Null values detected in 'Demographics' table
+                        </div>
+</div>
+<!-- LMS Metric -->
+<div class="p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-slate-300 transition-all group">
+<div class="flex justify-between mb-4">
+<span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Canvas LMS API</span>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded uppercase">Optimal</span>
+</div>
+<div class="flex items-baseline gap-3 mb-2">
+<span class="text-4xl font-black text-slate-900 tracking-tight">99.2%</span>
+<span class="text-green-600 text-xs font-bold flex items-center">
+<span class="material-symbols-outlined text-xs mr-0.5" data-icon="arrow_upward">arrow_upward</span> 0.4%
+                            </span>
+</div>
+<div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-4">
+<div class="bg-green-600 h-full w-[99.2%] rounded-full"></div>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span class="material-symbols-outlined text-base text-green-500" data-icon="check_circle">check_circle</span>
+                            Full consistency with Registrar Master Schema
+                        </div>
+</div>
+</div>
+</div>
+<!-- Student Privacy Card (FERPA/GDPR) -->
+<div class="bg-primary text-white rounded-2xl shadow-xl p-8 flex flex-col relative overflow-hidden">
+<!-- Abstract decorative element -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+<div class="flex items-center gap-3 mb-8">
+<div class="p-2 bg-white/10 rounded-lg">
+<span class="material-symbols-outlined text-white" data-icon="enhanced_encryption">enhanced_encryption</span>
+</div>
+<div>
+<h3 class="text-xl font-bold">Privacy Health</h3>
+<p class="text-white/60 text-xs font-medium uppercase tracking-widest">Regulatory Checklist</p>
+</div>
+</div>
+<div class="space-y-5 flex-1">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded-md bg-green-500 flex items-center justify-center transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-white text-base font-bold" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">FERPA Consent Audit</p>
+<p class="text-[11px] text-white/50">Verified for Fall 2024 Cycle</p>
+</div>
+<span class="text-[10px] font-bold text-green-400">98% PASS</span>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded-md bg-green-500 flex items-center justify-center transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-white text-base font-bold" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">GDPR Right to Erasure</p>
+<p class="text-[11px] text-white/50">4 pending requests processed</p>
+</div>
+<span class="text-[10px] font-bold text-green-400">SYNCED</span>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-6 h-6 rounded-md border-2 border-white/20 flex items-center justify-center transition-all group-hover:border-white"></div>
+<div class="flex-1">
+<p class="text-sm font-bold">PII Masking Integrity</p>
+<p class="text-[11px] text-white/50">Scheduled validation: Oct 28</p>
+</div>
+<span class="text-[10px] font-bold text-white/30">PENDING</span>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<div class="w-6 h-6 rounded-md border-2 border-white/10 flex items-center justify-center"></div>
+<div class="flex-1">
+<p class="text-sm font-bold">HIPAA Research Shield</p>
+<p class="text-[11px] text-white/50">Manual audit required</p>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-3 bg-white text-primary font-bold rounded-xl text-sm hover:bg-slate-100 transition-colors shadow-lg">
+                    Generate Compliance Report
+                </button>
+</div>
+</section>
+<!-- Data Lineage Visualization Section -->
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+<div class="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-slate-200 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="account_tree">account_tree</span>
+</div>
+<div>
+<h3 class="text-xl font-bold text-slate-900 tracking-tight">Institutional Data Lineage</h3>
+<p class="text-sm text-slate-500">Mapping the lifecycle of 'Student Enrollment' records from source to insight.</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-xs font-bold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">Filter Source</button>
+<button class="px-4 py-2 text-xs font-bold bg-primary text-white rounded-lg shadow-md">Full Map View</button>
+</div>
+</div>
+<div class="p-10 bg-slate-100/30">
+<!-- Visual Flow Map -->
+<div class="relative flex flex-wrap lg:flex-nowrap justify-between items-center gap-8 py-10 px-4">
+<!-- SVG Connectors (Simplified representation) -->
+<div class="absolute inset-0 pointer-events-none hidden lg:block">
+<svg class="w-full h-full opacity-20" preserveaspectratio="none" viewbox="0 0 1000 200">
+<path d="M 220 100 L 380 100" fill="none" stroke="#0f172a" stroke-dasharray="5 5" stroke-width="2"></path>
+<path d="M 620 100 L 780 100" fill="none" stroke="#0f172a" stroke-dasharray="5 5" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Origin Node -->
+<div class="lineage-node relative z-10 w-full max-w-[240px] bg-white p-5 rounded-2xl border-t-4 border-blue-500 shadow-lg shadow-slate-200/50">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-blue-500 text-lg" data-icon="storage">storage</span>
+<span class="text-[10px] font-black uppercase text-blue-500 tracking-widest">Origin</span>
+</div>
+<h4 class="font-bold text-slate-900 mb-1">Banner ERP</h4>
+<p class="text-[11px] text-slate-500 leading-relaxed italic">Oracle SQL Instance: PROD_DB_01</p>
+<div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+<span class="text-[10px] font-bold text-slate-400">Schema v2.4</span>
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+</div>
+</div>
+<div class="lg:hidden flex justify-center w-full">
+<span class="material-symbols-outlined text-slate-300 text-3xl" data-icon="arrow_downward">arrow_downward</span>
+</div>
+<!-- Transformation Node -->
+<div class="lineage-node relative z-10 w-full max-w-[240px] bg-white p-5 rounded-2xl border-t-4 border-emerald-500 shadow-lg shadow-slate-200/50">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-emerald-500 text-lg" data-icon="settings_ethernet">settings_ethernet</span>
+<span class="text-[10px] font-black uppercase text-emerald-500 tracking-widest">Processing</span>
+</div>
+<h4 class="font-bold text-slate-900 mb-1">Informatics ETL</h4>
+<p class="text-[11px] text-slate-500 leading-relaxed italic">Encryption: AES-256 + PII Masking</p>
+<div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+<span class="text-[10px] font-bold text-slate-400">Job: Sync_Nightly</span>
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+</div>
+</div>
+<div class="lg:hidden flex justify-center w-full">
+<span class="material-symbols-outlined text-slate-300 text-3xl" data-icon="arrow_downward">arrow_downward</span>
+</div>
+<!-- Target Node -->
+<div class="lineage-node relative z-10 w-full max-w-[240px] bg-slate-900 p-5 rounded-2xl border-t-4 border-amber-500 shadow-xl">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-amber-500 text-lg" data-icon="insights">insights</span>
+<span class="text-[10px] font-black uppercase text-amber-500 tracking-widest">Insight</span>
+</div>
+<h4 class="font-bold text-white mb-1">Analytics Lakehouse</h4>
+<p class="text-[11px] text-white/50 leading-relaxed italic">PowerBI / Student Success App</p>
+<div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+<span class="text-[10px] font-bold text-white/30">Latency: 22ms</span>
+<span class="px-1.5 py-0.5 bg-amber-500/20 text-amber-500 text-[8px] font-bold rounded">ENCRYPTED</span>
+</div>
+</div>
+</div>
+<!-- Lineage Stats -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-6 px-4">
+<div class="bg-white p-4 rounded-xl border border-slate-200">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Volume (24h)</p>
+<p class="text-xl font-bold text-slate-900">1.2M Records</p>
+</div>
+<div class="bg-white p-4 rounded-xl border border-slate-200">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Transformation Time</p>
+<p class="text-xl font-bold text-slate-900">4.5 Minutes</p>
+</div>
+<div class="bg-white p-4 rounded-xl border border-slate-200">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Schema Drift</p>
+<p class="text-xl font-bold text-emerald-600">Stable</p>
+</div>
+<div class="bg-white p-4 rounded-xl border border-slate-200">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Owner</p>
+<p class="text-xl font-bold text-slate-900">IT Infrastruct.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Grid: Metadata & Logs -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
+<!-- Metadata Management Rail -->
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 flex flex-col h-full">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="book">book</span>
+<h3 class="text-lg font-bold text-primary">Key Data Stewards</h3>
+</div>
+<div class="space-y-6 flex-1">
+<div class="flex items-center gap-4">
+<img alt="Steward" class="w-12 h-12 rounded-xl object-cover ring-2 ring-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfTDt2uRkQICmikUYXt3Li8_nyiRZIoMlByzQVHA-5WoKxCQFTv0WWS2uanV_j1PwgY2E4s466xS_LeaprnUIRoGxyGebVmZvP-bkyZycnNZVzZ4aOHDDUqQFqU_e6fPZJqw2yJnKCQg22rBi7fyg5Hkcx5ef6CJSeWsOohsIPAmknx8Ut9piR4DGqy2hnqA_yn_fZqNaNxzT33rNPL-YxqSyyF2q4mQ3zmTSxupR_to1nvK_zoF1ih0bsZ9xtTXAk6XoaUmwduZw"/>
+<div>
+<p class="text-sm font-bold text-slate-900">Dr. Elena Rossi</p>
+<p class="text-[10px] text-blue-600 font-black uppercase tracking-tight">Academic Affairs Domain</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<img alt="Steward" class="w-12 h-12 rounded-xl object-cover ring-2 ring-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_-r_Qdll2tpfX4GXLOag1zNF27JvUAi66O4qAPjGxluuR_wMthhsypZqhpYcJxtXBJgihjUMGV8i0ZC3Fcde65jP4uMRCg5ncz0bDHJQSG8PhdXxNYY3xCo9ThOevEdduR8muKGbkgBiw4qFdymDIFXUH0TqM_h-Lt7xklle4nip10qV2WXbUo9f7DXQsL1nkw4PGvq3tpA1pf1eOVCZHwwEdOffAe1PjbhcnjLGAzsEcL1TzAnWfOIepYNf0K0dvvF9nHl5aUow"/>
+<div>
+<p class="text-sm font-bold text-slate-900">Marcus Thorne</p>
+<p class="text-[10px] text-blue-600 font-black uppercase tracking-tight">IT Infrastructure Domain</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<img alt="Steward" class="w-12 h-12 rounded-xl object-cover ring-2 ring-slate-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0H7bXNIaJxFZ24cNmRlyTtKofsXraQt4APPB9J4guCxIA1yuYRkeJIv7WgSe-X0pGDanYl8LJnA0ybcT799Vcg0a3CCaUpMi870cZFWrjhTFOl0cw3Fy1zLC1hBWOzDR5Nv3Td1DRqF_o_Sumu_QJaiAs657KLVD8pswKPANoxcABlDL5jOccEdGlMQHbq5cTsji1n_JDsRNH9opfOI_ltLkX8FE3Z5HgCeSqtWSOgcZkLlIsjMZcz2iBf8-RyG8qxD82vBypwk"/>
+<div>
+<p class="text-sm font-bold text-slate-900">Sarah Jenkins</p>
+<p class="text-[10px] text-blue-600 font-black uppercase tracking-tight">Compliance &amp; Policy</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-100">
+<p class="text-xs text-slate-500 leading-relaxed italic">"Metadata fidelity ensures that institutional data serves as a single source of truth for all academic units."</p>
+<p class="mt-2 text-[10px] font-black text-primary uppercase">— Governance Charter v3.0</p>
+</div>
+</div>
+<!-- Anomaly Log Section -->
+<div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+<div class="p-8 border-b border-slate-100 flex justify-between items-center">
+<h3 class="text-lg font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500" data-icon="report">report</span>
+                        Critical Governance Events
+                    </h3>
+<button class="text-xs font-bold text-blue-600 hover:underline">View All History</button>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-100">
+<th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Incident ID</th>
+<th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Domain</th>
+<th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Severity</th>
+<th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</th>
+<th class="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-4">
+<p class="text-sm font-bold text-slate-900">#LOG-9210-X</p>
+<p class="text-[10px] text-slate-500">2024-10-24 14:12</p>
+</td>
+<td class="px-8 py-4">
+<span class="text-xs font-medium px-2 py-1 bg-slate-100 text-slate-600 rounded">Enrollment API</span>
+</td>
+<td class="px-8 py-4">
+<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[9px] font-black rounded uppercase">Critical</span>
+</td>
+<td class="px-8 py-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+<span class="text-xs font-bold text-slate-700">Open</span>
+</div>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="text-xs font-bold text-primary hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors">Investigate</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-4">
+<p class="text-sm font-bold text-slate-900">#LOG-8912-S</p>
+<p class="text-[10px] text-slate-500">2024-10-23 09:30</p>
+</td>
+<td class="px-8 py-4">
+<span class="text-xs font-medium px-2 py-1 bg-slate-100 text-slate-600 rounded">Financial Aid</span>
+</td>
+<td class="px-8 py-4">
+<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[9px] font-black rounded uppercase">Medium</span>
+</td>
+<td class="px-8 py-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<span class="text-xs font-bold text-slate-700">In Review</span>
+</div>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="text-xs font-bold text-primary hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors">Details</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-8 py-4">
+<p class="text-sm font-bold text-slate-900">#LOG-8801-A</p>
+<p class="text-[10px] text-slate-500">2024-10-22 18:45</p>
+</td>
+<td class="px-8 py-4">
+<span class="text-xs font-medium px-2 py-1 bg-slate-100 text-slate-600 rounded">Graduation</span>
+</td>
+<td class="px-8 py-4">
+<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black rounded uppercase">Resolved</span>
+</td>
+<td class="px-8 py-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+<span class="text-xs font-bold text-slate-700">Archived</span>
+</div>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="text-xs font-bold text-primary hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors">History</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

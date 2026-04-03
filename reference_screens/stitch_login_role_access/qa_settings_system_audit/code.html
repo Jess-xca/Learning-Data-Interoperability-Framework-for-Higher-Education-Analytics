@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quality Assurance Portal - System Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d6e3ff",
+                    "on-tertiary-container": "#00b47d",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-primary-container": "#86a0cd",
+                    "surface-container-high": "#dee8ff",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-bright": "#f9f9ff",
+                    "on-secondary-fixed": "#111c2c",
+                    "inverse-on-surface": "#ebf1ff",
+                    "primary-fixed-dim": "#adc7f7",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#d8e3fa",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#263142",
+                    "secondary-fixed-dim": "#bcc7dd",
+                    "secondary": "#545f72",
+                    "on-secondary-container": "#586377",
+                    "outline": "#74777f",
+                    "surface-container-highest": "#d8e3fa",
+                    "on-background": "#111c2c",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#e7eeff",
+                    "tertiary": "#002617",
+                    "surface": "#f9f9ff",
+                    "tertiary-container": "#003e28",
+                    "secondary-fixed": "#d8e3fa",
+                    "secondary-container": "#d5e0f7",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "primary-container": "#1a365d",
+                    "background": "#f9f9ff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c4c6cf",
+                    "on-surface-variant": "#43474e",
+                    "surface-container-low": "#f0f3ff",
+                    "surface-dim": "#cfdaf1",
+                    "primary": "#002045",
+                    "on-surface": "#111c2c",
+                    "surface-tint": "#455f88",
+                    "on-primary-fixed": "#001b3c",
+                    "inverse-primary": "#adc7f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8e3fa; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-[#ffffff] dark:bg-slate-950 shadow-xl dark:shadow-none flex flex-col py-6 gap-2 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#1A365D]">Institution HQ</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Fall Semester 2024</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Active Tab: Strategic Planning mapped to QA/Audit Intent -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined">school</span> Enrollment
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined">verified</span> Accreditation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#f0f3ff] dark:bg-slate-800 text-[#1A365D] dark:text-white rounded-r-full hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span> Strategic Planning
+            </a>
+<!-- Minimal placeholder for other 10 items for visual balance -->
+<div class="pt-4 pb-2 px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Modules</div>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 font-sans text-xs" href="#">
+<span class="material-symbols-outlined text-sm">magnification_small</span> Faculty Research
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 font-sans text-xs" href="#">
+<span class="material-symbols-outlined text-sm">trending_up</span> Student Success
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:translate-x-1 transition-transform duration-200 font-sans text-xs" href="#">
+<span class="material-symbols-outlined text-sm">analytics</span> Departmental Growth
+            </a>
+</nav>
+<div class="px-6 py-4">
+<button class="w-full bg-primary text-white py-2 rounded-xl font-semibold text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">
+                Generate Report
+            </button>
+</div>
+<div class="mt-auto px-3 border-t border-slate-100 pt-4 pb-2">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 font-sans text-sm font-medium" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-[#f9f9ff] dark:bg-slate-900 flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-bold text-[#1A365D] dark:text-white">Quality Assurance Portal</h1>
+<span class="h-4 w-px bg-outline-variant"></span>
+<p class="text-sm font-medium text-slate-500">System Settings</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-primary transition-colors">help</span>
+<div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+<div class="text-right">
+<p class="text-xs font-bold text-[#1A365D]">Curator Admin</p>
+<p class="text-[10px] text-on-tertiary-container font-semibold">QA Supervisor</p>
+</div>
+<img alt="User profile" class="w-8 h-8 rounded-full border-2 border-primary-container" data-alt="professional headshot of a middle-aged female administrator with a confident expression in a brightly lit academic office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJretbmxmOKZ7-Rlsid_yvmI_nhnNAz0683wK8in6TZrHbdRBdaP0hIWBSxcCcMRl3ZqrnU6Wa9yd8JZn9utDMZJVJgf812vfkOcclZ4kiS0Vq9mSB2bnuU-4Us3_aM-Ls6DynHHgf6mzixUvJvCwjigK6jiO3ceOznjlZEjgJHkQ6O9H1Z69SlQikWi6OIVr_T3VsiBmY61ltsUuNqwTwSPJ9OKoR17BtnluPKifGg-K_JTsDMkcTe0k2uK04__PNh3pZ-Uj9DMQ"/>
+</div>
+</div>
+</header>
+<!-- Body Content -->
+<div class="p-10 flex-1 space-y-10">
+<!-- Hero Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-surface-container pb-8">
+<div class="max-w-2xl">
+<h2 class="text-4xl font-extrabold text-primary tracking-tight mb-3">System Compliance &amp; Quality Controls</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                        Manage institutional integrity frameworks, secure administrative access, and monitor the automated audit trails for all higher education datasets.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 bg-surface-container-high text-primary font-bold rounded-xl hover:bg-primary-fixed transition-colors">
+                        View Log History
+                    </button>
+<button class="px-6 py-2.5 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                        Run Global Sync
+                    </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Account Security (6 cols) -->
+<div class="md:col-span-7 bg-surface-container-lowest rounded-xl p-8 flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">admin_panel_settings</span>
+<h3 class="text-xl font-bold text-primary">Account Security</h3>
+</div>
+<span class="px-3 py-1 bg-tertiary-container/10 text-on-tertiary-container text-xs font-bold rounded-full border border-on-tertiary-container/20">STATUS: PROTECTED</span>
+</div>
+<div class="space-y-6">
+<div class="p-5 bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">vibration</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Multi-Factor Authentication</p>
+<p class="text-sm text-on-surface-variant">Auth App &amp; Security Key required for all QA actions</p>
+</div>
+</div>
+<button class="text-primary font-bold text-sm underline underline-offset-4">Manage</button>
+</div>
+<div>
+<h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Recent Access Activity</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between py-3 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">devices</span>
+<span class="text-sm font-semibold">Chrome on MacOS (San Francisco, US)</span>
+</div>
+<span class="text-xs text-on-surface-variant">Active Now</span>
+</div>
+<div class="flex items-center justify-between py-3 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">smartphone</span>
+<span class="text-sm font-semibold">Academic App (iOS 17)</span>
+</div>
+<span class="text-xs text-on-surface-variant">2 hours ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Integrity Insight (5 cols) -->
+<div class="md:col-span-5 bg-primary-container rounded-xl p-8 text-white relative overflow-hidden">
+<div class="relative z-10 flex flex-col h-full">
+<div class="mb-auto">
+<h3 class="text-xl font-bold mb-2">Integrity Health</h3>
+<p class="text-on-primary-container text-sm">System-wide data consistency score</p>
+<div class="mt-8">
+<p class="text-6xl font-black tracking-tighter">99.8%</p>
+<p class="text-on-tertiary-container font-bold flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-sm">trending_up</span> Above Threshold
+                                </p>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-white/10">
+<div class="flex justify-between items-center text-xs mb-2">
+<span class="font-bold text-on-primary-container uppercase">System Thresholds</span>
+<span class="text-white">0.02% Critical / 0.05% Warn</span>
+</div>
+<div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full w-[99%]"></div>
+</div>
+</div>
+</div>
+<!-- Decorative backgorund pattern -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+</div>
+<!-- Notification Preferences (4 cols) -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
+<h3 class="text-lg font-bold text-primary mb-6">Alert Configurations</h3>
+<div class="space-y-5">
+<label class="flex items-start gap-4 cursor-pointer">
+<div class="mt-1">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+</div>
+<div>
+<p class="font-bold text-sm">Compliance Breaches</p>
+<p class="text-xs text-on-surface-variant">Immediate SMS &amp; Email for PII violations</p>
+</div>
+</label>
+<label class="flex items-start gap-4 cursor-pointer">
+<div class="mt-1">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+</div>
+<div>
+<p class="font-bold text-sm">System Sync Lag</p>
+<p class="text-xs text-on-surface-variant">Alert if latency exceeds 300ms</p>
+</div>
+</label>
+<label class="flex items-start gap-4 cursor-pointer">
+<div class="mt-1">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+</div>
+<div>
+<p class="font-bold text-sm">Daily Quality Reports</p>
+<p class="text-xs text-on-surface-variant">Summary digest at 08:00 UTC</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Data Integrity Settings (8 cols) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-lg font-bold text-primary">Data Integrity Settings</h3>
+<span class="text-xs font-bold text-primary px-3 py-1 bg-primary-fixed rounded-lg">PROVISIONED BY HQ</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<div>
+<label class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 block">Sync Frequency</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-sm py-3 px-4 font-medium">
+<option>Real-time Streaming</option>
+<option>Every 5 Minutes</option>
+<option>Hourly Batch</option>
+<option>Nightly Reconciliation</option>
+</select>
+</div>
+<div>
+<label class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 block">Error Tolerance Level</label>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant mt-2">
+<span>STRICT (0%)</span>
+<span>MODERATE</span>
+<span>FLEXIBLE (2%)</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2 block">Archive Protocol</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-sm py-3 px-4 font-medium">
+<option>Rolling 7 Years (Compliance Std)</option>
+<option>Indefinite / Permanent</option>
+<option>90 Day Hot / 5 Year Cold</option>
+</select>
+</div>
+<div class="pt-2">
+<button class="w-full py-3 bg-tertiary text-on-tertiary rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+                                    Validate Engine Config
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Audit Log Section (Full Width) -->
+<section>
+<div class="flex items-center justify-between mb-6 px-2">
+<h3 class="text-2xl font-bold text-primary">System Audit Log</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-outline-variant/20 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">filter_alt</span> Filter By Module
+                        </div>
+<div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-outline-variant/20 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">calendar_today</span> Last 24 Hours
+                        </div>
+</div>
+</div>
+<div class="bg-white rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-primary-container text-on-primary-container uppercase text-[10px] font-black tracking-widest">
+<tr>
+<th class="px-8 py-4">Timestamp</th>
+<th class="px-6 py-4">System Event</th>
+<th class="px-6 py-4">Triggered By</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-8 py-4 text-right">Details</th>
+</tr>
+</thead>
+<tbody class="text-sm font-medium">
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-mono">2024-10-24 14:22:01</td>
+<td class="px-6 py-5 text-primary">Schema Validation: Enrollment DB</td>
+<td class="px-6 py-5">Automated Task</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Success
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">open_in_new</span></td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-mono">2024-10-24 13:05:44</td>
+<td class="px-6 py-5 text-primary">Admin Access: MFA Challenge</td>
+<td class="px-6 py-5">User: ID_9921</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Verified
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">open_in_new</span></td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-mono">2024-10-24 11:40:12</td>
+<td class="px-6 py-5 text-primary">Sync Latency Warning</td>
+<td class="px-6 py-5">System Monitor</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-error-container text-on-error-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Resolved
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right"><span class="material-symbols-outlined text-slate-400 cursor-pointer">open_in_new</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Institutional Footer -->
+<footer class="w-full py-8 mt-auto flex flex-col md:flex-row justify-between items-center px-12 ml-64 border-t border-[#f0f3ff] bg-[#f9f9ff] dark:bg-slate-950">
+<div class="mb-4 md:mb-0">
+<p class="text-xs font-medium uppercase tracking-wider text-slate-500">
+                    © 2024 Higher Education Analytics Framework. All rights reserved.
+                </p>
+</div>
+<div class="flex gap-8">
+<a class="text-xs font-medium uppercase tracking-wider text-slate-500 hover:text-[#1A365D] transition-colors" href="#">Documentation</a>
+<a class="text-xs font-medium uppercase tracking-wider text-slate-500 hover:text-[#1A365D] transition-colors" href="#">Technical Support</a>
+<a class="text-xs font-medium uppercase tracking-wider text-slate-500 hover:text-[#1A365D] transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs font-medium uppercase tracking-wider text-slate-500 hover:text-[#1A365D] transition-colors" href="#">Institutional Legal</a>
+</div>
+</footer>
+</main>
+</body></html>

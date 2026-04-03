@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator | Research &amp; Development Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#00b47d",
+              "surface-container": "#e7eeff",
+              "surface": "#f9f9ff",
+              "on-secondary-container": "#586377",
+              "secondary-container": "#d5e0f7",
+              "surface-variant": "#d8e3fa",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-dim": "#cfdaf1",
+              "on-surface-variant": "#43474e",
+              "inverse-surface": "#263142",
+              "on-secondary-fixed-variant": "#3c475a",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#6ffbbe",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed": "#002113",
+              "primary-container": "#1a365d",
+              "tertiary": "#002617",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "secondary-fixed-dim": "#bcc7dd",
+              "on-secondary-fixed": "#111c2c",
+              "on-primary-fixed-variant": "#2d476f",
+              "surface-container-high": "#dee8ff",
+              "primary": "#002045",
+              "surface-container-highest": "#d8e3fa",
+              "secondary-fixed": "#d8e3fa",
+              "inverse-primary": "#adc7f7",
+              "on-background": "#111c2c",
+              "primary-fixed": "#d6e3ff",
+              "surface-tint": "#455f88",
+              "on-surface": "#111c2c",
+              "background": "#f9f9ff",
+              "surface-bright": "#f9f9ff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#adc7f7",
+              "outline-variant": "#c4c6cf",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#4edea3",
+              "secondary": "#545f72",
+              "tertiary-container": "#003e28",
+              "surface-container-low": "#f0f3ff",
+              "on-primary-fixed": "#001b3c",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#ebf1ff",
+              "outline": "#74777f",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#86a0cd"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; }
+      .font-headline { font-family: 'Newsreader', serif; }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tnum { font-variant-numeric: tabular-nums; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-[#f0f3ff] flex flex-col py-8 px-4 gap-y-2 z-50">
+<div class="mb-8 px-4">
+<h1 class="text-lg font-extrabold tracking-tighter text-[#1A365D] uppercase">Academic Curator</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-secondary-container mt-1">University Analytics</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-[#1A365D] transition-all duration-200 ease-out hover:bg-[#f9f9ff] scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#1A365D] font-bold bg-[#ffffff] rounded-l-xl transition-all duration-200 ease-out scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                Performance
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-[#1A365D] transition-all duration-200 ease-out hover:bg-[#f9f9ff] scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+                Faculty Hub
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-[#1A365D] transition-all duration-200 ease-out hover:bg-[#f9f9ff] scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+                Quality Assurance
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-[#1A365D] transition-all duration-200 ease-out hover:bg-[#f9f9ff] scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+                Resource Planning
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-[#1A365D] transition-all duration-200 ease-out hover:bg-[#f9f9ff] scale-95 active:scale-100 font-['Inter'] antialiased tracking-tight text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto px-4 pt-4 border-t border-surface-variant/30">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl text-xs font-bold uppercase tracking-widest transition-transform active:scale-95">
+                Switch Role
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-[#f9f9ff]/80 backdrop-blur-md flex items-center justify-between px-8 border-b border-[#f0f3ff]/50">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-[10px] font-bold tracking-widest focus:ring-2 focus:ring-[#1A365D] w-64 transition-all" placeholder="SEARCH RESEARCH DATA..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors font-['Inter'] font-semibold text-xs uppercase tracking-widest" href="#">Global Trends</a>
+<a class="text-[#1A365D] border-b-2 border-[#1A365D] pb-1 font-['Inter'] font-semibold text-xs uppercase tracking-widest" href="#">Institutional KPI</a>
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors font-['Inter'] font-semibold text-xs uppercase tracking-widest" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<img alt="User Profile" class="w-8 h-8 rounded-full ring-2 ring-surface-variant" data-alt="professional portrait of an academic lecturer with glasses in a library setting, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHmwoEqgJaIK80KtIgoZV65n2upSIr5KRqzH9T2viwqxrzA7y2o-2gLtst_ZyrOkgy6J3XBD7Tsddt8oCaiXIdZAiHrxpRl9urMe4D78j9K6apdr3UlrJkPjak7qHpXU0EIBnDHMzcM899pwZgvIpf1dxHCqeFoANf_iyidksJry_-io9ZKSWR4wLA66yYHKICHRGDf201Rq5Ftdv4R7D6IHFdLHOs_BPeptarakkH98Nnn9lw48wJMlAlCHrMWDhzlorUch6gxTY"/>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 pb-12 px-12 max-w-7xl mx-auto space-y-12">
+<!-- Page Header -->
+<section class="flex justify-between items-end">
+<div class="space-y-2">
+<span class="text-xs font-bold tracking-[0.2em] text-on-secondary-container uppercase">Research Portfolio</span>
+<h2 class="text-5xl font-headline font-bold text-primary">Dr. Julian Vance</h2>
+<p class="text-secondary max-w-lg italic font-headline text-lg">Senior Lecturer in Computational Humanities • Tenure Track Year 4</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-surface-container-lowest text-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-surface-container transition-colors">Export Dossier</button>
+<button class="px-6 py-3 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-primary/10 active:scale-95 transition-transform">Update Portfolio</button>
+</div>
+</section>
+<!-- Publication Throughput (Metrics Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="md:col-span-2 bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-on-primary flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-bold tracking-[0.3em] uppercase opacity-70">Total Research Impact</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="auto_graph">auto_graph</span>
+</div>
+<div>
+<div class="text-6xl font-headline font-bold mb-2 tnum">12,482</div>
+<div class="text-sm opacity-80 uppercase tracking-widest font-semibold">Consolidated Citations</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] font-bold tracking-[0.3em] text-on-secondary-container uppercase">Books Published</span>
+<div>
+<div class="text-5xl font-headline font-bold text-primary tnum">04</div>
+<div class="text-[10px] text-on-tertiary-container font-bold uppercase mt-2">+1 Under Review</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between">
+<span class="text-[10px] font-bold tracking-[0.3em] text-on-secondary-container uppercase">Journal Articles</span>
+<div>
+<div class="text-5xl font-headline font-bold text-primary tnum">42</div>
+<div class="text-[10px] text-on-tertiary-container font-bold uppercase mt-2">H-Index: 28</div>
+</div>
+</div>
+</section>
+<!-- Main Bento Section -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Grant Pipeline -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-low rounded-xl overflow-hidden">
+<div class="p-8 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="text-xl font-headline font-bold text-primary">Grant Pipeline &amp; Funding</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-[10px] font-bold uppercase tracking-wider">Total: $1.4M</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-primary-container text-on-primary-container">
+<th class="px-8 py-4 text-left text-[10px] font-bold uppercase tracking-widest">Grant Entity</th>
+<th class="px-8 py-4 text-left text-[10px] font-bold uppercase tracking-widest">Status</th>
+<th class="px-8 py-4 text-right text-[10px] font-bold uppercase tracking-widest">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="bg-surface hover:bg-surface-container-high transition-colors group">
+<td class="px-8 py-6 font-semibold text-primary">National Endowment for Humanities</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-8 py-6 text-right font-headline font-bold text-primary tnum">$840,000</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6 font-semibold text-primary">Global Innovation Fund</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Renewal</span>
+</td>
+<td class="px-8 py-6 text-right font-headline font-bold text-primary tnum">$560,000</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6 font-semibold text-primary">Mellon Foundation Grant</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant text-[10px] font-bold uppercase">Pending</span>
+</td>
+<td class="px-8 py-6 text-right font-headline font-bold text-primary tnum">$125,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Professional Development -->
+<section class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest p-8 rounded-xl">
+<h3 class="text-lg font-headline font-bold text-primary mb-6">Development Milestones</h3>
+<div class="space-y-6 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1px] before:bg-outline-variant/30">
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-tertiary border-4 border-tertiary-fixed"></div>
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider">Internal Peer Review</h4>
+<p class="text-[11px] text-secondary mt-1">Completed Q3 - High Commendation</p>
+</div>
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-primary border-4 border-primary-fixed"></div>
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider">Ethics Compliance</h4>
+<p class="text-[11px] text-secondary mt-1">Renewal valid through 2026</p>
+</div>
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-surface-variant border-4 border-outline-variant"></div>
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider">Advanced Pedagogy Cert</h4>
+<p class="text-[11px] text-secondary mt-1">Enrollment phase - Estimated completion Jan</p>
+</div>
+</div>
+</div>
+<!-- Resource Optimization (HOD Insight) -->
+<div class="bg-[#e7eeff] p-6 rounded-xl border border-primary/5">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="lightbulb">lightbulb</span>
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest">HOD Insight</h4>
+</div>
+<p class="text-xs text-on-secondary-container leading-relaxed font-medium">
+                            Current grant intensity suggests high research workload. 
+                            <span class="text-primary font-bold">Recommendation:</span> Reassign 2 seminar hours to TA to prioritize NEH submission deadline.
+                        </p>
+<button class="mt-4 text-[10px] font-bold text-primary uppercase border-b border-primary/30 hover:border-primary transition-all">Review Workload Plan</button>
+</div>
+</section>
+</div>
+<!-- Collaboration Map Section -->
+<section class="grid grid-cols-12 gap-8">
+<div class="col-span-12 lg:col-span-12 bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden min-h-[400px]">
+<div class="relative z-10">
+<h3 class="text-xl font-headline font-bold text-primary mb-2">Faculty Network</h3>
+<p class="text-xs text-secondary uppercase tracking-widest font-semibold mb-8">Inter-Departmental Co-Authorship Mapping</p>
+<div class="flex flex-wrap gap-8">
+<!-- Visual placeholder for the "Map" aesthetic -->
+<div class="flex-1 min-h-[300px] bg-surface rounded-xl border border-outline-variant/10 relative">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #002045 1px, transparent 0); background-size: 24px 24px;"></div>
+<!-- Simulating Nodes -->
+<div class="absolute top-1/4 left-1/4 flex flex-col items-center">
+<img class="w-12 h-12 rounded-full border-2 border-primary" data-alt="portrait of female professor, soft academic aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTlc34mj8KP5FXoT25sV_yrYv2L2Y_ABxbcA1pPab3I6PgenT3_cJbcHwnl4ajf4rzoSux6YKkp8dffY0dG06Q8E5PwksvuauGGcBRBRM4huLyqkiClxGUO0ecG9uUmHnIyD6aa2iyUbWcBr-5ALPd07FnQBrDle8s5XbBozq2kKUfgx6d19hz5AgegZFCJCJAjU_rqBFJSInXbpRa1KsqhFcWjQU8mzcg8uN7vREk3J0LfokWRWNv6gzrThiX8y0TPa3ASZGv6i0"/>
+<span class="text-[10px] font-bold mt-2 uppercase">Dr. Sarah Chen</span>
+</div>
+<div class="absolute bottom-1/3 right-1/4 flex flex-col items-center">
+<img class="w-12 h-12 rounded-full border-2 border-primary" data-alt="portrait of male researcher in professional attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC88LAct8B8-7YG-qEnZC4QyJaZb2NEdBYs0S33VwdFKXjmxoD0cR1x9j7uoOBzwyHnvKgbN_wxZB6emrMm3fEIAzZ7iyaillyDEn5q-ariSoYxruBTW32CjSo3P1Z2c_UcSTD-qscWSAXNWGaFNZfN-mCcRL5nLD_oVP-1WrIyNO18bNs2FoRnuNr684hjp2zrsvIo53rUJ0uWFHceXB-PZl8_OUMBhSn6l9mSnQMkSdDdjQ5zV9_C9-C9E3Y-tsaAR5IhODbJNps"/>
+<span class="text-[10px] font-bold mt-2 uppercase">Prof. Marcus Thorne</span>
+</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-on-primary ring-4 ring-primary-fixed">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<span class="text-[10px] font-bold mt-2 uppercase text-primary">Julian Vance (You)</span>
+</div>
+<!-- Connecting Lines (SVG Sim) -->
+<svg class="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#002045" stroke-dasharray="4 2" stroke-width="2" x1="25%" x2="50%" y1="25%" y2="50%"></line>
+<line stroke="#002045" stroke-dasharray="4 2" stroke-width="2" x1="75%" x2="50%" y1="66%" y2="50%"></line>
+</svg>
+</div>
+<div class="w-full lg:w-72 space-y-4">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<h5 class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">Collaboration Insights</h5>
+<div class="text-2xl font-headline font-bold text-primary">12</div>
+<p class="text-[10px] text-secondary">Active cross-department partners</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<h5 class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">Network Strength</h5>
+<div class="h-1.5 w-full bg-surface-variant rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-[10px] text-secondary mt-2">Top 15% of Faculty Engagement</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB Contextual (Suppressed per task guidance on Detail/Settings pages, but let's assume this is the main Portfolio Hub) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95 group">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+<span class="absolute right-full mr-4 bg-primary text-on-primary px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">New Entry</span>
+</button>
+</body></html>

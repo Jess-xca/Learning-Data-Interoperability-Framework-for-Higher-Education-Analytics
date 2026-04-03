@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator - Curriculum &amp; Program Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-fixed": "#002113",
+                        "inverse-primary": "#adc7f7",
+                        "surface-container": "#e7eeff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "tertiary-container": "#003e28",
+                        "primary-fixed": "#d6e3ff",
+                        "on-surface": "#111c2c",
+                        "surface": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#d5e0f7",
+                        "on-primary-container": "#86a0cd",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "tertiary": "#002617",
+                        "surface-container-low": "#f0f3ff",
+                        "outline": "#74777f",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#43474e",
+                        "on-primary-fixed": "#001b3c",
+                        "secondary": "#545f72",
+                        "background": "#f9f9ff",
+                        "on-secondary-fixed": "#111c2c",
+                        "primary-fixed-dim": "#adc7f7",
+                        "surface-tint": "#455f88",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-tertiary-container": "#00b47d",
+                        "surface-variant": "#d8e3fa",
+                        "primary": "#002045",
+                        "inverse-surface": "#263142",
+                        "primary-container": "#1a365d",
+                        "secondary-fixed": "#d8e3fa",
+                        "on-secondary-container": "#586377",
+                        "surface-container-high": "#dee8ff",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "secondary-fixed-dim": "#bcc7dd",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#111c2c",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d8e3fa",
+                        "outline-variant": "#c4c6cf",
+                        "surface-dim": "#cfdaf1"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(216, 227, 250, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-800 flex flex-col py-6 px-4 z-50 border-r border-slate-200 dark:border-slate-700">
+<div class="mb-10 px-2 flex items-center space-x-3">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="text-xl font-black text-blue-950 dark:text-white leading-none">Arts &amp; Sciences</h1>
+<p class="text-xs font-medium text-slate-500 uppercase tracking-widest mt-1">Department Head</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">groups</span>
+<span>Faculty Analytics</span>
+</div>
+<!-- Active Tab: Curriculum -->
+<div class="bg-white dark:bg-slate-900 text-blue-900 dark:text-blue-100 rounded-lg shadow-sm flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_books</span>
+<span>Curriculum</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span>Budget &amp; Approvals</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">school</span>
+<span>Student Success</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</div>
+</nav>
+<div class="pt-6 border-t border-slate-200 dark:border-slate-700 space-y-1">
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">contact_support</span>
+<span>Support</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center space-x-3 px-4 py-3 cursor-pointer font-sans text-sm font-medium transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span>Sign Out</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-slate-50/80 backdrop-blur-md dark:bg-slate-900/80 flex justify-between items-center px-8 py-3 w-full top-0 sticky z-40 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center space-x-8">
+<span class="text-lg font-bold tracking-tighter text-blue-950 dark:text-blue-50">Academic Curator</span>
+<nav class="hidden lg:flex space-x-6">
+<span class="text-slate-600 dark:text-slate-400 hover:text-blue-800 font-sans text-sm tracking-tight cursor-pointer active:opacity-80 transition-colors duration-200">Dashboard</span>
+<span class="text-slate-600 dark:text-slate-400 hover:text-blue-800 font-sans text-sm tracking-tight cursor-pointer active:opacity-80 transition-colors duration-200">Faculty Analytics</span>
+<span class="text-blue-700 dark:text-blue-300 font-semibold border-b-2 border-blue-900 dark:border-blue-400 pb-1 font-sans text-sm tracking-tight cursor-pointer active:opacity-80 transition-colors duration-200">Curriculum</span>
+<span class="text-slate-600 dark:text-slate-400 hover:text-blue-800 font-sans text-sm tracking-tight cursor-pointer active:opacity-80 transition-colors duration-200">Budget &amp; Approvals</span>
+<span class="text-slate-600 dark:text-slate-400 hover:text-blue-800 font-sans text-sm tracking-tight cursor-pointer active:opacity-80 transition-colors duration-200">Student Success</span>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative flex items-center bg-slate-200/50 dark:bg-slate-800 rounded-full px-4 py-1.5 w-64">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-full text-slate-700 dark:text-slate-200" placeholder="Search curriculum data..." type="text"/>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors rounded-full">
+<span class="material-symbols-outlined">help</span>
+</button>
+<img alt="Department Head Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-blue-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVkF9HtTE-RWn6ch8CO5eDs5F5ORs4mTTlWyxI_KaQLvSnUO4MzwzOyDO6UX6gusGS9RJmyrL_ZuGtWN2f2I7agcBIwYY-O8ztXvlbrPPKC3vEs4QtTLKdDkN5V-mIHQs5nDtyUfjJLROO6jDm004SPCO7qHmtjHAXVBElBdhx1aMf7mFB2BXiRR5KrHHStWA8pcgAvFIRZ9DPHFRhxwDmQQ1DzmbzpVYjvFBZyiYgbgwsJXTgVeeW8JtZBf461n78-gbKPkEhf_o"/>
+</div>
+</header>
+<!-- Page Content -->
+<div class="px-8 py-8 flex-1 bg-surface">
+<!-- Page Header Section -->
+<div class="mb-10">
+<div class="flex items-center text-xs font-semibold tracking-widest text-on-surface-variant opacity-70 mb-2 uppercase">
+                    Institutional Oversight • Curriculum Analytics
+                </div>
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-black tracking-tight text-primary leading-tight">Curriculum &amp; Program Strategy</h2>
+<p class="text-lg text-on-surface-variant max-w-2xl mt-1">Review longitudinal effectiveness, compliance mappings, and structural sequencing for departmental excellence.</p>
+</div>
+<div class="flex space-x-3">
+<button class="px-6 py-2.5 rounded-xl bg-secondary-container text-on-secondary-container font-semibold text-sm hover:opacity-90 transition-opacity flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">file_download</span>
+                            Institutional Report
+                        </button>
+<button class="px-6 py-2.5 rounded-xl bg-primary text-on-primary font-semibold text-sm hover:opacity-90 transition-opacity flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">add</span>
+                            New Curriculum Proposal
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<!-- Primary KPI: Program Completion Rates -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl border border-surface-variant/30 flex flex-col justify-between overflow-hidden relative group">
+<div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">trending_up</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-primary-container uppercase tracking-wider mb-6">Program Completion Rates (4-Year Avg)</h3>
+<div class="flex items-baseline space-x-4">
+<span class="text-6xl font-black text-primary">82.4%</span>
+<span class="text-tertiary-container bg-tertiary-fixed-dim/20 px-2 py-1 rounded text-xs font-bold flex items-center">
+<span class="material-symbols-outlined text-xs mr-1">arrow_upward</span>
+                                3.2% vs Prev Year
+                            </span>
+</div>
+<div class="mt-12 grid grid-cols-4 gap-6">
+<div class="space-y-3">
+<div class="text-xs text-on-surface-variant font-medium">B.S. Computer Science</div>
+<div class="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 88%"></div>
+</div>
+<div class="text-[10px] font-bold text-primary">88%</div>
+</div>
+<div class="space-y-3">
+<div class="text-xs text-on-surface-variant font-medium">B.A. Political Science</div>
+<div class="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 76%"></div>
+</div>
+<div class="text-[10px] font-bold text-primary">76%</div>
+</div>
+<div class="space-y-3">
+<div class="text-xs text-on-surface-variant font-medium">M.S. Data Analytics</div>
+<div class="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 92%"></div>
+</div>
+<div class="text-[10px] font-bold text-primary">92%</div>
+</div>
+<div class="space-y-3">
+<div class="text-xs text-on-surface-variant font-medium">B.A. Digital Arts</div>
+<div class="h-1.5 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 73%"></div>
+</div>
+<div class="text-[10px] font-bold text-primary">73%</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary KPI: Accreditation -->
+<div class="col-span-12 lg:col-span-4 bg-primary-container p-8 rounded-xl text-white flex flex-col justify-between shadow-lg">
+<div>
+<div class="flex justify-between items-start mb-8">
+<h3 class="text-sm font-bold text-on-primary-container uppercase tracking-wider">Accreditation Mapping</h3>
+<span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">ABET Status</span>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium opacity-80">Criterion 1: Student Perf.</span>
+<span class="text-sm font-bold text-tertiary-fixed-dim">COMPLIANT</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium opacity-80">Criterion 3: Outcomes</span>
+<span class="text-sm font-bold text-tertiary-fixed-dim">98% Mapped</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium opacity-80">Criterion 5: Curriculum</span>
+<span class="text-sm font-bold text-tertiary-fixed-dim">FULLY VALID</span>
+</div>
+</div>
+</div>
+<button class="mt-10 w-full py-3 bg-white/10 hover:bg-white/20 transition-all rounded-lg text-xs font-bold uppercase tracking-widest flex items-center justify-center group">
+                        View Detail Maps
+                        <span class="material-symbols-outlined text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- Enrollment Trends by Major (Interactive Area) -->
+<div class="col-span-12 bg-surface-container-low p-8 rounded-xl border border-surface-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+<div>
+<h3 class="text-xl font-bold text-primary">Enrollment Trends by Major</h3>
+<p class="text-sm text-on-surface-variant">Comparative analysis of credit-hour production across academic terms.</p>
+</div>
+<div class="flex bg-white/50 dark:bg-slate-800 rounded-lg p-1 shadow-inner">
+<button class="px-6 py-2 text-xs font-bold rounded-md bg-primary text-white shadow-sm transition-all">5 Years</button>
+<button class="px-6 py-2 text-xs font-bold rounded-md text-on-surface-variant hover:bg-white transition-all">3 Years</button>
+<button class="px-6 py-2 text-xs font-bold rounded-md text-on-surface-variant hover:bg-white transition-all">Yearly</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Simulated Chart -->
+<div class="lg:col-span-9 h-72 flex items-end justify-between px-6 pb-6 border-b border-outline-variant relative">
+<!-- Y-Axis labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[10px] text-on-surface-variant font-bold opacity-50 -ml-2">
+<span>2.5k</span>
+<span>2.0k</span>
+<span>1.5k</span>
+<span>1.0k</span>
+<span>0.5k</span>
+<span>0</span>
+</div>
+<div class="w-20 bg-primary/40 rounded-t-lg relative group transition-all hover:bg-primary/60" style="height: 48%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded shadow-xl text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">1,240 Total</div>
+<div class="absolute bottom-[-32px] left-1/2 -translate-x-1/2 text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">2020</div>
+</div>
+<div class="w-20 bg-primary/50 rounded-t-lg relative group transition-all hover:bg-primary/70" style="height: 58%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded shadow-xl text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">1,480 Total</div>
+<div class="absolute bottom-[-32px] left-1/2 -translate-x-1/2 text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">2021</div>
+</div>
+<div class="w-20 bg-primary/70 rounded-t-lg relative group transition-all hover:bg-primary/80" style="height: 68%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded shadow-xl text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">1,720 Total</div>
+<div class="absolute bottom-[-32px] left-1/2 -translate-x-1/2 text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">2022</div>
+</div>
+<div class="w-20 bg-primary/80 rounded-t-lg relative group transition-all hover:bg-primary/90" style="height: 75%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded shadow-xl text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">1,940 Total</div>
+<div class="absolute bottom-[-32px] left-1/2 -translate-x-1/2 text-[10px] font-black text-on-surface-variant uppercase tracking-tighter">2023</div>
+</div>
+<div class="w-20 bg-primary rounded-t-lg relative group transition-all hover:scale-105" style="height: 90%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded shadow-xl text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">2,310 Total</div>
+<div class="absolute bottom-[-32px] left-1/2 -translate-x-1/2 text-[10px] font-black text-primary uppercase tracking-tighter">2024</div>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col justify-center space-y-6">
+<h4 class="text-xs font-black text-primary uppercase tracking-widest border-b border-outline-variant pb-3">Growth Analysis</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs font-bold text-on-surface">Cybersecurity</span>
+</div>
+<span class="text-[10px] font-black text-green-600">+14.2%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs font-bold text-on-surface">Sustainability</span>
+</div>
+<span class="text-[10px] font-black text-green-600">+8.7%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<span class="text-xs font-bold text-on-surface">Bio-Ethics</span>
+</div>
+<span class="text-[10px] font-black text-amber-600">-2.1%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-2 h-2 rounded-full bg-primary/40"></div>
+<span class="text-xs font-bold text-on-surface">Humanities</span>
+</div>
+<span class="text-[10px] font-black text-on-surface-variant">+0.4%</span>
+</div>
+</div>
+<button class="mt-4 p-3 bg-primary/5 hover:bg-primary/10 rounded-xl text-[10px] font-black text-primary uppercase tracking-widest transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-sm mr-2">analytics</span>
+                                Trend Forecast Report
+                            </button>
+</div>
+</div>
+</div>
+<!-- Course Sequencing Effectiveness Table -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest p-0 rounded-xl overflow-hidden border border-surface-variant/30">
+<div class="p-6 border-b border-surface-container-low flex justify-between items-center">
+<div>
+<h3 class="text-lg font-bold text-primary">Course Sequencing Effectiveness</h3>
+<p class="text-xs text-on-surface-variant">Prerequisite pass-rates &amp; progression bottleneck analysis.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-primary-container text-on-primary-container">
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest">Prerequisite Path</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-center">Avg Grade</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-center">Pass Rate</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-right">Status</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">CS101 → CS201</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Core Progression</div>
+</td>
+<td class="px-6 py-4 text-center font-bold">3.2</td>
+<td class="px-6 py-4 text-center font-bold">92%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] font-bold px-2 py-1 bg-green-100 text-green-700 rounded uppercase border border-green-200">Stable</span>
+</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">MATH250 → MATH301</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Quantitative Block</div>
+</td>
+<td class="px-6 py-4 text-center font-bold text-error">2.4</td>
+<td class="px-6 py-4 text-center font-bold text-error">64%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] font-bold px-2 py-1 bg-red-100 text-red-700 rounded uppercase border border-red-200">Bottleneck</span>
+</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">BIO110 → BIO210</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Life Sciences</div>
+</td>
+<td class="px-6 py-4 text-center font-bold">3.0</td>
+<td class="px-6 py-4 text-center font-bold">88%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] font-bold px-2 py-1 bg-green-100 text-green-700 rounded uppercase border border-green-200">Stable</span>
+</td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">ENG102 → PHIL300</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Writing Requirement</div>
+</td>
+<td class="px-6 py-4 text-center font-bold">3.1</td>
+<td class="px-6 py-4 text-center font-bold">79%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] font-bold px-2 py-1 bg-blue-100 text-blue-700 rounded uppercase border border-blue-200">Review Needed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-slate-50 flex justify-center">
+<button class="text-[10px] font-black text-primary uppercase tracking-widest hover:underline flex items-center">
+<span class="material-symbols-outlined text-sm mr-1">file_download</span>
+                            Download Detailed Sequence Audit
+                        </button>
+</div>
+</div>
+<!-- Insight Rail / Context Panel -->
+<div class="col-span-12 lg:col-span-5 space-y-6">
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-surface-variant/30 flex flex-col h-full">
+<h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-6 flex items-center">
+<span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                            Curricular Insights
+                        </h3>
+<div class="space-y-6 flex-1">
+<div class="p-5 rounded-xl bg-surface-container-low border-l-4 border-primary">
+<div class="flex items-start justify-between">
+<p class="text-xs leading-relaxed text-on-surface">
+<strong class="text-primary block mb-1">Bottleneck Warning</strong>
+                                        Math 301 prerequisites are causing a 2-semester delay for roughly 24% of Data Science majors.
+                                    </p>
+</div>
+<button class="mt-4 text-[10px] font-black text-primary underline uppercase tracking-widest">Propose Corequisite</button>
+</div>
+<div class="p-5 rounded-xl bg-surface-container-low border-l-4 border-tertiary-fixed-dim">
+<p class="text-xs leading-relaxed text-on-surface">
+<strong class="text-tertiary-container block mb-1">Accreditation Opportunity</strong>
+                                    New Faculty publications in AI ethics map perfectly to Criterion 3 for AACSB upcoming review.
+                                </p>
+<button class="mt-4 text-[10px] font-black text-primary underline uppercase tracking-widest">Update Mapping</button>
+</div>
+<div class="relative rounded-xl overflow-hidden h-44 group cursor-pointer shadow-md">
+<img alt="University Library" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARQcOk8qcoqt3Ibb44i8ePXw0QBDX1GpoLludhM3WNcZuYvmtqk59u0_LrDck5Cg7ybWbJ6Elnt58E3k-j6p_V_Limw2F-Vphufsct9_jzvraBayJgSYsI7xqb3b70oh-b6FP9ciVPm_mwrqYjczUGsPROhxPY8LFEdzGJu8V02hUYfTVFqqpDhjFpDUEdBN0WRIUTcP1p7835IrjiYTlg6qKY61E9i9NuijZ_1VI8_kJ2s3q5toqv_JuiWG92fp_paFo8BKGMFC0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent flex flex-col justify-end p-5">
+<span class="text-white text-[10px] font-black uppercase tracking-[0.2em] mb-1">Infrastructure</span>
+<span class="text-white text-sm font-bold">Resource Planning 2025</span>
+</div>
+<div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full">
+<span class="material-symbols-outlined text-white text-sm">open_in_new</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Professional Institutional Footer -->
+<footer class="bg-primary-container text-on-primary-container px-8 py-16 mt-auto">
+<div class="max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-24 mb-16">
+<div class="col-span-1">
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h4 class="text-xl font-black tracking-tighter text-white">Academic Curator</h4>
+</div>
+<p class="text-sm opacity-70 leading-relaxed mb-8">Advancing institutional excellence through data-informed curriculum design and faculty empowerment. The official curriculum management platform for global educational leadership.</p>
+<div class="flex space-x-5">
+<span class="material-symbols-outlined text-xl cursor-pointer hover:text-white transition-all opacity-50 hover:opacity-100">public</span>
+<span class="material-symbols-outlined text-xl cursor-pointer hover:text-white transition-all opacity-50 hover:opacity-100">alternate_email</span>
+<span class="material-symbols-outlined text-xl cursor-pointer hover:text-white transition-all opacity-50 hover:opacity-100">share</span>
+<span class="material-symbols-outlined text-xl cursor-pointer hover:text-white transition-all opacity-50 hover:opacity-100">policy</span>
+</div>
+</div>
+<div>
+<h5 class="text-[10px] font-black uppercase tracking-[0.25em] mb-8 text-on-primary-container/60 border-b border-white/10 pb-2">Administration</h5>
+<ul class="text-sm space-y-4 font-semibold text-white/90">
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Provost Dashboard</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Accreditation Records</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Grant Management</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Dean's Overview</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-[10px] font-black uppercase tracking-[0.25em] mb-8 text-on-primary-container/60 border-b border-white/10 pb-2">Support &amp; Resources</h5>
+<ul class="text-sm space-y-4 font-semibold text-white/90">
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Help Documentation</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">API for Research</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Data Privacy Policy</a></li>
+<li><a class="hover:text-tertiary-fixed-dim transition-colors flex items-center" href="#">Platform Status</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-[10px] font-black uppercase tracking-[0.25em] mb-8 text-on-primary-container/60 border-b border-white/10 pb-2">System Metadata</h5>
+<div class="bg-white/5 rounded-xl p-5 space-y-4 border border-white/10">
+<div class="flex justify-between items-center text-[10px]">
+<span class="opacity-60 font-bold uppercase">Version</span>
+<span class="font-black text-white px-2 py-0.5 bg-white/10 rounded">v4.2.0-Alpha</span>
+</div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="opacity-60 font-bold uppercase">Last Updated</span>
+<span class="font-black text-white">22 Oct 2024</span>
+</div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="opacity-60 font-bold uppercase">Connection</span>
+<span class="text-tertiary-fixed-dim font-black flex items-center">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim mr-2 animate-pulse"></span>
+                                    Encrypted
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-black uppercase tracking-widest opacity-40">
+<span>© 2024 Global Education Analytics Group. All rights reserved.</span>
+<div class="mt-4 md:mt-0 flex space-x-6">
+<a class="hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="#">Terms of Institutional Access</a>
+<a class="hover:text-white transition-colors" href="#">Security Audit</a>
+</div>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">add_chart</span>
+</button>
+</div>
+</body></html>

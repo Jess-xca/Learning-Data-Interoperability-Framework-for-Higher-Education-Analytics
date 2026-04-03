@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Model Management | Academic Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#d8e3fa",
+                    "on-tertiary-container": "#00b47d",
+                    "surface-container-low": "#f0f3ff",
+                    "tertiary": "#002617",
+                    "surface-tint": "#455f88",
+                    "inverse-surface": "#263142",
+                    "outline-variant": "#c4c6cf",
+                    "secondary-fixed": "#d8e3fa",
+                    "inverse-primary": "#adc7f7",
+                    "on-surface": "#111c2c",
+                    "on-surface-variant": "#43474e",
+                    "on-tertiary-fixed": "#002113",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#bcc7dd",
+                    "on-error-container": "#93000a",
+                    "on-background": "#111c2c",
+                    "secondary-container": "#d5e0f7",
+                    "outline": "#74777f",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#adc7f7",
+                    "primary-fixed": "#d6e3ff",
+                    "inverse-on-surface": "#ebf1ff",
+                    "background": "#f9f9ff",
+                    "surface-dim": "#cfdaf1",
+                    "surface-variant": "#d8e3fa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "surface-container-high": "#dee8ff",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#003e28",
+                    "secondary": "#545f72",
+                    "primary-container": "#1a365d",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#586377",
+                    "primary": "#002045",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "surface": "#f9f9ff",
+                    "on-secondary-fixed": "#111c2c",
+                    "surface-container": "#e7eeff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "on-primary-container": "#86a0cd",
+                    "surface-bright": "#f9f9ff",
+                    "on-primary-fixed": "#001b3c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-architecture {
+            background-image: radial-gradient(circle at 100% 0%, #f0f3ff 0%, #f9f9ff 100%);
+        }
+        .no-line { border: none !important; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex overflow-hidden">
+<!-- SideNavBar (The Anchor) -->
+<aside class="fixed left-0 top-0 h-full p-4 gap-2 flex flex-col bg-[#f0f3ff] dark:bg-slate-900 w-64 hidden lg:flex z-50">
+<div class="flex items-center gap-3 px-3 mb-8">
+<div class="w-10 h-10 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-[#1A365D]">Academic Curator</h1>
+<p class="text-[10px] text-on-surface-variant font-medium uppercase tracking-widest">Higher Ed Analytics</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Analytics -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-[#1A365D] rounded-lg shadow-sm font-bold transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="text-sm font-medium">Data Sources</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="text-sm font-medium">Interoperability</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-medium">Student Success</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-sm font-medium">Curriculum</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">verified</span>
+<span class="text-sm font-medium">Accreditation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Reporting</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-white/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<button class="mt-4 w-full py-3 px-4 bg-primary text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+            Generate Report
+        </button>
+<div class="mt-auto space-y-1 pt-4">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:text-[#1A365D] transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="text-xs uppercase tracking-widest font-medium">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:text-[#1A365D] transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">security</span>
+<span class="text-xs uppercase tracking-widest font-medium">Privacy</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 lg:ml-64 flex flex-col min-h-screen relative">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 h-16 bg-[#f9f9ff] fixed top-0 right-0 left-0 lg:left-64 z-40">
+<div class="flex items-center gap-6">
+<h2 class="text-xl font-bold text-[#1A365D] font-headline tracking-tight">Predictive Model Management</h2>
+<div class="hidden md:flex gap-6">
+<a class="text-slate-500 hover:text-[#1A365D] transition-colors font-semibold text-sm" href="#">Dashboard</a>
+<a class="text-[#1A365D] border-b-2 border-[#1A365D] pb-1 font-semibold text-sm" href="#">Analytics</a>
+<a class="text-slate-500 hover:text-[#1A365D] transition-colors font-semibold text-sm" href="#">Student Success</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 text-slate-500 hover:bg-[#f0f3ff] rounded-lg transition-all duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-[#f0f3ff] rounded-lg transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<button class="px-4 py-1.5 text-primary-container font-semibold text-sm border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+                    Support
+                </button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border-2 border-white shadow-sm">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="professional woman in corporate attire smiling confidently against a soft blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKuri8sxj9LOqrJ3O2ntngPrR3yTYp4SwrW4b9-QxnvtfLJP-S-UzUzQsUA71iz9kj5CWTdg22wUtLBN6pbGY8VijPBg-kCkKN0jKX_Aw3RmCkM76VQ5HoTG3DfU6iMIf2edFSigo6RknjYJD-lB6ts0-f7aTE8-LruK4Dhku363aJSr3M2YiwUzfEykB-6ULucuRmztK9NB2v3fpgYk8pFZFHeMGi2KOTa4JSCLEH8aX3-ZFzfTgPjqVp2W-faNbNjbdluGBO5QE"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-24 pb-16 px-8 flex-1 overflow-y-auto space-y-8 max-w-7xl mx-auto w-full">
+<!-- Hero Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="p-6 bg-surface-container-lowest rounded-xl shadow-sm border-b-2 border-primary">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Active Models</p>
+<h3 class="text-3xl font-black text-primary">12</h3>
+<p class="text-[10px] text-on-tertiary-container font-medium mt-2">↑ 2 from last month</p>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-xl shadow-sm">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Mean Accuracy</p>
+<h3 class="text-3xl font-black text-primary">94.2%</h3>
+<p class="text-[10px] text-on-surface-variant font-medium mt-2">Institutional Baseline: 88%</p>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-xl shadow-sm">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Data Recency</p>
+<h3 class="text-3xl font-black text-primary">2h ago</h3>
+<p class="text-[10px] text-on-surface-variant font-medium mt-2">Last Sync: 10:45 AM</p>
+</div>
+<div class="p-6 bg-primary text-white rounded-xl shadow-md">
+<p class="text-xs font-bold text-on-primary-container uppercase tracking-widest mb-1">Model Health</p>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-tertiary-fixed rounded-full animate-pulse"></span>
+<h3 class="text-xl font-bold">Optimal</h3>
+</div>
+<p class="text-[10px] text-on-primary-container font-medium mt-2">No drift detected</p>
+</div>
+</div>
+<!-- Main Workspace Bento Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Rail: Model List -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h4 class="text-sm font-black uppercase tracking-widest text-[#1A365D]">Active Models</h4>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                        </button>
+</div>
+<!-- Selected Model -->
+<div class="p-4 bg-primary text-white rounded-xl shadow-lg border-r-4 border-tertiary-fixed cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="px-2 py-0.5 bg-white/20 text-[10px] font-bold rounded uppercase">Active</span>
+</div>
+<h5 class="text-lg font-bold leading-tight">Student Retention 2024-Q3</h5>
+<p class="text-xs text-on-primary-container mt-1">Random Forest Ensemble</p>
+<div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
+<span class="text-[10px] opacity-70">Updated 4m ago</span>
+<span class="text-xs font-black">96% Acc.</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">group_add</span>
+<span class="px-2 py-0.5 bg-outline-variant text-[10px] font-bold text-white rounded uppercase">Staged</span>
+</div>
+<h5 class="text-lg font-bold text-[#1A365D] leading-tight">Enrollment Forecasting</h5>
+<p class="text-xs text-on-surface-variant mt-1">Neural Network (LSTM)</p>
+<div class="mt-4 pt-4 border-t border-black/5 flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant">Updated 2d ago</span>
+<span class="text-xs font-black text-primary">91% Acc.</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">school</span>
+<span class="px-2 py-0.5 bg-tertiary-container text-[10px] font-bold text-white rounded uppercase">Validated</span>
+</div>
+<h5 class="text-lg font-bold text-[#1A365D] leading-tight">Academic Success Score</h5>
+<p class="text-xs text-on-surface-variant mt-1">Gradient Boosting</p>
+<div class="mt-4 pt-4 border-t border-black/5 flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant">Updated 5d ago</span>
+<span class="text-xs font-black text-primary">89% Acc.</span>
+</div>
+</div>
+</div>
+<!-- Center/Right: Detailed Metrics & Charts -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-8">
+<!-- Selected Model Detail View -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-8">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="text-2xl font-black text-primary">Student Retention 2024-Q3</h3>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="text-on-surface-variant text-sm">Deployed on Institutional Core Gateway</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Metric Rings -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+<div class="flex flex-col items-center text-center">
+<div class="relative w-24 h-24 mb-4 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f3ff" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#002045" stroke-dasharray="251.2" stroke-dashoffset="12.5" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-xl font-black text-primary">0.95</span>
+</div>
+<h6 class="text-xs font-black uppercase tracking-widest text-[#1A365D]">Precision</h6>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">Lower false positives in at-risk flagging.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="relative w-24 h-24 mb-4 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f3ff" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#002045" stroke-dasharray="251.2" stroke-dashoffset="25.1" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-xl font-black text-primary">0.90</span>
+</div>
+<h6 class="text-xs font-black uppercase tracking-widest text-[#1A365D]">Recall</h6>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">Capturing 90% of actual churn events.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="relative w-24 h-24 mb-4 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#f0f3ff" stroke-width="8"></circle>
+<circle cx="48" cy="48" fill="transparent" r="40" stroke="#00b47d" stroke-dasharray="251.2" stroke-dashoffset="18.8" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-xl font-black text-tertiary-container">0.92</span>
+</div>
+<h6 class="text-xs font-black uppercase tracking-widest text-[#1A365D]">F1 Score</h6>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">Harmonic mean of precision and recall.</p>
+</div>
+</div>
+<!-- Confidence Bar Chart -->
+<div class="bg-surface-container-low p-6 rounded-xl">
+<h6 class="text-sm font-bold text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">bar_chart</span>
+                                Prediction Confidence Distribution
+                            </h6>
+<div class="flex items-end gap-2 h-40">
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[20%] hover:bg-primary transition-colors cursor-help group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">12%</div>
+</div>
+<div class="flex-1 bg-primary/30 rounded-t-sm h-[35%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary/40 rounded-t-sm h-[50%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary/60 rounded-t-sm h-[75%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[95%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary/80 rounded-t-sm h-[80%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary/50 rounded-t-sm h-[45%] hover:bg-primary transition-colors cursor-help group relative"></div>
+<div class="flex-1 bg-primary/30 rounded-t-sm h-[25%] hover:bg-primary transition-colors cursor-help group relative"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-on-surface-variant font-bold">
+<span>LOW CONFIDENCE</span>
+<span>MEDIUM</span>
+<span>HIGH CONFIDENCE</span>
+</div>
+</div>
+</div>
+<!-- Training Parameters -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<h6 class="text-sm font-black uppercase tracking-widest text-[#1A365D] mb-6">Model Configuration</h6>
+<div class="space-y-4">
+<div class="flex items-center justify-between border-b border-surface-container p-2">
+<span class="text-xs text-on-surface-variant">Hyperparameter: n_estimators</span>
+<span class="text-sm font-bold text-primary">500</span>
+</div>
+<div class="flex items-center justify-between border-b border-surface-container p-2">
+<span class="text-xs text-on-surface-variant">Learning Rate</span>
+<span class="text-sm font-bold text-primary">0.015</span>
+</div>
+<div class="flex items-center justify-between border-b border-surface-container p-2">
+<span class="text-xs text-on-surface-variant">Validation Split</span>
+<span class="text-sm font-bold text-primary">20% (K-Fold)</span>
+</div>
+<div class="flex items-center justify-between p-2">
+<span class="text-xs text-on-surface-variant">Pruning Method</span>
+<span class="text-sm font-bold text-primary">Cost-Complexity</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<h6 class="text-sm font-black uppercase tracking-widest text-[#1A365D] mb-6">Training Status</h6>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Last Run Result</p>
+<p class="text-sm font-bold text-primary">Convergence Reached</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-on-tertiary-container h-2 rounded-full w-full"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant text-center font-medium">Training complete. Deployed to production 10/24/2024.</p>
+<button class="w-full mt-2 py-2 border-2 border-primary text-primary text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">
+                                    Retrain Model
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-6 px-8 flex justify-between items-center border-t border-[#f0f3ff] bg-[#f9f9ff] text-slate-500 font-['Inter'] text-xs uppercase tracking-widest mt-auto">
+<p>© 2024 Academic Curator. Institutional Excellence.</p>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors" href="#">Support</a>
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors" href="#">Legal</a>
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors underline" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-[#1A365D] transition-colors" href="#">API Docs</a>
+</div>
+</footer>
+</main>
+<!-- FAB for Analysts -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50">
+<span class="material-symbols-outlined text-2xl">science</span>
+</button>
+</body></html>
