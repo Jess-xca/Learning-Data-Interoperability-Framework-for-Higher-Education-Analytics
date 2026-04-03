@@ -7,6 +7,7 @@ export interface User {
   name: string;
   role: "admin" | "qa" | "analyst" | "hod" | "lecturer" | "student";
   institution: string;
+  department?: string;
   mfaEnabled: boolean;
 }
 

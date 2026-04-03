@@ -43,8 +43,8 @@ export interface DataState {
   students: Student[];
   courses: Course[];
   programs: Program[];
-  analytics: any | null;
-  reports: any | null;
+  analytics: Record<string, unknown> | null;
+  reports: Record<string, unknown> | null;
   loading: boolean;
   error: string | null;
 }
@@ -130,9 +130,7 @@ const dataSlice = createSlice({
     });
     builder.addCase(updateStudentThunk.fulfilled, (state, action) => {
       state.loading = false;
-      const index = state.students.findIndex(
-        (s) => s.id === action.payload.id
-      );
+      const index = state.students.findIndex((s) => s.id === action.payload.id);
       if (index !== -1) {
         state.students[index] = action.payload;
       }
