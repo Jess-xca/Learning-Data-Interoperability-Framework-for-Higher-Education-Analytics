@@ -86,7 +86,7 @@ const roleBadge: Record<User["role"], string> = {
 export default function Sidebar({ activeNav = "dashboard", onNavClick }: SidebarProps) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
-  const role = user?.role ?? "admin";
+  const role = (user?.role ?? "admin") as keyof typeof navByRole;
   const navItems = navByRole[role];
 
   return (
