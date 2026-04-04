@@ -205,10 +205,17 @@ export default function ProgramsPage() {
                 { code: "CS301", name: "Algorithms", credits: 4 },
                 { code: "CS401", name: "Software Engineering", credits: 4 },
               ].map((course) => (
-                <div key={course.code} className="p-3 rounded-lg bg-surface-container-highest">
-                  <p className="text-sm font-bold text-on-surface-variant uppercase">{course.code}</p>
+                <div
+                  key={course.code}
+                  className="p-3 rounded-lg bg-surface-container-highest"
+                >
+                  <p className="text-sm font-bold text-on-surface-variant uppercase">
+                    {course.code}
+                  </p>
                   <p className="font-semibold text-primary">{course.name}</p>
-                  <p className="text-xs text-on-surface-variant">{course.credits} Credits</p>
+                  <p className="text-xs text-on-surface-variant">
+                    {course.credits} Credits
+                  </p>
                 </div>
               ))}
             </div>
@@ -219,19 +226,31 @@ export default function ProgramsPage() {
             <h3 className="font-bold text-primary mb-4">Program Statistics</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-surface-container-highest">
-                <p className="text-on-surface-variant text-sm mb-2">Enrolled Students</p>
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Enrolled Students
+                </p>
                 <p className="text-2xl font-bold text-primary">142</p>
-                <p className="text-xs text-on-surface-variant mt-2">↑ 5% from last semester</p>
+                <p className="text-xs text-on-surface-variant mt-2">
+                  ↑ 5% from last semester
+                </p>
               </div>
               <div className="p-4 rounded-lg bg-surface-container-highest">
-                <p className="text-on-surface-variant text-sm mb-2">Pass Rate</p>
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Pass Rate
+                </p>
                 <p className="text-2xl font-bold text-secondary">94.5%</p>
-                <p className="text-xs text-on-surface-variant mt-2">↑ 2% from last year</p>
+                <p className="text-xs text-on-surface-variant mt-2">
+                  ↑ 2% from last year
+                </p>
               </div>
               <div className="p-4 rounded-lg bg-surface-container-highest">
-                <p className="text-on-surface-variant text-sm mb-2">Avg Duration</p>
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Avg Duration
+                </p>
                 <p className="text-2xl font-bold text-tertiary">4.2 years</p>
-                <p className="text-xs text-on-surface-variant mt-2">Standard completion time</p>
+                <p className="text-xs text-on-surface-variant mt-2">
+                  Standard completion time
+                </p>
               </div>
             </div>
           </div>
@@ -240,17 +259,21 @@ export default function ProgramsPage() {
 
       {/* Programs Overview */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold text-primary mb-6">All Programs Overview</h2>
+        <h2 className="text-2xl font-bold text-primary mb-6">
+          All Programs Overview
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
             <h3 className="font-bold text-primary mb-4">Enrollment Trends</h3>
             <div className="space-y-3">
               {filteredPrograms.slice(0, 4).map((p) => (
                 <div key={p.code} className="flex items-center justify-between">
-                  <span className="text-sm text-on-surface-variant">{p.name}</span>
+                  <span className="text-sm text-on-surface-variant">
+                    {p.name}
+                  </span>
                   <div className="w-32 bg-surface-container-highest rounded-full h-2 flex-1 mx-3">
-                    <div 
-                      className="bg-primary h-2 rounded-full" 
+                    <div
+                      className="bg-primary h-2 rounded-full"
                       style={{ width: `${(p.totalCourses / 10) * 100}%` }}
                     />
                   </div>
@@ -269,15 +292,26 @@ export default function ProgramsPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Total Courses</span>
-                <span className="font-bold">{filteredPrograms.reduce((sum, p) => sum + p.totalCourses, 0)}</span>
+                <span className="font-bold">
+                  {filteredPrograms.reduce((sum, p) => sum + p.totalCourses, 0)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Departments</span>
-                <span className="font-bold">{new Set(filteredPrograms.map(p => p.department)).size}</span>
+                <span className="font-bold">
+                  {new Set(filteredPrograms.map((p) => p.department)).size}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Avg Courses</span>
-                <span className="font-bold">{(filteredPrograms.reduce((sum, p) => sum + p.totalCourses, 0) / (filteredPrograms.length || 1)).toFixed(1)}</span>
+                <span className="font-bold">
+                  {(
+                    filteredPrograms.reduce(
+                      (sum, p) => sum + p.totalCourses,
+                      0,
+                    ) / (filteredPrograms.length || 1)
+                  ).toFixed(1)}
+                </span>
               </div>
             </div>
           </Card>

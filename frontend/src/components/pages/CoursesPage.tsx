@@ -321,11 +321,18 @@ export default function CoursesPage() {
               </div>
               <div>
                 <p className="text-on-surface-variant mb-1">Available Seats</p>
-                <p className="font-bold">{selectedCourse.capacity - selectedCourse.enrollment}</p>
+                <p className="font-bold">
+                  {selectedCourse.capacity - selectedCourse.enrollment}
+                </p>
               </div>
               <div>
                 <p className="text-on-surface-variant mb-1">Enrollment Rate</p>
-                <p className="font-bold">{Math.round((selectedCourse.enrollment / selectedCourse.capacity) * 100)}%</p>
+                <p className="font-bold">
+                  {Math.round(
+                    (selectedCourse.enrollment / selectedCourse.capacity) * 100,
+                  )}
+                  %
+                </p>
               </div>
             </div>
           </div>
@@ -333,14 +340,25 @@ export default function CoursesPage() {
           {/* Enrolled Students Preview */}
           <div className="border-t border-outline-variant/20 pt-6">
             <h3 className="font-bold text-primary mb-4">Enrolled Students</h3>
-            <p className="text-sm text-on-surface-variant mb-4">{selectedCourse.enrollment} of {selectedCourse.capacity} students</p>
+            <p className="text-sm text-on-surface-variant mb-4">
+              {selectedCourse.enrollment} of {selectedCourse.capacity} students
+            </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {Array.from({ length: Math.min(selectedCourse.enrollment, 8) }).map((_, i) => (
-                <div key={i} className="p-3 rounded-lg bg-surface-container-highest text-center">
+              {Array.from({
+                length: Math.min(selectedCourse.enrollment, 8),
+              }).map((_, i) => (
+                <div
+                  key={i}
+                  className="p-3 rounded-lg bg-surface-container-highest text-center"
+                >
                   <div className="w-10 h-10 bg-primary/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-sm font-bold text-primary">{i + 1}</span>
+                    <span className="text-sm font-bold text-primary">
+                      {i + 1}
+                    </span>
                   </div>
-                  <p className="text-xs text-on-surface-variant">Student {String.fromCharCode(65 + i)}</p>
+                  <p className="text-xs text-on-surface-variant">
+                    Student {String.fromCharCode(65 + i)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -350,25 +368,48 @@ export default function CoursesPage() {
 
       {/* Course Analytics */}
       <div className="mt-12 mb-8">
-        <h2 className="text-xl font-bold text-primary mb-6">Course Analytics</h2>
+        <h2 className="text-xl font-bold text-primary mb-6">
+          Course Analytics
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h3 className="font-bold text-primary mb-4">Enrollment by Status</h3>
+            <h3 className="font-bold text-primary mb-4">
+              Enrollment by Status
+            </h3>
             <div className="space-y-4">
               {[
-                { status: "active", label: "Active", count: filteredCourses.filter(c => c.status === "active").length },
-                { status: "planned", label: "Planned", count: filteredCourses.filter(c => c.status === "planned").length },
-                { status: "archived", label: "Archived", count: filteredCourses.filter(c => c.status === "archived").length },
+                {
+                  status: "active",
+                  label: "Active",
+                  count: filteredCourses.filter((c) => c.status === "active")
+                    .length,
+                },
+                {
+                  status: "planned",
+                  label: "Planned",
+                  count: filteredCourses.filter((c) => c.status === "planned")
+                    .length,
+                },
+                {
+                  status: "archived",
+                  label: "Archived",
+                  count: filteredCourses.filter((c) => c.status === "archived")
+                    .length,
+                },
               ].map((item) => (
                 <div key={item.status}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-on-surface-variant">{item.label}</span>
+                    <span className="text-on-surface-variant">
+                      {item.label}
+                    </span>
                     <span className="font-bold">{item.count}</span>
                   </div>
                   <div className="w-full bg-surface-container-highest rounded-full h-2">
-                    <div 
-                      className={`h-2 rounded-full ${item.status === 'active' ? 'bg-success' : item.status === 'planned' ? 'bg-primary' : 'bg-error'}`}
-                      style={{ width: `${((item.count / filteredCourses.length) || 0) * 100}%` }}
+                    <div
+                      className={`h-2 rounded-full ${item.status === "active" ? "bg-success" : item.status === "planned" ? "bg-primary" : "bg-error"}`}
+                      style={{
+                        width: `${(item.count / filteredCourses.length || 0) * 100}%`,
+                      }}
                     />
                   </div>
                 </div>
@@ -381,19 +422,41 @@ export default function CoursesPage() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between pb-3 border-b border-outline-variant/20">
                 <span className="text-on-surface-variant">Avg Enrollment</span>
-                <span className="font-bold">{Math.round(filteredCourses.reduce((sum, c) => sum + c.enrollment, 0) / (filteredCourses.length || 1))}</span>
+                <span className="font-bold">
+                  {Math.round(
+                    filteredCourses.reduce((sum, c) => sum + c.enrollment, 0) /
+                      (filteredCourses.length || 1),
+                  )}
+                </span>
               </div>
               <div className="flex justify-between pb-3 border-b border-outline-variant/20">
                 <span className="text-on-surface-variant">Avg Capacity</span>
-                <span className="font-bold">{Math.round(filteredCourses.reduce((sum, c) => sum + c.capacity, 0) / (filteredCourses.length || 1))}</span>
+                <span className="font-bold">
+                  {Math.round(
+                    filteredCourses.reduce((sum, c) => sum + c.capacity, 0) /
+                      (filteredCourses.length || 1),
+                  )}
+                </span>
               </div>
               <div className="flex justify-between pb-3 border-b border-outline-variant/20">
                 <span className="text-on-surface-variant">Avg Occupancy</span>
-                <span className="font-bold">{Math.round((filteredCourses.reduce((sum, c) => sum + (c.enrollment / c.capacity), 0) / (filteredCourses.length || 1)) * 100)}%</span>
+                <span className="font-bold">
+                  {Math.round(
+                    (filteredCourses.reduce(
+                      (sum, c) => sum + c.enrollment / c.capacity,
+                      0,
+                    ) /
+                      (filteredCourses.length || 1)) *
+                      100,
+                  )}
+                  %
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Total Credits</span>
-                <span className="font-bold">{filteredCourses.reduce((sum, c) => sum + c.credit, 0)}</span>
+                <span className="font-bold">
+                  {filteredCourses.reduce((sum, c) => sum + c.credit, 0)}
+                </span>
               </div>
             </div>
           </Card>
