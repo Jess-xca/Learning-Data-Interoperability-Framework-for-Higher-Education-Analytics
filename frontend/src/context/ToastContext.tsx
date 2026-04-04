@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { ToastContext } from "./toastContextValue";
 import type { ToastType, Toast } from "./toastContextValue";
-export { useToast } from "./toastContextValue";
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
