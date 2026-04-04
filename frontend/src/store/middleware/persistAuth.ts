@@ -9,7 +9,7 @@ const AUTH_STORAGE_KEY = "auth_state";
 export const persistAuthMiddleware: Middleware =
   (store) => (next) => (action: unknown) => {
     const result = next(action);
-    
+
     // Save auth state after any auth action
     const actionObj = action as Record<string, unknown>;
     if (
