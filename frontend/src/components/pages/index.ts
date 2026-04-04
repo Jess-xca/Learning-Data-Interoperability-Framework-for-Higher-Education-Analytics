@@ -1,6 +1,7 @@
 export { default as LoginPage } from "./LoginPage";
 export { default as RegistrationPage } from "./RegistrationPage";
 export { default as PasswordResetPage } from "./PasswordResetPage";
+export { default as MFASetupPage } from "./MFASetupPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as StudentsPage } from "./StudentsPage";
@@ -11,3 +12,4 @@ export { default as ReportsPage } from "./ReportsPage";
 export { default as GovernancePage } from "./GovernancePage";
 export { default as SettingsPage } from "./SettingsPage";
 export { default as UserManagementPage } from "./UserManagementPage";
+export { default as DataSourcesPage } from "./DataSourcesPage";

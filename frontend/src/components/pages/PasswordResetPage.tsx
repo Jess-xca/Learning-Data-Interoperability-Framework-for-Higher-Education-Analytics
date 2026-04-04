@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, TextInput, Footer } from "..";
+import { Alert, TextInput } from "..";
 
 export default function PasswordResetPage() {
   const [step, setStep] = useState<"email" | "code" | "newPassword" | "success">("email");

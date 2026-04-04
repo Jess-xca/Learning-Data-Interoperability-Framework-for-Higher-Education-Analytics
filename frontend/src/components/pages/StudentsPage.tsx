@@ -109,7 +109,8 @@ export default function StudentsPage() {
   ];
 
   return (
-    <MainContent>
+    <>
+      <MainContent>
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
         <div>
@@ -396,7 +397,7 @@ export default function StudentsPage() {
                   <span className="text-on-surface-variant">4.0 - 3.8</span>
                   <span className="font-bold">
                     {Math.ceil(
-                      filteredStudents.filter((s) => s.gpa >= 3.8).length,
+                      filteredStudents.filter((s) => s.gpa >= 3.8).length
                     )}
                   </span>
                 </div>
@@ -415,8 +416,8 @@ export default function StudentsPage() {
                   <span className="font-bold">
                     {Math.ceil(
                       filteredStudents.filter(
-                        (s) => s.gpa >= 3.5 && s.gpa < 3.8,
-                      ).length,
+                        (s) => s.gpa >= 3.5 && s.gpa < 3.8
+                      ).length
                     )}
                   </span>
                 </div>
@@ -434,7 +435,7 @@ export default function StudentsPage() {
                   <span className="text-on-surface-variant">Below 3.5</span>
                   <span className="font-bold">
                     {Math.ceil(
-                      filteredStudents.filter((s) => s.gpa < 3.5).length,
+                      filteredStudents.filter((s) => s.gpa < 3.5).length
                     )}
                   </span>
                 </div>
@@ -494,7 +495,7 @@ export default function StudentsPage() {
         </div>
       </div>
     </MainContent>
-    <Footer variant="minimal" />
+      <Footer variant="minimal" />
     </>
   );
 }
