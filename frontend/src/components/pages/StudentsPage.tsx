@@ -4,7 +4,7 @@ import { Table } from "../dashboard";
 import type { TableColumn } from "../dashboard/Table";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 import { fetchStudents } from "../../store/thunks/dataThunks";
 import { SkeletonTable, SkeletonMetricCard } from "../common/SkeletonLoaders";
 import type { Student } from "../../store/slices/dataSlice";

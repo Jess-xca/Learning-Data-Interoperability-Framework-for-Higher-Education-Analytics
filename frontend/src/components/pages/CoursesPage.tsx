@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MainContent, Card, Button, Badge, TextInput } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
-import { useToast } from "../../context/ToastContext";
+import { useToast } from "../../context/useToast";
 import { fetchCourses } from "../../store/thunks/dataThunks";
 import { SkeletonTable, SkeletonMetricCard } from "../common/SkeletonLoaders";
 
