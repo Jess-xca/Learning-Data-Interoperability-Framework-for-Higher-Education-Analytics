@@ -41,6 +41,7 @@ export default function UserManagementPage() {
 
   // Load mock users on mount
   useEffect(() => {
+    // Only load mock data if no users exist
     if (allUsers.length === 0) {
       const mockUsers: SystemUser[] = [
         {
@@ -85,7 +86,7 @@ export default function UserManagementPage() {
       ];
       dispatch(setUsers(mockUsers));
     }
-  }, []);
+  }, [allUsers.length, dispatch]);
 
   const filteredUsers = allUsers.filter((user) => {
     const matchesSearch =
