@@ -11,6 +11,7 @@ import {
   SettingsPage,
   UserManagementPage,
   MFASetupPage,
+  DataSourcesPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -26,4 +27,5 @@ export const appRoutes: RouteObject[] = [
   { path: "/settings", element: <SettingsPage /> },
   { path: "/users", element: <UserManagementPage /> },
   { path: "/security", element: <MFASetupPage /> },
+  { path: "/data-sources", element: <DataSourcesPage /> },
 ];

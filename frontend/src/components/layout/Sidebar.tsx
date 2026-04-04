@@ -23,6 +23,7 @@ const navByRole: Record<User["role"], NavItem[]> = {
     { icon: "analytics", label: "Analytics", id: "analytics" },
     { icon: "description", label: "Reports", id: "reports" },
     { icon: "person_search", label: "User Management", id: "users" },
+    { icon: "cloud_sync", label: "Data Sources", id: "data-sources" },
     { icon: "gavel", label: "Governance", id: "governance" },
     { icon: "settings", label: "Settings", id: "settings" },
   ],
