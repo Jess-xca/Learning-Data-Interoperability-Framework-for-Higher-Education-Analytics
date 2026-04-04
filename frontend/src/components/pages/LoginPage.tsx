@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert } from "..";
+import RegistrationPage from "./RegistrationPage";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
 import type { User } from "../../store/slices/authSlice";
@@ -29,6 +30,12 @@ const roleNames: Record<User["role"], string> = {
 };
 
 export default function LoginPage() {
+  const [showRegister, setShowRegister] = useState(false);
+
+  if (showRegister) {
+    return <RegistrationPage onSwitchToLogin={() => setShowRegister(false)} />;
+  }
+
   const dispatch = useAppDispatch();
   const [institution, setInstitution] = useState("");
   const [role, setRole] = useState<User["role"] | "">("");
@@ -215,8 +222,11 @@ export default function LoginPage() {
 
             <footer className="mt-10 pt-8 border-t border-outline-variant flex flex-col items-center gap-4">
               <p className="text-on-surface-variant text-sm">New to the Academic Curator ecosystem?</p>
-              <button className="text-primary font-bold border-2 border-primary/10 px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors text-sm">
-                Request Institutional Access
+              <button
+                onClick={() => setShowRegister(true)}
+                className="text-primary font-bold border-2 border-primary/10 px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors text-sm"
+              >
+                Create New Account
               </button>
               <div className="flex gap-6 mt-2">
                 {["Legal Framework", "Privacy Policy", "System Status"].map(link => (
