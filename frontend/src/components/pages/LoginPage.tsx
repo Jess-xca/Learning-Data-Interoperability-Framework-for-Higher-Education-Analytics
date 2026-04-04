@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Alert } from "..";
-import RegistrationPage from "./RegistrationPage";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
 import type { User } from "../../store/slices/authSlice";
@@ -33,9 +32,7 @@ const roleNames: Record<User["role"], string> = {
 };
 
 export default function LoginPage() {
-  // All hooks must be called at the top level, before conditionals
   const dispatch = useAppDispatch();
-  const [showRegister, setShowRegister] = useState(false);
   const [institution, setInstitution] = useState("");
   const [role, setRole] = useState<User["role"] | "">("");
   const [email, setEmail] = useState("");
@@ -44,11 +41,6 @@ export default function LoginPage() {
   const [step, setStep] = useState<"form" | "mfa">("form");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // Conditionally render components, but hooks are already called
-  if (showRegister) {
-    return <RegistrationPage onSwitchToLogin={() => setShowRegister(false)} />;
-  }
 
   const selectedInstitution = institutions.find((i) => i.value === institution);
 
@@ -367,10 +359,9 @@ export default function LoginPage() {
                 New to the Academic Curator ecosystem?
               </p>
               <button
-                onClick={() => setShowRegister(true)}
                 className="text-primary font-bold border-2 border-primary/10 px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors text-sm"
               >
-                Create New Account
+                <a href="/register">Create New Account</a>
               </button>
               <div className="flex gap-6 mt-2">
                 {["Legal Framework", "Privacy Policy", "System Status"].map(

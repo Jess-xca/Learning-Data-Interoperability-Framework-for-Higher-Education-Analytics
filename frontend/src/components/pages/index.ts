@@ -1,5 +1,7 @@
 export { default as LoginPage } from "./LoginPage";
 export { default as RegistrationPage } from "./RegistrationPage";
+export { default as PasswordResetPage } from "./PasswordResetPage";
+export { default as ProfilePage } from "./ProfilePage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as StudentsPage } from "./StudentsPage";
 export { default as ProgramsPage } from "./ProgramsPage";

@@ -1,18 +1,13 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Sidebar, Header } from "./components";
-import { LoginPage } from "./components/pages";
+import { LoginPage, RegistrationPage, PasswordResetPage } from "./components/pages";
 import { appRoutes } from "./routes/routes";
 import { useAppSelector } from "./hooks/useRedux";
-import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
-import { ToastProvider } from "./context/ToastContext";
-import { ToastContainer } from "./components/common/ToastContainer";
-import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
 function AppLayout() {
   const [activeNav, setActiveNav] = useState("dashboard");
   const navigate = useNavigate();
-  useKeyboardShortcuts();
 
   const handleNavClick = (id: string) => {
     setActiveNav(id);
@@ -36,14 +31,18 @@ function App() {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <ErrorBoundary>
-      <ToastProvider>
-        <BrowserRouter>
-          {!isAuthenticated ? <LoginPage /> : <AppLayout />}
-          <ToastContainer />
-        </BrowserRouter>
-      </ToastProvider>
-    </ErrorBoundary>
+    <BrowserRouter>
+      {!isAuthenticated ? (
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/reset-password" element={<PasswordResetPage />} />
+        </Routes>
+      ) : (
+        <AppLayout />
+      )}
+    </BrowserRouter>
   );
 }
 
