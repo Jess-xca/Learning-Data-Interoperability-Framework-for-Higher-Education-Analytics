@@ -30,13 +30,9 @@ const roleNames: Record<User["role"], string> = {
 };
 
 export default function LoginPage() {
-  const [showRegister, setShowRegister] = useState(false);
-
-  if (showRegister) {
-    return <RegistrationPage onSwitchToLogin={() => setShowRegister(false)} />;
-  }
-
+  // All hooks must be called at the top level, before conditionals
   const dispatch = useAppDispatch();
+  const [showRegister, setShowRegister] = useState(false);
   const [institution, setInstitution] = useState("");
   const [role, setRole] = useState<User["role"] | "">("");
   const [email, setEmail] = useState("");
@@ -45,6 +41,11 @@ export default function LoginPage() {
   const [step, setStep] = useState<"form" | "mfa">("form");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Conditionally render components, but hooks are already called
+  if (showRegister) {
+    return <RegistrationPage onSwitchToLogin={() => setShowRegister(false)} />;
+  }
 
   const selectedInstitution = institutions.find(i => i.value === institution);
 
