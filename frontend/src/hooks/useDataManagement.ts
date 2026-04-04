@@ -2,11 +2,12 @@ import { useCallback, useMemo } from "react";
 import { useAppSelector } from "./useRedux";
 import { useToast } from "../context/useToast";
 import { applyRoleFilter } from "../utils/roleFilters";
+import type { RootState } from "../store/store";
 
 interface UseDataManagementProps<T> {
-  dataSelector: (state: any) => T[];
-  loadingSelector: (state: any) => boolean;
-  errorSelector: (state: any) => string | null;
+  dataSelector: (state: RootState) => T[];
+  loadingSelector: (state: RootState) => boolean;
+  errorSelector: (state: RootState) => string | null;
   allowedRoles: string[];
   onErrorChange?: (error: string | null) => void;
 }
@@ -48,7 +49,7 @@ export function useDataManagement<T extends { id: string }>(
     (query: string, searchFields: string[]): T[] => {
       return filteredByRole.filter((item) =>
         searchFields.some((field) =>
-          String((item as Record<string, any>)[field])
+          String((item as Record<string, unknown>)[field])
             .toLowerCase()
             .includes(query.toLowerCase()),
         ),
