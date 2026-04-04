@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MainContent, Card, Button, Badge } from "..";
+import { MainContent, Card, Button, Badge, Footer } from "..";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 import type { BadgeVariant } from "../common/Badge";
 
@@ -151,6 +151,7 @@ export default function GovernancePage() {
   };
 
   return (
+    <>
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
@@ -432,5 +433,7 @@ export default function GovernancePage() {
         </Card>
       )}
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

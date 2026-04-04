@@ -7,6 +7,7 @@ import {
 } from "../../store/slices/usersSlice";
 import type { SystemUser } from "../../store/slices/usersSlice";
 import type { User } from "../../store/slices/authSlice";
+import { MainContent, Footer } from "..";
 import Card from "../common/Card";
 import Badge from "../common/Badge";
 import Alert from "../common/Alert";
@@ -207,6 +208,8 @@ export default function UserManagementPage() {
   };
 
   return (
+    <>
+    <MainContent>
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -532,5 +535,8 @@ export default function UserManagementPage() {
         </>
       )}
     </div>
+    </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

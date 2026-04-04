@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MainContent, MetricCard, ChartCard, Table, Card, Badge } from "..";
+import { MainContent, MetricCard, ChartCard, Table, Card, Badge, Footer } from "..";
 import type { TableColumn } from "../dashboard/Table";
 import { useAppSelector } from "../../hooks/useRedux";
 import {
@@ -759,24 +759,57 @@ export default function DashboardPage() {
   // Route to appropriate dashboard based on role
   switch (userRole) {
     case "admin":
-      return <AdminDashboard />;
+      return (
+        <>
+          <AdminDashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     case "qa":
-      return <QADashboard />;
+      return (
+        <>
+          <QADashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     case "analyst":
-      return <AnalystDashboard />;
+      return (
+        <>
+          <AnalystDashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     case "hod":
-      return <HODDashboard />;
+      return (
+        <>
+          <HODDashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     case "lecturer":
-      return <LecturerDashboard />;
+      return (
+        <>
+          <LecturerDashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     case "student":
-      return <StudentDashboard />;
+      return (
+        <>
+          <StudentDashboard />
+          <Footer variant="minimal" />
+        </>
+      );
     default:
       return (
+        <>
         <MainContent>
           <Card className="p-8 text-center">
             <p className="text-on-surface-variant">Loading dashboard...</p>
           </Card>
         </MainContent>
+        <Footer variant="minimal" />
+        </>
       );
   }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MainContent, Card, TextInput, Button, Alert, Badge } from "..";
+import { MainContent, Card, TextInput, Button, Alert, Badge, Footer } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { setUser } from "../../store/slices/authSlice";
 
@@ -74,6 +74,7 @@ export default function ProfilePage() {
   };
 
   return (
+    <>
     <MainContent>
       <div className="mb-10 flex justify-between items-end">
         <div>
@@ -233,5 +234,7 @@ export default function ProfilePage() {
         </div>
       )}
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

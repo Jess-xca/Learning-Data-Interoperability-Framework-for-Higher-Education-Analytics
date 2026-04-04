@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MainContent, Card, Button } from "..";
+import { MainContent, Card, Button, Footer } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { useToast } from "../../context/useToast";
@@ -46,6 +46,7 @@ export default function ProgramsPage() {
   }
 
   return (
+    <>
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 space-y-2">
@@ -318,5 +319,7 @@ export default function ProgramsPage() {
         </div>
       </div>
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

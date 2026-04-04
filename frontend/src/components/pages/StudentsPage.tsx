@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MainContent, Card, Button, TextInput, Badge } from "..";
+import { MainContent, Card, Button, TextInput, Badge, Footer } from "..";
 import { Table } from "../dashboard";
 import type { TableColumn } from "../dashboard/Table";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
@@ -494,5 +494,7 @@ export default function StudentsPage() {
         </div>
       </div>
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MainContent, Card, Button, Badge, TextInput } from "..";
+import { MainContent, Card, Button, Badge, TextInput, Footer } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { useToast } from "../../context/useToast";
@@ -99,6 +99,7 @@ export default function CoursesPage() {
   };
 
   return (
+    <>
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 space-y-2">
@@ -463,5 +464,7 @@ export default function CoursesPage() {
         </div>
       </div>
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

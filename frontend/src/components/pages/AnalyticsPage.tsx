@@ -1,4 +1,4 @@
-import { MainContent, Card, Button } from "..";
+import { MainContent, Card, Button, Footer } from "..";
 import { ChartCard } from "../dashboard";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { generateDummyStudents } from "../../data/dummyGenerator";
@@ -107,6 +107,7 @@ export default function AnalyticsPage() {
   // Role guard - admin, analyst, hod, qa, student can access
   useRoleGuard(["admin", "analyst", "hod", "qa", "student"]);
   return (
+    <>
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
@@ -327,5 +328,7 @@ export default function AnalyticsPage() {
         </Button>
       </div>
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }

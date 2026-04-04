@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, TextInput } from "..";
+import { Alert, TextInput, Footer } from "..";
 
 export default function PasswordResetPage() {
   const [step, setStep] = useState<"email" | "code" | "newPassword" | "success">("email");
@@ -169,6 +169,12 @@ export default function PasswordResetPage() {
           </div>
         )}
       </div>
+      <footer className="mt-10 pt-8 border-t border-outline-variant text-center">
+        <p className="text-sm text-on-surface-variant">
+          Remember your password?{" "}
+          <a href="/login" className="text-primary font-bold hover:underline">Sign in</a>
+        </p>
+      </footer>
     </div>
   );
 }

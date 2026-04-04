@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MainContent, Card, Button, TextInput, Badge } from "..";
+import { MainContent, Card, Button, TextInput, Badge, Footer } from "..";
 import { useAppSelector } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 
@@ -138,6 +138,7 @@ export default function SettingsPage() {
   };
 
   return (
+    <>
     <MainContent>
       {/* Page Header */}
       <div className="mb-10 flex justify-between items-end">
@@ -288,5 +289,7 @@ export default function SettingsPage() {
         </Button>
       </div>
     </MainContent>
+    <Footer variant="minimal" />
+    </>
   );
 }
