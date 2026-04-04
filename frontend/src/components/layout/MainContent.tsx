@@ -20,7 +20,7 @@ export default function MainContent({
   }[maxWidth];
 
   return (
-    <main className="ml-0 md:ml-72 pt-16 min-h-screen">
+    <main className="ml-0 md:ml-72 pt-16 min-h-screen bg-surface">
       <div className={`${maxWidthClass} mx-auto p-4 md:p-12 w-full`}>
         {children}
       </div>
