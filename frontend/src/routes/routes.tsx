@@ -8,6 +8,7 @@ import {
   ReportsPage,
   GovernancePage,
   SettingsPage,
+  UserManagementPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -46,5 +47,9 @@ export const appRoutes: RouteObject[] = [
   {
     path: "/settings",
     element: <SettingsPage />,
+  },
+  {
+    path: "/users",
+    element: <UserManagementPage />,
   },
 ];
