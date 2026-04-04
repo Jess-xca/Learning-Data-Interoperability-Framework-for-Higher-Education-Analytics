@@ -1,4 +1,5 @@
 export { default as LoginPage } from "./LoginPage";
+export { default as RegistrationPage } from "./RegistrationPage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as StudentsPage } from "./StudentsPage";
 export { default as ProgramsPage } from "./ProgramsPage";
@@ -7,3 +8,4 @@ export { default as AnalyticsPage } from "./AnalyticsPage";
 export { default as ReportsPage } from "./ReportsPage";
 export { default as GovernancePage } from "./GovernancePage";
 export { default as SettingsPage } from "./SettingsPage";
+export { default as UserManagementPage } from "./UserManagementPage";
