@@ -2,6 +2,7 @@ import { useEffect, useCallback, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "./useRedux";
 import type { User } from "../store/slices/authSlice";
 import type { Student, Course, Program } from "../store/slices/dataSlice";
+import type { AppDispatch } from "../store/store";
 
 type UserRole = User["role"];
 type EntityData = Student | Course | Program;
@@ -13,13 +14,17 @@ type EntityData = Student | Course | Program;
 export function useEntityPage<T extends { id: string }>(
   entityKey: "students" | "courses" | "programs" | "analytics" | "reports",
   allowedRoles: UserRole[],
-  fetchThunk: ReturnType<any>, // AsyncThunk
+  fetchThunk: (dispatch: AppDispatch) => void,
 ) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const data = useAppSelector((state) => state.data);
-  const entities =
-    (data[entityKey as keyof typeof data] as EntityData[] | null) ?? [];
+  
+  // Memoize entities extraction to prevent unnecessary recalculations
+  const entities = useMemo(
+    () => (data[entityKey as keyof typeof data] as EntityData[] | null) ?? [],
+    [data, entityKey]
+  );
   const loading = data.loading;
   const error = data.error;
 
@@ -58,7 +63,7 @@ export function useEntityPage<T extends { id: string }>(
 
       return data;
     },
-    [user?.role, user?.department],
+    [user],
   );
 
   const filteredByRole = useMemo(
