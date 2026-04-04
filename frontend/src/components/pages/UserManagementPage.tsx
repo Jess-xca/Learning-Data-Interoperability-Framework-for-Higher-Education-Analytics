@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
-import { setUsers, updateUserSuccess, deleteUserSuccess } from "../../store/slices/usersSlice";
+import {
+  setUsers,
+  updateUserSuccess,
+  deleteUserSuccess,
+} from "../../store/slices/usersSlice";
 import type { SystemUser } from "../../store/slices/usersSlice";
 import type { User } from "../../store/slices/authSlice";
 import Card from "../common/Card";
@@ -19,7 +23,9 @@ const statusOptions = ["active", "inactive", "pending"] as const;
 
 export default function UserManagementPage() {
   const dispatch = useAppDispatch();
-  const allUsers = useAppSelector((state) => Array.isArray(state.users.allUsers) ? state.users.allUsers : []);
+  const allUsers = useAppSelector((state) =>
+    Array.isArray(state.users.allUsers) ? state.users.allUsers : [],
+  );
   const currentUser = useAppSelector((state) => state.auth.user);
 
   const [showForm, setShowForm] = useState(false);
@@ -134,8 +140,11 @@ export default function UserManagementPage() {
       const updated: SystemUser = {
         id: editingId,
         ...formData,
-        mfaEnabled: allUsers.find((u) => u.id === editingId)?.mfaEnabled || false,
-        createdAt: allUsers.find((u) => u.id === editingId)?.createdAt || new Date().toISOString(),
+        mfaEnabled:
+          allUsers.find((u) => u.id === editingId)?.mfaEnabled || false,
+        createdAt:
+          allUsers.find((u) => u.id === editingId)?.createdAt ||
+          new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
       dispatch(updateUserSuccess(updated));
@@ -202,8 +211,12 @@ export default function UserManagementPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-on-surface">User Management</h1>
-          <p className="text-on-surface-variant mt-1">Manage system users and permissions</p>
+          <h1 className="text-3xl font-bold text-on-surface">
+            User Management
+          </h1>
+          <p className="text-on-surface-variant mt-1">
+            Manage system users and permissions
+          </p>
         </div>
         {!showForm && (
           <button
@@ -221,37 +234,56 @@ export default function UserManagementPage() {
         <Card>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Full Name *</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Full Name *
+              </label>
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Email *</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Email *
+              </label>
               <input
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Institution *</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Institution *
+              </label>
               <input
                 type="text"
                 value={formData.institution}
-                onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, institution: e.target.value })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Role</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Role
+              </label>
               <select
                 value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value as User["role"] })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    role: e.target.value as User["role"],
+                  })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               >
                 {roleOptions.map((r) => (
@@ -262,28 +294,43 @@ export default function UserManagementPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Department</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Department
+              </label>
               <input
                 type="text"
                 value={formData.department}
-                onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, department: e.target.value })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Phone</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Phone
+              </label>
               <input
                 type="tel"
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">Status</label>
+              <label className="block text-sm font-semibold text-primary mb-2">
+                Status
+              </label>
               <select
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as SystemUser["status"] })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    status: e.target.value as SystemUser["status"],
+                  })
+                }
                 className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
               >
                 {statusOptions.map((s) => (
@@ -362,17 +409,32 @@ export default function UserManagementPage() {
               <table className="w-full">
                 <thead className="bg-surface-container border-b border-outline">
                   <tr>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Name</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Email</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Institution</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Role</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Status</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">Actions</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Name
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Email
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Institution
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Role
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Status
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline">
                   {filteredUsers.map((user) => (
-                    <tr key={user.id} className="hover:bg-surface-container-low transition-colors">
+                    <tr
+                      key={user.id}
+                      className="hover:bg-surface-container-low transition-colors"
+                    >
                       <td className="px-4 py-3 text-sm font-medium text-on-surface">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
@@ -381,16 +443,22 @@ export default function UserManagementPage() {
                           {user.name}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm text-on-surface-variant">{user.email}</td>
-                      <td className="px-4 py-3 text-sm text-on-surface-variant">{user.institution}</td>
+                      <td className="px-4 py-3 text-sm text-on-surface-variant">
+                        {user.email}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-on-surface-variant">
+                        {user.institution}
+                      </td>
                       <td className="px-4 py-3 text-sm">
                         <Badge variant={getRoleBadgeColor(user.role)}>
-                          {roleOptions.find((r) => r.value === user.role)?.label || user.role}
+                          {roleOptions.find((r) => r.value === user.role)
+                            ?.label || user.role}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-sm">
                         <Badge variant={getStatusBadgeColor(user.status)}>
-                          {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                          {user.status.charAt(0).toUpperCase() +
+                            user.status.slice(1)}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-sm flex gap-2">
@@ -399,14 +467,18 @@ export default function UserManagementPage() {
                           className="p-2 hover:bg-surface-container rounded-lg transition-colors"
                           title="Edit"
                         >
-                          <span className="material-symbols-outlined text-primary text-lg">edit</span>
+                          <span className="material-symbols-outlined text-primary text-lg">
+                            edit
+                          </span>
                         </button>
                         <button
                           onClick={() => handleDeleteUser(user.id)}
                           className="p-2 hover:bg-error-container rounded-lg transition-colors"
                           title="Delete"
                         >
-                          <span className="material-symbols-outlined text-error text-lg">delete</span>
+                          <span className="material-symbols-outlined text-error text-lg">
+                            delete
+                          </span>
                         </button>
                       </td>
                     </tr>
@@ -420,8 +492,12 @@ export default function UserManagementPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">{allUsers.length}</div>
-                <div className="text-sm text-on-surface-variant">Total Users</div>
+                <div className="text-3xl font-bold text-primary">
+                  {allUsers.length}
+                </div>
+                <div className="text-sm text-on-surface-variant">
+                  Total Users
+                </div>
               </div>
             </Card>
             <Card>
@@ -437,7 +513,9 @@ export default function UserManagementPage() {
                 <div className="text-3xl font-bold text-warning">
                   {allUsers.filter((u) => u.mfaEnabled).length}
                 </div>
-                <div className="text-sm text-on-surface-variant">MFA Enabled</div>
+                <div className="text-sm text-on-surface-variant">
+                  MFA Enabled
+                </div>
               </div>
             </Card>
             <Card>
@@ -445,7 +523,9 @@ export default function UserManagementPage() {
                 <div className="text-3xl font-bold text-primary">
                   {roleOptions.length}
                 </div>
-                <div className="text-sm text-on-surface-variant">Role Types</div>
+                <div className="text-sm text-on-surface-variant">
+                  Role Types
+                </div>
               </div>
             </Card>
           </div>

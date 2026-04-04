@@ -8,7 +8,10 @@ import type { SystemUser } from "../../store/slices/usersSlice";
 
 const institutions = [
   { value: "univ-kigali", label: "Université de Kigali" },
-  { value: "kigali-institute", label: "Kigali Institute of Science & Technology" },
+  {
+    value: "kigali-institute",
+    label: "Kigali Institute of Science & Technology",
+  },
   { value: "aub", label: "African University of Business" },
   { value: "demo", label: "Demo Institution (Testing)" },
 ];
@@ -25,7 +28,9 @@ interface RegistrationPageProps {
   onSwitchToLogin: () => void;
 }
 
-export default function RegistrationPage({ onSwitchToLogin }: RegistrationPageProps) {
+export default function RegistrationPage({
+  onSwitchToLogin,
+}: RegistrationPageProps) {
   const dispatch = useAppDispatch();
   const [institution, setInstitution] = useState("");
   const [role, setRole] = useState<User["role"] | "">("");
@@ -56,7 +61,14 @@ export default function RegistrationPage({ onSwitchToLogin }: RegistrationPagePr
     setError("");
     setSuccess("");
 
-    if (!institution || !role || !email || !name || !password || !confirmPassword) {
+    if (
+      !institution ||
+      !role ||
+      !email ||
+      !name ||
+      !password ||
+      !confirmPassword
+    ) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -97,7 +109,7 @@ export default function RegistrationPage({ onSwitchToLogin }: RegistrationPagePr
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      
+
       // Create new user
       const newUser: SystemUser = {
         id: `user_${Date.now()}`,
@@ -126,7 +138,7 @@ export default function RegistrationPage({ onSwitchToLogin }: RegistrationPagePr
           institution: newUser.institution,
           department: newUser.department,
           mfaEnabled: false,
-        })
+        }),
       );
     }, 1500);
   };
@@ -159,12 +171,14 @@ export default function RegistrationPage({ onSwitchToLogin }: RegistrationPagePr
             </div>
             <h2 className="text-4xl font-bold text-surface-bright leading-tight">
               Join the{" "}
-              <span className="text-on-tertiary-container">Academic Curator</span>{" "}
+              <span className="text-on-tertiary-container">
+                Academic Curator
+              </span>{" "}
               network.
             </h2>
             <p className="mt-6 text-on-secondary-container text-base max-w-sm leading-relaxed">
-              Register your institutional account to access unified learning records and
-              predictive analytics.
+              Register your institutional account to access unified learning
+              records and predictive analytics.
             </p>
           </div>
         </section>
@@ -385,8 +399,8 @@ export default function RegistrationPage({ onSwitchToLogin }: RegistrationPagePr
               <div className="space-y-6">
                 <div className="p-4 rounded-lg bg-secondary-container/30 border border-secondary/20">
                   <p className="text-sm text-on-surface">
-                    We sent a verification code to <strong>{email}</strong>. Check your
-                    inbox and spam folder.
+                    We sent a verification code to <strong>{email}</strong>.
+                    Check your inbox and spam folder.
                   </p>
                 </div>
 

@@ -42,7 +42,7 @@ export function useDocumentUpload(userId: string) {
   const uploadDocument = useCallback(
     async (
       file: File,
-      category?: UploadedDocument["category"]
+      category?: UploadedDocument["category"],
     ): Promise<UploadedDocument | null> => {
       setUploadError(null);
       setIsUploading(true);
@@ -50,7 +50,9 @@ export function useDocumentUpload(userId: string) {
       try {
         // Validate file size
         if (file.size > MAX_FILE_SIZE) {
-          throw new Error(`File size exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`);
+          throw new Error(
+            `File size exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`,
+          );
         }
 
         // Convert to base64
@@ -82,7 +84,7 @@ export function useDocumentUpload(userId: string) {
         return null;
       }
     },
-    [documents, storageKey]
+    [documents, storageKey],
   );
 
   /**
@@ -94,7 +96,7 @@ export function useDocumentUpload(userId: string) {
       setDocuments(updatedDocs);
       localStorage.setItem(storageKey, JSON.stringify(updatedDocs));
     },
-    [documents, storageKey]
+    [documents, storageKey],
   );
 
   /**
@@ -105,7 +107,7 @@ export function useDocumentUpload(userId: string) {
       if (!category) return documents;
       return documents.filter((doc) => doc.category === category);
     },
-    [documents]
+    [documents],
   );
 
   /**

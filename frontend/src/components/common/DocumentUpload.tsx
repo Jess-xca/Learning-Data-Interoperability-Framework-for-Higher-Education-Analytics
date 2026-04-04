@@ -1,5 +1,8 @@
 import { useRef } from "react";
-import { useDocumentUpload, type UploadedDocument } from "../../hooks/useDocumentUpload";
+import {
+  useDocumentUpload,
+  type UploadedDocument,
+} from "../../hooks/useDocumentUpload";
 
 interface DocumentUploadProps {
   userId: string;
@@ -16,7 +19,14 @@ export default function DocumentUpload({
   userId,
   category,
   maxFiles = 5,
-  allowedTypes = ["image/*", "application/pdf", ".doc", ".docx", ".xls", ".xlsx"],
+  allowedTypes = [
+    "image/*",
+    "application/pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+  ],
   onUploadSuccess,
   showLabel = true,
   title = "Upload Document",

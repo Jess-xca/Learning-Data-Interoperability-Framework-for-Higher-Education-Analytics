@@ -54,7 +54,7 @@ const usersSlice = createSlice({
     // Update user
     updateUserSuccess: (state, action: PayloadAction<SystemUser>) => {
       const index = state.allUsers.findIndex(
-        (user) => user.id === action.payload.id
+        (user) => user.id === action.payload.id,
       );
       if (index !== -1) {
         state.allUsers[index] = action.payload;
@@ -65,7 +65,7 @@ const usersSlice = createSlice({
     // Delete user
     deleteUserSuccess: (state, action: PayloadAction<string>) => {
       state.allUsers = state.allUsers.filter(
-        (user) => user.id !== action.payload
+        (user) => user.id !== action.payload,
       );
       state.error = null;
     },

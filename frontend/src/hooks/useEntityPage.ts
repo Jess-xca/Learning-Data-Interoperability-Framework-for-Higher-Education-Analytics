@@ -19,11 +19,11 @@ export function useEntityPage<T extends { id: string }>(
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const data = useAppSelector((state) => state.data);
-  
+
   // Memoize entities extraction to prevent unnecessary recalculations
   const entities = useMemo(
     () => (data[entityKey as keyof typeof data] as EntityData[] | null) ?? [],
-    [data, entityKey]
+    [data, entityKey],
   );
   const loading = data.loading;
   const error = data.error;
