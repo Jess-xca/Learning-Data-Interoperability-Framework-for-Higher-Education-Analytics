@@ -22,6 +22,7 @@ const navByRole: Record<User["role"], NavItem[]> = {
     { icon: "library_books", label: "Courses", id: "courses" },
     { icon: "analytics", label: "Analytics", id: "analytics" },
     { icon: "description", label: "Reports", id: "reports" },
+    { icon: "person_search", label: "User Management", id: "users" },
     { icon: "gavel", label: "Governance", id: "governance" },
     { icon: "settings", label: "Settings", id: "settings" },
   ],
@@ -83,7 +84,10 @@ const roleBadge: Record<User["role"], string> = {
   student: "Student",
 };
 
-export default function Sidebar({ activeNav = "dashboard", onNavClick }: SidebarProps) {
+export default function Sidebar({
+  activeNav = "dashboard",
+  onNavClick,
+}: SidebarProps) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const role = (user?.role ?? "admin") as keyof typeof navByRole;
@@ -115,9 +119,15 @@ export default function Sidebar({ activeNav = "dashboard", onNavClick }: Sidebar
                   : "text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest/60"
               }`}
             >
-              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
-              <span className="text-sm font-medium tracking-tight">{item.label}</span>
-              {isActive && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-on-tertiary-container" />}
+              <span className="material-symbols-outlined text-[20px]">
+                {item.icon}
+              </span>
+              <span className="text-sm font-medium tracking-tight">
+                {item.label}
+              </span>
+              {isActive && (
+                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-on-tertiary-container" />
+              )}
             </button>
           );
         })}
@@ -126,7 +136,9 @@ export default function Sidebar({ activeNav = "dashboard", onNavClick }: Sidebar
       {/* Support & Logout */}
       <div className="px-3 pb-2 space-y-0.5">
         <button className="flex items-center gap-3 px-4 py-3 rounded-lg w-full text-left text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest/60 transition-all duration-200">
-          <span className="material-symbols-outlined text-[20px]">contact_support</span>
+          <span className="material-symbols-outlined text-[20px]">
+            contact_support
+          </span>
           <span className="text-sm font-medium tracking-tight">Support</span>
         </button>
         <button
@@ -147,12 +159,16 @@ export default function Sidebar({ activeNav = "dashboard", onNavClick }: Sidebar
             className="w-9 h-9 rounded-full flex-shrink-0"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-on-surface truncate">{user?.name ?? "Admin User"}</p>
+            <p className="text-sm font-bold text-on-surface truncate">
+              {user?.name ?? "Admin User"}
+            </p>
             <p className="text-[10px] text-on-tertiary-container font-bold uppercase tracking-widest">
               {roleBadge[role]}
             </p>
           </div>
-          <span className="material-symbols-outlined text-on-surface-variant text-sm">more_vert</span>
+          <span className="material-symbols-outlined text-on-surface-variant text-sm">
+            more_vert
+          </span>
         </div>
       </div>
     </aside>
