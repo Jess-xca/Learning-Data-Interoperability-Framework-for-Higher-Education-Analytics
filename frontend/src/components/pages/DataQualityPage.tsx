@@ -1,4 +1,5 @@
 import React from "react";
+import { MainContent } from "../layout";
 import { useStandardsValidation } from "../../hooks/useStandardsValidation";
 
 const DataQualityPage: React.FC = () => {
@@ -8,17 +9,15 @@ const DataQualityPage: React.FC = () => {
   const summary = generateComplianceSummary();
 
   return (
-    <div className="flex flex-col bg-surface min-h-screen">
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-10 py-8 mb-8">
-        <h1 className="text-3xl font-bold mb-2">Data Quality & Compliance</h1>
-        <p className="opacity-90 text-base">
+    <MainContent>
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">Data Quality & Compliance</h1>
+        <p className="text-on-surface-variant font-medium mt-2">
           Monitor data integrity across all integrated standards
         </p>
       </div>
 
-      <div className="px-10 pb-10 max-w-7xl mx-auto w-full">
-        {/* Compliance Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-lg p-6 shadow-sm">
             <div className="flex justify-between items-start">
               <div>
@@ -352,8 +351,7 @@ const DataQualityPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </MainContent>
   );
 };
 

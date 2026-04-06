@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MainContent } from "../layout";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { selectArea } from "../../store/slices/accreditationSlice";
 import Button from "../forms/Button";
@@ -57,19 +58,18 @@ const AccreditationPage: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col bg-surface min-h-screen">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-10 py-8 mb-8">
-        <h1 className="text-3xl font-bold mb-2">
+    <MainContent>
+      {/* Main Content */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">
           Accreditation & Quality Assurance
         </h1>
-        <p className="opacity-90 text-base">
+        <p className="text-on-surface-variant font-medium mt-2">
           HEC Compliance Management & Evidence Tracking
         </p>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 px-10 pb-10 max-w-7xl mx-auto w-full">
+      <div>
         {/* Compliance Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6">
@@ -563,7 +563,7 @@ const AccreditationPage: React.FC = () => {
           />
         )}
       </div>
-    </div>
+    </MainContent>
   );
 };
 

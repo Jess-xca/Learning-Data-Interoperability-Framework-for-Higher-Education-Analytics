@@ -5,6 +5,7 @@ import {
 } from "../../store/slices/mappingSlice";
 import { useFieldMapping } from "../../hooks/useFieldMapping";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { MainContent } from "../layout";
 import FieldMappingEditor from "../FieldMappingEditor";
 import Button from "../forms/Button";
 
@@ -98,15 +99,15 @@ const DataMappingPage: React.FC = () => {
       : null;
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-8 py-8 mb-6">
-        <h1 className="text-3xl font-bold mb-2">Field Mapping Configuration</h1>
-        <p className="opacity-90 text-sm">
+    <MainContent>
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">Field Mapping Configuration</h1>
+        <p className="text-on-surface-variant font-medium mt-2">
           Configure how source system fields map to standards formats
         </p>
       </div>
 
-      <div className="flex flex-1 gap-6 px-8 pb-8 max-w-6xl mx-auto w-full">
+      <div className="flex flex-1 gap-6 pb-8">
         <div className="w-72 flex-shrink-0">
           <div className="bg-white rounded p-4 shadow-sm">
             <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3">
@@ -384,7 +385,7 @@ const DataMappingPage: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </MainContent>
   );
 };
 

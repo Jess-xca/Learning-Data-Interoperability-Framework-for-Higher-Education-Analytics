@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MainContent } from "../layout";
 
 interface PipelineStage {
   id: string;
@@ -126,10 +127,10 @@ const PipelineVisualizerPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col bg-surface min-h-screen">
-      <div className="bg-gradient-to-r from-pink-500 to-red-600 text-white px-10 py-8 mb-8">
-        <h1 className="text-3xl font-bold mb-2">Data Pipeline Visualizer</h1>
-        <p className="opacity-90 text-base">
+    <MainContent>
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">Data Pipeline Visualizer</h1>
+        <p className="text-on-surface-variant font-medium mt-2">
           Monitor real-time data flow through integration standards
         </p>
       </div>
@@ -444,9 +445,7 @@ const PipelineVisualizerPage: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </div>      </div>      </MainContent>
   );
 };
 

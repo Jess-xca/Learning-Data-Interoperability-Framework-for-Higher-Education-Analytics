@@ -3,6 +3,7 @@ import { useAppSelector } from "../../hooks/useRedux";
 import Button from "../forms/Button";
 import ReportDistributionModal from "../ReportDistributionModal";
 import ReportingAnalyticsModal from "../ReportingAnalyticsModal";
+import { MainContent } from "../layout";
 
 const InstitutionalReportingPage: React.FC = () => {
   const { reports: institutionalReports } = useAppSelector(
@@ -113,18 +114,16 @@ const InstitutionalReportingPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col bg-surface min-h-screen">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-10 py-8 mb-8">
-        <h1 className="text-3xl font-bold mb-2">Institutional Reporting</h1>
-        <p className="opacity-90 text-base">
+    <MainContent>
+      {/* Page Header */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">Institutional Reporting</h1>
+        <p className="text-on-surface-variant font-medium mt-2">
           Manage and distribute institutional reports across departments
         </p>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 px-10 pb-10 max-w-7xl mx-auto w-full">
-        {/* Stats Cards */}
+      {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-600">
             <div className="text-sm font-semibold text-gray-600 mb-2">
@@ -345,7 +344,6 @@ const InstitutionalReportingPage: React.FC = () => {
             ))
           )}
         </div>
-      </div>
 
       {/* Modals */}
       <ReportDistributionModal
@@ -364,7 +362,7 @@ const InstitutionalReportingPage: React.FC = () => {
         isOpen={showAnalyticsModal}
         onClose={() => setShowAnalyticsModal(false)}
       />
-    </div>
+    </MainContent>
   );
 };
 

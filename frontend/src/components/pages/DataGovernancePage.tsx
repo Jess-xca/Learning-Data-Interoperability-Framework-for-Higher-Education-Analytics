@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MainContent } from "../layout";
 import Button from "../forms/Button";
 
 export interface DataDictionary {
@@ -172,16 +173,15 @@ const DataGovernancePage: React.FC = () => {
   });
 
   return (
-    <div className="flex flex-col bg-surface min-h-screen">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-cyan-700 text-white px-10 py-8 mb-8">
-        <h1 className="text-3xl font-bold mb-2">Data Governance</h1>
-        <p className="opacity-90 text-base">
+    <MainContent>
+      {/* Main Content */}
+      <div className="mb-10">
+        <h1 className="text-4xl font-black text-primary">Data Governance</h1>
+        <p className="text-on-surface-variant font-medium mt-2">
           Manage data dictionaries, lineage, and governance policies
         </p>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 px-10 pb-10 max-w-7xl mx-auto w-full">
         {/* Tabs */}
         <div className="flex gap-4 mb-8 border-b border-gray-300">
@@ -443,9 +443,7 @@ const DataGovernancePage: React.FC = () => {
               ))}
             </div>
           </div>
-        )}
-      </div>
-    </div>
+        )}      </div>    </MainContent>
   );
 };
 
