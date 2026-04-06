@@ -3,9 +3,6 @@ import { useAppSelector } from "../../hooks/useRedux";
 import Button from "../forms/Button";
 import ReportDistributionModal from "../ReportDistributionModal";
 import ReportingAnalyticsModal from "../ReportingAnalyticsModal";
-import type {
-  InstitutionalReport,
-} from "../../store/slices/reportingSlice";
 
 const InstitutionalReportingPage: React.FC = () => {
   const { reports: institutionalReports } = useAppSelector(
@@ -18,53 +15,6 @@ const InstitutionalReportingPage: React.FC = () => {
   const [showAnalyticsModal, setShowAnalyticsModal] = useState(false);
   const [selectedReportId, setSelectedReportId] = useState<string>("");
   const [selectedReportName, setSelectedReportName] = useState<string>("");
-
-  const mockReports: InstitutionalReport[] = [
-    {
-      id: "rep_1",
-      name: "HEC Accreditation Self-Study 2026",
-      type: "accreditation",
-      status: "completed",
-      createdDate: "2026-02-01",
-      submissionDeadline: "2026-06-30",
-      completionPercentage: 65,
-      distributedTo: 0,
-      lastModified: "2026-04-06",
-    },
-    {
-      id: "rep_2",
-      name: "Annual Quality Assurance Report",
-      type: "quality",
-      status: "draft",
-      createdDate: "2026-03-15",
-      submissionDeadline: "2026-05-31",
-      completionPercentage: 45,
-      distributedTo: 0,
-      lastModified: "2026-04-05",
-    },
-    {
-      id: "rep_3",
-      name: "Compliance Status Report Q1",
-      type: "compliance",
-      status: "completed",
-      createdDate: "2026-01-10",
-      submissionDeadline: "2026-04-30",
-      completionPercentage: 100,
-      distributedTo: 5,
-      lastModified: "2026-04-01",
-    },
-    {
-      id: "rep_4",
-      name: "Institutional Performance Metrics",
-      type: "performance",
-      status: "approved",
-      createdDate: "2026-03-01",
-      submissionDeadline: "2026-07-30",
-      completionPercentage: 85,
-      distributedTo: 12,
-      lastModified: "2026-04-03",
-    },
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -349,12 +299,12 @@ const InstitutionalReportingPage: React.FC = () => {
                   {/* Footer */}
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-gray-600">
-                      {report.distributedTo > 0 ? (
+                      {report.distributions && report.distributions.length > 0 ? (
                         <span className="flex items-center gap-1">
                           <span className="material-symbols-outlined text-sm">
                             share
                           </span>
-                          Distributed to {report.distributedTo} recipients
+                          Distributed to {report.distributions.length} recipients
                         </span>
                       ) : (
                         <span className="text-gray-400">
