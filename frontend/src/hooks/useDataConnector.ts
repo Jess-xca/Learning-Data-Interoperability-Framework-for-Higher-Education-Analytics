@@ -81,7 +81,7 @@ export function useDataConnector() {
         return false;
       }
     },
-    []
+    [],
   );
 
   // Add a new connector
@@ -106,7 +106,7 @@ export function useDataConnector() {
 
       return true;
     },
-    [connectors, health, testConnection, saveConnectors]
+    [connectors, health, testConnection, saveConnectors],
   );
 
   // Update an existing connector
@@ -126,7 +126,7 @@ export function useDataConnector() {
       saveConnectors(updatedList as ConnectorConfig[]);
       return true;
     },
-    [connectors, testConnection, saveConnectors]
+    [connectors, testConnection, saveConnectors],
   );
 
   // Remove a connector
@@ -139,7 +139,7 @@ export function useDataConnector() {
       delete updatedHealth[id];
       setHealth(updatedHealth);
     },
-    [connectors, health, saveConnectors]
+    [connectors, health, saveConnectors],
   );
 
   // Check health of a connector
@@ -171,7 +171,7 @@ export function useDataConnector() {
       setHealth({ ...health, [connectorId]: healthData });
       return healthData;
     },
-    [connectors, health]
+    [connectors, health],
   );
 
   // Get connector by ID
@@ -179,7 +179,7 @@ export function useDataConnector() {
     (id: string): ConnectorConfig | undefined => {
       return connectors.find((c) => c.id === id);
     },
-    [connectors]
+    [connectors],
   );
 
   return {

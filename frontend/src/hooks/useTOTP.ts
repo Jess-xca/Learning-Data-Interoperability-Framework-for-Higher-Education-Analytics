@@ -24,21 +24,22 @@ export function useTOTP(userId: string) {
   });
 
   const [isVerifying, setIsVerifying] = useState(false);
-  const [verificationError, setVerificationError] = useState<string | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(
+    null,
+  );
 
   /**
    * Generate a mock TOTP secret
    * In production, use speakeasy or similar library
    */
   const generateSecret = useCallback((): TOTPSecret => {
-    const secret = Array.from({ length: 32 }, () =>
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"[Math.floor(Math.random() * 32)]
+    const secret = Array.from(
+      { length: 32 },
+      () => "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"[Math.floor(Math.random() * 32)],
     ).join("");
 
     const backupCodes = Array.from({ length: 10 }, () =>
-      Array.from({ length: 8 }, () =>
-        Math.floor(Math.random() * 10)
-      ).join("")
+      Array.from({ length: 8 }, () => Math.floor(Math.random() * 10)).join(""),
     );
 
     // Mock QR code URL (in production, generate real QR code)
@@ -54,34 +55,31 @@ export function useTOTP(userId: string) {
   /**
    * Verify TOTP code
    */
-  const verifyCode = useCallback(
-    async (code: string): Promise<boolean> => {
-      setIsVerifying(true);
-      setVerificationError(null);
+  const verifyCode = useCallback(async (code: string): Promise<boolean> => {
+    setIsVerifying(true);
+    setVerificationError(null);
 
-      try {
-        // Mock verification - accept any 6-digit code
-        if (!/^\d{6}$/.test(code)) {
-          throw new Error("Code must be 6 digits");
-        }
-
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // In production, verify against TOTP algorithm
-        // For now, accept any valid code
-        setIsVerifying(false);
-        return true;
-      } catch (error) {
-        const message =
-          error instanceof Error ? error.message : "Verification failed";
-        setVerificationError(message);
-        setIsVerifying(false);
-        return false;
+    try {
+      // Mock verification - accept any 6-digit code
+      if (!/^\d{6}$/.test(code)) {
+        throw new Error("Code must be 6 digits");
       }
-    },
-    []
-  );
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // In production, verify against TOTP algorithm
+      // For now, accept any valid code
+      setIsVerifying(false);
+      return true;
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Verification failed";
+      setVerificationError(message);
+      setIsVerifying(false);
+      return false;
+    }
+  }, []);
 
   /**
    * Disable TOTP (logout from all sessions)
@@ -115,48 +113,44 @@ export function useTOTP(userId: string) {
 
         localStorage.setItem(
           `${STORAGE_KEY_PREFIX}${userId}`,
-          JSON.stringify(newSetup)
+          JSON.stringify(newSetup),
         );
         setMFASetup(newSetup);
         setIsVerifying(false);
         return true;
       } catch (error) {
-        const message =
-          error instanceof Error ? error.message : "Setup failed";
+        const message = error instanceof Error ? error.message : "Setup failed";
         setVerificationError(message);
         setIsVerifying(false);
         return false;
       }
     },
-    [userId]
+    [userId],
   );
 
   /**
    * Use a backup code (reduces count)
    */
-  const useBackupCode = useCallback(
-    (): boolean => {
-      if (!mfaSetup || mfaSetup.backupCodesRemaining <= 0) {
-        setVerificationError("No backup codes remaining");
-        return false;
-      }
+  const useBackupCode = useCallback((): boolean => {
+    if (!mfaSetup || mfaSetup.backupCodesRemaining <= 0) {
+      setVerificationError("No backup codes remaining");
+      return false;
+    }
 
-      // In production, validate against stored backup codes
-      const updated: MFASetup = {
-        ...mfaSetup,
-        backupCodesRemaining: mfaSetup.backupCodesRemaining - 1,
-        lastVerified: new Date().toISOString(),
-      };
+    // In production, validate against stored backup codes
+    const updated: MFASetup = {
+      ...mfaSetup,
+      backupCodesRemaining: mfaSetup.backupCodesRemaining - 1,
+      lastVerified: new Date().toISOString(),
+    };
 
-      localStorage.setItem(
-        `${STORAGE_KEY_PREFIX}${userId}`,
-        JSON.stringify(updated)
-      );
-      setMFASetup(updated);
-      return true;
-    },
-    [mfaSetup, userId]
-  );
+    localStorage.setItem(
+      `${STORAGE_KEY_PREFIX}${userId}`,
+      JSON.stringify(updated),
+    );
+    setMFASetup(updated);
+    return true;
+  }, [mfaSetup, userId]);
 
   return {
     mfaSetup,

@@ -12,6 +12,9 @@ import {
   UserManagementPage,
   MFASetupPage,
   DataSourcesPage,
+  DataMappingPage,
+  DataQualityPage,
+  PipelineVisualizerPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -28,4 +31,7 @@ export const appRoutes: RouteObject[] = [
   { path: "/users", element: <UserManagementPage /> },
   { path: "/security", element: <MFASetupPage /> },
   { path: "/data-sources", element: <DataSourcesPage /> },
+  { path: "/data-mapping", element: <DataMappingPage /> },
+  { path: "/data-quality", element: <DataQualityPage /> },
+  { path: "/pipeline", element: <PipelineVisualizerPage /> },
 ];

@@ -8,13 +8,26 @@ import Badge from "../common/Badge";
 
 export default function MFASetupPage() {
   const user = useAppSelector((state) => state.auth.user);
-  const { mfaSetup, isVerifying, verificationError, generateSecret, setupTOTP, disableTOTP } =
-    useTOTP(user?.id || "");
-  const { isLoading: isResettingPassword, error: resetError, successMessage, changePassword, clearMessages } =
-    usePasswordReset();
+  const {
+    mfaSetup,
+    isVerifying,
+    verificationError,
+    generateSecret,
+    setupTOTP,
+    disableTOTP,
+  } = useTOTP(user?.id || "");
+  const {
+    isLoading: isResettingPassword,
+    error: resetError,
+    successMessage,
+    changePassword,
+    clearMessages,
+  } = usePasswordReset();
 
   const [activeTab, setActiveTab] = useState<"totp" | "password">("totp");
-  const [totpSecret, setTotpSecret] = useState<ReturnType<typeof generateSecret> | null>(null);
+  const [totpSecret, setTotpSecret] = useState<ReturnType<
+    typeof generateSecret
+  > | null>(null);
   const [verificationCode, setVerificationCode] = useState("");
 
   // Password change form
@@ -60,7 +73,9 @@ export default function MFASetupPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-on-surface">Security Settings</h1>
+        <h1 className="text-3xl font-bold text-on-surface">
+          Security Settings
+        </h1>
         <p className="text-on-surface-variant mt-1">
           Manage multi-factor authentication and password security
         </p>
@@ -112,12 +127,11 @@ export default function MFASetupPage() {
                   Authenticator App (TOTP)
                 </h3>
                 <p className="text-sm text-on-surface-variant mt-1">
-                  Use an authenticator app like Google Authenticator or Authy for two-factor auth
+                  Use an authenticator app like Google Authenticator or Authy
+                  for two-factor auth
                 </p>
               </div>
-              {mfaSetup?.enabled && (
-                <Badge variant="success">Active</Badge>
-              )}
+              {mfaSetup?.enabled && <Badge variant="success">Active</Badge>}
             </div>
 
             {mfaSetup?.enabled ? (
@@ -133,7 +147,8 @@ export default function MFASetupPage() {
                         Two-factor authentication is enabled
                       </p>
                       <p className="text-sm text-on-tertiary-variant mt-1">
-                        Setup on {new Date(mfaSetup.setupDate).toLocaleDateString()}
+                        Setup on{" "}
+                        {new Date(mfaSetup.setupDate).toLocaleDateString()}
                       </p>
                       <p className="text-sm text-on-tertiary-variant">
                         Backup codes remaining: {mfaSetup.backupCodesRemaining}
@@ -144,7 +159,11 @@ export default function MFASetupPage() {
 
                 <button
                   onClick={() => {
-                    if (confirm("Disable two-factor authentication? You'll need to set it up again to re-enable.")) {
+                    if (
+                      confirm(
+                        "Disable two-factor authentication? You'll need to set it up again to re-enable.",
+                      )
+                    ) {
                       disableTOTP();
                     }
                   }}
@@ -157,7 +176,8 @@ export default function MFASetupPage() {
               // Setup form
               <div className="space-y-6">
                 <Alert variant="info" icon="info">
-                  Scan the QR code with your authenticator app, then verify with the 6-digit code
+                  Scan the QR code with your authenticator app, then verify with
+                  the 6-digit code
                 </Alert>
 
                 {/* QR Code */}
@@ -187,7 +207,9 @@ export default function MFASetupPage() {
                   <input
                     type="text"
                     value={verificationCode}
-                    onChange={(e) => setVerificationCode(e.target.value.slice(0, 6))}
+                    onChange={(e) =>
+                      setVerificationCode(e.target.value.slice(0, 6))
+                    }
                     placeholder="000000"
                     maxLength={6}
                     className={`${fieldClass} text-center text-2xl tracking-[0.5em] font-bold`}
@@ -244,7 +266,9 @@ export default function MFASetupPage() {
       {activeTab === "password" && (
         <div className="space-y-6">
           <Card>
-            <h3 className="text-lg font-bold text-on-surface mb-6">Change Password</h3>
+            <h3 className="text-lg font-bold text-on-surface mb-6">
+              Change Password
+            </h3>
 
             {resetError && (
               <Alert variant="error" className="mb-6">
@@ -299,9 +323,11 @@ export default function MFASetupPage() {
                 />
               </div>
 
-              {newPassword && confirmPassword && newPassword !== confirmPassword && (
-                <Alert variant="error">Passwords do not match</Alert>
-              )}
+              {newPassword &&
+                confirmPassword &&
+                newPassword !== confirmPassword && (
+                  <Alert variant="error">Passwords do not match</Alert>
+                )}
 
               <div className="p-4 rounded-lg bg-warning-container/20 border border-warning">
                 <div className="flex gap-3">
@@ -309,7 +335,8 @@ export default function MFASetupPage() {
                     info
                   </span>
                   <p className="text-sm text-on-surface">
-                    You'll be logged out after changing your password. You'll need to sign in again.
+                    You'll be logged out after changing your password. You'll
+                    need to sign in again.
                   </p>
                 </div>
               </div>

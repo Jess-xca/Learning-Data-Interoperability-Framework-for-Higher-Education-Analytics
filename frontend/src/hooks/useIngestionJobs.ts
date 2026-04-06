@@ -75,7 +75,7 @@ export function useIngestionJobs() {
       connectorId: string,
       connectorName: string,
       entityType: string,
-      schedule: "once" | "hourly" | "daily" | "weekly"
+      schedule: "once" | "hourly" | "daily" | "weekly",
     ): IngestionJob => {
       const now = new Date();
       const nextRun = new Date(now.getTime() + 3600000); // 1 hour from now
@@ -98,7 +98,7 @@ export function useIngestionJobs() {
       saveJobs(updated);
       return newJob;
     },
-    [jobs, saveJobs]
+    [jobs, saveJobs],
   );
 
   // Start a job execution
@@ -127,12 +127,16 @@ export function useIngestionJobs() {
         };
 
         // Simulate job execution
-        await new Promise((resolve) => setTimeout(resolve, 2000 + Math.random() * 3000));
+        await new Promise((resolve) =>
+          setTimeout(resolve, 2000 + Math.random() * 3000),
+        );
 
         // Random success/failure
         const isSuccess = Math.random() > 0.1; // 90% success rate
         const recordsProcessed = Math.floor(Math.random() * 5000) + 100;
-        const errorCount = isSuccess ? Math.floor(Math.random() * 10) : Math.floor(Math.random() * 50);
+        const errorCount = isSuccess
+          ? Math.floor(Math.random() * 10)
+          : Math.floor(Math.random() * 50);
         const duration = Math.floor(Math.random() * 60) + 5;
 
         const endTime = new Date().toISOString();
@@ -169,29 +173,29 @@ export function useIngestionJobs() {
         return false;
       }
     },
-    [jobs, logs, saveJobs, saveLogs]
+    [jobs, logs, saveJobs, saveLogs],
   );
 
   // Pause a job
   const pauseJob = useCallback(
     (jobId: string) => {
       const updated = jobs.map((j) =>
-        j.id === jobId ? { ...j, status: "paused" as const } : j
+        j.id === jobId ? { ...j, status: "paused" as const } : j,
       );
       saveJobs(updated);
     },
-    [jobs, saveJobs]
+    [jobs, saveJobs],
   );
 
   // Resume a paused job
   const resumeJob = useCallback(
     (jobId: string) => {
       const updated = jobs.map((j) =>
-        j.id === jobId ? { ...j, status: "scheduled" as const } : j
+        j.id === jobId ? { ...j, status: "scheduled" as const } : j,
       );
       saveJobs(updated);
     },
-    [jobs, saveJobs]
+    [jobs, saveJobs],
   );
 
   // Delete a job
@@ -200,7 +204,7 @@ export function useIngestionJobs() {
       const updated = jobs.filter((j) => j.id !== jobId);
       saveJobs(updated);
     },
-    [jobs, saveJobs]
+    [jobs, saveJobs],
   );
 
   // Get logs for a job
@@ -208,7 +212,7 @@ export function useIngestionJobs() {
     (jobId: string): ExecutionLog[] => {
       return logs.filter((log) => log.jobId === jobId);
     },
-    [logs]
+    [logs],
   );
 
   // Get jobs by connector
@@ -216,7 +220,7 @@ export function useIngestionJobs() {
     (connectorId: string): IngestionJob[] => {
       return jobs.filter((j) => j.connectorId === connectorId);
     },
-    [jobs]
+    [jobs],
   );
 
   return {

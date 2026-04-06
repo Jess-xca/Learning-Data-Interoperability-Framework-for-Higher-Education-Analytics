@@ -111,390 +111,392 @@ export default function StudentsPage() {
   return (
     <>
       <MainContent>
-      {/* Page Header */}
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
-            {header.title}
-          </h1>
-          <p className="text-on-surface-variant font-medium mt-2">
-            {header.desc}
-          </p>
-        </div>
-        {userRole === "admin" && (
-          <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
-            <span className="material-symbols-outlined text-sm">
-              person_add
-            </span>
-            Add Student
-          </button>
-        )}
-      </div>
-
-      {/* Stats - Show skeletons while loading */}
-      {loading && students.length === 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-          <SkeletonMetricCard />
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="border-l-4 border-on-tertiary-container">
-            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-              Total Students
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-3xl font-black text-primary">
-                {filteredStudents.length}
-              </p>
-              <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
-                <span className="material-symbols-outlined">people</span>
-              </div>
-            </div>
-          </Card>
-          <Card className="border-l-4 border-primary">
-            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-              Active
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-3xl font-black text-primary">
-                {filteredStudents.filter((s) => s.status === "active").length}
-              </p>
-              <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined">check_circle</span>
-              </div>
-            </div>
-          </Card>
-          <Card className="border-l-4 border-secondary">
-            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-              Avg GPA
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-3xl font-black text-primary">
-                {(
-                  filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
-                  (filteredStudents.length || 1)
-                ).toFixed(2)}
-              </p>
-              <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
-                <span className="material-symbols-outlined">grade</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      )}
-
-      {/* Filters */}
-      <div className="bg-surface-container-low rounded-xl p-5 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <TextInput
-            label="Search by Name or ID"
-            placeholder="Search students..."
-            icon="search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <div className="flex flex-col gap-1">
-            <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
-              Filter by Program
-            </label>
-            <div className="relative">
-              <select
-                className="w-full h-12 pl-4 pr-10 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium appearance-none cursor-pointer outline-none"
-                value={filterProgram}
-                onChange={(e) => setFilterProgram(e.target.value)}
-              >
-                <option value="">All Programs</option>
-                {programs.map((program) => (
-                  <option key={program} value={program}>
-                    {program}
-                  </option>
-                ))}
-              </select>
-              <span className="material-symbols-outlined absolute right-3 top-3 text-on-surface-variant pointer-events-none text-sm">
-                expand_more
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Data Table - Show skeleton while loading, error state if failed */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-black text-primary tracking-tight">
-            Student Records
-          </h2>
-          <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
-            {loading && students.length === 0
-              ? "Loading..."
-              : `${filteredStudents.length} results`}
-          </span>
-        </div>
-
-        {loading && students.length === 0 ? (
-          <SkeletonTable />
-        ) : students.length === 0 ? (
-          <Card className="p-8 text-center">
-            <p className="text-on-surface-variant">
-              No students found.{" "}
-              {error ? "Try loading again." : "Start by adding a student."}
+        {/* Page Header */}
+        <div className="mb-10 flex justify-between items-end">
+          <div>
+            <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
+              {header.title}
+            </h1>
+            <p className="text-on-surface-variant font-medium mt-2">
+              {header.desc}
             </p>
-          </Card>
+          </div>
+          {userRole === "admin" && (
+            <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+              <span className="material-symbols-outlined text-sm">
+                person_add
+              </span>
+              Add Student
+            </button>
+          )}
+        </div>
+
+        {/* Stats - Show skeletons while loading */}
+        {loading && students.length === 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <SkeletonMetricCard />
+            <SkeletonMetricCard />
+            <SkeletonMetricCard />
+          </div>
         ) : (
-          <Table
-            columns={columns}
-            data={filteredStudents}
-            keyExtractor={(row) => row.id}
-            onRowClick={setSelectedStudent}
-          />
-        )}
-      </div>
-
-      {/* Selected Student Detail */}
-      {selectedStudent && (
-        <Card className="p-6 border-l-4 border-primary space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-primary">
-              {selectedStudent.name}
-            </h3>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSelectedStudent(null)}
-            >
-              <span className="material-symbols-outlined">close</span>
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-on-surface-variant">Student ID</p>
-              <p className="font-bold text-primary">{selectedStudent.id}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Email</p>
-              <p className="font-bold">{selectedStudent.email}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Program</p>
-              <p className="font-bold">{selectedStudent.program}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">GPA</p>
-              <p className="font-bold text-primary">
-                {selectedStudent.gpa.toFixed(2)}
-              </p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Status</p>
-              <Badge
-                variant={
-                  selectedStudent.status === "active"
-                    ? "success"
-                    : selectedStudent.status === "graduated"
-                      ? "primary"
-                      : "error"
-                }
-              >
-                {selectedStudent.status}
-              </Badge>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Enrollment Year</p>
-              <p className="font-bold">{selectedStudent.enrollmentYear}</p>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-4 border-t border-outline-variant/20">
-            {userRole === "admin" && (
-              <>
-                <Button variant="primary" size="sm" className="gap-2">
-                  <span className="material-symbols-outlined text-sm">
-                    edit
-                  </span>
-                  Edit Student
-                </Button>
-                <Button variant="secondary" size="sm" className="gap-2">
-                  <span className="material-symbols-outlined text-sm">
-                    contact_mail
-                  </span>
-                  Send Message
-                </Button>
-                <Button variant="danger" size="sm" className="gap-2">
-                  <span className="material-symbols-outlined text-sm">
-                    delete
-                  </span>
-                  Delete
-                </Button>
-              </>
-            )}
-          </div>
-        </Card>
-      )}
-
-      {/* Related Courses Section */}
-      {selectedStudent && (
-        <div className="mt-8">
-          <h3 className="text-xl font-black text-primary mb-4">
-            Enrolled Courses
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              {
-                id: "C001",
-                code: "CS101",
-                name: "Intro to Programming",
-                instructor: "Dr. Smith",
-              },
-              {
-                id: "C002",
-                code: "CS201",
-                name: "Data Structures",
-                instructor: "Prof. Johnson",
-              },
-              {
-                id: "C003",
-                code: "MATH301",
-                name: "Calculus III",
-                instructor: "Dr. Williams",
-              },
-            ].map((course) => (
-              <Card
-                key={course.id}
-                className="p-4 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="text-sm font-bold text-on-surface-variant uppercase">
-                      {course.code}
-                    </p>
-                    <p className="font-bold text-primary">{course.name}</p>
-                  </div>
-                  <Badge variant="primary">Current</Badge>
-                </div>
-                <p className="text-sm text-on-surface-variant">
-                  Instructor: {course.instructor}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Card className="border-l-4 border-on-tertiary-container">
+              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+                Total Students
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-3xl font-black text-primary">
+                  {filteredStudents.length}
                 </p>
-              </Card>
-            ))}
+                <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
+                  <span className="material-symbols-outlined">people</span>
+                </div>
+              </div>
+            </Card>
+            <Card className="border-l-4 border-primary">
+              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+                Active
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-3xl font-black text-primary">
+                  {filteredStudents.filter((s) => s.status === "active").length}
+                </p>
+                <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined">
+                    check_circle
+                  </span>
+                </div>
+              </div>
+            </Card>
+            <Card className="border-l-4 border-secondary">
+              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+                Avg GPA
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-3xl font-black text-primary">
+                  {(
+                    filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
+                    (filteredStudents.length || 1)
+                  ).toFixed(2)}
+                </p>
+                <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
+                  <span className="material-symbols-outlined">grade</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* Filters */}
+        <div className="bg-surface-container-low rounded-xl p-5 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TextInput
+              label="Search by Name or ID"
+              placeholder="Search students..."
+              icon="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+                Filter by Program
+              </label>
+              <div className="relative">
+                <select
+                  className="w-full h-12 pl-4 pr-10 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium appearance-none cursor-pointer outline-none"
+                  value={filterProgram}
+                  onChange={(e) => setFilterProgram(e.target.value)}
+                >
+                  <option value="">All Programs</option>
+                  {programs.map((program) => (
+                    <option key={program} value={program}>
+                      {program}
+                    </option>
+                  ))}
+                </select>
+                <span className="material-symbols-outlined absolute right-3 top-3 text-on-surface-variant pointer-events-none text-sm">
+                  expand_more
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      )}
 
-      {/* Analytics Section */}
-      <div className="mt-12 mb-8">
-        <h3 className="text-xl font-black text-primary mb-6">
-          Student Analytics
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="p-6">
-            <h4 className="font-bold text-primary mb-4">GPA Distribution</h4>
-            <div className="space-y-3">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-on-surface-variant">4.0 - 3.8</span>
-                  <span className="font-bold">
-                    {Math.ceil(
-                      filteredStudents.filter((s) => s.gpa >= 3.8).length
-                    )}
-                  </span>
-                </div>
-                <div className="w-full bg-surface-container-highest rounded-full h-2">
-                  <div
-                    className="bg-primary h-2 rounded-full"
-                    style={{
-                      width: `${(filteredStudents.filter((s) => s.gpa >= 3.8).length / filteredStudents.length || 0) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-on-surface-variant">3.8 - 3.5</span>
-                  <span className="font-bold">
-                    {Math.ceil(
-                      filteredStudents.filter(
-                        (s) => s.gpa >= 3.5 && s.gpa < 3.8
-                      ).length
-                    )}
-                  </span>
-                </div>
-                <div className="w-full bg-surface-container-highest rounded-full h-2">
-                  <div
-                    className="bg-secondary h-2 rounded-full"
-                    style={{
-                      width: `${(filteredStudents.filter((s) => s.gpa >= 3.5 && s.gpa < 3.8).length / filteredStudents.length || 0) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-on-surface-variant">Below 3.5</span>
-                  <span className="font-bold">
-                    {Math.ceil(
-                      filteredStudents.filter((s) => s.gpa < 3.5).length
-                    )}
-                  </span>
-                </div>
-                <div className="w-full bg-surface-container-highest rounded-full h-2">
-                  <div
-                    className="bg-tertiary h-2 rounded-full"
-                    style={{
-                      width: `${(filteredStudents.filter((s) => s.gpa < 3.5).length / filteredStudents.length || 0) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </Card>
+        {/* Data Table - Show skeleton while loading, error state if failed */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-black text-primary tracking-tight">
+              Student Records
+            </h2>
+            <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
+              {loading && students.length === 0
+                ? "Loading..."
+                : `${filteredStudents.length} results`}
+            </span>
+          </div>
 
-          <Card className="p-6">
-            <h4 className="font-bold text-primary mb-4">Status Breakdown</h4>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-on-surface-variant">Active</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-success"></div>
-                  <span className="font-bold">
-                    {
-                      filteredStudents.filter((s) => s.status === "active")
-                        .length
-                    }
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-on-surface-variant">Graduated</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-primary"></div>
-                  <span className="font-bold">
-                    {
-                      filteredStudents.filter((s) => s.status === "graduated")
-                        .length
-                    }
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-on-surface-variant">Suspended</span>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-error"></div>
-                  <span className="font-bold">
-                    {
-                      filteredStudents.filter((s) => s.status === "suspended")
-                        .length
-                    }
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Card>
+          {loading && students.length === 0 ? (
+            <SkeletonTable />
+          ) : students.length === 0 ? (
+            <Card className="p-8 text-center">
+              <p className="text-on-surface-variant">
+                No students found.{" "}
+                {error ? "Try loading again." : "Start by adding a student."}
+              </p>
+            </Card>
+          ) : (
+            <Table
+              columns={columns}
+              data={filteredStudents}
+              keyExtractor={(row) => row.id}
+              onRowClick={setSelectedStudent}
+            />
+          )}
         </div>
-      </div>
-    </MainContent>
+
+        {/* Selected Student Detail */}
+        {selectedStudent && (
+          <Card className="p-6 border-l-4 border-primary space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold text-primary">
+                {selectedStudent.name}
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedStudent(null)}
+              >
+                <span className="material-symbols-outlined">close</span>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-on-surface-variant">Student ID</p>
+                <p className="font-bold text-primary">{selectedStudent.id}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Email</p>
+                <p className="font-bold">{selectedStudent.email}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Program</p>
+                <p className="font-bold">{selectedStudent.program}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">GPA</p>
+                <p className="font-bold text-primary">
+                  {selectedStudent.gpa.toFixed(2)}
+                </p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Status</p>
+                <Badge
+                  variant={
+                    selectedStudent.status === "active"
+                      ? "success"
+                      : selectedStudent.status === "graduated"
+                        ? "primary"
+                        : "error"
+                  }
+                >
+                  {selectedStudent.status}
+                </Badge>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Enrollment Year</p>
+                <p className="font-bold">{selectedStudent.enrollmentYear}</p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 pt-4 border-t border-outline-variant/20">
+              {userRole === "admin" && (
+                <>
+                  <Button variant="primary" size="sm" className="gap-2">
+                    <span className="material-symbols-outlined text-sm">
+                      edit
+                    </span>
+                    Edit Student
+                  </Button>
+                  <Button variant="secondary" size="sm" className="gap-2">
+                    <span className="material-symbols-outlined text-sm">
+                      contact_mail
+                    </span>
+                    Send Message
+                  </Button>
+                  <Button variant="danger" size="sm" className="gap-2">
+                    <span className="material-symbols-outlined text-sm">
+                      delete
+                    </span>
+                    Delete
+                  </Button>
+                </>
+              )}
+            </div>
+          </Card>
+        )}
+
+        {/* Related Courses Section */}
+        {selectedStudent && (
+          <div className="mt-8">
+            <h3 className="text-xl font-black text-primary mb-4">
+              Enrolled Courses
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                {
+                  id: "C001",
+                  code: "CS101",
+                  name: "Intro to Programming",
+                  instructor: "Dr. Smith",
+                },
+                {
+                  id: "C002",
+                  code: "CS201",
+                  name: "Data Structures",
+                  instructor: "Prof. Johnson",
+                },
+                {
+                  id: "C003",
+                  code: "MATH301",
+                  name: "Calculus III",
+                  instructor: "Dr. Williams",
+                },
+              ].map((course) => (
+                <Card
+                  key={course.id}
+                  className="p-4 hover:shadow-lg transition-all"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <p className="text-sm font-bold text-on-surface-variant uppercase">
+                        {course.code}
+                      </p>
+                      <p className="font-bold text-primary">{course.name}</p>
+                    </div>
+                    <Badge variant="primary">Current</Badge>
+                  </div>
+                  <p className="text-sm text-on-surface-variant">
+                    Instructor: {course.instructor}
+                  </p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Analytics Section */}
+        <div className="mt-12 mb-8">
+          <h3 className="text-xl font-black text-primary mb-6">
+            Student Analytics
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="p-6">
+              <h4 className="font-bold text-primary mb-4">GPA Distribution</h4>
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-on-surface-variant">4.0 - 3.8</span>
+                    <span className="font-bold">
+                      {Math.ceil(
+                        filteredStudents.filter((s) => s.gpa >= 3.8).length,
+                      )}
+                    </span>
+                  </div>
+                  <div className="w-full bg-surface-container-highest rounded-full h-2">
+                    <div
+                      className="bg-primary h-2 rounded-full"
+                      style={{
+                        width: `${(filteredStudents.filter((s) => s.gpa >= 3.8).length / filteredStudents.length || 0) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-on-surface-variant">3.8 - 3.5</span>
+                    <span className="font-bold">
+                      {Math.ceil(
+                        filteredStudents.filter(
+                          (s) => s.gpa >= 3.5 && s.gpa < 3.8,
+                        ).length,
+                      )}
+                    </span>
+                  </div>
+                  <div className="w-full bg-surface-container-highest rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{
+                        width: `${(filteredStudents.filter((s) => s.gpa >= 3.5 && s.gpa < 3.8).length / filteredStudents.length || 0) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-on-surface-variant">Below 3.5</span>
+                    <span className="font-bold">
+                      {Math.ceil(
+                        filteredStudents.filter((s) => s.gpa < 3.5).length,
+                      )}
+                    </span>
+                  </div>
+                  <div className="w-full bg-surface-container-highest rounded-full h-2">
+                    <div
+                      className="bg-tertiary h-2 rounded-full"
+                      style={{
+                        width: `${(filteredStudents.filter((s) => s.gpa < 3.5).length / filteredStudents.length || 0) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <h4 className="font-bold text-primary mb-4">Status Breakdown</h4>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">Active</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-success"></div>
+                    <span className="font-bold">
+                      {
+                        filteredStudents.filter((s) => s.status === "active")
+                          .length
+                      }
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">Graduated</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-primary"></div>
+                    <span className="font-bold">
+                      {
+                        filteredStudents.filter((s) => s.status === "graduated")
+                          .length
+                      }
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-on-surface-variant">Suspended</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-error"></div>
+                    <span className="font-bold">
+                      {
+                        filteredStudents.filter((s) => s.status === "suspended")
+                          .length
+                      }
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </MainContent>
       <Footer variant="minimal" />
     </>
   );

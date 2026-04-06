@@ -112,7 +112,7 @@ const ingestionLogs: IngestionLog[] = [
 
 export default function DataSourcesPage() {
   useRoleGuard(["admin"]);
-  
+
   const [selectedSource, setSelectedSource] = useState<DataSource | null>(null);
   const [showWizard, setShowWizard] = useState(false);
 
@@ -156,7 +156,8 @@ export default function DataSourcesPage() {
               Data Sources
             </h1>
             <p className="text-on-surface-variant font-medium mt-2 text-lg">
-              Manage institutional pipeline architecture and synchronization health
+              Manage institutional pipeline architecture and synchronization
+              health
             </p>
           </div>
           <Button
@@ -197,14 +198,16 @@ export default function DataSourcesPage() {
 
             {/* Simulated Bar Chart */}
             <div className="flex-1 mt-6 relative flex items-end gap-1">
-              {[60, 65, 55, 70, 80, 75, 90, 85, 88, 95, 92, 94].map((height, i) => (
-                <div
-                  key={i}
-                  className="flex-1 bg-primary/10 rounded-t hover:bg-primary/20 transition-colors cursor-pointer"
-                  style={{ height: `${height}%` }}
-                  title={`${height}% uptime`}
-                />
-              ))}
+              {[60, 65, 55, 70, 80, 75, 90, 85, 88, 95, 92, 94].map(
+                (height, i) => (
+                  <div
+                    key={i}
+                    className="flex-1 bg-primary/10 rounded-t hover:bg-primary/20 transition-colors cursor-pointer"
+                    style={{ height: `${height}%` }}
+                    title={`${height}% uptime`}
+                  />
+                ),
+              )}
               <div className="absolute bottom-0 left-0 w-full h-[1px] bg-outline-variant/30" />
             </div>
 
@@ -344,9 +347,7 @@ export default function DataSourcesPage() {
                   <tr
                     key={log.id}
                     className={`${
-                      idx % 2 === 0
-                        ? "bg-surface"
-                        : "bg-surface-container-low"
+                      idx % 2 === 0 ? "bg-surface" : "bg-surface-container-low"
                     } hover:bg-surface-container-high transition-colors`}
                   >
                     <td className="px-6 py-4 font-mono text-xs">
@@ -473,33 +474,36 @@ export default function DataSourcesPage() {
                 {/* Step Indicator */}
                 <div className="mb-8 flex items-center justify-between relative">
                   <div className="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-high -z-10 -translate-y-1/2" />
-                  {["Select Source", "Configure API", "Field Mapping", "Finalize"].map(
-                    (step, idx) => (
+                  {[
+                    "Select Source",
+                    "Configure API",
+                    "Field Mapping",
+                    "Finalize",
+                  ].map((step, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3 bg-surface pr-4"
+                    >
                       <div
-                        key={idx}
-                        className="flex items-center gap-3 bg-surface pr-4"
+                        className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                          idx === 0
+                            ? "bg-primary text-on-primary shadow-lg shadow-primary/20"
+                            : "bg-surface-container-high text-on-surface-variant"
+                        }`}
                       >
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                            idx === 0
-                              ? "bg-primary text-on-primary shadow-lg shadow-primary/20"
-                              : "bg-surface-container-high text-on-surface-variant"
-                          }`}
-                        >
-                          {idx + 1}
-                        </div>
-                        <span
-                          className={`text-sm uppercase tracking-wider ${
-                            idx === 0
-                              ? "font-bold text-primary"
-                              : "font-medium text-on-surface-variant"
-                          }`}
-                        >
-                          {step}
-                        </span>
+                        {idx + 1}
                       </div>
-                    ),
-                  )}
+                      <span
+                        className={`text-sm uppercase tracking-wider ${
+                          idx === 0
+                            ? "font-bold text-primary"
+                            : "font-medium text-on-surface-variant"
+                        }`}
+                      >
+                        {step}
+                      </span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Source Selection */}
@@ -509,9 +513,21 @@ export default function DataSourcesPage() {
                   </h3>
                   <div className="grid grid-cols-3 gap-6">
                     {[
-                      { name: "Canvas LMS", icon: "school", desc: "LTI 1.3 Compliant" },
-                      { name: "Moodle", icon: "hub", desc: "Modular Integration" },
-                      { name: "Blackboard", icon: "auto_stories", desc: "Ultra Experience" },
+                      {
+                        name: "Canvas LMS",
+                        icon: "school",
+                        desc: "LTI 1.3 Compliant",
+                      },
+                      {
+                        name: "Moodle",
+                        icon: "hub",
+                        desc: "Modular Integration",
+                      },
+                      {
+                        name: "Blackboard",
+                        icon: "auto_stories",
+                        desc: "Ultra Experience",
+                      },
                     ].map((source, idx) => (
                       <button
                         key={idx}

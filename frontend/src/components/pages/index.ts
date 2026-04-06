@@ -13,3 +13,6 @@ export { default as GovernancePage } from "./GovernancePage";
 export { default as SettingsPage } from "./SettingsPage";
 export { default as UserManagementPage } from "./UserManagementPage";
 export { default as DataSourcesPage } from "./DataSourcesPage";
+export { default as DataMappingPage } from "./DataMappingPage";
+export { default as DataQualityPage } from "./DataQualityPage";
+export { default as PipelineVisualizerPage } from "./PipelineVisualizerPage";

@@ -32,7 +32,9 @@ export default function ConnectorConfigForm({
     retryAttempts: 3,
     timeout: 30000,
   }));
-  const [testResult, setTestResult] = useState<"pending" | "success" | "failure">("pending");
+  const [testResult, setTestResult] = useState<
+    "pending" | "success" | "failure"
+  >("pending");
 
   const connectorTypes = [
     {
@@ -230,7 +232,10 @@ export default function ConnectorConfigForm({
                   max="10"
                   value={config.retryAttempts || 3}
                   onChange={(e) =>
-                    handleConfigChange("retryAttempts", parseInt(e.target.value))
+                    handleConfigChange(
+                      "retryAttempts",
+                      parseInt(e.target.value),
+                    )
                   }
                   className={fieldClass}
                 />
@@ -301,7 +306,9 @@ export default function ConnectorConfigForm({
             </div>
 
             {testResult === "pending" && (
-              <Alert variant="info">Testing connection to your data source...</Alert>
+              <Alert variant="info">
+                Testing connection to your data source...
+              </Alert>
             )}
             {testResult === "failure" && (
               <Alert variant="error">

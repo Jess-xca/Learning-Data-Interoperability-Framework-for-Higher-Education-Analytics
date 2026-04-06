@@ -3,6 +3,8 @@ import authReducer from "./slices/authSlice";
 import dataReducer from "./slices/dataSlice";
 import uiReducer from "./slices/uiSlice";
 import usersReducer from "./slices/usersSlice";
+import mappingReducer from "./slices/mappingSlice";
+import standardsReducer from "./slices/standardsSlice";
 import { persistAuthMiddleware } from "./middleware/persistAuth";
 
 export const store = configureStore({
@@ -11,6 +13,8 @@ export const store = configureStore({
     data: dataReducer,
     ui: uiReducer,
     users: usersReducer,
+    mappings: mappingReducer,
+    standards: standardsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistAuthMiddleware),

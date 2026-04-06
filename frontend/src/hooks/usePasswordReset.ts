@@ -35,11 +35,11 @@ export function usePasswordReset() {
 
       // Generate mock reset token
       const token = Array.from({ length: 32 }, () =>
-        Math.floor(Math.random() * 16).toString(16)
+        Math.floor(Math.random() * 16).toString(16),
       ).join("");
 
       const expiresAt = new Date(
-        Date.now() + TOKEN_EXPIRY_MINUTES * 60 * 1000
+        Date.now() + TOKEN_EXPIRY_MINUTES * 60 * 1000,
       ).toISOString();
 
       // Store reset request
@@ -58,7 +58,7 @@ export function usePasswordReset() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       setSuccessMessage(
-        `Reset link sent to ${email}. Check your inbox (valid for ${TOKEN_EXPIRY_MINUTES} minutes).`
+        `Reset link sent to ${email}. Check your inbox (valid for ${TOKEN_EXPIRY_MINUTES} minutes).`,
       );
       setIsLoading(false);
       return true;
@@ -146,17 +146,14 @@ export function usePasswordReset() {
         return false;
       }
     },
-    [verifyToken]
+    [verifyToken],
   );
 
   /**
    * Change password (for authenticated users)
    */
   const changePassword = useCallback(
-    async (
-      currentPassword: string,
-      newPassword: string
-    ): Promise<boolean> => {
+    async (currentPassword: string, newPassword: string): Promise<boolean> => {
       setIsLoading(true);
       setError(null);
       setSuccessMessage(null);
@@ -193,7 +190,7 @@ export function usePasswordReset() {
         return false;
       }
     },
-    [user]
+    [user],
   );
 
   const clearMessages = useCallback(() => {
