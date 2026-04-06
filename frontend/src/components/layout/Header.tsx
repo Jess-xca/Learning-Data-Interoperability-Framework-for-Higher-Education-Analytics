@@ -1,5 +1,4 @@
 import React from "react";
-import { Search, Bell, HelpCircle } from "lucide-react";
 import { useAppSelector } from "../../hooks/useRedux";
 
 interface HeaderProps {
@@ -29,7 +28,9 @@ export default function Header({ showSearch = true, onSearch }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 h-16 md:ml-72 bg-white/70 backdrop-blur-xl border-b border-slate-100/10 shadow-sm flex items-center justify-between px-8 z-40">
       {showSearch && (
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant w-5 h-5" />
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+            search
+          </span>
           <input
             type="text"
             value={searchQuery}
@@ -42,18 +43,25 @@ export default function Header({ showSearch = true, onSearch }: HeaderProps) {
 
       <div className="flex items-center gap-4 ml-auto">
         <div className="flex items-center gap-3 border-r border-slate-200 pr-5">
-          <button className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low relative">
-            <Bell className="w-5 h-5" />
+          <button
+            aria-label="Notifications"
+            className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low relative"
+          >
+            <span className="material-symbols-outlined text-xl">notifications</span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border-2 border-white" />
           </button>
-          <button className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low">
-            <HelpCircle className="w-5 h-5" />
+          <button 
+            aria-label="Help"
+            className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low"
+          >
+            <span className="material-symbols-outlined text-xl">help_outline</span>
           </button>
         </div>
-
-        <div className="flex items-center gap-3">
-          <div className="text-right">
-            <p className="text-sm font-semibold text-primary leading-tight">{user?.name ?? "Admin User"}</p>
+        <div className="flex items-center gap-3 pl-5">
+          <div>
+            <p className="text-sm font-semibold text-primary leading-tight">
+              {user?.name ?? "Admin User"}
+            </p>
             <p className="text-[10px] text-on-tertiary-container font-bold bg-tertiary-container/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
               {roleBadge[user?.role ?? "admin"]}
             </p>

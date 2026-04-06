@@ -1,5 +1,3 @@
-import { Cloud } from "lucide-react";
-
 interface FooterProps {
   variant?: "default" | "minimal";
 }
@@ -14,9 +12,15 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-on-surface-variant">
             <p>© {currentYear} Academic Curator. All rights reserved.</p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms</a>
-              <a href="#" className="hover:text-primary transition-colors">Support</a>
+              <a href="#" className="hover:text-primary transition-colors">
+                Privacy
+              </a>
+              <a href="#" className="hover:text-primary transition-colors">
+                Terms
+              </a>
+              <a href="#" className="hover:text-primary transition-colors">
+                Support
+              </a>
             </div>
           </div>
         </div>
@@ -31,11 +35,14 @@ export default function Footer({ variant = "default" }: FooterProps) {
           {/* Brand */}
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-primary text-2xl">🎓</span>
-              <span className="font-black text-primary text-sm tracking-tight">Academic Curator</span>
+              <span className="material-symbols-outlined text-primary text-2xl">school</span>
+              <span className="font-black text-primary text-sm tracking-tight">
+                Academic Curator
+              </span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Learning Data Interoperability Framework for Higher Education Analytics
+              Learning Data Interoperability Framework for Higher Education
+              Analytics
             </p>
           </div>
 
@@ -43,10 +50,26 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div>
             <h3 className="font-bold text-primary text-sm mb-3">Quick Links</h3>
             <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li><a href="#" className="hover:text-primary transition-colors">Dashboard</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Analytics</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Reports</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Settings</a></li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Analytics
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Reports
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Settings
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -54,21 +77,55 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div>
             <h3 className="font-bold text-primary text-sm mb-3">Resources</h3>
             <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li><a href="#" className="hover:text-primary transition-colors">Documentation</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">API Reference</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">System Status</a></li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  API Reference
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  System Status
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Legal & Compliance */}
           <div>
-            <h3 className="font-bold text-primary text-sm mb-3">Legal & Compliance</h3>
+            <h3 className="font-bold text-primary text-sm mb-3">
+              Legal & Compliance
+            </h3>
             <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">FERPA Compliance</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">HEC Standards</a></li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  FERPA Compliance
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  HEC Standards
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -81,7 +138,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div className="flex items-center gap-4">
             <span className="text-xs text-on-surface-variant">Powered by</span>
             <div className="flex items-center gap-2 text-xs font-bold text-primary">
-              <Cloud className="w-4 h-4" />
+              <span className="material-symbols-outlined text-sm">cloud</span>
               AWS Education
             </div>
           </div>
