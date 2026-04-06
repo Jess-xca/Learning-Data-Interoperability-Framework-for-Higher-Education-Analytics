@@ -40,7 +40,7 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -120,7 +120,12 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
       dispatch(addEvidence(newEvidence));
 
       // Reset form
-      setFormData({ title: "", description: "", category: "document", documentName: "" });
+      setFormData({
+        title: "",
+        description: "",
+        category: "document",
+        documentName: "",
+      });
       setFileName("");
       setFileSize(0);
 
@@ -175,7 +180,9 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
                   : "border-gray-300 focus:border-blue-600 focus:ring-blue-500/30"
               }`}
             />
-            {errors.title && <p className="text-red-600 text-sm mt-1">{errors.title}</p>}
+            {errors.title && (
+              <p className="text-red-600 text-sm mt-1">{errors.title}</p>
+            )}
           </div>
 
           {/* Category Field */}
@@ -242,7 +249,9 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
                 }`}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <span className="material-symbols-outlined text-2xl">cloud_upload</span>
+                  <span className="material-symbols-outlined text-2xl">
+                    cloud_upload
+                  </span>
                   <div className="text-left">
                     <p className="font-medium text-gray-900">
                       {fileName ? fileName : "Click to upload or drag and drop"}
@@ -254,7 +263,9 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
                 </div>
               </label>
               {errors.documentName && (
-                <p className="text-red-600 text-sm mt-1">{errors.documentName}</p>
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.documentName}
+                </p>
               )}
               {fileSize > 0 && (
                 <p className="text-xs text-gray-600 mt-1">
@@ -298,11 +309,7 @@ const EvidenceCollectionModal: React.FC<EvidenceCollectionModalProps> = ({
             >
               Cancel
             </Button>
-            <Button
-              variant="primary"
-              type="submit"
-              disabled={isSubmitting}
-            >
+            <Button variant="primary" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Uploading..." : "Upload Evidence"}
             </Button>
           </div>
