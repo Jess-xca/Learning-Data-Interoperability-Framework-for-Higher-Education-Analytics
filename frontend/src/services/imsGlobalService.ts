@@ -89,7 +89,8 @@ class IMSGlobalServiceClass {
     const errors: string[] = [];
     const warnings: string[] = [];
 
-    if (!user.sourcedId) errors.push("LIS: Missing sourcedId (unique identifier)");
+    if (!user.sourcedId)
+      errors.push("LIS: Missing sourcedId (unique identifier)");
     if (!user.userId) errors.push("LIS: Missing userId");
     if (!user.email) errors.push("LIS: Missing email");
     if (!user.givenName) errors.push("LIS: Missing givenName");
@@ -148,11 +149,13 @@ class IMSGlobalServiceClass {
     if (!enrollment.classSourcedId) errors.push("LIS: Missing classSourcedId");
     if (!enrollment.userSourcedId) errors.push("LIS: Missing userSourcedId");
     if (enrollment.role && !validRoles.includes(enrollment.role)) {
-      errors.push(`LIS: Invalid role. Must be one of: ${validRoles.join(", ")}`);
+      errors.push(
+        `LIS: Invalid role. Must be one of: ${validRoles.join(", ")}`,
+      );
     }
     if (enrollment.status && !validStatuses.includes(enrollment.status)) {
       errors.push(
-        `LIS: Invalid status. Must be one of: ${validStatuses.join(", ")}`
+        `LIS: Invalid status. Must be one of: ${validStatuses.join(", ")}`,
       );
     }
 
@@ -203,7 +206,7 @@ class IMSGlobalServiceClass {
     if (!classData.title) errors.push("OneRoster: Missing title");
     if (classData.classType && !validClassTypes.includes(classData.classType)) {
       errors.push(
-        `OneRoster: Invalid classType. Must be one of: ${validClassTypes.join(", ")}`
+        `OneRoster: Invalid classType. Must be one of: ${validClassTypes.join(", ")}`,
       );
     }
 
@@ -221,21 +224,29 @@ class IMSGlobalServiceClass {
     errors: string[];
   } {
     const errors: string[] = [];
-    const validRoles = ["student", "teacher", "aide", "proctor", "parent", "guardian"];
+    const validRoles = [
+      "student",
+      "teacher",
+      "aide",
+      "proctor",
+      "parent",
+      "guardian",
+    ];
     const validStatuses = ["active", "inactive", "pending", "tobedeleted"];
 
     if (!enrollment.sourcedId) errors.push("OneRoster: Missing sourcedId");
     if (!enrollment.classSourcedId)
       errors.push("OneRoster: Missing classSourcedId");
-    if (!enrollment.userSourcedId) errors.push("OneRoster: Missing userSourcedId");
+    if (!enrollment.userSourcedId)
+      errors.push("OneRoster: Missing userSourcedId");
     if (enrollment.role && !validRoles.includes(enrollment.role)) {
       errors.push(
-        `OneRoster: Invalid role. Must be one of: ${validRoles.join(", ")}`
+        `OneRoster: Invalid role. Must be one of: ${validRoles.join(", ")}`,
       );
     }
     if (enrollment.status && !validStatuses.includes(enrollment.status)) {
       errors.push(
-        `OneRoster: Invalid status. Must be one of: ${validStatuses.join(", ")}`
+        `OneRoster: Invalid status. Must be one of: ${validStatuses.join(", ")}`,
       );
     }
 
@@ -250,7 +261,7 @@ class IMSGlobalServiceClass {
    */
   mapToLISUser(
     user: any,
-    mappings: { [key: string]: string }
+    mappings: { [key: string]: string },
   ): Partial<LISUser> {
     return {
       sourcedId: user[mappings.sourcedId] || user.id,
@@ -258,9 +269,7 @@ class IMSGlobalServiceClass {
       email: user[mappings.email] || user.email,
       givenName: user[mappings.givenName] || user.firstName,
       familyName: user[mappings.familyName] || user.lastName,
-      fullName:
-        user[mappings.fullName] ||
-        `${user.firstName} ${user.lastName}`,
+      fullName: user[mappings.fullName] || `${user.firstName} ${user.lastName}`,
       tel: user[mappings.tel] || user.phone,
     };
   }
@@ -270,7 +279,7 @@ class IMSGlobalServiceClass {
    */
   mapToOneRosterUser(
     user: any,
-    mappings: { [key: string]: string }
+    mappings: { [key: string]: string },
   ): Partial<OneRosterUser> {
     return {
       sourcedId: user[mappings.sourcedId] || user.id,
@@ -287,7 +296,7 @@ class IMSGlobalServiceClass {
    */
   mapToLISCourse(
     course: any,
-    mappings: { [key: string]: string }
+    mappings: { [key: string]: string },
   ): Partial<LISCourse> {
     return {
       sourcedId: course[mappings.sourcedId] || course.id,
@@ -305,7 +314,7 @@ class IMSGlobalServiceClass {
   checkDataQuality(
     records: any[],
     type: "user" | "course" | "enrollment",
-    schema: "lis" | "oneroster"
+    schema: "lis" | "oneroster",
   ): {
     passCount: number;
     failCount: number;
@@ -357,7 +366,7 @@ class IMSGlobalServiceClass {
   generateComplianceReport(
     records: any[],
     type: "user" | "course" | "enrollment",
-    schema: "lis" | "oneroster"
+    schema: "lis" | "oneroster",
   ): {
     compliant: boolean;
     passRate: number;

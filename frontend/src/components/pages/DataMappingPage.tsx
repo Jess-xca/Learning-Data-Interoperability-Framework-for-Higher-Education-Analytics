@@ -241,12 +241,12 @@ const DataMappingPage: React.FC = () => {
                   </Button>
                 </div>
 
-                {testResult && (
+                {testResult ? (
                   <div className={`mt-4 p-4 rounded ${testResult.success ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
                     <h4 className={`font-bold mb-2 ${testResult.success ? "text-green-700" : "text-red-700"}`}>
                       {testResult.success ? "✓ Mapping Successful" : "✕ Mapping Failed"}
                     </h4>
-                    {testResult.errors.length > 0 && (
+                    {testResult.errors && testResult.errors.length > 0 && (
                       <div className="mb-2">
                         {testResult.errors.map((error: string, idx: number) => (
                           <div key={idx} className="text-sm text-red-600 mb-1">
@@ -255,13 +255,13 @@ const DataMappingPage: React.FC = () => {
                         ))}
                       </div>
                     )}
-                    {testResult.data && (
+                    {testResult.success && testResult.data ? (
                       <div className="bg-white rounded p-2 text-xs font-mono overflow-x-auto max-h-48 overflow-y-auto">
-                        <pre>{JSON.stringify(testResult.data, null, 2)}</pre>
+                        <pre>{`${JSON.stringify(testResult.data, null, 2)}`}</pre>
                       </div>
-                    )}
+                    ) : null}
                   </div>
-                )}
+                ) : null}
               </div>
             </>
           )}

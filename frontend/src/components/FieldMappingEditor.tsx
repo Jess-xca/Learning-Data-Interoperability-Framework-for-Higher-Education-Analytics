@@ -24,7 +24,7 @@ const FieldMappingEditor: React.FC<FieldMappingEditorProps> = ({
       targetField: "",
       dataType: "string",
       required: false,
-    }
+    },
   );
 
   const handleChange = (field: keyof FieldMapping, value: string | boolean) => {
@@ -58,7 +58,10 @@ const FieldMappingEditor: React.FC<FieldMappingEditorProps> = ({
       {validationErrors.length > 0 && (
         <div className="bg-red-50 border border-red-300 rounded p-3 mb-4">
           {validationErrors.map((error, idx) => (
-            <div key={idx} className="text-red-700 text-sm flex items-center gap-2 my-1">
+            <div
+              key={idx}
+              className="text-red-700 text-sm flex items-center gap-2 my-1"
+            >
               <div className="flex-shrink-0 w-5 h-5 rounded-full bg-red-700 text-white text-xs flex items-center justify-center font-bold">
                 !
               </div>
@@ -108,7 +111,7 @@ const FieldMappingEditor: React.FC<FieldMappingEditorProps> = ({
               onChange={(e) =>
                 handleChange(
                   "dataType",
-                  e.target.value as FieldMapping["dataType"]
+                  e.target.value as FieldMapping["dataType"],
                 )
               }
             >
@@ -139,7 +142,7 @@ const FieldMappingEditor: React.FC<FieldMappingEditorProps> = ({
           </label>
           <textarea
             className="px-3 py-2 border border-gray-400 rounded text-sm font-mono transition-colors hover:border-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
-            placeholder='e.g., Math.round(value * 100) or value.toUpperCase()'
+            placeholder="e.g., Math.round(value * 100) or value.toUpperCase()"
             value={formData.transformation || ""}
             onChange={(e) => handleChange("transformation", e.target.value)}
             rows={3}

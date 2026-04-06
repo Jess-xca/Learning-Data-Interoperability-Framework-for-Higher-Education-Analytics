@@ -15,6 +15,7 @@ import {
   DataMappingPage,
   DataQualityPage,
   PipelineVisualizerPage,
+  AccreditationPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -34,4 +35,5 @@ export const appRoutes: RouteObject[] = [
   { path: "/data-mapping", element: <DataMappingPage /> },
   { path: "/data-quality", element: <DataQualityPage /> },
   { path: "/pipeline", element: <PipelineVisualizerPage /> },
+  { path: "/accreditation", element: <AccreditationPage /> },
 ];

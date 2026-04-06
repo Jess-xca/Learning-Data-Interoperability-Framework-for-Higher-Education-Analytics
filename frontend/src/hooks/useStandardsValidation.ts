@@ -26,11 +26,13 @@ export const useStandardsValidation = () => {
   const dispatch = useAppDispatch();
   const standards = useAppSelector((state) => state.standards.enabledStandards);
   const metrics = useAppSelector((state) => state.standards.dataQualityMetrics);
-  const settings = useAppSelector((state) => state.standards.institutionSettings);
-
-  const [validationReports, setValidationReports] = useState<ValidationReport[]>(
-    []
+  const settings = useAppSelector(
+    (state) => state.standards.institutionSettings,
   );
+
+  const [validationReports, setValidationReports] = useState<
+    ValidationReport[]
+  >([]);
   const [isValidating, setIsValidating] = useState(false);
 
   /**
@@ -59,7 +61,8 @@ export const useStandardsValidation = () => {
       });
 
       const compliant = errors.length === 0;
-      const passRate = ((statements.length - errors.length) / statements.length) * 100;
+      const passRate =
+        ((statements.length - errors.length) / statements.length) * 100;
 
       return {
         standard: "xAPI",
@@ -70,7 +73,7 @@ export const useStandardsValidation = () => {
         timestamp: new Date().toISOString(),
       };
     },
-    []
+    [],
   );
 
   /**
@@ -110,18 +113,21 @@ export const useStandardsValidation = () => {
         timestamp: new Date().toISOString(),
       };
     },
-    []
+    [],
   );
 
   /**
    * Validate LIS v2 records
    */
   const validateLISRecords = useCallback(
-    (records: any[], type: "user" | "course" | "enrollment"): ValidationReport => {
+    (
+      records: any[],
+      type: "user" | "course" | "enrollment",
+    ): ValidationReport => {
       const report = imsGlobalService.generateComplianceReport(
         records,
         type,
-        "lis"
+        "lis",
       );
 
       return {
@@ -133,7 +139,7 @@ export const useStandardsValidation = () => {
         timestamp: new Date().toISOString(),
       };
     },
-    []
+    [],
   );
 
   /**
@@ -142,12 +148,12 @@ export const useStandardsValidation = () => {
   const validateOneRosterRecords = useCallback(
     (
       records: any[],
-      type: "user" | "class" | "enrollment"
+      type: "user" | "class" | "enrollment",
     ): ValidationReport => {
       const report = imsGlobalService.generateComplianceReport(
         records,
         type === "class" ? "course" : type,
-        "oneroster"
+        "oneroster",
       );
 
       return {
@@ -159,7 +165,7 @@ export const useStandardsValidation = () => {
         timestamp: new Date().toISOString(),
       };
     },
-    []
+    [],
   );
 
   /**
@@ -202,9 +208,8 @@ export const useStandardsValidation = () => {
         setValidationReports(reports);
 
         // Update metrics in Redux
-        const passCount = reports.filter((r) => r.compliant).length;
         const avgPassRate = Math.round(
-          reports.reduce((sum, r) => sum + r.passRate, 0) / reports.length
+          reports.reduce((sum, r) => sum + r.passRate, 0) / reports.length,
         );
 
         dispatch(
@@ -215,13 +220,11 @@ export const useStandardsValidation = () => {
               recordsProcessed: data.xapiStatements?.length || 0,
               errors: data.xapiStatements
                 ? data.xapiStatements.length -
-                  Math.round(
-                    (data.xapiStatements.length * avgPassRate) / 100
-                  )
+                  Math.round((data.xapiStatements.length * avgPassRate) / 100)
                 : 0,
               lastSync: new Date().toISOString(),
             },
-          })
+          }),
         );
 
         return reports;
@@ -235,7 +238,7 @@ export const useStandardsValidation = () => {
       validateLISRecords,
       validateOneRosterRecords,
       dispatch,
-    ]
+    ],
   );
 
   /**
@@ -245,7 +248,7 @@ export const useStandardsValidation = () => {
     (passRate: number): boolean => {
       return passRate >= settings.complianceThreshold;
     },
-    [settings.complianceThreshold]
+    [settings.complianceThreshold],
   );
 
   /**
@@ -267,7 +270,7 @@ export const useStandardsValidation = () => {
         .map(([field, issueCount]) => ({ field, issueCount }))
         .sort((a, b) => b.issueCount - a.issueCount);
     },
-    []
+    [],
   );
 
   /**
@@ -279,7 +282,7 @@ export const useStandardsValidation = () => {
       enabledStandards: standards.filter((s) => s.enabled).length,
       averageCompliance: Math.round(
         Object.values(metrics).reduce((sum, m) => sum + m.compliance, 0) /
-          Object.keys(metrics).length
+          Object.keys(metrics).length,
       ),
       metricsSnapshot: {
         xapi: metrics.xapi.compliance,
@@ -288,10 +291,9 @@ export const useStandardsValidation = () => {
         oneroster: metrics.oneroster.compliance,
       },
       lastValidation: validationReports[0]?.timestamp || null,
-      requiresAttention:
-        Object.values(metrics).some(
-          (m) => m.compliance < settings.complianceThreshold
-        ),
+      requiresAttention: Object.values(metrics).some(
+        (m) => m.compliance < settings.complianceThreshold,
+      ),
     };
 
     return summary;
@@ -304,7 +306,7 @@ export const useStandardsValidation = () => {
     (standardId: string, enabled: boolean) => {
       dispatch(toggleStandard({ standardId, enabled }));
     },
-    [dispatch]
+    [dispatch],
   );
 
   /**
@@ -314,7 +316,7 @@ export const useStandardsValidation = () => {
     (updates: Partial<typeof settings>) => {
       dispatch(updateInstitutionSettings(updates));
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

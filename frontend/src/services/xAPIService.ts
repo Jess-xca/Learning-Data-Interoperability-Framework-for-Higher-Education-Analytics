@@ -81,7 +81,7 @@ class xAPIServiceClass {
     studentEmail: string,
     studentName: string,
     courseId: string,
-    courseName: string
+    courseName: string,
   ): xAPIStatement {
     return {
       actor: {
@@ -114,7 +114,7 @@ class xAPIServiceClass {
     courseId: string,
     courseName: string,
     score: number,
-    totalScore: number
+    totalScore: number,
   ): xAPIStatement {
     return {
       actor: {
@@ -156,7 +156,7 @@ class xAPIServiceClass {
     assignmentId: string,
     assignmentName: string,
     courseId: string,
-    courseName: string
+    courseName: string,
   ): xAPIStatement {
     return {
       actor: {
@@ -205,7 +205,7 @@ class xAPIServiceClass {
     assignmentId: string,
     assignmentName: string,
     score: number,
-    totalScore: number
+    totalScore: number,
   ): xAPIStatement {
     return {
       actor: {
@@ -258,7 +258,7 @@ class xAPIServiceClass {
     videoId: string,
     videoName: string,
     durationSeconds: number,
-    progressPercent: number
+    progressPercent: number,
   ): xAPIStatement {
     return {
       actor: {
@@ -297,7 +297,7 @@ class xAPIServiceClass {
     quizName: string,
     score: number,
     totalScore: number,
-    attemptNumber: number
+    attemptNumber: number,
   ): xAPIStatement {
     return {
       actor: {

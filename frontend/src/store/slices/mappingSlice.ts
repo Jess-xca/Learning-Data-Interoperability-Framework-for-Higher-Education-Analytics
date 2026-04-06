@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface FieldMapping {
   id: string;
@@ -139,7 +140,7 @@ const mappingSlice = createSlice({
     },
     updateMapping: (state, action: PayloadAction<StandardMapping>) => {
       const index = state.standards.findIndex(
-        (m) => m.id === action.payload.id
+        (m) => m.id === action.payload.id,
       );
       if (index >= 0) {
         state.standards[index] = {
@@ -156,10 +157,10 @@ const mappingSlice = createSlice({
     },
     addFieldMapping: (
       state,
-      action: PayloadAction<{ standardId: string; field: FieldMapping }>
+      action: PayloadAction<{ standardId: string; field: FieldMapping }>,
     ) => {
       const standard = state.standards.find(
-        (m) => m.id === action.payload.standardId
+        (m) => m.id === action.payload.standardId,
       );
       if (standard) {
         standard.mappings.push(action.payload.field);
@@ -172,14 +173,14 @@ const mappingSlice = createSlice({
         standardId: string;
         fieldId: string;
         field: FieldMapping;
-      }>
+      }>,
     ) => {
       const standard = state.standards.find(
-        (m) => m.id === action.payload.standardId
+        (m) => m.id === action.payload.standardId,
       );
       if (standard) {
         const fIndex = standard.mappings.findIndex(
-          (f) => f.id === action.payload.fieldId
+          (f) => f.id === action.payload.fieldId,
         );
         if (fIndex >= 0) {
           standard.mappings[fIndex] = action.payload.field;
@@ -189,24 +190,24 @@ const mappingSlice = createSlice({
     },
     deleteFieldMapping: (
       state,
-      action: PayloadAction<{ standardId: string; fieldId: string }>
+      action: PayloadAction<{ standardId: string; fieldId: string }>,
     ) => {
       const standard = state.standards.find(
-        (m) => m.id === action.payload.standardId
+        (m) => m.id === action.payload.standardId,
       );
       if (standard) {
         standard.mappings = standard.mappings.filter(
-          (f) => f.id !== action.payload.fieldId
+          (f) => f.id !== action.payload.fieldId,
         );
         standard.updatedAt = new Date().toISOString();
       }
     },
     toggleMappingStatus: (
       state,
-      action: PayloadAction<{ standardId: string; enabled: boolean }>
+      action: PayloadAction<{ standardId: string; enabled: boolean }>,
     ) => {
       const standard = state.standards.find(
-        (m) => m.id === action.payload.standardId
+        (m) => m.id === action.payload.standardId,
       );
       if (standard) {
         standard.enabled = action.payload.enabled;
@@ -222,10 +223,7 @@ const mappingSlice = createSlice({
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
-    loadMappingsSuccess: (
-      state,
-      action: PayloadAction<StandardMapping[]>
-    ) => {
+    loadMappingsSuccess: (state, action: PayloadAction<StandardMapping[]>) => {
       state.standards = action.payload;
       state.loading = false;
       state.error = null;

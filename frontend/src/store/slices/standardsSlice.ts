@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface StandardsConfig {
   id: string;
@@ -128,10 +129,10 @@ const standardsSlice = createSlice({
   reducers: {
     toggleStandard: (
       state,
-      action: PayloadAction<{ standardId: string; enabled: boolean }>
+      action: PayloadAction<{ standardId: string; enabled: boolean }>,
     ) => {
       const standard = state.enabledStandards.find(
-        (s) => s.id === action.payload.standardId
+        (s) => s.id === action.payload.standardId,
       );
       if (standard) {
         standard.enabled = action.payload.enabled;
@@ -139,7 +140,7 @@ const standardsSlice = createSlice({
     },
     updateInstitutionSettings: (
       state,
-      action: PayloadAction<Partial<typeof initialState.institutionSettings>>
+      action: PayloadAction<Partial<typeof initialState.institutionSettings>>,
     ) => {
       state.institutionSettings = {
         ...state.institutionSettings,
@@ -151,7 +152,7 @@ const standardsSlice = createSlice({
       action: PayloadAction<{
         standard: keyof typeof initialState.dataQualityMetrics;
         metrics: (typeof initialState.dataQualityMetrics)[keyof typeof initialState.dataQualityMetrics];
-      }>
+      }>,
     ) => {
       state.dataQualityMetrics[action.payload.standard] =
         action.payload.metrics;
@@ -161,7 +162,7 @@ const standardsSlice = createSlice({
       action: PayloadAction<{
         recordsProcessed: number;
         errorsFound: number;
-      }>
+      }>,
     ) => {
       const compliance =
         ((action.payload.recordsProcessed - action.payload.errorsFound) /

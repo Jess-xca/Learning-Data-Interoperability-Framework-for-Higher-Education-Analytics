@@ -3,9 +3,8 @@ import {
   addFieldMapping,
   deleteFieldMapping,
   updateFieldMapping,
-  FieldMapping,
-  StandardMapping,
 } from "../store/slices/mappingSlice";
+import type { FieldMapping } from "../store/slices/mappingSlice";
 import { useAppDispatch, useAppSelector } from "./useRedux";
 
 interface TransformationResult {
@@ -18,7 +17,7 @@ export const useFieldMapping = () => {
   const dispatch = useAppDispatch();
   const standards = useAppSelector((state) => state.mappings.standards);
   const selectedStandardId = useAppSelector(
-    (state) => state.mappings.selectedStandardId
+    (state) => state.mappings.selectedStandardId,
   );
 
   const [validationErrors, setValidationErrors] = useState<
@@ -47,7 +46,7 @@ export const useFieldMapping = () => {
         };
       }
     },
-    []
+    [],
   );
 
   /**
@@ -56,7 +55,7 @@ export const useFieldMapping = () => {
   const mapData = useCallback(
     (
       sourceData: Record<string, any>,
-      standardId: string
+      standardId: string,
     ): { success: boolean; data: any; errors: string[] } => {
       const standard = standards.find((s) => s.id === standardId);
       if (!standard) {
@@ -74,28 +73,24 @@ export const useFieldMapping = () => {
         const sourceValue = getNestedValue(sourceData, mapping.sourceField);
 
         if (sourceValue === undefined && mapping.required) {
-          errors.push(
-            `Missing required field: ${mapping.sourceField}`
-          );
+          errors.push(`Missing required field: ${mapping.sourceField}`);
           return;
         }
 
         if (sourceValue !== undefined) {
           const transformed = applyTransformation(
             sourceValue,
-            mapping.transformation
+            mapping.transformation,
           );
 
           if (!transformed.success) {
-            errors.push(
-              `${mapping.sourceField}: ${transformed.error}`
-            );
+            errors.push(`${mapping.sourceField}: ${transformed.error}`);
           } else {
             setNestedValue(
               targetData,
               mapping.targetField,
               transformed.value,
-              mapping.dataType
+              mapping.dataType,
             );
           }
         }
@@ -107,7 +102,7 @@ export const useFieldMapping = () => {
         errors,
       };
     },
-    [standards, applyTransformation]
+    [standards, applyTransformation],
   );
 
   /**
@@ -121,7 +116,7 @@ export const useFieldMapping = () => {
       if (!mapping.targetField) errors.push("Target field is required");
       if (
         !["string", "number", "boolean", "date", "array"].includes(
-          mapping.dataType
+          mapping.dataType,
         )
       ) {
         errors.push("Invalid data type");
@@ -137,7 +132,7 @@ export const useFieldMapping = () => {
 
       return { valid: errors.length === 0, errors };
     },
-    [applyTransformation]
+    [applyTransformation],
   );
 
   /**
@@ -150,7 +145,7 @@ export const useFieldMapping = () => {
       const validation = validateMapping(field);
       if (!validation.valid) {
         setValidationErrors(
-          validation.errors.map((e, i) => ({ fieldId: field.id, error: e }))
+          validation.errors.map((e) => ({ fieldId: field.id, error: e })),
         );
         return false;
       }
@@ -159,7 +154,7 @@ export const useFieldMapping = () => {
       setValidationErrors([]);
       return true;
     },
-    [selectedStandardId, dispatch, validateMapping]
+    [selectedStandardId, dispatch, validateMapping],
   );
 
   /**
@@ -180,7 +175,7 @@ export const useFieldMapping = () => {
 
       if (!validation.valid) {
         setValidationErrors(
-          validation.errors.map((e) => ({ fieldId, error: e }))
+          validation.errors.map((e) => ({ fieldId, error: e })),
         );
         return false;
       }
@@ -190,12 +185,12 @@ export const useFieldMapping = () => {
           standardId: selectedStandardId,
           fieldId,
           field: updatedField,
-        })
+        }),
       );
       setValidationErrors([]);
       return true;
     },
-    [selectedStandardId, standards, dispatch, validateMapping]
+    [selectedStandardId, standards, dispatch, validateMapping],
   );
 
   /**
@@ -204,10 +199,12 @@ export const useFieldMapping = () => {
   const deleteField = useCallback(
     (fieldId: string): void => {
       if (selectedStandardId) {
-        dispatch(deleteFieldMapping({ standardId: selectedStandardId, fieldId }));
+        dispatch(
+          deleteFieldMapping({ standardId: selectedStandardId, fieldId }),
+        );
       }
     },
-    [selectedStandardId, dispatch]
+    [selectedStandardId, dispatch],
   );
 
   /**
@@ -224,7 +221,7 @@ export const useFieldMapping = () => {
     obj: any,
     path: string,
     value: any,
-    dataType: string
+    dataType: string,
   ) => {
     const parts = path.split(".");
     const last = parts.pop()!;

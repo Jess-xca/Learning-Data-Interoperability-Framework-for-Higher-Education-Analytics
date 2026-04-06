@@ -32,7 +32,7 @@ export interface CaliperAssignment extends CaliperEntity {
 }
 
 export interface CaliperEvent {
-  @context: string;
+  "@context": string;
   type: string;
   id: string;
   actor: CaliperEntity;
@@ -50,7 +50,6 @@ export interface CaliperEvent {
   };
 }
 
-const CALIPER_VERSION = "1.2";
 const CALIPER_CONTEXT = "https://purl.imsglobal.org/ctx/caliper/v1p2";
 
 class CaliperServiceClass {
@@ -63,7 +62,7 @@ class CaliperServiceClass {
     studentEmail: string,
     courseId: string,
     courseName: string,
-    affiliations: string[] = ["Student"]
+    affiliations: string[] = ["Student"],
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -102,7 +101,7 @@ class CaliperServiceClass {
     courseId: string,
     courseName: string,
     score: number,
-    maxScore: number
+    maxScore: number,
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -145,7 +144,7 @@ class CaliperServiceClass {
     studentName: string,
     assignmentId: string,
     assignmentName: string,
-    courseId: string
+    courseId: string,
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -195,7 +194,7 @@ class CaliperServiceClass {
     assignmentId: string,
     assignmentName: string,
     score: number,
-    maxScore: number
+    maxScore: number,
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -240,7 +239,7 @@ class CaliperServiceClass {
     resourceId: string,
     resourceName: string,
     resourceType: "Document" | "VideoObject" | "WebPage",
-    courseId?: string
+    courseId?: string,
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -286,7 +285,7 @@ class CaliperServiceClass {
     quizId: string,
     quizName: string,
     courseId: string,
-    attemptNumber: number
+    attemptNumber: number,
   ): CaliperEvent {
     const eventId = this.generateId();
 
@@ -335,7 +334,7 @@ class CaliperServiceClass {
     quizName: string,
     score: number,
     maxScore: number,
-    attemptNumber: number
+    attemptNumber: number,
   ): CaliperEvent {
     const eventId = this.generateId();
 
