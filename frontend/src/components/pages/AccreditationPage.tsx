@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { selectArea } from "../../store/slices/accreditationSlice";
 import Button from "../forms/Button";
+import EvidenceCollectionModal from "../EvidenceCollectionModal";
 import type { Standard, ComplianceArea, Evidence, AccreditationReport } from "../../store/slices/accreditationSlice";
 
 const AccreditationPage: React.FC = () => {
@@ -12,6 +13,7 @@ const AccreditationPage: React.FC = () => {
     (state) => state.accreditation
   );
   const [activeTab, setActiveTab] = useState<"overview" | "standards" | "evidence" | "reports">("overview");
+  const [showEvidenceModal, setShowEvidenceModal] = useState(false);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -282,7 +284,7 @@ const AccreditationPage: React.FC = () => {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">Evidence Collection</h2>
-              <Button variant="primary" onClick={() => navigate("/evidence-upload")}>
+              <Button variant="primary" onClick={() => setShowEvidenceModal(true)}>
                 + Upload Evidence
               </Button>
             </div>
@@ -399,6 +401,16 @@ const AccreditationPage: React.FC = () => {
               </div>
             ))}
           </div>
+        )}
+
+        {/* Evidence Collection Modal */}
+        {showEvidenceModal && (
+          <EvidenceCollectionModal
+            onClose={() => setShowEvidenceModal(false)}
+            onSuccess={() => {
+              setShowEvidenceModal(false);
+            }}
+          />
         )}
       </div>
     </div>
