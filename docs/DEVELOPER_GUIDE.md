@@ -42,32 +42,25 @@ cd Prototype/frontend
 # Install dependencies
 npm install
 
-# Create environment file
-cp .env.example .env
-
 # Start development server
 npm run dev
 ```
 
 Server runs at `http://localhost:5173`
 
-### Environment Variables
+### Environment Configuration
 
-Create `.env` file:
+The project uses environment variables for configuration. Current environment defaults are built into the codebase:
 
-```env
-# API Configuration
-VITE_API_BASE_URL=http://localhost:3001
-VITE_API_TIMEOUT=30000
-
-# Feature Flags
-VITE_ENABLE_MOCK_DATA=true
-VITE_ENABLE_REDUX_DEVTOOLS=true
-
-# Application
-VITE_APP_NAME="Academic Curator"
-VITE_APP_VERSION="1.0.0"
+```typescript
+// Default configuration in code
+const API_BASE_URL = "http://localhost:3001";
+const API_TIMEOUT = 30000;
+const ENABLE_MOCK_DATA = true;
+const ENABLE_REDUX_DEVTOOLS_EXTENSION = true;
 ```
+
+**Note:** The application automatically uses mock data during development. No additional configuration required for initial setup.
 
 ---
 
@@ -644,14 +637,25 @@ const fetchData = async () => {
 };
 ```
 
-### Mock Data (Development)
+### Mock Data Strategy (Development)
 
-Using Mock Service Worker (MSW) for development:
+The application includes centralized mock data factories in `src/data/mockDataFactories.ts` that are used across components:
 
 ```tsx
-// All API calls are intercepted and return mock data
-// Transition to real API by updating API_BASE_URL and disabling MSW
+// Example: Mock data in Redux slices
+import { generateMockReports, generateMockAuditLogs } from "./data/mockDataFactories";
+
+const initialState: ReportingState = {
+  reports: generateMockReports(),
+  auditLogs: generateMockAuditLogs(),
+};
 ```
+
+**Transition to Real API:**
+1. Implement backend API endpoints
+2. Update `API_BASE_URL` to point to your backend server
+3. Replace mock data generation with actual API calls via Redux thunks
+4. Update components to handle loading/error states from Redux
 
 ---
 

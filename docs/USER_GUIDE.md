@@ -30,7 +30,7 @@
 
 ### First Login
 
-1. Visit `http://localhost:3000`
+1. Visit `http://localhost:5173` (or your deployed URL)
 2. Click "Sign In"
 3. Enter email and password
 4. Complete multi-factor authentication (if enabled)

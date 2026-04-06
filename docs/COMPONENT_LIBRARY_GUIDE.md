@@ -70,28 +70,44 @@ import Button from "../forms/Button";
 
 ### 2. Card Component
 
-Flexible card for content grouping.
+Flexible card for content grouping with shadow and hover effects.
 
 **Location:** `src/components/common/Card.tsx`
 
 **Usage:**
 
 ```tsx
-const Card = ({ title, description, children }) => (
-  <div className="bg-white rounded-lg shadow-sm border p-6">
-    {title && <h3 className="text-lg font-bold mb-2">{title}</h3>}
-    {description && <p className="text-gray-600 mb-4">{description}</p>}
-    {children}
-  </div>
-);
+import Card from "../common/Card";
+
+<Card>
+  <h3 className="text-lg font-bold mb-2">Card Title</h3>
+  <p>Card content goes here</p>
+</Card>
+
+// With custom styling
+<Card className="bg-blue-50">
+  <p>Custom styled card</p>
+</Card>
+
+// With click handler
+<Card onClick={() => navigate("/details")}>
+  <p>Clickable card</p>
+</Card>
 ```
+
+**Props:**
+
+- `children: ReactNode` - Card content
+- `className?: string` - Additional Tailwind classes
+- `onClick?: () => void` - Click handler for interactive cards
 
 **Features:**
 
-- Customizable padding
-- Optional title and description
-- Shadow and border styling
-- Hover effects
+- Material Design 3 surface styling
+- Automatic hover shadow effects
+- Rounded corners with border
+- Optional click handler
+- Flexible content
 
 ---
 
