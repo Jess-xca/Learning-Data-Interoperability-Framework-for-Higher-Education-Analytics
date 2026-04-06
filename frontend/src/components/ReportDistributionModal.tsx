@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/useRedux";
-import { addDistribution } from "../../store/slices/reportingSlice";
+import { useAppDispatch } from "../hooks/useRedux";
+import { addDistribution } from "../store/slices/reportingSlice";
 
 interface ReportDistributionModalProps {
   reportId: string;
@@ -137,8 +137,10 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
-                style={{borderColor: distributionMethod === 'email' ? '#059669' : undefined}}
-                style={{backgroundColor: distributionMethod === 'email' ? '#d1fae5' : undefined}}
+                style={{
+                  borderColor: distributionMethod === 'email' ? '#059669' : undefined,
+                  backgroundColor: distributionMethod === 'email' ? '#d1fae5' : undefined,
+                }}
               >
                 <input
                   type="radio"
@@ -155,8 +157,10 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
               </label>
 
               <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
-                style={{borderColor: distributionMethod === 'link' ? '#059669' : undefined}}
-                style={{backgroundColor: distributionMethod === 'link' ? '#d1fae5' : undefined}}
+                style={{
+                  borderColor: distributionMethod === 'link' ? '#059669' : undefined,
+                  backgroundColor: distributionMethod === 'link' ? '#d1fae5' : undefined,
+                }}
               >
                 <input
                   type="radio"
@@ -179,8 +183,10 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
             <h3 className="text-lg font-bold text-gray-900 mb-4">Schedule</h3>
             <div className="grid grid-cols-2 gap-4">
               <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
-                style={{borderColor: scheduleType === 'immediate' ? '#059669' : undefined}}
-                style={{backgroundColor: scheduleType === 'immediate' ? '#d1fae5' : undefined}}
+                style={{
+                  borderColor: scheduleType === 'immediate' ? '#059669' : undefined,
+                  backgroundColor: scheduleType === 'immediate' ? '#d1fae5' : undefined,
+                }}
               >
                 <input
                   type="radio"
@@ -197,8 +203,10 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
               </label>
 
               <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
-                style={{borderColor: scheduleType === 'scheduled' ? '#059669' : undefined}}
-                style={{backgroundColor: scheduleType === 'scheduled' ? '#d1fae5' : undefined}}
+                style={{
+                  borderColor: scheduleType === 'scheduled' ? '#059669' : undefined,
+                  backgroundColor: scheduleType === 'scheduled' ? '#d1fae5' : undefined,
+                }}
               >
                 <input
                   type="radio"

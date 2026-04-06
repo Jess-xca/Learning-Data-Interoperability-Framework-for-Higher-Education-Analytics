@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAppSelector } from "../../hooks/useRedux";
 import Button from "../forms/Button";
 import ReportDistributionModal from "../ReportDistributionModal";
 import ReportingAnalyticsModal from "../ReportingAnalyticsModal";
@@ -17,7 +16,6 @@ interface InstitutionalReport {
 }
 
 const InstitutionalReportingPage: React.FC = () => {
-  const reports = useAppSelector((state) => state.accreditation.reports);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "status" | "deadline">("date");

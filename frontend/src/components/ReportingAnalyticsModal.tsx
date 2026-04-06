@@ -15,7 +15,6 @@ interface AnalyticsStat {
 }
 
 const ReportingAnalyticsModal: React.FC<ReportingAnalyticsModalProps> = ({
-  reportId,
   reportName,
   isOpen,
   onClose,
