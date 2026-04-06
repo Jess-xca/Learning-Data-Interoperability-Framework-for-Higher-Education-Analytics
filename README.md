@@ -61,7 +61,6 @@ Opens at `http://localhost:3000`
 | **State Management** | Redux Toolkit |
 | **Mock API** | Mock Service Worker (MSW) |
 | **Visualization** | Recharts, D3.js, Plotly |
-| **Localization** | i18next |
 | **Build Tool** | Vite |
 
 ### System Architecture
@@ -102,7 +101,6 @@ Prototype/
 │   ├── hooks/                    # Custom React hooks
 │   ├── services/                 # API & utility services
 │   ├── mocks/                    # MSW mock handlers
-│   ├── i18n/                     # Localization files
 │   ├── styles/                   # Global styles
 │   ├── utils/                    # Utility functions
 │   ├── App.jsx                   # Root component
