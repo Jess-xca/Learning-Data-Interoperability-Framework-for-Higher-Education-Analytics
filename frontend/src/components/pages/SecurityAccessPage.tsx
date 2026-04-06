@@ -358,7 +358,7 @@ const SecurityAccessPage: React.FC = () => {
                   </label>
                   <select
                     value={dateRange}
-                    onChange={(e) => setDateRange(e.target.value as any)}
+                    onChange={(e) => setDateRange(e.target.value as 'today' | 'week' | 'month')}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/30"
                   >
                     <option value="today">Today</option>

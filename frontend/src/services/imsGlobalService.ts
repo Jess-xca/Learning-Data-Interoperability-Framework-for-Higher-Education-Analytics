@@ -260,17 +260,17 @@ class IMSGlobalServiceClass {
    * Map internal user object to LIS format
    */
   mapToLISUser(
-    user: any,
+    user: Record<string, unknown>,
     mappings: { [key: string]: string },
   ): Partial<LISUser> {
     return {
-      sourcedId: user[mappings.sourcedId] || user.id,
-      userId: user[mappings.userId] || user.id,
-      email: user[mappings.email] || user.email,
-      givenName: user[mappings.givenName] || user.firstName,
-      familyName: user[mappings.familyName] || user.lastName,
-      fullName: user[mappings.fullName] || `${user.firstName} ${user.lastName}`,
-      tel: user[mappings.tel] || user.phone,
+      sourcedId: (user[mappings.sourcedId] as string | undefined) || (user.id as string | undefined),
+      userId: (user[mappings.userId] as string | undefined) || (user.id as string | undefined),
+      email: (user[mappings.email] as string | undefined) || (user.email as string | undefined),
+      givenName: (user[mappings.givenName] as string | undefined) || (user.firstName as string | undefined),
+      familyName: (user[mappings.familyName] as string | undefined) || (user.lastName as string | undefined),
+      fullName: (user[mappings.fullName] as string | undefined) || `${user.firstName} ${user.lastName}`,
+      tel: (user[mappings.tel] as string | undefined) || (user.phone as string | undefined),
     };
   }
 
@@ -278,16 +278,17 @@ class IMSGlobalServiceClass {
    * Map internal user object to OneRoster format
    */
   mapToOneRosterUser(
-    user: any,
+    user: Record<string, unknown>,
     mappings: { [key: string]: string },
   ): Partial<OneRosterUser> {
+    const email = (user[mappings.email] as string | undefined) || (user.email as string | undefined);
     return {
-      sourcedId: user[mappings.sourcedId] || user.id,
-      username: user[mappings.username] || user.email?.split("@")[0],
-      email: user[mappings.email] || user.email,
-      givenName: user[mappings.givenName] || user.firstName,
-      familyName: user[mappings.familyName] || user.lastName,
-      middleName: user[mappings.middleName],
+      sourcedId: (user[mappings.sourcedId] as string | undefined) || (user.id as string | undefined),
+      username: (user[mappings.username] as string | undefined) || (email?.split("@")[0]),
+      email: email,
+      givenName: (user[mappings.givenName] as string | undefined) || (user.firstName as string | undefined),
+      familyName: (user[mappings.familyName] as string | undefined) || (user.lastName as string | undefined),
+      middleName: (user[mappings.middleName] as string | undefined),
     };
   }
 
@@ -295,16 +296,16 @@ class IMSGlobalServiceClass {
    * Map internal course to LIS format
    */
   mapToLISCourse(
-    course: any,
+    course: Record<string, unknown>,
     mappings: { [key: string]: string },
   ): Partial<LISCourse> {
     return {
-      sourcedId: course[mappings.sourcedId] || course.id,
-      courseCode: course[mappings.courseCode] || course.code,
-      label: course[mappings.label] || course.code,
-      title: course[mappings.title] || course.name,
-      shortDescription: course[mappings.shortDescription] || course.description,
-      term: course[mappings.term],
+      sourcedId: (course[mappings.sourcedId] as string | undefined) || (course.id as string | undefined),
+      courseCode: (course[mappings.courseCode] as string | undefined) || (course.code as string | undefined),
+      label: (course[mappings.label] as string | undefined) || (course.code as string | undefined),
+      title: (course[mappings.title] as string | undefined) || (course.name as string | undefined),
+      shortDescription: (course[mappings.shortDescription] as string | undefined) || (course.description as string | undefined),
+      term: (course[mappings.term] as string | undefined),
     };
   }
 
@@ -312,7 +313,7 @@ class IMSGlobalServiceClass {
    * Check for data quality issues in batch
    */
   checkDataQuality(
-    records: any[],
+    records: unknown[],
     type: "user" | "course" | "enrollment",
     schema: "lis" | "oneroster",
   ): {
@@ -334,15 +335,15 @@ class IMSGlobalServiceClass {
       if (type === "user") {
         validation =
           schema === "lis"
-            ? this.validateLISUser(record)
-            : this.validateOneRosterUser(record);
+            ? this.validateLISUser(record as Partial<LISUser>)
+            : this.validateOneRosterUser(record as Partial<OneRosterUser>);
       } else if (type === "course") {
-        validation = this.validateLISCourse(record);
+        validation = this.validateLISCourse(record as Partial<LISCourse>);
       } else {
         validation =
           schema === "lis"
-            ? this.validateLISEnrollment(record)
-            : this.validateOneRosterEnrollment(record);
+            ? this.validateLISEnrollment(record as Partial<LISEnrollment>)
+            : this.validateOneRosterEnrollment(record as Partial<OneRosterEnrollment>);
       }
 
       if (validation.valid) {
@@ -364,7 +365,7 @@ class IMSGlobalServiceClass {
    * Generate compliance report
    */
   generateComplianceReport(
-    records: any[],
+    records: unknown[],
     type: "user" | "course" | "enrollment",
     schema: "lis" | "oneroster",
   ): {
@@ -389,15 +390,15 @@ class IMSGlobalServiceClass {
       if (type === "user") {
         validation =
           schema === "lis"
-            ? this.validateLISUser(record)
-            : this.validateOneRosterUser(record);
+            ? this.validateLISUser(record as Partial<LISUser>)
+            : this.validateOneRosterUser(record as Partial<OneRosterUser>);
       } else if (type === "course") {
-        validation = this.validateLISCourse(record);
+        validation = this.validateLISCourse(record as Partial<LISCourse>);
       } else {
         validation =
           schema === "lis"
-            ? this.validateLISEnrollment(record)
-            : this.validateOneRosterEnrollment(record);
+            ? this.validateLISEnrollment(record as Partial<LISEnrollment>)
+            : this.validateOneRosterEnrollment(record as Partial<OneRosterEnrollment>);
       }
 
       validation.errors.forEach((error) => {

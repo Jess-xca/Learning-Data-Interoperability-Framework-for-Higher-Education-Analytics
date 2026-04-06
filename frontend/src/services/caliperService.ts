@@ -9,7 +9,7 @@ export interface CaliperEntity {
   type: string;
   name?: string;
   description?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface CaliperPerson extends CaliperEntity {
@@ -46,7 +46,7 @@ export interface CaliperEvent {
   federatedSession?: string;
   referrer?: CaliperEntity;
   extensions?: {
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

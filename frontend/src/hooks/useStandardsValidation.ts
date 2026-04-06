@@ -5,7 +5,9 @@ import {
   updateDataQualityMetrics,
 } from "../store/slices/standardsSlice";
 import { xAPIService } from "../services/xAPIService";
+import type { xAPIStatement } from "../services/xAPIService";
 import { caliperService } from "../services/caliperService";
+import type { CaliperEvent } from "../services/caliperService";
 import { imsGlobalService } from "../services/imsGlobalService";
 import { useAppDispatch, useAppSelector } from "./useRedux";
 
@@ -39,7 +41,7 @@ export const useStandardsValidation = () => {
    * Validate xAPI statements
    */
   const validateXAPIStatements = useCallback(
-    (statements: any[]): ValidationReport => {
+    (statements: unknown[]): ValidationReport => {
       const errors: Array<{
         recordIndex: number;
         field: string;
@@ -47,7 +49,7 @@ export const useStandardsValidation = () => {
       }> = [];
 
       statements.forEach((statement, index) => {
-        const validation = xAPIService.validateStatement(statement);
+        const validation = xAPIService.validateStatement(statement as xAPIStatement);
         if (!validation.valid) {
           validation.errors.forEach((error) => {
             const [, msg] = error.split(": ");
@@ -80,7 +82,7 @@ export const useStandardsValidation = () => {
    * Validate Caliper events
    */
   const validateCaliperEvents = useCallback(
-    (events: any[]): ValidationReport => {
+    (events: unknown[]): ValidationReport => {
       const errors: Array<{
         recordIndex: number;
         field: string;
@@ -88,7 +90,7 @@ export const useStandardsValidation = () => {
       }> = [];
 
       events.forEach((event, index) => {
-        const validation = caliperService.validateEvent(event);
+        const validation = caliperService.validateEvent(event as CaliperEvent);
         if (!validation.valid) {
           validation.errors.forEach((error) => {
             const [, msg] = error.split(": ");
@@ -121,7 +123,7 @@ export const useStandardsValidation = () => {
    */
   const validateLISRecords = useCallback(
     (
-      records: any[],
+      records: unknown[],
       type: "user" | "course" | "enrollment",
     ): ValidationReport => {
       const report = imsGlobalService.generateComplianceReport(
@@ -147,7 +149,7 @@ export const useStandardsValidation = () => {
    */
   const validateOneRosterRecords = useCallback(
     (
-      records: any[],
+      records: unknown[],
       type: "user" | "class" | "enrollment",
     ): ValidationReport => {
       const report = imsGlobalService.generateComplianceReport(
@@ -173,12 +175,12 @@ export const useStandardsValidation = () => {
    */
   const runFullValidation = useCallback(
     async (data: {
-      xapiStatements?: any[];
-      caliperEvents?: any[];
-      lisRecords?: { type: "user" | "course" | "enrollment"; data: any[] }[];
+      xapiStatements?: unknown[];
+      caliperEvents?: unknown[];
+      lisRecords?: { type: "user" | "course" | "enrollment"; data: unknown[] }[];
       oneRosterRecords?: {
         type: "user" | "class" | "enrollment";
-        data: any[];
+        data: unknown[];
       }[];
     }): Promise<ValidationReport[]> => {
       setIsValidating(true);
@@ -255,15 +257,18 @@ export const useStandardsValidation = () => {
    * Detect data quality issues in batch
    */
   const detectQualityIssues = useCallback(
-    (records: any[]): { field: string; issueCount: number }[] => {
+    (records: unknown[]): { field: string; issueCount: number }[] => {
       const issues: { [key: string]: number } = {};
 
       records.forEach((record) => {
-        Object.keys(record).forEach((key) => {
-          if (record[key] === null || record[key] === undefined) {
-            issues[key] = (issues[key] || 0) + 1;
-          }
-        });
+        if (record !== null && record !== undefined && typeof record === "object") {
+          const recordObj = record as Record<string, unknown>;
+          Object.keys(recordObj).forEach((key) => {
+            if (recordObj[key] === null || recordObj[key] === undefined) {
+              issues[key] = (issues[key] || 0) + 1;
+            }
+          });
+        }
       });
 
       return Object.entries(issues)

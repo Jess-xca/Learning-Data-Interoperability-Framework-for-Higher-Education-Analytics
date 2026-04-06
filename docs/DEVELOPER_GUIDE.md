@@ -238,9 +238,11 @@ git push -u origin feature/new-dashboard-widget
 const userCount: number = 10;
 const items: string[] = ["a", "b"];
 const handler = (event: React.ChangeEvent<HTMLInputElement>) => {};
+const data: Record<string, unknown> = getUserData();
 
-// Bad - avoid any
-const data: any = getUserData();
+// Bad - avoid any or unknown without good reason
+const looseData: unknown = getUserData();
+// Type guards needed before use
 ```
 
 **Export Types:**
@@ -291,6 +293,35 @@ export default MyComponent;
 
 **Avoid Class Components**
 Only use React hooks, never class components.
+
+**Type Component Props**
+
+```tsx
+// Excellent - explicit interface with proper types
+interface UserListProps {
+  users: Array<{ id: string; name: string; email: string }>;
+  onUserSelect: (userId: string) => void;
+  isLoading?: boolean;
+}
+
+const UserList: React.FC<UserListProps> = ({ users, onUserSelect, isLoading = false }) => {
+  return (
+    <div>
+      {isLoading ? <p>Loading...</p> : users.map(user => (
+        <div key={user.id} onClick={() => onUserSelect(user.id)}>
+          {user.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default UserList;
+
+// Bad - avoid implicit any types
+// const UserList = (props) => { ... }
+// const UserList: React.FC<any> = (props) => { ... }
+```
 
 ### ESLint & Prettier
 

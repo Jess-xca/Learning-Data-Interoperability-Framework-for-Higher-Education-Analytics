@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./useRedux";
 
 interface TransformationResult {
   success: boolean;
-  value: any;
+  value: unknown;
   error?: string;
 }
 
@@ -25,10 +25,66 @@ export const useFieldMapping = () => {
   >([]);
 
   /**
+   * Get nested value from object using dot notation (handles unknown types)
+   */
+  const getNestedValue = useCallback((obj: unknown, path: string): unknown => {
+    if (obj === null || obj === undefined) return undefined;
+    let current: unknown = obj;
+    for (const part of path.split(".")) {
+      if (current === null || current === undefined) return undefined;
+      current = (current as Record<string, unknown>)?.[part];
+    }
+    return current;
+  }, []);
+
+  /**
+   * Set nested value in object using dot notation (handles unknown types)
+   */
+  const setNestedValue = useCallback(
+    (
+      obj: unknown,
+      path: string,
+      value: unknown,
+      dataType: string,
+    ): void => {
+      if (obj === null || obj === undefined) return;
+      const objRecord = obj as Record<string, unknown>;
+      const parts = path.split(".");
+      const last = parts.pop();
+      if (!last) return;
+
+      let target = objRecord;
+      for (const part of parts) {
+        if (!(part in target)) {
+          target[part] = {};
+        }
+        target = target[part] as Record<string, unknown>;
+      }
+
+      // Type coercion
+      const stringValue = String(value);
+      switch (dataType) {
+        case "number":
+          target[last] = Number(stringValue);
+          break;
+        case "boolean":
+          target[last] = stringValue.toLowerCase() === "true";
+          break;
+        case "date":
+          target[last] = new Date(stringValue).toISOString();
+          break;
+        default:
+          target[last] = value;
+      }
+    },
+    [],
+  );
+
+  /**
    * Apply a transformation function to a value
    */
   const applyTransformation = useCallback(
-    (value: any, transformation?: string): TransformationResult => {
+    (value: unknown, transformation?: string): TransformationResult => {
       if (!transformation) {
         return { success: true, value };
       }
@@ -54,9 +110,9 @@ export const useFieldMapping = () => {
    */
   const mapData = useCallback(
     (
-      sourceData: Record<string, any>,
+      sourceData: Record<string, unknown>,
       standardId: string,
-    ): { success: boolean; data: any; errors: string[] } => {
+    ): { success: boolean; data: unknown; errors: string[] } => {
       const standard = standards.find((s) => s.id === standardId);
       if (!standard) {
         return {
@@ -67,7 +123,7 @@ export const useFieldMapping = () => {
       }
 
       const errors: string[] = [];
-      const targetData: Record<string, any> = {};
+      const targetData: Record<string, unknown> = {};
 
       standard.mappings.forEach((mapping) => {
         const sourceValue = getNestedValue(sourceData, mapping.sourceField);
@@ -102,7 +158,7 @@ export const useFieldMapping = () => {
         errors,
       };
     },
-    [standards, applyTransformation],
+    [standards, applyTransformation, getNestedValue, setNestedValue],
   );
 
   /**
@@ -206,45 +262,6 @@ export const useFieldMapping = () => {
     },
     [selectedStandardId, dispatch],
   );
-
-  /**
-   * Get nested value from object using dot notation
-   */
-  const getNestedValue = (obj: any, path: string): any => {
-    return path.split(".").reduce((acc, part) => acc?.[part], obj);
-  };
-
-  /**
-   * Set nested value in object using dot notation
-   */
-  const setNestedValue = (
-    obj: any,
-    path: string,
-    value: any,
-    dataType: string,
-  ) => {
-    const parts = path.split(".");
-    const last = parts.pop()!;
-    const target = parts.reduce((acc, part) => {
-      acc[part] = acc[part] || {};
-      return acc[part];
-    }, obj);
-
-    // Type coercion
-    switch (dataType) {
-      case "number":
-        target[last] = Number(value);
-        break;
-      case "boolean":
-        target[last] = Boolean(value);
-        break;
-      case "date":
-        target[last] = new Date(value).toISOString();
-        break;
-      default:
-        target[last] = value;
-    }
-  };
 
   return {
     standards,

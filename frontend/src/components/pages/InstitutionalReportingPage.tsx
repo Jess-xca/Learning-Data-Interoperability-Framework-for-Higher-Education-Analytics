@@ -205,7 +205,7 @@ const InstitutionalReportingPage: React.FC = () => {
               </label>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as unknown as "date" | "status" | "deadline")}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/30"
               >
                 <option value="date">Last Modified</option>

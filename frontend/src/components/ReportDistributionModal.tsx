@@ -150,7 +150,7 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                   name="method"
                   value="email"
                   checked={distributionMethod === "email"}
-                  onChange={(e) => setDistributionMethod(e.target.value as any)}
+                  onChange={(e) => setDistributionMethod(e.target.value as 'email' | 'link')}
                   className="w-4 h-4 accent-emerald-600"
                 />
                 <div className="ml-3">
@@ -173,7 +173,7 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                   name="method"
                   value="link"
                   checked={distributionMethod === "link"}
-                  onChange={(e) => setDistributionMethod(e.target.value as any)}
+                  onChange={(e) => setDistributionMethod(e.target.value as 'email' | 'link')}
                   className="w-4 h-4 accent-emerald-600"
                 />
                 <div className="ml-3">
@@ -202,7 +202,7 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                   name="schedule"
                   value="immediate"
                   checked={scheduleType === "immediate"}
-                  onChange={(e) => setScheduleType(e.target.value as any)}
+                  onChange={(e) => setScheduleType(e.target.value as 'immediate' | 'scheduled')}
                   className="w-4 h-4 accent-emerald-600"
                 />
                 <div className="ml-3">
@@ -225,7 +225,7 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                   name="schedule"
                   value="scheduled"
                   checked={scheduleType === "scheduled"}
-                  onChange={(e) => setScheduleType(e.target.value as any)}
+                  onChange={(e) => setScheduleType(e.target.value as 'immediate' | 'scheduled')}
                   className="w-4 h-4 accent-emerald-600"
                 />
                 <div className="ml-3">
