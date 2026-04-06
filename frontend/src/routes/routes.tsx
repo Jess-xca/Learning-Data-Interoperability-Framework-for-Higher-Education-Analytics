@@ -17,6 +17,8 @@ import {
   PipelineVisualizerPage,
   AccreditationPage,
   InstitutionalReportingPage,
+  DataGovernancePage,
+  SecurityAccessPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -38,4 +40,6 @@ export const appRoutes: RouteObject[] = [
   { path: "/pipeline", element: <PipelineVisualizerPage /> },
   { path: "/accreditation", element: <AccreditationPage /> },
   { path: "/institutional-reporting", element: <InstitutionalReportingPage /> },
+  { path: "/data-governance", element: <DataGovernancePage /> },
+  { path: "/security-access", element: <SecurityAccessPage /> },
 ];
