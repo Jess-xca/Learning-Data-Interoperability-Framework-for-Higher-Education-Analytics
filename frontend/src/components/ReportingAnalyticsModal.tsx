@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-interface ReportingAnalyticsModalProps {
+export interface ReportingAnalyticsModalProps {
   reportId: string;
   reportName: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface AnalyticsStat {
+export interface AnalyticsStat {
   label: string;
   value: number | string;
   icon: string;
@@ -159,7 +159,7 @@ const ReportingAnalyticsModal: React.FC<ReportingAnalyticsModalProps> = ({
                   </div>
                   <div
                     className={`bg-gradient-to-br ${getColorClass(
-                      stat.color
+                      stat.color,
                     )} text-white p-3 rounded-lg`}
                   >
                     <span className="material-symbols-outlined">
@@ -198,7 +198,9 @@ const ReportingAnalyticsModal: React.FC<ReportingAnalyticsModalProps> = ({
 
           {/* Top Viewers */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Top Viewers</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              Top Viewers
+            </h3>
             <div className="space-y-3">
               {topViewers.map((viewer, index) => (
                 <div
@@ -211,14 +213,18 @@ const ReportingAnalyticsModal: React.FC<ReportingAnalyticsModalProps> = ({
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">{viewer.name}</p>
-                      <p className="text-sm text-gray-600">{viewer.department}</p>
+                      <p className="text-sm text-gray-600">
+                        {viewer.department}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-emerald-600">
                       visibility
                     </span>
-                    <span className="font-bold text-gray-900">{viewer.views}</span>
+                    <span className="font-bold text-gray-900">
+                      {viewer.views}
+                    </span>
                   </div>
                 </div>
               ))}

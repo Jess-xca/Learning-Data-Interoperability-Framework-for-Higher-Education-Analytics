@@ -23,6 +23,7 @@
 The Academic Curator component library provides a comprehensive set of reusable, accessible components built with React, TypeScript, and Tailwind CSS. All components follow a consistent design system and adhere to strict TypeScript typing.
 
 ### Design Principles
+
 - **Accessibility First:** WCAG 2.1 AA compliant
 - **Type Safety:** 100% TypeScript coverage
 - **Responsive Design:** Mobile-first approach
@@ -40,6 +41,7 @@ A versatile button component with multiple variants and sizes.
 **Location:** `src/components/forms/Button.tsx`
 
 **Usage:**
+
 ```tsx
 import Button from "../forms/Button";
 
@@ -50,12 +52,14 @@ import Button from "../forms/Button";
 ```
 
 **Variants:**
+
 - `primary` - Main action button (emerald/teal gradient)
 - `secondary` - Secondary action (gray)
 - `danger` - Destructive action (red)
 - `ghost` - Minimal button
 
 **Props:**
+
 - `variant?: 'primary' | 'secondary' | 'danger' | 'ghost'`
 - `size?: 'sm' | 'md' | 'lg'`
 - `disabled?: boolean`
@@ -71,6 +75,7 @@ Flexible card for content grouping.
 **Location:** `src/components/common/Card.tsx`
 
 **Usage:**
+
 ```tsx
 const Card = ({ title, description, children }) => (
   <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -82,6 +87,7 @@ const Card = ({ title, description, children }) => (
 ```
 
 **Features:**
+
 - Customizable padding
 - Optional title and description
 - Shadow and border styling
@@ -94,6 +100,7 @@ const Card = ({ title, description, children }) => (
 Display status with visual indicators.
 
 **Usage:**
+
 ```tsx
 // Status Badge
 <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
@@ -107,6 +114,7 @@ Display status with visual indicators.
 ```
 
 **Color Schemes:**
+
 - Green: active, approved, success
 - Yellow: warning, pending, under review
 - Red: failed, confidential, critical
@@ -120,6 +128,7 @@ Display status with visual indicators.
 Responsive data table with sorting and filtering.
 
 **Usage:**
+
 ```tsx
 <table className="w-full">
   <thead className="bg-gray-50 border-b border-gray-200">
@@ -136,6 +145,7 @@ Responsive data table with sorting and filtering.
 ```
 
 **Features:**
+
 - Header row styling
 - Hover effects
 - Conditional row coloring
@@ -150,6 +160,7 @@ Responsive data table with sorting and filtering.
 Standard text input with validation.
 
 **Usage:**
+
 ```tsx
 <input
   type="text"
@@ -159,6 +170,7 @@ Standard text input with validation.
 ```
 
 **States:**
+
 - Default: gray border
 - Focus: emerald border + ring
 - Error: red border + error message
@@ -171,10 +183,9 @@ Standard text input with validation.
 Custom select component.
 
 **Usage:**
+
 ```tsx
-<select
-  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/30"
->
+<select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/30">
   <option value="">Select...</option>
   <option value="val1">Option 1</option>
 </select>
@@ -187,12 +198,10 @@ Custom select component.
 Checkbox with label.
 
 **Usage:**
+
 ```tsx
 <label className="flex items-center gap-2 cursor-pointer">
-  <input
-    type="checkbox"
-    className="w-4 h-4 accent-emerald-600 rounded"
-  />
+  <input type="checkbox" className="w-4 h-4 accent-emerald-600 rounded" />
   <span>Label text</span>
 </label>
 ```
@@ -204,6 +213,7 @@ Checkbox with label.
 File input with size and format validation.
 
 **Usage:**
+
 ```tsx
 <label className="flex items-center justify-center gap-2 p-4 border-2 rounded-lg cursor-pointer">
   <span className="material-symbols-outlined">cloud_upload</span>
@@ -218,6 +228,7 @@ File input with size and format validation.
 ```
 
 **Features:**
+
 - Drag and drop support
 - File type validation
 - Size validation (configurable)
@@ -234,6 +245,7 @@ Application header with branding and controls.
 **Location:** `src/components/layout/Header.tsx`
 
 **Usage:**
+
 ```tsx
 <header className="bg-gradient-to-r from-emerald-600 to-teal-700">
   {/* Header content */}
@@ -249,6 +261,7 @@ Role-based navigation menu.
 **Location:** `src/components/layout/Sidebar.tsx`
 
 **Features:**
+
 - Responsive (hidden on mobile)
 - Role-based visibility
 - Icon support (Material Symbols)
@@ -256,6 +269,7 @@ Role-based navigation menu.
 - Badge support
 
 **Role Navigation:**
+
 - Admin: 14 menu items
 - QA: 9 menu items
 - Analyst: 6 menu items
@@ -272,6 +286,7 @@ Application footer with links and info.
 **Location:** `src/components/layout/Footer.tsx`
 
 **Variants:**
+
 - Default: Full footer with all sections
 - Minimal: Compact footer for login pages
 
@@ -282,6 +297,7 @@ Application footer with links and info.
 Main content container.
 
 **Usage:**
+
 ```tsx
 <div className="flex flex-col bg-surface min-h-screen">
   {/* Header */}
@@ -301,6 +317,7 @@ Evidence upload form with validation.
 **Location:** `src/components/EvidenceCollectionModal.tsx`
 
 **Props:**
+
 ```tsx
 interface EvidenceCollectionModalProps {
   isOpen: boolean;
@@ -310,6 +327,7 @@ interface EvidenceCollectionModalProps {
 ```
 
 **Features:**
+
 - Title and description inputs
 - Category selection (5 types)
 - File upload with 50MB limit
@@ -325,6 +343,7 @@ Report generation with progress tracking.
 **Location:** `src/components/ReportGeneratorModal.tsx`
 
 **Features:**
+
 - Area selection (checkboxes)
 - Report options (include evidence)
 - Progress simulation (0-100%)
@@ -340,6 +359,7 @@ Distribution configuration modal.
 **Location:** `src/components/ReportDistributionModal.tsx`
 
 **Features:**
+
 - Distribution method selection (Email/Link)
 - Schedule option (Immediate/Scheduled)
 - Recipient management
@@ -355,6 +375,7 @@ Analytics and metrics display.
 **Location:** `src/components/ReportingAnalyticsModal.tsx`
 
 **Features:**
+
 - Time range filtering (week/month/all)
 - Key metrics cards
 - Access trend chart
@@ -370,6 +391,7 @@ Analytics and metrics display.
 Material Symbols integration.
 
 **Usage:**
+
 ```tsx
 <span className="material-symbols-outlined">dashboard</span>
 <span className="material-symbols-outlined text-2xl">verified_user</span>
@@ -377,6 +399,7 @@ Material Symbols integration.
 ```
 
 **Common Icons:**
+
 - `dashboard_customize` - Dashboard
 - `verified_user` - Accreditation/Security
 - `description` - Reports/Documents
@@ -397,13 +420,14 @@ Toast notification system.
 **Location:** `src/context/ToastContext.tsx`
 
 **Usage:**
+
 ```tsx
 const { showToast } = useToast();
 
 showToast({
   message: "Success!",
   type: "success", // success | error | warning | info
-  duration: 3000
+  duration: 3000,
 });
 ```
 
@@ -414,6 +438,7 @@ showToast({
 ### Colors
 
 **Primary Palette:**
+
 - Emerald/Teal: Primary actions (#059669 → #0d9488)
 - Blue: Secondary info (#2563eb)
 - Red: Danger/Error (#dc2626)
@@ -464,42 +489,49 @@ small: sm, muted
 ## Best Practices
 
 ### 1. Component Props
+
 - Always type component props with interfaces
 - Use `React.FC<Props>` for functional components
 - Provide sensible defaults
 - Document required vs optional props
 
 ### 2. Accessibility
+
 - Use semantic HTML (`<button>`, `<label>`, etc.)
 - Include `aria-*` attributes where needed
 - Ensure keyboard navigation
 - Test with screen readers
 
 ### 3. Responsive Design
+
 - Mobile-first approach
 - Use Tailwind breakpoints: `sm:`, `md:`, `lg:`, `xl:`
 - Test on multiple devices
 - Avoid fixed widths
 
 ### 4. Performance
+
 - Use React.memo for expensive components
 - Lazy load modals
 - Optimize re-renders
 - Minimize bundle size
 
 ### 5. TypeScript
+
 - Never use `any` type
 - Type all function parameters
 - Export types alongside components
 - Use `type` for interfaces
 
 ### 6. Styling
+
 - Use Tailwind classes exclusively (no CSS files)
 - Follow color scheme
 - Use consistent spacing
 - Maintain border radius consistency
 
 ### 7. Testing
+
 - Test component rendering
 - Test user interactions
 - Test edge cases
@@ -510,6 +542,7 @@ small: sm, muted
 ## Component Checklist
 
 ### Page Components (21)
+
 - ✅ DashboardPage
 - ✅ LoginPage
 - ✅ RegistrationPage
@@ -534,18 +567,21 @@ small: sm, muted
 - ✅ SecurityAccessPage
 
 ### Layout Components (4)
+
 - ✅ Header
 - ✅ Sidebar
 - ✅ Footer
 - ✅ Container
 
 ### Modal Components (4)
+
 - ✅ EvidenceCollectionModal
 - ✅ ReportGeneratorModal
 - ✅ ReportDistributionModal
 - ✅ ReportingAnalyticsModal
 
 ### Form Components (6)
+
 - ✅ Button
 - ✅ Input (text/email/password)
 - ✅ Select
@@ -554,6 +590,7 @@ small: sm, muted
 - ✅ Form validation
 
 ### Utility Components (10+)
+
 - ✅ Card
 - ✅ Badge/Status
 - ✅ Table
@@ -602,15 +639,16 @@ When creating new components:
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | Apr 6, 2026 | Initial component library documentation |
+| Version | Date        | Changes                                 |
+| ------- | ----------- | --------------------------------------- |
+| 1.0.0   | Apr 6, 2026 | Initial component library documentation |
 
 ---
 
 ## Support
 
 For component questions or issues:
+
 1. Check existing components for patterns
 2. Review Tailwind CSS documentation
 3. Check TypeScript strict mode compliance

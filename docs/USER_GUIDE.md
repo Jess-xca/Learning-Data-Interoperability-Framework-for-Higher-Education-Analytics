@@ -23,11 +23,13 @@
 ## Getting Started
 
 ### System Requirements
+
 - **Browser:** Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
 - **Internet:** Stable connection (1 Mbps minimum)
 - **Screen:** 1024x768 minimum (mobile devices supported)
 
 ### First Login
+
 1. Visit `http://localhost:3000`
 2. Click "Sign In"
 3. Enter email and password
@@ -35,6 +37,7 @@
 5. You'll be directed to your role-specific dashboard
 
 ### Profile Setup
+
 1. Click profile icon (top right)
 2. Select "My Profile"
 3. Update personal information:
@@ -56,24 +59,28 @@
 ### Main Components
 
 **Header**
+
 - Application logo and name
 - Search bar (global search)
 - Notifications bell
 - Profile menu
 
 **Sidebar Navigation**
+
 - Role-specific menu items
 - Active page indicator
 - Icon-based menu items
 - Collapsible on mobile
 
 **Main Content Area**
+
 - Page-specific content
 - Customizable widgets
 - Data tables
 - Charts and visualizations
 
 **Footer**
+
 - Copyright information
 - Quick links
 - Version information
@@ -81,6 +88,7 @@
 ### Dashboard Widgets
 
 Each dashboard includes:
+
 - **Key Metrics Cards** - Overview of important KPIs
 - **Charts & Graphs** - Visual data representation
 - **Data Tables** - Detailed information
@@ -103,6 +111,7 @@ Each dashboard includes:
 ### Password Management
 
 **Forgot Password:**
+
 1. Click "Forgot Password" on login page
 2. Enter email address
 3. Click "Send Reset Link"
@@ -111,6 +120,7 @@ Each dashboard includes:
 6. Click "Update Password"
 
 **Change Password:**
+
 1. Go to Profile → Settings
 2. Click "Change Password"
 3. Enter current password
@@ -121,6 +131,7 @@ Each dashboard includes:
 ### Multi-Factor Authentication (MFA)
 
 **Enable MFA:**
+
 1. Go to Settings → Security
 2. Click "Enable MFA"
 3. Scan QR code with authenticator app (Google Authenticator, Microsoft Authenticator)
@@ -128,6 +139,7 @@ Each dashboard includes:
 5. Click "Verify"
 
 **Backup Codes:**
+
 - Store backup codes in safe location
 - Use if authenticator app is unavailable
 - Get new codes from Settings → Security
@@ -137,9 +149,11 @@ Each dashboard includes:
 ## Role-Based Features
 
 ### Academic Admin
+
 **Access:** Complete system access
 
 **Primary Tasks:**
+
 - View institutional analytics
 - Manage user accounts
 - Configure data integrations
@@ -147,6 +161,7 @@ Each dashboard includes:
 - Manage accreditation evidence
 
 **Key Pages:**
+
 - Dashboard (institutional overview)
 - User Management
 - Data Sources
@@ -156,9 +171,11 @@ Each dashboard includes:
 ---
 
 ### QA Officer
+
 **Access:** Quality assurance focused features
 
 **Primary Tasks:**
+
 - Track accreditation readiness
 - Collect compliance evidence
 - Generate compliance reports
@@ -166,6 +183,7 @@ Each dashboard includes:
 - Review institutional reporting
 
 **Key Pages:**
+
 - Dashboard (compliance metrics)
 - Accreditation (evidence collection)
 - Data Governance
@@ -175,9 +193,11 @@ Each dashboard includes:
 ---
 
 ### Data Analyst
+
 **Access:** Analytics and reporting
 
 **Primary Tasks:**
+
 - Create custom reports
 - Analyze student performance
 - Export data for analysis
@@ -185,6 +205,7 @@ Each dashboard includes:
 - Generate trend analysis
 
 **Key Pages:**
+
 - Dashboard (analytics)
 - Analytics
 - Reports
@@ -194,9 +215,11 @@ Each dashboard includes:
 ---
 
 ### Department Head (HOD)
+
 **Access:** Department-level features
 
 **Primary Tasks:**
+
 - View department metrics
 - Monitor course performance
 - Track student outcomes
@@ -204,6 +227,7 @@ Each dashboard includes:
 - Budget tracking
 
 **Key Pages:**
+
 - Dashboard (department focus)
 - Students
 - Courses
@@ -213,9 +237,11 @@ Each dashboard includes:
 ---
 
 ### Lecturer
+
 **Access:** Course and student focused
 
 **Primary Tasks:**
+
 - View my courses
 - Monitor student performance
 - Review attendance
@@ -223,6 +249,7 @@ Each dashboard includes:
 - View analytics
 
 **Key Pages:**
+
 - Dashboard (course focus)
 - My Courses
 - My Students
@@ -232,9 +259,11 @@ Each dashboard includes:
 ---
 
 ### Student
+
 **Access:** Personal and academic records
 
 **Primary Tasks:**
+
 - View my courses
 - Check grades
 - View my progress
@@ -242,6 +271,7 @@ Each dashboard includes:
 - Access my records
 
 **Key Pages:**
+
 - Dashboard (personal)
 - My Courses
 - My Progress
@@ -256,6 +286,7 @@ Each dashboard includes:
 **Location:** Admin Menu → Data Sources
 
 **View Available Connectors:**
+
 1. Click "Data Sources" in sidebar
 2. See list of available system integrations:
    - Learning Management System (LMS)
@@ -265,6 +296,7 @@ Each dashboard includes:
    - Finance System
 
 **Connect New Source (Admin Only):**
+
 1. Click "Add Data Source"
 2. Select system type
 3. Enter connection details:
@@ -281,12 +313,14 @@ Each dashboard includes:
 **Location:** Admin Menu → Data Mapping
 
 **View Data Mappings:**
+
 1. Click "Data Mapping" in sidebar
 2. Select source system
 3. View field mappings between source and Academic Curator
 4. See data transformation rules
 
 **Edit Mappings (Admin Only):**
+
 1. Click "Edit Mapping"
 2. Adjust field assignments
 3. Set transformation rules
@@ -299,12 +333,14 @@ Each dashboard includes:
 **Location:** Analytics Menu → Data Quality
 
 **Monitor Quality Metrics:**
+
 - Completeness (% of fields populated)
 - Accuracy (data validation checks)
 - Timeliness (last update timestamp)
 - Consistency (cross-system validation)
 
 **Quality Reports:**
+
 1. Click "Generate Quality Report"
 2. Select time period
 3. Select data categories
@@ -320,24 +356,28 @@ Each dashboard includes:
 **Location:** QA Menu → Accreditation
 
 **Overview Tab:**
+
 - Compliance status summary
 - Progress towards accreditation
 - Deadline tracking
 - Key metrics
 
 **Standards Tab:**
+
 - Mapping of standards to evidence
 - Compliance status by standard
 - Timeline tracking
 - Document requirements
 
 **Evidence Tab:**
+
 - Collect supporting documents
 - Evidence status
 - Upload files
 - Track evidence completeness
 
 **Reports Tab:**
+
 - Generated accreditation reports
 - Report status
 - Completion percentage
@@ -348,6 +388,7 @@ Each dashboard includes:
 ### Evidence Collection
 
 **Upload Evidence:**
+
 1. Go to Accreditation → Evidence Tab
 2. Click "Upload Evidence"
 3. Fill in form:
@@ -359,6 +400,7 @@ Each dashboard includes:
 5. Evidence is reviewed and processed
 
 **Supported Formats:**
+
 - PDF
 - Word (DOC, DOCX)
 - Excel (XLS, XLSX)
@@ -370,6 +412,7 @@ Each dashboard includes:
 ### Accreditation Reports
 
 **Generate Report:**
+
 1. Go to Accreditation → Reports Tab
 2. Click "Continue Working" on desired report
 3. Report generator opens
@@ -379,6 +422,7 @@ Each dashboard includes:
 7. Report is processed and displayed
 
 **Report Contents:**
+
 - Standards mapping
 - Evidence summary
 - Compliance status
@@ -394,6 +438,7 @@ Each dashboard includes:
 **Location:** QA Menu → Institutional Reporting
 
 **View Reports:**
+
 1. Click "Institutional Reporting" in sidebar
 2. See list of reports:
    - Accreditation Self-Study
@@ -402,6 +447,7 @@ Each dashboard includes:
    - Performance Metrics
 
 **Report Actions:**
+
 - **Edit:** Modify report content
 - **View:** Full report preview
 - **Distribution:** Share with stakeholders
@@ -412,6 +458,7 @@ Each dashboard includes:
 ### Report Distribution
 
 **Share Report:**
+
 1. Select report
 2. Click "Distribute" button
 3. Configure distribution:
@@ -426,6 +473,7 @@ Each dashboard includes:
 6. Status shows "Sent"
 
 **Track Distribution:**
+
 - View recipient list
 - See delivery status
 - Track access count
@@ -436,6 +484,7 @@ Each dashboard includes:
 ### Analytics
 
 **View Report Analytics:**
+
 1. Select report
 2. Click "Analytics" button
 3. See metrics:
@@ -447,6 +496,7 @@ Each dashboard includes:
    - Comments received
 
 **Time Range Filtering:**
+
 - Last 7 days
 - Last 30 days
 - All time
@@ -460,6 +510,7 @@ Each dashboard includes:
 **Location:** Admin Menu → Data Governance (Dictionary Tab)
 
 **Search Data Elements:**
+
 1. Enter search term or filter by sensitivity
 2. View element details:
    - Data type
@@ -469,6 +520,7 @@ Each dashboard includes:
    - Classification level
 
 **Data Classification:**
+
 - **Public:** Freely shareable
 - **Internal:** Within institution only
 - **Confidential:** Restricted access
@@ -480,6 +532,7 @@ Each dashboard includes:
 **Location:** Admin Menu → Data Governance (Lineage Tab)
 
 **View Data Flow:**
+
 1. Select pipeline
 2. See data journey:
    - Source system
@@ -489,6 +542,7 @@ Each dashboard includes:
    - Records processed
 
 **Pipeline Status:**
+
 - Success: Green indicator
 - Failed: Red indicator
 - Running: Processing indicator
@@ -500,11 +554,13 @@ Each dashboard includes:
 **Location:** Admin Menu → Data Governance (Policies Tab)
 
 **View Policies:**
+
 - Data Retention Policy (how long data is kept)
 - Data Access Policy (who can access what)
 - Data Quality Standards (acceptable thresholds)
 
 **Policy Details:**
+
 - Policy description
 - Effective date
 - Owner department
@@ -519,6 +575,7 @@ Each dashboard includes:
 **Location:** Admin Menu → Security & Access (RBAC Tab)
 
 **View Roles:**
+
 - Admin (full access)
 - QA Officer (quality & compliance)
 - Data Analyst (analytics & reporting)
@@ -528,6 +585,7 @@ Each dashboard includes:
 
 **Permissions by Role:**
 Each role has specific permissions for:
+
 - Data access (view, edit, delete)
 - Report access (generate, share, download)
 - Configuration (settings, users, systems)
@@ -540,6 +598,7 @@ Each role has specific permissions for:
 **Location:** Admin Menu → Security & Access (Audit Tab)
 
 **View Audit Logs:**
+
 1. Click "Audit Logs" tab
 2. Filter by:
    - **Action:** Login, data access, modification, export
@@ -553,6 +612,7 @@ Each role has specific permissions for:
    - Success/Failure status
 
 **Export Audit Report:**
+
 - Click "Export Report"
 - Select date range
 - Download as PDF
@@ -564,12 +624,14 @@ Each role has specific permissions for:
 **Location:** Admin Menu → Security & Access (Encryption Tab)
 
 **Encryption Status:**
+
 - **Data at Rest:** AES-256 encryption
 - **Data in Transit:** TLS 1.3
 - **Field Level:** Sensitive fields encrypted
 - **Key Rotation:** Automatic every 90 days
 
 **Secured Fields:**
+
 - Student IDs
 - Email addresses
 - Phone numbers
@@ -651,6 +713,7 @@ A: The web application is responsive and works on mobile devices. Native apps ma
 ### Support
 
 **Need Help?**
+
 - **Internal Support:** Contact your System Administrator
 - **Documentation:** Check the user guide and FAQ
 - **Email:** support@institution.edu
@@ -672,8 +735,8 @@ A: The web application is responsive and works on mobile devices. Native apps ma
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | Apr 6, 2026 | Initial user guide |
+| Version | Date        | Changes            |
+| ------- | ----------- | ------------------ |
+| 1.0.0   | Apr 6, 2026 | Initial user guide |
 
 ---

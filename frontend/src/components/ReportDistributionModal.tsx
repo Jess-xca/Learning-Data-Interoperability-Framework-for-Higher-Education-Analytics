@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAppDispatch } from "../hooks/useRedux";
 import { addDistribution } from "../store/slices/reportingSlice";
 
-interface ReportDistributionModalProps {
+export interface ReportDistributionModalProps {
   reportId: string;
   reportName: string;
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface ReportDistributionModalProps {
   onSuccess?: () => void;
 }
 
-interface Recipient {
+export interface Recipient {
   email: string;
   department: string;
 }
@@ -26,11 +26,11 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
   const [recipients, setRecipients] = useState<Recipient[]>([]);
   const [currentEmail, setCurrentEmail] = useState("");
   const [currentDept, setCurrentDept] = useState("");
-  const [distributionMethod, setDistributionMethod] = useState<"email" | "link">(
-    "email"
-  );
+  const [distributionMethod, setDistributionMethod] = useState<
+    "email" | "link"
+  >("email");
   const [scheduleType, setScheduleType] = useState<"immediate" | "scheduled">(
-    "immediate"
+    "immediate",
   );
   const [includeEvidence, setIncludeEvidence] = useState(true);
   const [allowComments, setAllowComments] = useState(false);
@@ -136,10 +136,13 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
               Distribution Method
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
+              <label
+                className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
                 style={{
-                  borderColor: distributionMethod === 'email' ? '#059669' : undefined,
-                  backgroundColor: distributionMethod === 'email' ? '#d1fae5' : undefined,
+                  borderColor:
+                    distributionMethod === "email" ? "#059669" : undefined,
+                  backgroundColor:
+                    distributionMethod === "email" ? "#d1fae5" : undefined,
                 }}
               >
                 <input
@@ -156,10 +159,13 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                 </div>
               </label>
 
-              <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
+              <label
+                className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
                 style={{
-                  borderColor: distributionMethod === 'link' ? '#059669' : undefined,
-                  backgroundColor: distributionMethod === 'link' ? '#d1fae5' : undefined,
+                  borderColor:
+                    distributionMethod === "link" ? "#059669" : undefined,
+                  backgroundColor:
+                    distributionMethod === "link" ? "#d1fae5" : undefined,
                 }}
               >
                 <input
@@ -182,10 +188,13 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
           <div className="mb-8">
             <h3 className="text-lg font-bold text-gray-900 mb-4">Schedule</h3>
             <div className="grid grid-cols-2 gap-4">
-              <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
+              <label
+                className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
                 style={{
-                  borderColor: scheduleType === 'immediate' ? '#059669' : undefined,
-                  backgroundColor: scheduleType === 'immediate' ? '#d1fae5' : undefined,
+                  borderColor:
+                    scheduleType === "immediate" ? "#059669" : undefined,
+                  backgroundColor:
+                    scheduleType === "immediate" ? "#d1fae5" : undefined,
                 }}
               >
                 <input
@@ -202,10 +211,13 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                 </div>
               </label>
 
-              <label className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
+              <label
+                className="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-emerald-600 hover:bg-emerald-50 transition-all"
                 style={{
-                  borderColor: scheduleType === 'scheduled' ? '#059669' : undefined,
-                  backgroundColor: scheduleType === 'scheduled' ? '#d1fae5' : undefined,
+                  borderColor:
+                    scheduleType === "scheduled" ? "#059669" : undefined,
+                  backgroundColor:
+                    scheduleType === "scheduled" ? "#d1fae5" : undefined,
                 }}
               >
                 <input
@@ -304,7 +316,9 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                     <option value="research">Research</option>
                   </select>
                   {errors.department && (
-                    <p className="text-red-600 text-sm mt-1">{errors.department}</p>
+                    <p className="text-red-600 text-sm mt-1">
+                      {errors.department}
+                    </p>
                   )}
                 </div>
               </div>
@@ -330,7 +344,9 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                       <p className="font-medium text-gray-900">
                         {recipient.email}
                       </p>
-                      <p className="text-sm text-gray-600">{recipient.department}</p>
+                      <p className="text-sm text-gray-600">
+                        {recipient.department}
+                      </p>
                     </div>
                     <button
                       onClick={() => handleRemoveRecipient(index)}
@@ -346,7 +362,8 @@ const ReportDistributionModal: React.FC<ReportDistributionModalProps> = ({
                     Distribution Summary
                   </p>
                   <p className="text-sm text-blue-800 mt-1">
-                    <span className="font-semibold">{recipients.length}</span> recipient{recipients.length !== 1 ? 's' : ''} selected
+                    <span className="font-semibold">{recipients.length}</span>{" "}
+                    recipient{recipients.length !== 1 ? "s" : ""} selected
                   </p>
                 </div>
               </div>

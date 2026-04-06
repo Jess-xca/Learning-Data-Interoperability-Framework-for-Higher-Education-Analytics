@@ -25,6 +25,7 @@
 ## Setup & Environment
 
 ### Prerequisites
+
 - **Node.js:** v18.0.0 or higher
 - **npm:** v9.0.0 or higher
 - **Git:** Latest version
@@ -175,6 +176,7 @@ git commit -m "feat: Add MyComponent with validation"
 ```
 
 **Type:**
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `docs:` - Documentation
@@ -184,6 +186,7 @@ git commit -m "feat: Add MyComponent with validation"
 - `chore:` - Build/dependency changes
 
 **Example:**
+
 ```
 feat: Add evidence collection modal to AccreditationPage
 
@@ -223,6 +226,7 @@ git push -u origin feature/new-dashboard-widget
 ### TypeScript
 
 **Strict Mode (Required)**
+
 ```json
 {
   "compilerOptions": {
@@ -235,6 +239,7 @@ git push -u origin feature/new-dashboard-widget
 ```
 
 **Type All Values:**
+
 ```tsx
 // Good
 const userCount: number = 10;
@@ -246,6 +251,7 @@ const data: any = getUserData();
 ```
 
 **Export Types:**
+
 ```tsx
 // Good
 export type MyType = {
@@ -266,6 +272,7 @@ function MyComponent(props: any) {
 ### React Component Patterns
 
 **Functional Components (Required)**
+
 ```tsx
 interface MyComponentProps {
   title: string;
@@ -308,6 +315,7 @@ npm run lint -- --fix
 ### Naming Conventions
 
 **Components:**
+
 ```tsx
 // PascalCase for components
 const MyComponent: React.FC = () => {};
@@ -319,6 +327,7 @@ const UserProfile: React.FC = () => {};
 ```
 
 **Variables & Functions:**
+
 ```tsx
 // camelCase for variables and functions
 const userData = { name: "John" };
@@ -330,6 +339,7 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024;
 ```
 
 **React Hooks:**
+
 ```tsx
 // useState
 const [isOpen, setIsOpen] = useState(false);
@@ -597,7 +607,8 @@ Located in: `src/services/api.ts`
 ```tsx
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -732,15 +743,21 @@ console.log("After dispatch:", getState());
 ### React Optimization
 
 **Memoization:**
+
 ```tsx
 import { memo } from "react";
 
 const MyComponent = memo(({ prop1, prop2 }) => {
-  return <div>{prop1} {prop2}</div>;
+  return (
+    <div>
+      {prop1} {prop2}
+    </div>
+  );
 });
 ```
 
 **useCallback:**
+
 ```tsx
 const handleClick = useCallback(() => {
   // handler
@@ -748,9 +765,10 @@ const handleClick = useCallback(() => {
 ```
 
 **useMemo:**
+
 ```tsx
 const memoizedList = useMemo(() => {
-  return data.filter(item => item.active);
+  return data.filter((item) => item.active);
 }, [data]);
 ```
 
@@ -816,15 +834,19 @@ npm run preview
 ### Common Issues
 
 **Issue:** Build fails with TypeScript errors
+
 - **Solution:** Run `npm run lint -- --fix` to auto-fix issues
 
 **Issue:** Styles not applying
+
 - **Solution:** Check class names, rebuild Tailwind CSS
 
 **Issue:** API calls not working
+
 - **Solution:** Check API_BASE_URL, verify CORS headers
 
 **Issue:** React DevTools not showing
+
 - **Solution:** Reinstall extension, restart browser
 
 ---
@@ -850,8 +872,8 @@ npm run preview
 
 ## Version History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0.0 | Apr 6, 2026 | Initial developer guide |
+| Version | Date        | Changes                 |
+| ------- | ----------- | ----------------------- |
+| 1.0.0   | Apr 6, 2026 | Initial developer guide |
 
 ---

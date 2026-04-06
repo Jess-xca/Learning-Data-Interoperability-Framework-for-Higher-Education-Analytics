@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
 import { updateReport } from "../store/slices/accreditationSlice";
 import Button from "./forms/Button";
 
-interface ReportGeneratorModalProps {
+export interface ReportGeneratorModalProps {
   reportId: string;
   onClose: () => void;
   onSuccess?: () => void;
@@ -16,7 +16,7 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { complianceAreas, reports } = useAppSelector(
-    (state) => state.accreditation
+    (state) => state.accreditation,
   );
 
   const report = reports.find((r) => r.id === reportId);
@@ -33,7 +33,7 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
     setSelectedAreas((prev) =>
       prev.includes(areaId)
         ? prev.filter((id) => id !== areaId)
-        : [...prev, areaId]
+        : [...prev, areaId],
     );
   };
 
@@ -63,28 +63,25 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
 
       // Calculate stats
       const selectedComplianceAreas = complianceAreas.filter((a) =>
-        selectedAreas.includes(a.id)
+        selectedAreas.includes(a.id),
       );
 
       const totalStandards = selectedComplianceAreas.reduce(
         (sum, area) => sum + area.standards.length,
-        0
+        0,
       );
 
       const compliantStandards = selectedComplianceAreas.reduce(
         (sum, area) =>
           sum + area.standards.filter((s) => s.status === "compliant").length,
-        0
+        0,
       );
 
       // Update report
       const updatedReport = {
         ...report,
         status: "in_progress" as const,
-        completionPercentage: Math.min(
-          90,
-          report.completionPercentage + 15
-        ),
+        completionPercentage: Math.min(90, report.completionPercentage + 15),
         standardsMapped: totalStandards,
         evidenceCollected: compliantStandards,
       };
@@ -106,11 +103,11 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
   };
 
   const selectedComplianceAreas = complianceAreas.filter((a) =>
-    selectedAreas.includes(a.id)
+    selectedAreas.includes(a.id),
   );
   const totalStandards = selectedComplianceAreas.reduce(
     (sum, area) => sum + area.standards.length,
-    0
+    0,
   );
 
   return (
@@ -143,8 +140,9 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
                 <div className="text-sm text-blue-900">
                   <p className="font-medium mb-1">Report Information</p>
                   <p className="text-xs">
-                    Select compliance areas to include in this self-study report. All mapped standards
-                    and collected evidence will be summarized automatically.
+                    Select compliance areas to include in this self-study
+                    report. All mapped standards and collected evidence will be
+                    summarized automatically.
                   </p>
                 </div>
               </div>
@@ -153,7 +151,9 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
             {/* Compliance Areas Selection */}
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-gray-900">Select Compliance Areas</h3>
+                <h3 className="font-bold text-gray-900">
+                  Select Compliance Areas
+                </h3>
                 <button
                   onClick={handleSelectAll}
                   className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
@@ -186,8 +186,8 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
                             area.overallStatus === "compliant"
                               ? "text-green-600"
                               : area.overallStatus === "at_risk"
-                              ? "text-amber-600"
-                              : "text-red-600"
+                                ? "text-amber-600"
+                                : "text-red-600"
                           }`}
                         >
                           {area.overallScore}%
@@ -224,7 +224,9 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
             {/* Summary */}
             {selectedAreas.length > 0 && (
               <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-lg p-4">
-                <p className="text-sm font-medium text-gray-900 mb-2">Report Summary</p>
+                <p className="text-sm font-medium text-gray-900 mb-2">
+                  Report Summary
+                </p>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
                     <p className="text-gray-600">Areas</p>
@@ -234,7 +236,9 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
                   </div>
                   <div>
                     <p className="text-gray-600">Standards</p>
-                    <p className="text-2xl font-bold text-gray-900">{totalStandards}</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {totalStandards}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-600">Format</p>
@@ -246,7 +250,11 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
 
             {/* Actions */}
             <div className="flex justify-end gap-3 pt-4 border-t">
-              <Button variant="secondary" onClick={onClose} disabled={isGenerating}>
+              <Button
+                variant="secondary"
+                onClick={onClose}
+                disabled={isGenerating}
+              >
                 Cancel
               </Button>
               <Button
@@ -277,14 +285,14 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
                     {generationProgress === 0
                       ? "Initializing..."
                       : generationProgress === 20
-                      ? "Analyzing standards..."
-                      : generationProgress === 40
-                      ? "Collecting evidence..."
-                      : generationProgress === 60
-                      ? "Compiling data..."
-                      : generationProgress === 80
-                      ? "Formatting document..."
-                      : "Finalizing..."}
+                        ? "Analyzing standards..."
+                        : generationProgress === 40
+                          ? "Collecting evidence..."
+                          : generationProgress === 60
+                            ? "Compiling data..."
+                            : generationProgress === 80
+                              ? "Formatting document..."
+                              : "Finalizing..."}
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
@@ -310,7 +318,7 @@ const ReportGeneratorModal: React.FC<ReportGeneratorModalProps> = ({
                   >
                     <p className="text-xs font-medium">{step}</p>
                   </div>
-                )
+                ),
               )}
             </div>
 

@@ -114,24 +114,26 @@ const reportingSlice = createSlice({
     },
     addDistribution: (state, action: PayloadAction<ReportDistribution>) => {
       state.distributions.push(action.payload);
-      const report = state.reports.find((r) => r.id === action.payload.reportId);
+      const report = state.reports.find(
+        (r) => r.id === action.payload.reportId,
+      );
       if (report) {
         report.distributions.push(action.payload);
       }
     },
     updateDistribution: (state, action: PayloadAction<ReportDistribution>) => {
       const index = state.distributions.findIndex(
-        (d) => d.id === action.payload.id
+        (d) => d.id === action.payload.id,
       );
       if (index > -1) {
         state.distributions[index] = action.payload;
       }
       const report = state.reports.find(
-        (r) => r.id === action.payload.reportId
+        (r) => r.id === action.payload.reportId,
       );
       if (report) {
         const distIndex = report.distributions.findIndex(
-          (d) => d.id === action.payload.id
+          (d) => d.id === action.payload.id,
         );
         if (distIndex > -1) {
           report.distributions[distIndex] = action.payload;
@@ -140,7 +142,9 @@ const reportingSlice = createSlice({
     },
     setAnalytics: (state, action: PayloadAction<ReportAnalytics>) => {
       state.analyticsData.push(action.payload);
-      const report = state.reports.find((r) => r.id === action.payload.reportId);
+      const report = state.reports.find(
+        (r) => r.id === action.payload.reportId,
+      );
       if (report) {
         report.analytics = action.payload;
       }

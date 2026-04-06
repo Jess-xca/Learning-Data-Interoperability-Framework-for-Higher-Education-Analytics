@@ -1,21 +1,16 @@
 import React, { useState } from "react";
+import { useAppSelector } from "../../hooks/useRedux";
 import Button from "../forms/Button";
 import ReportDistributionModal from "../ReportDistributionModal";
 import ReportingAnalyticsModal from "../ReportingAnalyticsModal";
-
-interface InstitutionalReport {
-  id: string;
-  name: string;
-  type: "accreditation" | "compliance" | "quality" | "performance";
-  status: "draft" | "completed" | "submitted" | "approved";
-  createdDate: string;
-  submissionDeadline: string;
-  completionPercentage: number;
-  distributedTo: number;
-  lastModified: string;
-}
+import type {
+  InstitutionalReport,
+} from "../../store/slices/reportingSlice";
 
 const InstitutionalReportingPage: React.FC = () => {
+  const { reports: institutionalReports } = useAppSelector(
+    (state) => state.reporting,
+  );
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"date" | "status" | "deadline">("date");
@@ -24,7 +19,7 @@ const InstitutionalReportingPage: React.FC = () => {
   const [selectedReportId, setSelectedReportId] = useState<string>("");
   const [selectedReportName, setSelectedReportName] = useState<string>("");
 
-  const institutionalReports: InstitutionalReport[] = [
+  const mockReports: InstitutionalReport[] = [
     {
       id: "rep_1",
       name: "HEC Accreditation Self-Study 2026",
@@ -129,7 +124,7 @@ const InstitutionalReportingPage: React.FC = () => {
       filtered = filtered.filter(
         (r) =>
           r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          r.type.toLowerCase().includes(searchQuery.toLowerCase())
+          r.type.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -163,7 +158,8 @@ const InstitutionalReportingPage: React.FC = () => {
     draft: institutionalReports.filter((r) => r.status === "draft").length,
     completed: institutionalReports.filter((r) => r.status === "completed")
       .length,
-    approved: institutionalReports.filter((r) => r.status === "approved").length,
+    approved: institutionalReports.filter((r) => r.status === "approved")
+      .length,
   };
 
   return (
@@ -184,7 +180,9 @@ const InstitutionalReportingPage: React.FC = () => {
             <div className="text-sm font-semibold text-gray-600 mb-2">
               Total Reports
             </div>
-            <div className="text-3xl font-bold text-gray-900">{stats.total}</div>
+            <div className="text-3xl font-bold text-gray-900">
+              {stats.total}
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm p-6 border-l-4 border-yellow-600">
@@ -282,7 +280,9 @@ const InstitutionalReportingPage: React.FC = () => {
               <span className="material-symbols-outlined text-5xl text-gray-300 block mb-4">
                 description
               </span>
-              <p className="text-gray-600">No reports found matching your criteria</p>
+              <p className="text-gray-600">
+                No reports found matching your criteria
+              </p>
             </div>
           ) : (
             filteredReports.map((report) => (
@@ -308,7 +308,7 @@ const InstitutionalReportingPage: React.FC = () => {
                           </span>
                           <span
                             className={`inline-block px-3 py-1 text-xs font-bold rounded-full border ${getStatusColor(
-                              report.status
+                              report.status,
                             )}`}
                           >
                             {report.status.charAt(0).toUpperCase() +
@@ -319,8 +319,10 @@ const InstitutionalReportingPage: React.FC = () => {
                           Created:{" "}
                           {new Date(report.createdDate).toLocaleDateString()} •
                           Due:{" "}
-                          {new Date(report.submissionDeadline).toLocaleDateString()} •
-                          Modified:{" "}
+                          {new Date(
+                            report.submissionDeadline,
+                          ).toLocaleDateString()}{" "}
+                          • Modified:{" "}
                           {new Date(report.lastModified).toLocaleDateString()}
                         </p>
                       </div>
@@ -355,13 +357,15 @@ const InstitutionalReportingPage: React.FC = () => {
                           Distributed to {report.distributedTo} recipients
                         </span>
                       ) : (
-                        <span className="text-gray-400">Not distributed yet</span>
+                        <span className="text-gray-400">
+                          Not distributed yet
+                        </span>
                       )}
                     </div>
 
                     <div className="flex gap-2">
-                      <Button 
-                        variant="secondary" 
+                      <Button
+                        variant="secondary"
                         className="text-sm"
                         onClick={() => {
                           setSelectedReportId(report.id);
@@ -371,8 +375,8 @@ const InstitutionalReportingPage: React.FC = () => {
                       >
                         Analytics
                       </Button>
-                      <Button 
-                        variant="primary" 
+                      <Button
+                        variant="primary"
                         className="text-sm"
                         onClick={() => {
                           setSelectedReportId(report.id);

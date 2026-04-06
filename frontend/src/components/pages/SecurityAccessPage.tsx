@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../forms/Button";
 
-interface Role {
+export interface Role {
   id: string;
   name: string;
   description: string;
@@ -11,7 +11,7 @@ interface Role {
   status: "active" | "inactive";
 }
 
-interface AuditLog {
+export interface AuditLog {
   id: string;
   user: string;
   action: string;
@@ -21,10 +21,20 @@ interface AuditLog {
   status: "success" | "failed";
 }
 
+export interface EncryptionStatus {
+  name: string;
+  status: "active" | "pending" | "failed";
+  coverage: number;
+}
+
 const SecurityAccessPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"rbac" | "audit" | "encryption">("rbac");
+  const [activeTab, setActiveTab] = useState<"rbac" | "audit" | "encryption">(
+    "rbac",
+  );
   const [auditFilter, setAuditFilter] = useState<string>("all");
-  const [dateRange, setDateRange] = useState<"today" | "week" | "month">("week");
+  const [dateRange, setDateRange] = useState<"today" | "week" | "month">(
+    "week",
+  );
 
   const roles: Role[] = [
     {
@@ -170,7 +180,9 @@ const SecurityAccessPage: React.FC = () => {
       {/* Header */}
       <div className="bg-gradient-to-r from-red-600 to-pink-700 text-white px-10 py-8 mb-8">
         <h1 className="text-3xl font-bold mb-2">Security & Access Control</h1>
-        <p className="opacity-90 text-base">Manage roles, audit logs, and data encryption</p>
+        <p className="opacity-90 text-base">
+          Manage roles, audit logs, and data encryption
+        </p>
       </div>
 
       {/* Main Content */}
@@ -186,7 +198,9 @@ const SecurityAccessPage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">admin_panel_settings</span>
+              <span className="material-symbols-outlined">
+                admin_panel_settings
+              </span>
               Role-Based Access
             </span>
           </button>
@@ -253,7 +267,8 @@ const SecurityAccessPage: React.FC = () => {
                 <p className="text-sm text-gray-600 mb-1">Avg Permissions</p>
                 <p className="text-3xl font-bold">
                   {Math.round(
-                    roles.reduce((sum, r) => sum + r.permissions.length, 0) / roles.length
+                    roles.reduce((sum, r) => sum + r.permissions.length, 0) /
+                      roles.length,
                   )}
                 </p>
               </div>
@@ -267,8 +282,12 @@ const SecurityAccessPage: React.FC = () => {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{role.name}</h3>
-                      <p className="text-gray-600 text-sm">{role.description}</p>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        {role.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        {role.description}
+                      </p>
                     </div>
                     <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
                       Active
@@ -276,7 +295,9 @@ const SecurityAccessPage: React.FC = () => {
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-sm font-semibold text-gray-700 mb-2">Permissions ({role.permissions.length})</p>
+                    <p className="text-sm font-semibold text-gray-700 mb-2">
+                      Permissions ({role.permissions.length})
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {role.permissions.map((perm) => (
                         <span
@@ -291,8 +312,8 @@ const SecurityAccessPage: React.FC = () => {
 
                   <div className="flex items-center justify-between pt-4 border-t">
                     <span className="text-sm text-gray-600">
-                      {role.usersCount} user{role.usersCount !== 1 ? "s" : ""} • Created{" "}
-                      {new Date(role.createdDate).toLocaleDateString()}
+                      {role.usersCount} user{role.usersCount !== 1 ? "s" : ""} •
+                      Created {new Date(role.createdDate).toLocaleDateString()}
                     </span>
                     <div className="flex gap-2">
                       <Button variant="secondary" className="text-sm">
@@ -349,7 +370,9 @@ const SecurityAccessPage: React.FC = () => {
                 <div className="flex items-end">
                   <Button variant="primary" className="w-full">
                     <span className="flex items-center justify-center gap-2">
-                      <span className="material-symbols-outlined">download</span>
+                      <span className="material-symbols-outlined">
+                        download
+                      </span>
                       Export Report
                     </span>
                   </Button>
@@ -383,18 +406,29 @@ const SecurityAccessPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {auditLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 text-sm text-gray-900">{log.user}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{log.action}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{log.resource}</td>
+                    <tr
+                      key={log.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {log.user}
+                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                        {log.action}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {log.resource}
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {new Date(log.timestamp).toLocaleString()}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{log.ipAddress}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {log.ipAddress}
+                      </td>
                       <td className="px-6 py-4">
                         <span
                           className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${getStatusBadgeClass(
-                            log.status
+                            log.status,
                           )}`}
                         >
                           {log.status === "success" ? "✓ Success" : "✕ Failed"}
@@ -415,8 +449,12 @@ const SecurityAccessPage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-sm p-6 border mb-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">Data at Rest</h3>
-                  <p className="text-gray-600 text-sm">Encryption for stored data</p>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Data at Rest
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Encryption for stored data
+                  </p>
                 </div>
                 <span className="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-bold rounded-full">
                   Enabled
@@ -426,17 +464,25 @@ const SecurityAccessPage: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Algorithm</p>
-                  <p className="text-lg font-bold text-gray-900">{encryptionStatus.dataAtRest.algorithm}</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {encryptionStatus.dataAtRest.algorithm}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 font-medium">Key Rotation</p>
+                  <p className="text-xs text-gray-600 font-medium">
+                    Key Rotation
+                  </p>
                   <p className="text-lg font-bold text-gray-900">
-                    {new Date(encryptionStatus.dataAtRest.keyRotation).toLocaleDateString()}
+                    {new Date(
+                      encryptionStatus.dataAtRest.keyRotation,
+                    ).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Coverage</p>
-                  <p className="text-lg font-bold text-gray-900">{encryptionStatus.dataAtRest.coverage}</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {encryptionStatus.dataAtRest.coverage}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Status</p>
@@ -449,8 +495,12 @@ const SecurityAccessPage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-sm p-6 border mb-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">Data in Transit</h3>
-                  <p className="text-gray-600 text-sm">Encryption for data transmission</p>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Data in Transit
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Encryption for data transmission
+                  </p>
                 </div>
                 <span className="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-bold rounded-full">
                   Enabled
@@ -460,17 +510,25 @@ const SecurityAccessPage: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Protocol</p>
-                  <p className="text-lg font-bold text-gray-900">{encryptionStatus.dataInTransit.protocol}</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {encryptionStatus.dataInTransit.protocol}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 font-medium">Certificate Expiry</p>
+                  <p className="text-xs text-gray-600 font-medium">
+                    Certificate Expiry
+                  </p>
                   <p className="text-lg font-bold text-gray-900">
-                    {new Date(encryptionStatus.dataInTransit.certExpiry).toLocaleDateString()}
+                    {new Date(
+                      encryptionStatus.dataInTransit.certExpiry,
+                    ).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Coverage</p>
-                  <p className="text-lg font-bold text-gray-900">{encryptionStatus.dataInTransit.coverage}</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {encryptionStatus.dataInTransit.coverage}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-600 font-medium">Status</p>
@@ -483,8 +541,12 @@ const SecurityAccessPage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-sm p-6 border">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">Field-Level Encryption</h3>
-                  <p className="text-gray-600 text-sm">Encryption of sensitive fields</p>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Field-Level Encryption
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Encryption of sensitive fields
+                  </p>
                 </div>
                 <span className="inline-block px-4 py-2 bg-green-100 text-green-700 text-sm font-bold rounded-full">
                   Enabled
@@ -493,7 +555,9 @@ const SecurityAccessPage: React.FC = () => {
 
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-medium text-gray-700">Field Coverage</p>
+                  <p className="text-sm font-medium text-gray-700">
+                    Field Coverage
+                  </p>
                   <p className="text-sm font-bold text-gray-900">
                     {encryptionStatus.fieldLevel.encryptedFields} of{" "}
                     {encryptionStatus.fieldLevel.totalFields} fields
@@ -503,17 +567,19 @@ const SecurityAccessPage: React.FC = () => {
                   <div
                     className="bg-green-600 h-full rounded-full"
                     style={{
-                      width: `${(encryptionStatus.fieldLevel.encryptedFields /
-                        encryptionStatus.fieldLevel.totalFields) *
-                        100}%`,
+                      width: `${
+                        (encryptionStatus.fieldLevel.encryptedFields /
+                          encryptionStatus.fieldLevel.totalFields) *
+                        100
+                      }%`,
                     }}
                   />
                 </div>
               </div>
 
               <p className="text-xs text-gray-600">
-                All sensitive fields including Student ID, SSN, and Financial Information are encrypted
-                with AES-256 encryption.
+                All sensitive fields including Student ID, SSN, and Financial
+                Information are encrypted with AES-256 encryption.
               </p>
             </div>
           </div>

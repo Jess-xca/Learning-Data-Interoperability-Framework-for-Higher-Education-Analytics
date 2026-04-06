@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../forms/Button";
 
-interface DataDictionary {
+export interface DataDictionary {
   id: string;
   name: string;
   description: string;
@@ -13,8 +13,29 @@ interface DataDictionary {
   sensitivity: "public" | "internal" | "confidential";
 }
 
+export interface DataLineage {
+  id: string;
+  stage: string;
+  source: string;
+  target: string;
+  transformation: string;
+  lastRun: string;
+  status: "success" | "failed" | "pending";
+}
+
+export interface DataPolicy {
+  id: string;
+  name: string;
+  type: "retention" | "access" | "quality";
+  description: string;
+  scope: string[];
+  status: "active" | "archived";
+}
+
 const DataGovernancePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"dictionary" | "lineage" | "policies">("dictionary");
+  const [activeTab, setActiveTab] = useState<
+    "dictionary" | "lineage" | "policies"
+  >("dictionary");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSensitivity, setSelectedSensitivity] = useState<string>("all");
 
@@ -142,9 +163,11 @@ const DataGovernancePage: React.FC = () => {
   };
 
   const filteredDictionaries = dictionaries.filter((dict) => {
-    const matchesSearch = dict.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch =
+      dict.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       dict.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesSensitivity = selectedSensitivity === "all" || dict.sensitivity === selectedSensitivity;
+    const matchesSensitivity =
+      selectedSensitivity === "all" || dict.sensitivity === selectedSensitivity;
     return matchesSearch && matchesSensitivity;
   });
 
@@ -153,7 +176,9 @@ const DataGovernancePage: React.FC = () => {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-cyan-700 text-white px-10 py-8 mb-8">
         <h1 className="text-3xl font-bold mb-2">Data Governance</h1>
-        <p className="opacity-90 text-base">Manage data dictionaries, lineage, and governance policies</p>
+        <p className="opacity-90 text-base">
+          Manage data dictionaries, lineage, and governance policies
+        </p>
       </div>
 
       {/* Main Content */}
@@ -244,15 +269,20 @@ const DataGovernancePage: React.FC = () => {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{dict.name}</h3>
-                      <p className="text-gray-600 text-sm">{dict.description}</p>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        {dict.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        {dict.description}
+                      </p>
                     </div>
                     <span
                       className={`inline-block px-3 py-1 text-xs font-bold rounded-full border ${getSensitivityColor(
-                        dict.sensitivity
+                        dict.sensitivity,
                       )}`}
                     >
-                      {dict.sensitivity.charAt(0).toUpperCase() + dict.sensitivity.slice(1)}
+                      {dict.sensitivity.charAt(0).toUpperCase() +
+                        dict.sensitivity.slice(1)}
                     </span>
                   </div>
 
@@ -298,14 +328,24 @@ const DataGovernancePage: React.FC = () => {
           <div>
             <div className="space-y-4">
               {dataLineage.map((lineage) => (
-                <div key={lineage.id} className="bg-white rounded-lg shadow-sm p-6 border">
+                <div
+                  key={lineage.id}
+                  className="bg-white rounded-lg shadow-sm p-6 border"
+                >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{lineage.name}</h3>
-                      <p className="text-gray-600 text-sm">Source: {lineage.source}</p>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        {lineage.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        Source: {lineage.source}
+                      </p>
                     </div>
-                    <span className={`font-semibold text-sm ${getStatusColor(lineage.status)}`}>
-                      {lineage.status.charAt(0).toUpperCase() + lineage.status.slice(1)}
+                    <span
+                      className={`font-semibold text-sm ${getStatusColor(lineage.status)}`}
+                    >
+                      {lineage.status.charAt(0).toUpperCase() +
+                        lineage.status.slice(1)}
                     </span>
                   </div>
 
@@ -333,8 +373,12 @@ const DataGovernancePage: React.FC = () => {
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-600 font-medium">Records Processed</p>
-                      <p className="text-gray-900">{lineage.recordsProcessed.toLocaleString()}</p>
+                      <p className="text-gray-600 font-medium">
+                        Records Processed
+                      </p>
+                      <p className="text-gray-900">
+                        {lineage.recordsProcessed.toLocaleString()}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -363,8 +407,12 @@ const DataGovernancePage: React.FC = () => {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{policy.name}</h3>
-                      <p className="text-gray-600 text-sm">{policy.description}</p>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        {policy.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        {policy.description}
+                      </p>
                     </div>
                     <span
                       className={`inline-block px-3 py-1 text-xs font-bold rounded-full ${
@@ -379,7 +427,8 @@ const DataGovernancePage: React.FC = () => {
 
                   <div className="flex items-center justify-between mt-4 pt-4 border-t">
                     <div className="text-sm text-gray-600">
-                      Created: {new Date(policy.createdDate).toLocaleDateString()}
+                      Created:{" "}
+                      {new Date(policy.createdDate).toLocaleDateString()}
                     </div>
                     <div className="flex gap-2">
                       <Button variant="secondary" className="text-sm">
