@@ -269,7 +269,7 @@ export default function PasswordResetPage() {
             </div>
             <a
               href="/login"
-              className="block w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              className="w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
             >
               Sign In{" "}
               <span className="material-symbols-outlined">arrow_forward</span>

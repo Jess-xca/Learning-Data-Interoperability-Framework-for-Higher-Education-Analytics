@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import App from "./App.tsx";
 import { store } from "./store/store";
 import { worker } from "./services/mocks/worker";
+import "./index.css";
 
 // Initialize MSW before rendering
 worker.start();

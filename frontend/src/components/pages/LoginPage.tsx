@@ -116,8 +116,8 @@ export default function LoginPage() {
               .
             </h2>
             <p className="mt-6 text-on-primary-container text-base max-w-sm leading-relaxed">
-              Experience the framework v2.1 — where academic rigor meets data
-              precision.
+              Transform your institution's data into actionable intelligence with
+              precision and confidence.
             </p>
           </div>
           <div className="relative z-10 space-y-4">
