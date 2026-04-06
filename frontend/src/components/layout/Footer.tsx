@@ -12,7 +12,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-on-surface-variant">
             <p>© {currentYear} Academic Curator. All rights reserved.</p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="/privacy" className="hover:text-primary transition-colors">
                 Privacy
               </a>
               <a href="#" className="hover:text-primary transition-colors">
@@ -109,7 +109,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
             </h3>
             <ul className="space-y-2 text-xs text-on-surface-variant">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a href="/privacy" className="hover:text-primary transition-colors">
                   Privacy Policy
                 </a>
               </li>

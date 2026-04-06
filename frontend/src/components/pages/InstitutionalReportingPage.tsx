@@ -62,7 +62,7 @@ const InstitutionalReportingPage: React.FC = () => {
   };
 
   const filterReports = () => {
-    let filtered = institutionalReports;
+    let filtered = [...institutionalReports];
 
     // Filter by status
     if (activeFilter !== "all") {

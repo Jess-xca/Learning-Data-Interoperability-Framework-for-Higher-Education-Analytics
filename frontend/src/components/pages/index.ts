@@ -1,6 +1,7 @@
 export { default as LoginPage } from "./LoginPage";
 export { default as RegistrationPage } from "./RegistrationPage";
 export { default as PasswordResetPage } from "./PasswordResetPage";
+export { default as PrivacyPolicyPage } from "./PrivacyPolicyPage";
 export { default as MFASetupPage } from "./MFASetupPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as DashboardPage } from "./DashboardPage";

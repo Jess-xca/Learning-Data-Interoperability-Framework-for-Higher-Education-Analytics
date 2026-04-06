@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Sidebar, Header } from "./components";
-import { LoginPage, RegistrationPage, PasswordResetPage } from "./components/pages";
+import { LoginPage, RegistrationPage, PasswordResetPage, PrivacyPolicyPage } from "./components/pages";
 import { appRoutes } from "./routes/routes";
 import { useAppSelector } from "./hooks/useRedux";
 
@@ -32,16 +32,22 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!isAuthenticated ? (
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/reset-password" element={<PasswordResetPage />} />
-        </Routes>
-      ) : (
-        <AppLayout />
-      )}
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        
+        {/* Authentication Routes */}
+        {!isAuthenticated ? (
+          <>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/reset-password" element={<PasswordResetPage />} />
+          </>
+        ) : (
+          <Route path="/*" element={<AppLayout />} />
+        )}
+      </Routes>
     </BrowserRouter>
   );
 }
