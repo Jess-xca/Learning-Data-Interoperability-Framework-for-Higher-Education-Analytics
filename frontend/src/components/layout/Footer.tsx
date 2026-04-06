@@ -35,7 +35,9 @@ export default function Footer({ variant = "default" }: FooterProps) {
           {/* Brand */}
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <span className="material-symbols-outlined text-primary text-2xl">school</span>
+              <span className="material-symbols-outlined text-primary text-2xl">
+                school
+              </span>
               <span className="font-black text-primary text-sm tracking-tight">
                 Academic Curator
               </span>

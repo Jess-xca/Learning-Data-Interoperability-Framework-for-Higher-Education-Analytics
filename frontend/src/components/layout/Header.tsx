@@ -47,14 +47,18 @@ export default function Header({ showSearch = true, onSearch }: HeaderProps) {
             aria-label="Notifications"
             className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low relative"
           >
-            <span className="material-symbols-outlined text-xl">notifications</span>
+            <span className="material-symbols-outlined text-xl">
+              notifications
+            </span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border-2 border-white" />
           </button>
-          <button 
+          <button
             aria-label="Help"
             className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low"
           >
-            <span className="material-symbols-outlined text-xl">help_outline</span>
+            <span className="material-symbols-outlined text-xl">
+              help_outline
+            </span>
           </button>
         </div>
         <div className="flex items-center gap-3 pl-5">
