@@ -643,7 +643,10 @@ The application includes centralized mock data factories in `src/data/mockDataFa
 
 ```tsx
 // Example: Mock data in Redux slices
-import { generateMockReports, generateMockAuditLogs } from "./data/mockDataFactories";
+import {
+  generateMockReports,
+  generateMockAuditLogs,
+} from "./data/mockDataFactories";
 
 const initialState: ReportingState = {
   reports: generateMockReports(),
@@ -652,6 +655,7 @@ const initialState: ReportingState = {
 ```
 
 **Transition to Real API:**
+
 1. Implement backend API endpoints
 2. Update `API_BASE_URL` to point to your backend server
 3. Replace mock data generation with actual API calls via Redux thunks

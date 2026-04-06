@@ -299,12 +299,14 @@ const InstitutionalReportingPage: React.FC = () => {
                   {/* Footer */}
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-gray-600">
-                      {report.distributions && report.distributions.length > 0 ? (
+                      {report.distributions &&
+                      report.distributions.length > 0 ? (
                         <span className="flex items-center gap-1">
                           <span className="material-symbols-outlined text-sm">
                             share
                           </span>
-                          Distributed to {report.distributions.length} recipients
+                          Distributed to {report.distributions.length}{" "}
+                          recipients
                         </span>
                       ) : (
                         <span className="text-gray-400">
