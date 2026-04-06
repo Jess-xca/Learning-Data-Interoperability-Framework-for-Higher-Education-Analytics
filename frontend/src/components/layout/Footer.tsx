@@ -1,3 +1,5 @@
+import { Cloud } from "lucide-react";
+
 interface FooterProps {
   variant?: "default" | "minimal";
 }
@@ -29,7 +31,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           {/* Brand */}
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <span className="material-symbols-outlined text-primary text-2xl">school</span>
+              <span className="text-primary text-2xl">🎓</span>
               <span className="font-black text-primary text-sm tracking-tight">Academic Curator</span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
@@ -79,7 +81,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           <div className="flex items-center gap-4">
             <span className="text-xs text-on-surface-variant">Powered by</span>
             <div className="flex items-center gap-2 text-xs font-bold text-primary">
-              <span className="material-symbols-outlined text-sm">cloud</span>
+              <Cloud className="w-4 h-4" />
               AWS Education
             </div>
           </div>

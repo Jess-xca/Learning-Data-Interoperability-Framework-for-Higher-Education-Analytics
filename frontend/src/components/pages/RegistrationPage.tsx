@@ -115,9 +115,7 @@ export default function RegistrationPage() {
 
       <main className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 overflow-hidden rounded-xl bg-surface-container-low shadow-glass">
         {/* Branding panel */}
-        <section className="hidden md:flex md:col-span-5 relative flex-col justify-between p-12 bg-primary-container overflow-hidden">
-          <div className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #adc7f7 0%, transparent 60%), radial-gradient(circle at 80% 20%, #00b47d 0%, transparent 50%)" }} />
+        <section className="hidden md:flex md:col-span-5 relative flex-col justify-between p-12 bg-primary-container">
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-16">
               <span className="material-symbols-outlined text-surface-container-lowest text-4xl">school</span>
