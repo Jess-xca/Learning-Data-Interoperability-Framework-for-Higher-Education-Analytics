@@ -16,6 +16,7 @@ import {
   DataQualityPage,
   PipelineVisualizerPage,
   AccreditationPage,
+  InstitutionalReportingPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
@@ -36,4 +37,5 @@ export const appRoutes: RouteObject[] = [
   { path: "/data-quality", element: <DataQualityPage /> },
   { path: "/pipeline", element: <PipelineVisualizerPage /> },
   { path: "/accreditation", element: <AccreditationPage /> },
+  { path: "/institutional-reporting", element: <InstitutionalReportingPage /> },
 ];
