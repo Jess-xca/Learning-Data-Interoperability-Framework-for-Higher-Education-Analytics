@@ -6,6 +6,7 @@ import usersReducer from "./slices/usersSlice";
 import mappingReducer from "./slices/mappingSlice";
 import standardsReducer from "./slices/standardsSlice";
 import accreditationReducer from "./slices/accreditationSlice";
+import reportingReducer from "./slices/reportingSlice";
 import { persistAuthMiddleware } from "./middleware/persistAuth";
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
     mappings: mappingReducer,
     standards: standardsReducer,
     accreditation: accreditationReducer,
+    reporting: reportingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistAuthMiddleware),
