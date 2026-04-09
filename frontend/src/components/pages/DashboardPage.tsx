@@ -1,750 +1,742 @@
-import { useState } from "react";
-import { MainContent, MetricCard, ChartCard, Table, Card, Badge, Footer } from "..";
-import type { TableColumn } from "../dashboard/Table";
+import { MainContent, Card } from "..";
 import { useAppSelector } from "../../hooks/useRedux";
-import {
-  generateDummyStudents,
-  type DummyStudent,
-} from "../../data/dummyGenerator";
+import { generateHECStudents, getHECPrograms } from "../../data/hecDummyData";
+import { TrendingUp, Users, BookOpen, Award, Activity, AlertCircle, CheckCircle2, Clock, DollarSign } from "lucide-react";
+
+// Mock enrollment data
+const enrollmentByProgram = [
+  { program: "Computer Science", students: 324, completion: 94.2, status: "target", trend: 12 },
+  { program: "Business Admin", students: 287, completion: 89.5, status: "target", trend: 8 },
+  { program: "Engineering", students: 265, completion: 87.3, status: "warning", trend: -3 },
+  { program: "Sciences", students: 198, completion: 91.2, status: "target", trend: 5 },
+];
 
 // ============================================================================
-// ADMIN DASHBOARD - System Hub
+// SMALL METRIC CARD COMPONENT
+// ============================================================================
+function SmallMetricCard({ label, value, icon: Icon, status, color }: { label: string; value: string | number; icon: React.ComponentType<{ className?: string }>; status?: string; color?: string }) {
+  const colorClasses: Record<string, string> = {
+    sky: "text-sky-500", cyan: "text-cyan-500", emerald: "text-emerald-500", violet: "text-violet-500", red: "text-red-500"
+  };
+  return (
+    <div className="bg-surface-light rounded-lg p-4 border border-on-surface/5 hover:border-on-surface/10 transition-all">
+      <div className="flex items-start justify-between mb-3">
+        <div>
+          <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-tight mb-1">{label}</p>
+          <p className="text-2xl font-black text-on-surface">{value}</p>
+        </div>
+        <Icon className={`w-5 h-5 ${color ? colorClasses[color] || "text-on-surface/40" : "text-on-surface/40"}`} />
+      </div>
+      {status && <p className="text-xs text-on-surface-variant font-medium">{status}</p>}
+    </div>
+  );
+}
+
+// ============================================================================
+// TABLE COMPONENTS
+// ============================================================================
+function DataTable({ columns, data }: { columns: { key: string; label: string; align?: "left" | "center" | "right" }[]; data: Record<string, React.ReactNode>[] }) {
+  return (
+    <div className="w-full overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-on-surface/10 bg-surface-light/50">
+            {columns.map((col) => (
+              <th key={col.key} className={`px-4 py-3 text-xs font-bold text-on-surface-variant uppercase tracking-tight text-${col.align || "left"}`}>
+                {col.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, idx) => (
+            <tr key={idx} className="border-b border-on-surface/5 hover:bg-primary/5 transition-colors">
+              {columns.map((col) => (
+                <td key={col.key} className={`px-4 py-3 text-xs text-on-surface font-medium text-${col.align || "left"}`}>
+                  {row[col.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// ============================================================================
+// STATUS BADGE
+// ============================================================================
+function StatusBadge({ status }: { status: "success" | "warning" | "failed" | "processing" | "target" }) {
+  const colors: Record<string, string> = {
+    success: "bg-green-100 text-green-700",
+    warning: "bg-yellow-100 text-yellow-700",
+    failed: "bg-red-100 text-red-700", 
+    processing: "bg-blue-100 text-blue-700",
+    target: "bg-green-100 text-green-700"
+  };
+  const text: Record<string, string> = {
+    success: "SUCCESS", warning: "WARNING", failed: "FAILED", processing: "PROCESSING", target: "TARGET MET"
+  };
+  return <span className={`px-2 py-1 rounded text-xs font-bold ${colors[status]}`}>{text[status]}</span>;
+}
+
+// ============================================================================
+// MODULE CARD COMPONENT
+// ============================================================================
+function ModuleCard({ name, type, status, icon: Icon }: { name: string; type: string; status: string; icon: React.ComponentType<{ className?: string }> }) {
+  const statusColors: Record<string, string> = {
+    STABLE: "bg-green-100 text-green-700",
+    ACTIVE: "bg-blue-100 text-blue-700",
+    SYNCING: "bg-orange-100 text-orange-700",
+    TRAINING: "bg-purple-100 text-purple-700",
+    IDLE: "bg-gray-100 text-gray-700",
+    UPDATING: "bg-cyan-100 text-cyan-700",
+    PROTECTED: "bg-red-100 text-red-700"
+  };
+  return (
+    <div className="bg-surface-light rounded-lg p-4 border border-on-surface/5 hover:border-primary/20 transition-all hover:shadow-md">
+      <div className="flex items-start gap-3 mb-3">
+        <div className="p-2 bg-primary/10 rounded-lg">
+          <Icon className="w-5 h-5 text-primary" />
+        </div>
+      </div>
+      <p className="text-sm font-bold text-on-surface mb-1">{name}</p>
+      <p className="text-xs text-on-surface-variant font-medium mb-2">{type}</p>
+      <span className={`px-2 py-1 rounded text-xs font-bold ${statusColors[status] || "bg-gray-100 text-gray-700"}`}>{status}</span>
+    </div>
+  );
+}
+
+// ============================================================================
+// PIPELINE STATUS ITEM
+// ============================================================================
+function PipelineStatus({ name, desc, status, icon: Icon }: { name: string; desc: string; status: string; icon: React.ComponentType<{ className?: string }> }) {
+  const statusBgColor: Record<string, string> = {
+    LIVE: "bg-green-50 border-l-4 border-l-green-500",
+    QUEUED: "bg-orange-50 border-l-4 border-l-orange-500",
+    IDLE: "bg-gray-50 border-l-4 border-l-gray-500",
+    FAILED: "bg-red-50 border-l-4 border-l-red-500",
+    SUCCESS: "bg-green-50 border-l-4 border-l-green-500",
+    PROCESSING: "bg-blue-50 border-l-4 border-l-blue-500"
+  };
+
+  const statusTextColor: Record<string, string> = {
+    LIVE: "text-green-900",
+    QUEUED: "text-orange-900",
+    IDLE: "text-gray-900",
+    FAILED: "text-red-900",
+    SUCCESS: "text-green-900",
+    PROCESSING: "text-blue-900"
+  };
+
+  return (
+    <div className={`p-3 rounded-lg ${statusBgColor[status] || "bg-gray-50"}`}>
+      <div className="flex items-start gap-2">
+        <Icon className={`w-4 h-4 flex-shrink-0 mt-0.5 ${statusTextColor[status]}`} />
+        <div className="flex-1">
+          <p className={`text-xs font-bold ${statusTextColor[status]}`}>{name}</p>
+          <p className={`text-xs font-medium mt-0.5 ${statusTextColor[status].replace("900", "800")}`}>{desc}</p>
+        </div>
+        <span className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap ${statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-green-50" ? "bg-green-200 text-green-700" : statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-orange-50" ? "bg-orange-200 text-orange-700" : "bg-gray-200 text-gray-700"}`}>
+          {status}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// ADMIN DASHBOARD - SYSTEM HUB CONSOLE
 // ============================================================================
 function AdminDashboard() {
-  const [selectedStudent, setSelectedStudent] = useState<DummyStudent | null>(
-    null,
-  );
-  const dashboardStudents = generateDummyStudents(5);
-
-  const tableColumns: TableColumn<DummyStudent>[] = [
-    { key: "id", label: "Student ID", sortable: true },
-    { key: "name", label: "Name", sortable: true },
-    { key: "program", label: "Program", sortable: true },
-    {
-      key: "gpa",
-      label: "GPA",
-      render: (value) => (
-        <span className="font-black text-primary">{String(value)}</span>
-      ),
-    },
-    {
-      key: "status",
-      label: "Status",
-      render: (value) => (
-        <Badge
-          variant={
-            value === "active"
-              ? "success"
-              : value === "graduated"
-                ? "primary"
-                : "error"
-          }
-        >
-          {String(value)}
-        </Badge>
-      ),
-    },
-  ];
-
   return (
-    <MainContent>
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <h1 className="text-4xl font-black text-primary">System Hub</h1>
-          <p className="text-on-surface-variant font-medium mt-2">
-            Comprehensive health and operational telemetry
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <button className="px-5 py-2.5 rounded-lg border border-outline-variant text-primary font-semibold flex items-center gap-2 hover:bg-surface-container-low transition">
-            <span className="material-symbols-outlined">download</span>
-            Export Report
-          </button>
-          <button className="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90">
-            <span className="material-symbols-outlined">sync</span>
-            Run Sync
+    <MainContent maxWidth="full">
+      <div className="space-y-8">
+        {/* ── Header Section ── */}
+        <div className="flex items-start justify-between mb-8 pl-2">
+          <div>
+            <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">INSTITUTIONAL OPERATIONS</p>
+            <h1 className="text-4xl font-black text-[#002045] tracking-tight">System Hub</h1>
+            <p className="text-sm text-[#1a365d] font-medium mt-2">Comprehensive health and operational telemetry for institutional data infrastructure.</p>
+          </div>
+          <button className="px-6 py-3 bg-gradient-to-br from-[#4CAF50] to-[#388E3C] text-white rounded-lg font-bold text-xs hover:shadow-lg transition-all h-fit whitespace-nowrap flex items-center gap-2">
+            <span>⬇</span> Run Global Sync
           </button>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Total Students"
-          value="1,250"
-          trend={{ value: 5.2, direction: "up" }}
-          icon="people"
-        />
-        <MetricCard
-          label="Active Systems"
-          value="12/12"
-          trend={{ value: 100, direction: "up" }}
-          icon="cloud_done"
-        />
-        <MetricCard
-          label="Data Pipelines"
-          value="8"
-          trend={{ value: 2.3, direction: "up" }}
-          icon="integration_instructions"
-        />
-        <MetricCard
-          label="System Health"
-          value="99.8%"
-          trend={{ value: 0.1, direction: "up" }}
-          icon="health_and_safety"
-        />
-      </div>
-
-      <div className="grid grid-cols-12 gap-6 mb-8">
-        <div className="col-span-12 lg:col-span-8">
-          <ChartCard
-            title="Enrollment Trends"
-            subtitle="Last 6 months"
-            actions={
-              <button className="text-primary hover:bg-surface-container-low p-2 rounded-lg">
-                <span className="material-symbols-outlined">download</span>
-              </button>
-            }
-          >
-            <div className="flex items-end justify-around h-full p-4 gap-2">
-              {[32, 45, 38, 52, 61, 55].map((value, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center gap-1 flex-1"
-                >
-                  <div
-                    className="w-full bg-gradient-to-t from-primary to-primary-fixed rounded-t-lg"
-                    style={{ height: `${(value / 65) * 100}%` }}
-                  />
-                  <span className="text-xs text-on-surface-variant">
-                    M{i + 1}
-                  </span>
+        {/* ── Key Metrics Cards ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-green-300 transition-all duration-300 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Core System Health</p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">99.98<span className="text-lg">%</span></p>
                 </div>
-              ))}
-            </div>
-          </ChartCard>
-        </div>
-
-        <div className="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-lg p-6 border border-outline-variant">
-          <span className="text-sm font-bold text-primary uppercase">
-            Active Pipelines
-          </span>
-          <div className="space-y-4 mt-4">
-            {[
-              { name: "Banner SIS", pct: 85, status: "LIVE" },
-              { name: "Canvas LMS", pct: 30, status: "QUEUED" },
-              { name: "Financial", pct: 0, status: "IDLE" },
-            ].map((p) => (
-              <div key={p.name}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="font-bold text-on-surface">{p.name}</span>
-                  <span className="text-xs text-primary font-bold">
-                    {p.status}
-                  </span>
-                </div>
-                <div className="w-full bg-surface-container rounded-full h-2">
-                  <div
-                    className="bg-primary h-2 rounded-full"
-                    style={{ width: `${p.pct}%` }}
-                  />
-                </div>
+                <div className="p-4 bg-gradient-to-br from-green-100 to-green-50 rounded-xl group-hover:scale-110 transition-transform"><Activity className="w-7 h-7 text-green-600" /></div>
               </div>
-            ))}
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-green-400 to-green-600"></div></div>
+              <p className="text-xs font-bold text-green-700">⚡ Nominal Performance</p>
+            </div>
+          </div>
+
+          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-blue-300 transition-all duration-300 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Active Pipelines</p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">42<span className="text-lg text-[#1a365d] ml-1">/42</span></p>
+                </div>
+                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl group-hover:scale-110 transition-transform"><BookOpen className="w-7 h-7 text-blue-600" /></div>
+              </div>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600"></div></div>
+              <p className="text-xs font-bold text-blue-700">All channels synchronized</p>
+            </div>
+          </div>
+
+          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-cyan-300 transition-all duration-300 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Connected Systems</p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">14</p>
+                </div>
+                <div className="p-4 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl group-hover:scale-110 transition-transform"><CheckCircle2 className="w-7 h-7 text-cyan-600" /></div>
+              </div>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-cyan-400 to-cyan-600"></div></div>
+              <p className="text-xs font-bold text-cyan-700">SIS, LMS, ERP Integrated</p>
+            </div>
+          </div>
+
+          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-red-300 transition-all duration-300 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-red-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Security Incidents</p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">0</p>
+                </div>
+                <div className="p-4 bg-gradient-to-br from-red-100 to-red-50 rounded-xl group-hover:scale-110 transition-transform"><AlertCircle className="w-7 h-7 text-red-600" /></div>
+              </div>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-red-400 to-red-600"></div></div>
+              <p className="text-xs font-bold text-red-700">Last scan: 4 mins ago</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Ecosystem Modules & Pipelines ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
+          {/* Modules Grid */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-black text-[#002045]">Ecosystem Modules</h2>
+                <p className="text-xs text-[#1a365d] font-medium mt-0.5">9 systems</p>
+              </div>
+              <span className="text-xs font-bold text-[#4CAF50] bg-green-50 px-2 py-1 rounded-lg border border-green-200">✓ All Operational</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <ModuleCard name="Academic Registry" type="Status: Stable" status="STABLE" icon={BookOpen} />
+              <ModuleCard name="Financial Aid" type="Status: Active" status="ACTIVE" icon={DollarSign} />
+              <ModuleCard name="Admissions CRM" type="Status: Syncing" status="SYNCING" icon={Users} />
+              <ModuleCard name="LMS Connector" type="Status: Stable" status="STABLE" icon={CheckCircle2} />
+              <ModuleCard name="Predictive Analytics" type="Status: Training" status="TRAINING" icon={Activity} />
+              <ModuleCard name="Campus Housing" type="Status: Idle" status="IDLE" icon={AlertCircle} />
+              <ModuleCard name="Bursar System" type="Status: Stable" status="STABLE" icon={DollarSign} />
+              <ModuleCard name="Research Grants" type="Status: Stable" status="STABLE" icon={Award} />
+              <ModuleCard name="Alumni & Careers" type="Status: Updating" status="UPDATING" icon={Users} />
+            </div>
+          </div>
+
+          {/* Active Pipelines */}
+          <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] shadow-md">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="text-sm font-black text-[#002045]">Pipelines</h2>
+                <p className="text-xs text-[#1a365d] font-medium mt-0.5">Live</p>
+              </div>
+              <span className="text-xs text-white font-bold bg-green-500 px-2 py-0.5 rounded-full">🟢 LIVE</span>
+            </div>
+            <div className="space-y-3">
+              <PipelineStatus 
+                name="Banner SIS Integration" 
+                desc="Syncing student enrollment records..." 
+                status="LIVE"
+                icon={CheckCircle2}
+              />
+              <PipelineStatus 
+                name="Canvas LMS Export" 
+                desc="Grade distributions for Fall 2024" 
+                status="QUEUED"
+                icon={Clock}
+              />
+              <PipelineStatus 
+                name="Financial Reporting" 
+                desc="Scheduled for 02:00 AM" 
+                status="IDLE"
+                icon={Clock}
+              />
+            </div>
+
+            {/* Security Alert Box */}
+            <div className="mt-6 p-5 bg-gradient-to-br from-[#002045] via-[#1a365d] to-[#0d1f35] rounded-xl border border-[#4CAF50]/30 shadow-lg">
+              <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">🔒 Admin Security Protocol</p>
+              <p className="text-xs text-[#dce9ff] font-light leading-relaxed">MFA is active for all admins. Last suspicious activity: 7 days ago</p>
+              <p className="text-xs font-bold text-[#4CAF50] mt-3 tracking-tight">AUDITOR: SARAH CHEN</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Recent Analytics Jobs ── */}
+        <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] shadow-md mt-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-black text-[#002045]">Recent Analytics</h2>
+              <p className="text-xs text-[#1a365d] font-medium mt-0.5">Last 24 hours</p>
+            </div>
+            <span className="text-xs font-bold bg-blue-50 text-blue-700 px-2 py-1 rounded-lg border border-blue-200">24h</span>
+          </div>
+          <DataTable
+            columns={[
+              { key: "job", label: "Job / Source Process" },
+              { key: "status", label: "Status" },
+              { key: "volume", label: "Volume" },
+              { key: "efficiency", label: "Efficiency" },
+            ]}
+            data={[
+              {
+                job: "Enrollment_Batch_001",
+                status: <StatusBadge status="success" />,
+                volume: "43,881 records",
+                efficiency: "4m 32s",
+              },
+              {
+                job: "LMS_Activity_Tracker",
+                status: <StatusBadge status="failed" />,
+                volume: "N/A",
+                efficiency: "0m 04s",
+              },
+              {
+                job: "Gradebook_Consolidation",
+                status: <StatusBadge status="processing" />,
+                volume: "13,450 records",
+                efficiency: "2m 45s",
+              },
+              {
+                job: "Library_Resource_Audit",
+                status: <StatusBadge status="success" />,
+                volume: "1,103 records",
+                efficiency: "1m 20s",
+              },
+            ]}
+          />
+        </div>
+
+        {/* ── Institutional Network Visualization ── */}
+        <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] overflow-hidden shadow-md mt-6">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="text-lg font-black text-[#002045]">Institutional Network</h2>
+              <p className="text-xs text-[#1a365d] font-medium mt-0.5">4 Nodes • 12 Centers</p>
+            </div>
+            <span className="text-xs font-bold bg-green-50 text-green-700 px-2 py-1 rounded-lg border border-green-200">Connected</span>
+          </div>
+          <div className="relative h-56 rounded-lg overflow-hidden border border-[#e0e9ff] shadow-sm">
+            <img src="/campus-network.png" alt="Campus Network" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/60 to-transparent">
+              <div className="flex gap-2 flex-wrap">
+                <span className="px-2 py-1 bg-green-500/90 rounded text-xs font-bold">🟢 NORTH</span>
+                <span className="px-2 py-1 bg-blue-500/90 rounded text-xs font-bold">🔵 CLOUD</span>
+                <span className="px-2 py-1 bg-purple-500/90 rounded text-xs font-bold">🟣 EAST</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <Card className="p-6 mb-8">
-        <h2 className="text-xl font-bold text-primary mb-4">Recent Records</h2>
-        <Table
-          columns={tableColumns}
-          data={dashboardStudents}
-          keyExtractor={(row) => row.id}
-          onRowClick={setSelectedStudent}
-        />
-      </Card>
-
-      {selectedStudent && (
-        <Card className="p-6 border-l-4 border-primary">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h3 className="text-xl font-bold text-primary">
-                {selectedStudent.name}
-              </h3>
-              <p className="text-sm text-on-surface-variant">
-                {selectedStudent.id}
-              </p>
-            </div>
-            <button
-              onClick={() => setSelectedStudent(null)}
-              className="text-on-surface-variant hover:text-primary"
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-            <div>
-              <p className="text-on-surface-variant">Program</p>
-              <p className="font-bold">{selectedStudent.program}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">GPA</p>
-              <p className="font-bold text-primary">
-                {selectedStudent.gpa.toFixed(2)}
-              </p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Status</p>
-              <Badge
-                variant={
-                  selectedStudent.status === "active"
-                    ? "success"
-                    : selectedStudent.status === "graduated"
-                      ? "primary"
-                      : "error"
-                }
-              >
-                {selectedStudent.status}
-              </Badge>
-            </div>
-          </div>
-        </Card>
-      )}
     </MainContent>
   );
 }
 
 // ============================================================================
-// QA OFFICER DASHBOARD - Compliance & Accreditation
+// QA OFFICER DASHBOARD
 // ============================================================================
 function QADashboard() {
-  const allStudents = generateDummyStudents(1000);
-
   return (
     <MainContent>
-      <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Compliance Hub</h1>
-        <p className="text-on-surface-variant font-medium mt-2">
-          Accreditation status and compliance monitoring
-        </p>
-      </div>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-black text-on-surface">Quality Assurance Console</h1>
+          <p className="text-xs text-on-surface-variant font-medium mt-1">Accreditation & compliance monitoring</p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Compliance Score"
-          value="98.5%"
-          trend={{ value: 2.1, direction: "up" }}
-          icon="verified"
-        />
-        <MetricCard
-          label="HEC Requirements"
-          value="42/42"
-          trend={{ value: 100, direction: "up" }}
-          icon="check_circle"
-        />
-        <MetricCard
-          label="FERPA Audit"
-          value="Clean"
-          trend={{ value: 0, direction: "up" }}
-          icon="shield_admin"
-        />
-        <MetricCard
-          label="Outstanding Issues"
-          value="3"
-          trend={{ value: -30, direction: "down" }}
-          icon="warning"
-        />
-      </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <SmallMetricCard label="Compliance Score" value="98.5%" icon={CheckCircle2} status="Excellent standing" color="emerald" />
+          <SmallMetricCard label="HEC Requirements" value="42/42" icon={CheckCircle2} status="All met" color="emerald" />
+          <SmallMetricCard label="FERPA Audit" value="Clean" icon={CheckCircle2} status="No issues" color="emerald" />
+          <SmallMetricCard label="Issues Found" value="3" icon={AlertCircle} status="-30% from last audit" color="red" />
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <ChartCard
-          title="Student Status Distribution"
-          subtitle="Overall compliance view"
-        >
-          <div className="flex items-center justify-around h-full p-4">
-            {[
-              {
-                label: "Active",
-                count: allStudents.filter((s) => s.status === "active").length,
-                color: "bg-tertiary-fixed",
-              },
-              {
-                label: "Graduated",
-                count: allStudents.filter((s) => s.status === "graduated")
-                  .length,
-                color: "bg-secondary",
-              },
-              {
-                label: "Suspended",
-                count: allStudents.filter((s) => s.status === "suspended")
-                  .length,
-                color: "bg-error",
-              },
-            ].map((item) => (
-              <div key={item.label} className="flex flex-col items-center">
-                <div
-                  className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-sm ${item.color}`}
-                >
-                  {Math.round((item.count / allStudents.length) * 100)}%
-                </div>
-                <p className="text-xs text-on-surface-variant mt-2">
-                  {item.label}
-                </p>
-                <p className="font-bold text-sm">{item.count}</p>
-              </div>
-            ))}
-          </div>
-        </ChartCard>
-
-        <Card className="p-6">
-          <h3 className="font-bold text-primary mb-4">Recent Audits</h3>
-          <div className="space-y-3">
-            {[
-              {
-                audit: "FERPA Privacy Check",
-                date: "2025-03-27",
-                status: "Passed",
-              },
-              {
-                audit: "Data Backup Verification",
-                date: "2025-03-25",
-                status: "Passed",
-              },
-              {
-                audit: "Access Control Review",
-                date: "2025-03-20",
-                status: "Passed",
-              },
-            ].map((a, i) => (
-              <div
-                key={i}
-                className="flex justify-between items-center p-3 bg-surface-container-low rounded"
-              >
-                <div>
-                  <p className="font-bold text-sm">{a.audit}</p>
-                  <p className="text-xs text-on-surface-variant">{a.date}</p>
-                </div>
-                <Badge variant="success">{a.status}</Badge>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
-    </MainContent>
-  );
-}
-
-// ============================================================================
-// DATA ANALYST DASHBOARD - Advanced Analytics
-// ============================================================================
-function AnalystDashboard() {
-  const allStudents = generateDummyStudents(1000);
-  const avgGPA = (
-    allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
-  ).toFixed(2);
-
-  return (
-    <MainContent>
-      <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Analytics Hub</h1>
-        <p className="text-on-surface-variant font-medium mt-2">
-          Advanced institutional analytics and insights
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Avg GPA"
-          value={avgGPA}
-          trend={{ value: 0.5, direction: "up" }}
-          icon="trending_up"
-        />
-        <MetricCard
-          label="Retention Rate"
-          value="92.3%"
-          trend={{ value: 3.2, direction: "up" }}
-          icon="people"
-        />
-        <MetricCard
-          label="Programs"
-          value={Array.from(
-            new Set(allStudents.map((s) => s.program)),
-          ).length.toString()}
-          trend={{ value: 0, direction: "up" }}
-          icon="school"
-        />
-        <MetricCard
-          label="Total Enrollment"
-          value={allStudents.length.toString()}
-          trend={{ value: 8.5, direction: "up" }}
-          icon="equalizer"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <ChartCard title="GPA Distribution" subtitle="Performance analytics">
-          <div className="flex flex-col justify-around h-full p-4">
-            {[
-              {
-                range: "3.5+",
-                count: allStudents.filter((s) => s.gpa >= 3.5).length,
-              },
-              {
-                range: "3.0-3.5",
-                count: allStudents.filter((s) => s.gpa >= 3.0 && s.gpa < 3.5)
-                  .length,
-              },
-              {
-                range: "2.5-3.0",
-                count: allStudents.filter((s) => s.gpa >= 2.5 && s.gpa < 3.0)
-                  .length,
-              },
-              {
-                range: "< 2.5",
-                count: allStudents.filter((s) => s.gpa < 2.5).length,
-              },
-            ].map((item) => (
-              <div key={item.range}>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="font-bold">{item.range}</span>
-                  <span>{item.count}</span>
-                </div>
-                <div className="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
-                  <div
-                    className="bg-primary h-full"
-                    style={{
-                      width: `${(item.count / 300) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </ChartCard>
-
-        <Card className="p-6">
-          <h3 className="font-bold text-primary mb-4">Top Programs by Size</h3>
-          <div className="space-y-3">
-            {Array.from(new Set(allStudents.map((s) => s.program)))
-              .map((prog) => ({
-                program: prog,
-                count: allStudents.filter((s) => s.program === prog).length,
-              }))
-              .sort((a, b) => b.count - a.count)
-              .slice(0, 5)
-              .map((p, i) => (
-                <div
-                  key={i}
-                  className="flex justify-between items-center p-3 bg-surface-container-low rounded"
-                >
-                  <span className="font-bold text-sm">{p.program}</span>
-                  <span className="text-lg font-bold text-primary">
-                    {p.count}
-                  </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Accreditation Checklist</h2>
+            <div className="space-y-2">
+              {["Institutional Mission & Vision", "Academic Programs (42)", "Student Support Services", "Financial Resources & Sustainability", "Quality Assurance System", "Faculty Credentials", "Library & Learning Resources", "Assessment Results"].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-2 bg-primary/5 rounded hover:bg-primary/10 transition-all">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-xs font-medium text-on-surface">{item}</span>
                 </div>
               ))}
-          </div>
-        </Card>
-      </div>
-    </MainContent>
-  );
-}
-
-// ============================================================================
-// HEAD OF DEPARTMENT DASHBOARD - Department Overview
-// ============================================================================
-function HODDashboard() {
-  const allStudents = generateDummyStudents(400);
-  const activeCount = allStudents.filter((s) => s.status === "active").length;
-
-  return (
-    <MainContent>
-      <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">
-          Department Dashboard
-        </h1>
-        <p className="text-on-surface-variant font-medium mt-2">
-          Engineering Department Overview
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Total Students"
-          value={allStudents.length.toString()}
-          trend={{ value: 4.2, direction: "up" }}
-          icon="people"
-        />
-        <MetricCard
-          label="Active Enrollment"
-          value={activeCount.toString()}
-          trend={{ value: 2.1, direction: "up" }}
-          icon="school"
-        />
-        <MetricCard
-          label="Faculty Count"
-          value="24"
-          trend={{ value: 0, direction: "up" }}
-          icon="group"
-        />
-        <MetricCard
-          label="Avg Dept GPA"
-          value={(
-            allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
-          ).toFixed(2)}
-          trend={{ value: 1.5, direction: "up" }}
-          icon="grade"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <Card className="p-6">
-          <h3 className="font-bold text-primary mb-4">Active Courses</h3>
-          <div className="space-y-3">
-            {[
-              { code: "ENG101", title: "Intro to Engineering", enrollment: 45 },
-              { code: "ENG201", title: "Data Structures", enrollment: 38 },
-              { code: "ENG301", title: "Systems Design", enrollment: 28 },
-            ].map((c, i) => (
-              <div
-                key={i}
-                className="p-3 bg-surface-container-low rounded-lg border-l-4 border-primary"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="font-bold text-sm">
-                      {c.code}: {c.title}
-                    </p>
-                    <p className="text-xs text-on-surface-variant">
-                      {c.enrollment} enrolled
-                    </p>
-                  </div>
-                  <Badge variant="success">{c.enrollment}</Badge>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <ChartCard title="Student Performance" subtitle="By year">
-          <div className="flex items-end justify-around h-full px-4 gap-2">
-            {[60, 65, 70, 75].map((value, i) => (
-              <div key={i} className="flex flex-col items-center flex-1 gap-1">
-                <div
-                  className="w-full bg-gradient-to-t from-primary to-primary-fixed rounded-t-lg"
-                  style={{ height: `${value}%` }}
-                />
-                <span className="text-xs text-on-surface-variant">
-                  Y{i + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-        </ChartCard>
-      </div>
-    </MainContent>
-  );
-}
-
-// ============================================================================
-// LECTURER DASHBOARD - Class Management
-// ============================================================================
-function LecturerDashboard() {
-  const allStudents = generateDummyStudents(100);
-
-  return (
-    <MainContent>
-      <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">My Classroom</h1>
-        <p className="text-on-surface-variant font-medium mt-2">
-          Fall 2025 - ENG101: Introduction to Computer Science
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Students Enrolled"
-          value={allStudents.length.toString()}
-          trend={{ value: 5.0, direction: "up" }}
-          icon="people"
-        />
-        <MetricCard
-          label="Class Avg GPA"
-          value={(
-            allStudents.reduce((sum, s) => sum + s.gpa, 0) / allStudents.length
-          ).toFixed(2)}
-          trend={{ value: 0.3, direction: "up" }}
-          icon="grade"
-        />
-        <MetricCard
-          label="Attendance Rate"
-          value="94.2%"
-          trend={{ value: 2.1, direction: "up" }}
-          icon="event_available"
-        />
-        <MetricCard
-          label="Pending Grades"
-          value="18"
-          trend={{ value: -8, direction: "down" }}
-          icon="assignment"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <Card className="p-6">
-          <h3 className="font-bold text-primary mb-4">Upcoming Assignments</h3>
-          <div className="space-y-3">
-            {[
-              { name: "Quiz 3", due: "Apr 10", submissions: 45 },
-              { name: "Project Proposal", due: "Apr 15", submissions: 32 },
-              { name: "Midterm Exam", due: "Apr 22", submissions: 0 },
-            ].map((a, i) => (
-              <div
-                key={i}
-                className="p-3 bg-surface-container-low rounded flex justify-between items-center"
-              >
-                <div>
-                  <p className="font-bold text-sm">{a.name}</p>
-                  <p className="text-xs text-on-surface-variant">
-                    Due: {a.due}
-                  </p>
-                </div>
-                <Badge variant={a.submissions > 30 ? "success" : "primary"}>
-                  {a.submissions}
-                </Badge>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <ChartCard title="Grade Distribution" subtitle="Current term">
-          <div className="flex items-end justify-around h-full p-4 gap-2">
-            {[30, 50, 45, 35, 20].map((value, i) => (
-              <div key={i} className="flex flex-col items-center gap-1 flex-1">
-                <div
-                  className="w-full bg-gradient-to-t from-secondary to-secondary-container rounded-t-lg"
-                  style={{ height: `${(value / 60) * 100}%` }}
-                />
-                <span className="text-xs text-on-surface-variant">
-                  {"A+ABCD"[i]}
-                </span>
-              </div>
-            ))}
-          </div>
-        </ChartCard>
-      </div>
-    </MainContent>
-  );
-}
-
-// ============================================================================
-// STUDENT DASHBOARD - Personal Academic Record
-// ============================================================================
-function StudentDashboard() {
-  const studentData = generateDummyStudents(1)[0];
-
-  return (
-    <MainContent>
-      <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">My Academic Record</h1>
-        <p className="text-on-surface-variant font-medium mt-2">
-          {studentData.name} • {studentData.program}
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          label="Cumulative GPA"
-          value={studentData.gpa.toFixed(2)}
-          trend={{ value: 0.15, direction: "up" }}
-          icon="grade"
-        />
-        <MetricCard
-          label="Credits Completed"
-          value="84"
-          trend={{ value: 12, direction: "up" }}
-          icon="school"
-        />
-        <MetricCard
-          label="Current Semester"
-          value="Spring 2025"
-          trend={{ value: 0, direction: "up" }}
-          icon="calendar_month"
-        />
-        <MetricCard
-          label="Status"
-          value="In Good Standing"
-          trend={{ value: 0, direction: "up" }}
-          icon="verified"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <Card className="p-6">
-          <h3 className="font-bold text-primary mb-4">Current Courses</h3>
-          <div className="space-y-3">
-            {[
-              { code: "CS201", title: "Algorithms", grade: "A-", credits: 4 },
-              {
-                code: "MATH301",
-                title: "Linear Algebra",
-                grade: "B+",
-                credits: 3,
-              },
-              { code: "ENG101", title: "English Comp", grade: "A", credits: 3 },
-            ].map((c, i) => (
-              <div
-                key={i}
-                className="p-3 bg-surface-container-low rounded flex justify-between items-center"
-              >
-                <div>
-                  <p className="font-bold text-sm">
-                    {c.code}: {c.title}
-                  </p>
-                  <p className="text-xs text-on-surface-variant">
-                    {c.credits} credits
-                  </p>
-                </div>
-                <Badge variant="success">{c.grade}</Badge>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <ChartCard title="GPA Trend" subtitle="Last 4 semesters">
-          <div className="flex items-end justify-around h-full p-4 gap-2">
-            {[3.2, 3.4, 3.6, 3.78].map((value, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 flex-1">
-                <div
-                  className="w-full bg-gradient-to-t from-tertiary to-tertiary-fixed rounded-t-lg"
-                  style={{ height: `${(value / 4) * 100}%` }}
-                />
-                <span className="text-xs text-on-surface-variant">
-                  S{i + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-        </ChartCard>
-      </div>
-
-      <Card className="p-6">
-        <h3 className="font-bold text-primary mb-4">Academic Standing</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-surface-container-low rounded-lg">
-            <p className="text-on-surface-variant text-sm">Degree Progress</p>
-            <p className="text-2xl font-bold text-primary">84/120</p>
-            <div className="w-full bg-surface-container h-2 rounded-full mt-2 overflow-hidden">
-              <div className="bg-primary h-full" style={{ width: "70%" }} />
             </div>
           </div>
-          <div className="p-4 bg-surface-container-low rounded-lg">
-            <p className="text-on-surface-variant text-sm">
-              On Track for Graduation
-            </p>
-            <p className="text-2xl font-bold text-tertiary">May 2027</p>
+
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Recent Audit Findings</h2>
+            <div className="space-y-3">
+              <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p className="text-xs font-bold text-yellow-900">Lab Equipment Maintenance (Medium)</p>
+                <p className="text-xs text-yellow-700 font-medium mt-1">5 of 12 labs require calibration by June 30</p>
+              </div>
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-xs font-bold text-blue-900">Documentation Complete (Low)</p>
+                <p className="text-xs text-blue-700 font-medium mt-1">Faculty handbooks updated for 2024-25</p>
+              </div>
+              <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-xs font-bold text-green-900">Resolved (Info)</p>
+                <p className="text-xs text-green-700 font-medium mt-1">15 previous findings now closed</p>
+              </div>
+            </div>
           </div>
         </div>
-      </Card>
+      </div>
+    </MainContent>
+  );
+}
+
+// ============================================================================
+// DATA ANALYST DASHBOARD  
+// ============================================================================
+function AnalystDashboard() {
+  const hecStudents = generateHECStudents(1000);
+  const programs = getHECPrograms();
+  const avgGPA = (hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length).toFixed(2);
+  const riskStudents = hecStudents.filter(s => s.riskIndicators.predictionStatus === "High Risk").length;
+
+  return (
+    <MainContent>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-black text-on-surface">Analytics Hub</h1>
+            <p className="text-xs text-on-surface-variant font-medium mt-1">Advanced institutional insights & predictions</p>
+          </div>
+          <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">Generate Report</button>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <SmallMetricCard label="Total Students" value={hecStudents.length} icon={Users} status="+8.5% growth" color="sky" />
+          <SmallMetricCard label="Avg GPA" value={avgGPA} icon={Award} status="+0.5 this term" color="cyan" />
+          <SmallMetricCard label="Programs" value={programs.length} icon={BookOpen} status="Active enrollment" color="violet" />
+          <SmallMetricCard label="At Risk" value={riskStudents} icon={AlertCircle} status="-15% improvement" color="red" />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Enrollment Trend</h2>
+            <div className="space-y-3">
+              {enrollmentByProgram.map((prog, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs font-semibold text-on-surface">{prog.program}</span>
+                    <span className="text-xs font-black text-on-surface">{prog.students}</span>
+                  </div>
+                  <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(prog.students / 350) * 100}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Success Metrics</h2>
+            <div className="space-y-3">
+              {[{ name: "Graduation Rate", value: 87.3, target: 90 }, { name: "Retention", value: 92.1, target: 95 }, { name: "Academic Pass", value: 88.5, target: 92 }].map((metric, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs font-semibold text-on-surface">{metric.name}</span>
+                    <span className="text-xs font-black text-on-surface">{metric.value}%</span>
+                  </div>
+                  <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(metric.value / metric.target) * 100}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </MainContent>
+  );
+}
+
+// ============================================================================
+// HEAD OF DEPARTMENT DASHBOARD
+// ============================================================================
+function HODDashboard() {
+  const hecStudents = generateHECStudents(250);
+  const avgGPA = (hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length).toFixed(2);
+
+  return (
+    <MainContent>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-black text-on-surface">Department Overview</h1>
+          <p className="text-xs text-on-surface-variant font-medium mt-1">Science & Engineering Program Management</p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <SmallMetricCard label="Total Enrollment" value={hecStudents.length} icon={Users} status="+4.2% from last" color="sky" />
+          <SmallMetricCard label="Faculty Count" value="18" icon={Award} status="All positions filled" color="cyan" />
+          <SmallMetricCard label="Avg GPA" value={avgGPA} icon={Award} status="+1.5 improvement" color="emerald" />
+          <SmallMetricCard label="Research Output" value="12" icon={BookOpen} status="Publications this year" color="violet" />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Program Performance</h2>
+            <div className="space-y-3">
+              {[{ name: "Bachelor Engineering", value: 87 }, { name: "Advanced Courses", value: 92 }, { name: "Lab Practicals", value: 78 }, { name: "Internships", value: 95 }].map((metric, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs font-semibold text-on-surface">{metric.name}</span>
+                    <span className="text-xs font-black">{metric.value}%</span>
+                  </div>
+                  <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${metric.value}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Department Status</h2>
+            <div className="space-y-2">
+              {["24 student assignments submitted this week", "8 internship offers received", "3 research papers published", "Lab equipment 98% operational"].map((item, idx) => (
+                <div key={idx} className="flex items-start gap-2 p-2 text-xs">
+                  <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-on-surface font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </MainContent>
+  );
+}
+
+// ============================================================================
+// LECTURER DASHBOARD
+// ============================================================================
+function LecturerDashboard() {
+  const lecturerStudents = generateHECStudents(32);
+  const avgGPA = (lecturerStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / lecturerStudents.length).toFixed(2);
+
+  return (
+    <MainContent>
+      <div className="space-y-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-black text-on-surface">Welcome back, Dr. Rodriguez</h1>
+            <p className="text-xs text-on-surface-variant font-medium italic mt-1">"Excellence is the gradual result of always striving to do better."</p>
+          </div>
+          <div className="flex gap-2">
+            <button className="px-3 py-2 bg-secondary text-on-secondary rounded-lg font-semibold text-xs">Create Course Report</button>
+            <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">Message All Students</button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <SmallMetricCard label="Current Load" value="224" icon={Activity} status="Across 2 sections" color="cyan" />
+          <SmallMetricCard label="Avg Class GPA" value={avgGPA} icon={Award} status="+0.3 improvement" color="emerald" />
+          <SmallMetricCard label="Attendance" value="94.2%" icon={Users} status="+2.1% this month" color="sky" />
+          <SmallMetricCard label="Pending Grades" value="18" icon={Clock} status="-8 from last week" color="red" />
+        </div>
+
+        {/* Courses Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { code: "CS-502-A", name: "Neural Networks & Cognition", status: "live", enrollment: 124, grade: "B+", time: "TUE 10:00" },
+            { code: "CS-614-B", name: "Advanced Machine Learning", status: "next", enrollment: 82, grade: "A-", time: "THU 14:00" },
+          ].map((course, idx) => (
+            <div key={idx} className="p-4 bg-surface-light rounded-lg border border-on-surface/5 hover:border-primary/20 transition-all">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-bold text-on-surface-variant uppercase">{course.code}</span>
+                    <span className={`px-2 py-0.5 rounded text-xs font-bold ${course.status === "live" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}>
+                      {course.status === "live" ? "LIVE NOW" : "NEXT"}
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-on-surface">{course.name}</p>
+                </div>
+                <span className="text-lg font-black text-primary">{course.grade}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="text-center p-1 bg-primary/5 rounded">
+                  <p className="font-bold text-on-surface">{course.enrollment}</p>
+                  <p className="text-on-surface-variant font-medium">ENROLLMENT</p>
+                </div>
+                <div className="text-center p-1 bg-secondary/5 rounded">
+                  <p className="font-bold text-on-surface">{course.time}</p>
+                  <p className="text-on-surface-variant font-medium">LECTURE</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Tenure Readiness */}
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Tenure Readiness</h2>
+            <div className="space-y-3">
+              {[
+                { task: "Peer Review Publications", status: 5, total: 6 },
+                { task: "Guest Lecture Credits", status: 55, total: 60 },
+                { task: "Final Committee Presentation", status: 0, total: 1 },
+              ].map((item, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-xs font-semibold text-on-surface">{item.task}</span>
+                    <span className="text-xs font-black text-on-surface">{item.status}/{item.total}</span>
+                  </div>
+                  <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(item.status / item.total) * 100}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-on-surface-variant font-medium mt-4 p-2 bg-blue-50 rounded">Tenure Review: Spring 2025</p>
+          </div>
+
+          {/* Engagement Alerts */}
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Student Engagement Alerts</h2>
+            <div className="space-y-3">
+              {[
+                { name: "Marcus Thorne", issue: "Inactive in LMS for 3 days", severity: "high" },
+                { name: "Sarah Jenkins", issue: "Missed assignment due deadline", severity: "medium" },
+              ].map((alert, idx) => (
+                <div key={idx} className={`p-3 rounded-lg flex items-start gap-3 ${alert.severity === "high" ? "bg-red-50 border border-red-200" : "bg-yellow-50 border border-yellow-200"}`}>
+                  <img className="w-8 h-8 rounded-full flex-shrink-0" src={`https://i.pravatar.cc/32?img=${idx}`} alt="" />
+                  <div>
+                    <p className={`text-xs font-bold ${alert.severity === "high" ? "text-red-900" : "text-yellow-900"}`}>{alert.name}</p>
+                    <p className={`text-xs font-medium ${alert.severity === "high" ? "text-red-700" : "text-yellow-700"}`}>{alert.issue}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Performance Benchmarks */}
+        <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+          <h2 className="text-sm font-black text-on-surface mb-4">Faculty Performance Benchmarks</h2>
+          <DataTable
+            columns={[
+              { key: "indicator", label: "Indicator" },
+              { key: "personal", label: "Personal Score" },
+              { key: "avg", label: "Institutional Avg" },
+              { key: "trend", label: "Trend" },
+            ]}
+            data={[
+              { indicator: "Student Satisfaction", personal: "4.82 / 5.0", avg: "4.15 / 5.0", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
+              { indicator: "Grant Acquisition", personal: "1.2 yr", avg: "1.8 yr", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
+              { indicator: "LMS Content Engagement", personal: "92%", avg: "76%", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
+            ]}
+          />
+        </div>
+      </div>
+    </MainContent>
+  );
+}
+
+// ============================================================================
+// STUDENT DASHBOARD
+// ============================================================================
+function StudentDashboard() {
+  const studentCourses = [
+    { code: "CS-101", name: "Programming Fundamentals", grade: 4.0, credits: 3 },
+    { code: "MAT-201", name: "Calculus II", grade: 3.8, credits: 4 },
+    { code: "PHY-101", name: "Physics I", grade: 3.5, credits: 4 },
+    { code: "ENG-101", name: "English Composition", grade: 3.9, credits: 3 }
+  ];
+  const cumulativeGPA = 3.8;
+
+  return (
+    <MainContent>
+      <div className="space-y-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-black text-on-surface">Academic Profile</h1>
+            <p className="text-xs text-on-surface-variant font-medium mt-1">Computer Science • Year 2 • AUCA</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <SmallMetricCard label="Cumulative GPA" value={cumulativeGPA} icon={Award} status="+0.15 this semester" color="sky" />
+          <SmallMetricCard label="Credits Earned" value="84" icon={BookOpen} status="+12 this semester" color="cyan" />
+          <SmallMetricCard label="Current Courses" value="4" icon={Activity} status="2 major • 2 elective" color="emerald" />
+          <SmallMetricCard label="Graduation" value="2025" icon={CheckCircle2} status="On track" color="violet" />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
+            <h2 className="text-sm font-black text-on-surface mb-4">Current Courses</h2>
+            <div className="space-y-3">
+              {studentCourses.map((course, idx) => (
+                <div key={idx} className="p-3 bg-primary/5 rounded-lg border border-primary/10 hover:border-primary/20 transition-all">
+                  <div className="flex justify-between items-start mb-1">
+                    <div>
+                      <p className="text-xs font-bold text-on-surface uppercase">{course.code}</p>
+                      <p className="text-xs text-on-surface font-medium mt-1">{course.name}</p>
+                    </div>
+                    <span className="text-lg font-black text-primary">{course.grade}</span>
+                  </div>
+                  <span className="text-xs text-on-surface-variant font-medium">{course.credits} credits</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-1">
+                <CheckCircle2 className="w-4 h-4 text-green-600" />
+                <p className="text-xs font-bold text-green-900">Good Standing</p>
+              </div>
+              <p className="text-xs text-green-700 font-medium">GPA meets academic standards</p>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-xs font-bold text-blue-900 mb-1">Next Semester</p>
+              <p className="text-xs text-blue-700 font-medium">5 courses registered • 15 credits • Confirmed</p>
+            </div>
+
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <p className="text-xs font-bold text-purple-900 mb-1">Opportunities</p>
+              <p className="text-xs text-purple-700 font-medium">Eligible for honors program • Deadline: May 15</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </MainContent>
   );
 }
@@ -756,60 +748,26 @@ export default function DashboardPage() {
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
 
-  // Route to appropriate dashboard based on role
   switch (userRole) {
     case "admin":
-      return (
-        <>
-          <AdminDashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <AdminDashboard />;
     case "qa":
-      return (
-        <>
-          <QADashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <QADashboard />;
     case "analyst":
-      return (
-        <>
-          <AnalystDashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <AnalystDashboard />;
     case "hod":
-      return (
-        <>
-          <HODDashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <HODDashboard />;
     case "lecturer":
-      return (
-        <>
-          <LecturerDashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <LecturerDashboard />;
     case "student":
-      return (
-        <>
-          <StudentDashboard />
-          <Footer variant="minimal" />
-        </>
-      );
+      return <StudentDashboard />;
     default:
       return (
-        <>
         <MainContent>
           <Card className="p-8 text-center">
             <p className="text-on-surface-variant">Loading dashboard...</p>
           </Card>
         </MainContent>
-        <Footer variant="minimal" />
-        </>
       );
   }
 }
