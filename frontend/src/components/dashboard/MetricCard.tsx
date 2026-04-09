@@ -9,20 +9,6 @@ interface MetricCardProps {
   className?: string;
 }
 
-const accentBorder = {
-  primary: "border-l-4 border-primary",
-  success: "border-l-4 border-on-tertiary-container",
-  secondary: "border-l-4 border-secondary",
-  error: "border-l-4 border-error",
-};
-
-const iconBg = {
-  primary: "bg-primary-fixed/30 text-primary",
-  success: "bg-tertiary-container/10 text-on-tertiary-container",
-  secondary: "bg-secondary-container/30 text-secondary",
-  error: "bg-error-container/30 text-error",
-};
-
 export default function MetricCard({
   label,
   value,
@@ -31,27 +17,79 @@ export default function MetricCard({
   accentColor = "primary",
   className = "",
 }: MetricCardProps) {
+  const accentGradients = {
+    primary: "from-primary/20 via-primary/5 to-transparent",
+    success:
+      "from-tertiary-container/30 via-tertiary-container/10 to-transparent",
+    secondary: "from-secondary/20 via-secondary/5 to-transparent",
+    error: "from-error/20 via-error/5 to-transparent",
+  };
+
+  const iconColors = {
+    primary: "bg-primary text-white shadow-primary/20",
+    success: "bg-tertiary text-white shadow-tertiary/20",
+    secondary: "bg-secondary text-white shadow-secondary/20",
+    error: "bg-error text-white shadow-error/20",
+  };
+
   return (
-    <Card className={`${accentBorder[accentColor]} ${className}`}>
-      <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-4">
-        {label}
-      </div>
-      <div className="flex items-center justify-between">
-        <p className="text-3xl font-black text-primary">{value}</p>
-        {icon && (
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg[accentColor]}`}>
-            <span className="material-symbols-outlined text-xl">{icon}</span>
-          </div>
-        )}
-      </div>
-      {trend && (
-        <div className={`flex items-center gap-1 mt-3 text-xs font-semibold ${trend.direction === "up" ? "text-on-tertiary-container" : "text-error"}`}>
-          <span className="material-symbols-outlined text-sm">
-            {trend.direction === "up" ? "trending_up" : "trending_down"}
+    <Card
+      className={`glass border-none p-0 overflow-hidden relative group transition-all hover:scale-[1.02] ${className}`}
+    >
+      {/* Accent Gradient Background */}
+      <div
+        className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${accentGradients[accentColor]} -z-10`}
+      />
+
+      <div className="p-3">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[8px] font-black uppercase text-on-surface-variant tracking-[0.2em]">
+            {label}
           </span>
-          {trend.direction === "up" ? "+" : "-"}{Math.abs(trend.value)}% YoY
+          {icon && (
+            <div
+              className={`w-6 h-6 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:rotate-12 ${iconColors[accentColor]}`}
+            >
+              <span className="material-symbols-outlined text-sm">{icon}</span>
+            </div>
+          )}
         </div>
-      )}
+
+        <div className="flex items-end gap-1">
+          <p className="text-xl font-black text-primary tracking-tight">
+            {value}
+          </p>
+          {trend && (
+            <div
+              className={`flex items-center gap-0.5 mb-0.5 text-[8px] font-black uppercase px-1 py-0.5 rounded-full ${
+                trend.direction === "up"
+                  ? "bg-tertiary/10 text-tertiary"
+                  : "bg-error/10 text-error"
+              }`}
+            >
+              <span className="material-symbols-outlined text-[10px] leading-none">
+                {trend.direction === "up" ? "trending_up" : "trending_down"}
+              </span>
+              {Math.abs(trend.value)}%
+            </div>
+          )}
+        </div>
+
+        <div className="w-full h-0.5 bg-surface-container mt-2 rounded-full overflow-hidden">
+          <div
+            className={`h-full rounded-full ${
+              accentColor === "primary"
+                ? "bg-primary"
+                : accentColor === "success"
+                  ? "bg-tertiary"
+                  : accentColor === "secondary"
+                    ? "bg-secondary"
+                    : "bg-error"
+            }`}
+            style={{ width: "65%" }}
+          />
+        </div>
+      </div>
     </Card>
   );
 }
