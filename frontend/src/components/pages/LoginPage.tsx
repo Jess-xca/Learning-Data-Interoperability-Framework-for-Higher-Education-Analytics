@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert } from "..";
+import { Alert, FormCard } from "..";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
 import type { User } from "../../store/slices/authSlice";
@@ -82,16 +82,13 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  const fieldClass =
-    "w-full h-12 pl-4 pr-4 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 text-on-surface rounded-t-lg transition-all font-medium outline-none";
+  // const fieldClass = (no longer used - now using inline classes);
 
   return (
     <div className="min-h-screen bg-surface font-body text-on-surface flex items-center justify-center p-4">
-      <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-on-tertiary-container to-primary z-50" />
-
-      <main className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 overflow-hidden rounded-xl bg-surface-container-low shadow-glass">
+      <main className="min-w-sm max-w-3xl h-full md:h-auto grid grid-cols-1 md:grid-cols-12 overflow-hidden rounded-xl bg-surface-container-low shadow-glass">
         {/* Branding panel */}
-        <section className="hidden md:flex md:col-span-5 relative flex-col justify-between p-12 bg-primary-container overflow-hidden">
+        <section className="hidden md:flex md:col-span-5 relative flex-col justify-between p-10 bg-secondary-container overflow-hidden">
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
@@ -100,27 +97,27 @@ export default function LoginPage() {
             }}
           />
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-16">
-              <span className="material-symbols-outlined text-surface-container-lowest text-4xl">
+            <div className="flex items-center gap-3 mb-10">
+              <span className="material-symbols-outlined text-surface-container-lowest text-3xl">
                 school
               </span>
-              <h1 className="text-2xl font-extrabold tracking-tighter text-surface-container-lowest">
+              <h1 className="text-lg font-extrabold tracking-tighter text-surface-container-lowest">
                 Academic Curator
               </h1>
             </div>
-            <h2 className="text-4xl font-bold text-surface-bright leading-tight">
+            <h2 className="text-xl font-bold text-surface-bright leading-tight">
               Transforming raw institutional data into{" "}
               <span className="text-on-tertiary-container">
                 curated intelligence
               </span>
               .
             </h2>
-            <p className="mt-6 text-on-primary-container text-base max-w-sm leading-relaxed">
-              Transform your institution's data into actionable intelligence with
-              precision and confidence.
+            <p className="mt-5 mb-5 text-on-secondary-container text-xs max-w-sm leading-relaxed\">
+              Transform your institution's data into actionable intelligence
+              with precision and confidence.
             </p>
           </div>
-          <div className="relative z-10 space-y-4">
+          <div className="relative z-10 space-y-3">
             {[
               {
                 icon: "verified_user",
@@ -135,14 +132,14 @@ export default function LoginPage() {
             ].map((item) => (
               <div
                 key={item.icon}
-                className="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md"
+                className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md"
               >
-                <span className="material-symbols-outlined text-on-tertiary-container">
+                <span className="material-symbols-outlined text-on-tertiary-container text-lg">
                   {item.icon}
                 </span>
                 <div className="text-xs">
                   <p className="text-surface-bright font-bold">{item.title}</p>
-                  <p className="text-on-primary-container">{item.sub}</p>
+                  <p className="text-on-secondary-container">{item.sub}</p>
                 </div>
               </div>
             ))}
@@ -150,235 +147,197 @@ export default function LoginPage() {
         </section>
 
         {/* Form panel */}
-        <section className="col-span-1 md:col-span-7 bg-surface-container-lowest p-8 md:p-14 flex flex-col justify-center">
-          <div className="max-w-md mx-auto w-full">
-            <header className="mb-10">
-              <div className="flex items-center gap-3 md:hidden mb-6">
-                <span className="material-symbols-outlined text-primary text-3xl">
-                  school
-                </span>
-                <span className="text-xl font-extrabold text-primary tracking-tight">
-                  Academic Curator
-                </span>
-              </div>
-              <h3 className="text-3xl font-bold text-primary tracking-tight">
-                Institutional Access
-              </h3>
-              <p className="text-on-surface-variant mt-2">
-                Welcome to the central authentication gateway.
-              </p>
-            </header>
+        <FormCard
+          variant="primary"
+          title="Institutional Access"
+          subtitle="Welcome to the central authentication gateway."
+          maxWidth="sm"
+        >
+          {error && (
+            <div className="mb-3">
+              <Alert variant="error">{error}</Alert>
+            </div>
+          )}
 
-            {error && (
-              <div className="mb-6">
-                <Alert variant="error">{error}</Alert>
-              </div>
-            )}
-
-            {step === "form" ? (
-              <div className="space-y-5">
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-semibold text-primary">
-                    Partner Institution
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={institution}
-                      onChange={(e) => setInstitution(e.target.value)}
-                      className={`${fieldClass} pr-10 appearance-none cursor-pointer`}
-                    >
-                      <option value="" disabled>
-                        Select your university
+          {step === "form" ? (
+            <div className="space-y-3.5">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-primary">
+                  Partner Institution
+                </label>
+                <div className="relative">
+                  <select
+                    value={institution}
+                    onChange={(e) => setInstitution(e.target.value)}
+                    className={`w-full h-9 pl-3 pr-8 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 text-on-surface rounded-t text-xs transition-all font-medium outline-none appearance-none cursor-pointer shadow-sm`}
+                  >
+                    <option value="" disabled>
+                      Select your university
+                    </option>
+                    {institutions.map((i) => (
+                      <option key={i.value} value={i.value}>
+                        {i.label}
                       </option>
-                      {institutions.map((i) => (
-                        <option key={i.value} value={i.value}>
-                          {i.label}
-                        </option>
-                      ))}
-                    </select>
-                    <span className="material-symbols-outlined absolute right-3 top-3 text-outline pointer-events-none">
-                      unfold_more
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-semibold text-primary">
-                    Administrative Role
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value as User["role"])}
-                      className={`${fieldClass} pr-10 appearance-none cursor-pointer`}
-                    >
-                      <option value="" disabled>
-                        Select your designation
-                      </option>
-                      {roles.map((r) => (
-                        <option key={r.value} value={r.value}>
-                          {r.label}
-                        </option>
-                      ))}
-                    </select>
-                    <span className="material-symbols-outlined absolute right-3 top-3 text-outline pointer-events-none">
-                      badge
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-semibold text-primary">
-                    Institutional Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@institution.edu"
-                    className={fieldClass}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center">
-                    <label className="block text-sm font-semibold text-primary">
-                      Security Credential
-                    </label>
-                    <a
-                      href="#"
-                      className="text-xs font-medium text-primary hover:underline"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className={fieldClass}
-                  />
-                </div>
-
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-surface-container text-on-secondary-container">
-                  <span className="material-symbols-outlined text-sm">
-                    lock_person
+                    ))}
+                  </select>
+                  <span className="material-symbols-outlined absolute right-2 top-1.5 text-outline pointer-events-none text-sm">
+                    unfold_more
                   </span>
-                  <p className="text-[10px] leading-tight font-medium uppercase tracking-wider">
-                    Multi-factor authentication will be prompted upon
-                    validation.
-                  </p>
                 </div>
-
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading}
-                  className="w-full h-14 bg-primary text-on-primary rounded-xl font-bold text-base hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/20"
-                >
-                  {loading ? (
-                    <span className="material-symbols-outlined animate-spin">
-                      progress_activity
-                    </span>
-                  ) : (
-                    <>
-                      Sign In to Framework{" "}
-                      <span className="material-symbols-outlined">
-                        arrow_forward
-                      </span>
-                    </>
-                  )}
-                </button>
               </div>
-            ) : (
-              <div className="space-y-5">
-                {role && (
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black text-sm">
-                      {roleNames[role as User["role"]].charAt(0)}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-on-surface">
-                        {email}
-                      </p>
-                      <p className="text-xs text-on-tertiary-container font-bold uppercase tracking-wider">
-                        {roleNames[role as User["role"]]}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                <Alert variant="info" icon="security">
-                  A 6-digit verification code has been sent to your registered
-                  email and authenticator app.
-                </Alert>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-semibold text-primary">
-                    Verification Code
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-primary">
+                  Administrative Role
+                </label>
+                <div className="relative">
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value as User["role"])}
+                    className={`w-full h-9 pl-3 pr-8 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 text-on-surface rounded-t text-xs transition-all font-medium outline-none appearance-none cursor-pointer shadow-sm`}
+                  >
+                    <option value="" disabled>
+                      Select your designation
+                    </option>
+                    {roles.map((r) => (
+                      <option key={r.value} value={r.value}>
+                        {r.label}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="material-symbols-outlined absolute right-1 top-1 text-outline pointer-events-none text-xs">
+                    badge
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-primary">
+                  Institutional Email
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@institution.edu"
+                  className="w-full h-9 pl-3 pr-3 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 text-on-surface rounded-t text-xs transition-all font-medium outline-none shadow-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center gap-2">
+                  <label className="block text-xs font-semibold text-primary">
+                    Security Credential
                   </label>
-                  <input
-                    type="text"
-                    value={mfaCode}
-                    onChange={(e) => setMfaCode(e.target.value.slice(0, 6))}
-                    placeholder="000000"
-                    maxLength={6}
-                    className={`${fieldClass} text-center text-2xl tracking-[0.5em] font-bold`}
-                  />
+                  <a
+                    href="/reset-password"
+                    className="text-[10px] font-medium text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </a>
                 </div>
-                <button
-                  onClick={handleMFA}
-                  disabled={loading}
-                  className="w-full h-14 bg-primary text-on-primary rounded-xl font-bold text-base hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/20"
-                >
-                  {loading ? (
-                    <span className="material-symbols-outlined animate-spin">
-                      progress_activity
-                    </span>
-                  ) : (
-                    <>
-                      Verify &amp; Sign In{" "}
-                      <span className="material-symbols-outlined">
-                        verified_user
-                      </span>
-                    </>
-                  )}
-                </button>
-                <button
-                  onClick={() => {
-                    setStep("form");
-                    setError("");
-                  }}
-                  className="w-full h-10 text-primary font-semibold text-sm hover:bg-surface-container-low rounded-lg transition-colors"
-                >
-                  ← Back to login
-                </button>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full h-9 pl-3 pr-3 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 text-on-surface rounded-t text-xs transition-all font-medium outline-none shadow-sm"
+                />
               </div>
-            )}
 
-            <footer className="mt-10 pt-8 border-t border-outline-variant flex flex-col items-center gap-4">
-              <p className="text-on-surface-variant text-sm">
-                New to the Academic Curator ecosystem?
-              </p>
               <button
-                className="text-primary font-bold border-2 border-primary/10 px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors text-sm"
+                onClick={handleSubmit}
+                disabled={loading}
+                className="w-full h-10 bg-gradient-to-r from-primary to-primary/90 text-on-primary rounded-lg font-bold text-xs hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/30 border border-primary/20"
               >
-                <a href="/register">Create New Account</a>
-              </button>
-              <div className="flex gap-6 mt-2">
-                {["Legal Framework", "Privacy Policy", "System Status"].map(
-                  (link) => (
-                    <a
-                      key={link}
-                      href="#"
-                      className="text-xs text-outline hover:text-primary transition-colors"
-                    >
-                      {link}
-                    </a>
-                  ),
+                {loading ? (
+                  <span className="material-symbols-outlined animate-spin text-xs">
+                    progress_activity
+                  </span>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <span className="material-symbols-outlined text-xs">
+                      arrow_forward
+                    </span>
+                  </>
                 )}
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3.5">
+              {role && (
+                <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/20">
+                  <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary font-black text-xs">
+                    {roleNames[role as User["role"]].charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-on-surface">{email}</p>
+                    <p className="text-[10px] text-on-tertiary-container font-bold uppercase tracking-wider">
+                      {roleNames[role as User["role"]]}
+                    </p>
+                  </div>
+                </div>
+              )}
+              <Alert variant="warning" icon="security">
+                A 6-digit verification code has been sent to your registered
+                email and authenticator app.
+              </Alert>
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-primary">
+                  Verification Code
+                </label>
+                <input
+                  type="text"
+                  value={mfaCode}
+                  onChange={(e) => setMfaCode(e.target.value.slice(0, 6))}
+                  placeholder="000000"
+                  maxLength={6}
+                  className="w-full h-9 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 text-on-surface rounded-t text-sm text-center tracking-[0.2em] font-bold transition-all outline-none shadow-sm"
+                />
               </div>
-            </footer>
-          </div>
-        </section>
+              <button
+                onClick={handleMFA}
+                disabled={loading}
+                className="w-full h-10 bg-gradient-to-r from-primary to-primary/90 text-on-primary rounded-lg font-bold text-xs hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/30 border border-primary/20"
+              >
+                {loading ? (
+                  <span className="material-symbols-outlined animate-spin text-xs">
+                    progress_activity
+                  </span>
+                ) : (
+                  <>
+                    Verify &amp; Sign In{" "}
+                    <span className="material-symbols-outlined text-xs">
+                      verified_user
+                    </span>
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => {
+                  setStep("form");
+                  setError("");
+                }}
+                className="w-full h-8 text-primary font-semibold text-xs hover:bg-surface-container-low rounded-lg transition-colors"
+              >
+                ← Back to login
+              </button>
+            </div>
+          )}
+
+          <footer className="pt-6 flex flex-col items-center gap-3">
+            <p className="text-on-surface-variant text-xs">
+              Don't have an account?{" "}
+              <a
+                href="/register"
+                className="text-primary font-bold hover:underline"
+              >
+                Create one
+              </a>
+            </p>
+          </footer>
+        </FormCard>
       </main>
 
       <div className="fixed bottom-8 right-8 pointer-events-none hidden lg:block opacity-5">
