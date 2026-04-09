@@ -13,8 +13,8 @@ export default {
         // Secondary (Academic Blue)
         secondary: "#545f72",
         "on-secondary": "#ffffff",
-        "secondary-container": "#d5e0f7",
-        "on-secondary-container": "#586377",
+        "secondary-container": "#193657",
+        "on-secondary-container": "#c4dced",
 
         // Tertiary (Success Green)
         tertiary: "#002617",

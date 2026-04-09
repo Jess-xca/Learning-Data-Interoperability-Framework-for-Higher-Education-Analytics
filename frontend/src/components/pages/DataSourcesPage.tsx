@@ -152,7 +152,7 @@ export default function DataSourcesPage() {
         {/* Page Header */}
         <div className="mb-10 flex justify-between items-end">
           <div>
-            <h1 className="text-4xl font-black text-primary tracking-tight">
+            <h1 className="h-page text-primary">
               Data Sources
             </h1>
             <p className="text-on-surface-variant font-medium mt-2 text-lg">

@@ -11,7 +11,7 @@ const DataQualityPage: React.FC = () => {
   return (
     <MainContent>
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Data Quality & Compliance</h1>
+        <h1 className="h-page text-primary">Data Quality & Compliance</h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Monitor data integrity across all integrated standards
         </p>

@@ -1,33 +1,89 @@
 import { MainContent, Card } from "..";
 import { useAppSelector } from "../../hooks/useRedux";
 import { generateHECStudents, getHECPrograms } from "../../data/hecDummyData";
-import { TrendingUp, Users, BookOpen, Award, Activity, AlertCircle, CheckCircle2, Clock, DollarSign } from "lucide-react";
+import {
+  TrendingUp,
+  Users,
+  BookOpen,
+  Award,
+  Activity,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+} from "lucide-react";
 
 // Mock enrollment data
 const enrollmentByProgram = [
-  { program: "Computer Science", students: 324, completion: 94.2, status: "target", trend: 12 },
-  { program: "Business Admin", students: 287, completion: 89.5, status: "target", trend: 8 },
-  { program: "Engineering", students: 265, completion: 87.3, status: "warning", trend: -3 },
-  { program: "Sciences", students: 198, completion: 91.2, status: "target", trend: 5 },
+  {
+    program: "Computer Science",
+    students: 324,
+    completion: 94.2,
+    status: "target",
+    trend: 12,
+  },
+  {
+    program: "Business Admin",
+    students: 287,
+    completion: 89.5,
+    status: "target",
+    trend: 8,
+  },
+  {
+    program: "Engineering",
+    students: 265,
+    completion: 87.3,
+    status: "warning",
+    trend: -3,
+  },
+  {
+    program: "Sciences",
+    students: 198,
+    completion: 91.2,
+    status: "target",
+    trend: 5,
+  },
 ];
 
 // ============================================================================
 // SMALL METRIC CARD COMPONENT
 // ============================================================================
-function SmallMetricCard({ label, value, icon: Icon, status, color }: { label: string; value: string | number; icon: React.ComponentType<{ className?: string }>; status?: string; color?: string }) {
+function SmallMetricCard({
+  label,
+  value,
+  icon: Icon,
+  status,
+  color,
+}: {
+  label: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  status?: string;
+  color?: string;
+}) {
   const colorClasses: Record<string, string> = {
-    sky: "text-sky-500", cyan: "text-cyan-500", emerald: "text-emerald-500", violet: "text-violet-500", red: "text-red-500"
+    sky: "text-sky-500",
+    cyan: "text-cyan-500",
+    emerald: "text-emerald-500",
+    violet: "text-violet-500",
+    red: "text-red-500",
   };
   return (
     <div className="bg-surface-light rounded-lg p-4 border border-on-surface/5 hover:border-on-surface/10 transition-all">
       <div className="flex items-start justify-between mb-3">
         <div>
-          <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-tight mb-1">{label}</p>
+          <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-tight mb-1">
+            {label}
+          </p>
           <p className="text-2xl font-black text-on-surface">{value}</p>
         </div>
-        <Icon className={`w-5 h-5 ${color ? colorClasses[color] || "text-on-surface/40" : "text-on-surface/40"}`} />
+        <Icon
+          className={`w-5 h-5 ${color ? colorClasses[color] || "text-on-surface/40" : "text-on-surface/40"}`}
+        />
       </div>
-      {status && <p className="text-xs text-on-surface-variant font-medium">{status}</p>}
+      {status && (
+        <p className="text-xs text-on-surface-variant font-medium">{status}</p>
+      )}
     </div>
   );
 }
@@ -35,14 +91,27 @@ function SmallMetricCard({ label, value, icon: Icon, status, color }: { label: s
 // ============================================================================
 // TABLE COMPONENTS
 // ============================================================================
-function DataTable({ columns, data }: { columns: { key: string; label: string; align?: "left" | "center" | "right" }[]; data: Record<string, React.ReactNode>[] }) {
+function DataTable({
+  columns,
+  data,
+}: {
+  columns: {
+    key: string;
+    label: string;
+    align?: "left" | "center" | "right";
+  }[];
+  data: Record<string, React.ReactNode>[];
+}) {
   return (
     <div className="w-full overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-on-surface/10 bg-surface-light/50">
             {columns.map((col) => (
-              <th key={col.key} className={`px-4 py-3 text-xs font-bold text-on-surface-variant uppercase tracking-tight text-${col.align || "left"}`}>
+              <th
+                key={col.key}
+                className={`px-4 py-3 text-xs font-bold text-on-surface-variant uppercase tracking-tight text-${col.align || "left"}`}
+              >
                 {col.label}
               </th>
             ))}
@@ -50,9 +119,15 @@ function DataTable({ columns, data }: { columns: { key: string; label: string; a
         </thead>
         <tbody>
           {data.map((row, idx) => (
-            <tr key={idx} className="border-b border-on-surface/5 hover:bg-primary/5 transition-colors">
+            <tr
+              key={idx}
+              className="border-b border-on-surface/5 hover:bg-primary/5 transition-colors"
+            >
               {columns.map((col) => (
-                <td key={col.key} className={`px-4 py-3 text-xs text-on-surface font-medium text-${col.align || "left"}`}>
+                <td
+                  key={col.key}
+                  className={`px-4 py-3 text-xs text-on-surface font-medium text-${col.align || "left"}`}
+                >
                   {row[col.key]}
                 </td>
               ))}
@@ -67,24 +142,46 @@ function DataTable({ columns, data }: { columns: { key: string; label: string; a
 // ============================================================================
 // STATUS BADGE
 // ============================================================================
-function StatusBadge({ status }: { status: "success" | "warning" | "failed" | "processing" | "target" }) {
+function StatusBadge({
+  status,
+}: {
+  status: "success" | "warning" | "failed" | "processing" | "target";
+}) {
   const colors: Record<string, string> = {
     success: "bg-green-100 text-green-700",
     warning: "bg-yellow-100 text-yellow-700",
-    failed: "bg-red-100 text-red-700", 
+    failed: "bg-red-100 text-red-700",
     processing: "bg-blue-100 text-blue-700",
-    target: "bg-green-100 text-green-700"
+    target: "bg-green-100 text-green-700",
   };
   const text: Record<string, string> = {
-    success: "SUCCESS", warning: "WARNING", failed: "FAILED", processing: "PROCESSING", target: "TARGET MET"
+    success: "SUCCESS",
+    warning: "WARNING",
+    failed: "FAILED",
+    processing: "PROCESSING",
+    target: "TARGET MET",
   };
-  return <span className={`px-2 py-1 rounded text-xs font-bold ${colors[status]}`}>{text[status]}</span>;
+  return (
+    <span className={`px-2 py-1 rounded text-xs font-bold ${colors[status]}`}>
+      {text[status]}
+    </span>
+  );
 }
 
 // ============================================================================
 // MODULE CARD COMPONENT
 // ============================================================================
-function ModuleCard({ name, type, status, icon: Icon }: { name: string; type: string; status: string; icon: React.ComponentType<{ className?: string }> }) {
+function ModuleCard({
+  name,
+  type,
+  status,
+  icon: Icon,
+}: {
+  name: string;
+  type: string;
+  status: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
   const statusColors: Record<string, string> = {
     STABLE: "bg-green-100 text-green-700",
     ACTIVE: "bg-blue-100 text-blue-700",
@@ -92,7 +189,7 @@ function ModuleCard({ name, type, status, icon: Icon }: { name: string; type: st
     TRAINING: "bg-purple-100 text-purple-700",
     IDLE: "bg-gray-100 text-gray-700",
     UPDATING: "bg-cyan-100 text-cyan-700",
-    PROTECTED: "bg-red-100 text-red-700"
+    PROTECTED: "bg-red-100 text-red-700",
   };
   return (
     <div className="bg-surface-light rounded-lg p-4 border border-on-surface/5 hover:border-primary/20 transition-all hover:shadow-md">
@@ -103,7 +200,11 @@ function ModuleCard({ name, type, status, icon: Icon }: { name: string; type: st
       </div>
       <p className="text-sm font-bold text-on-surface mb-1">{name}</p>
       <p className="text-xs text-on-surface-variant font-medium mb-2">{type}</p>
-      <span className={`px-2 py-1 rounded text-xs font-bold ${statusColors[status] || "bg-gray-100 text-gray-700"}`}>{status}</span>
+      <span
+        className={`px-2 py-1 rounded text-xs font-bold ${statusColors[status] || "bg-gray-100 text-gray-700"}`}
+      >
+        {status}
+      </span>
     </div>
   );
 }
@@ -111,14 +212,24 @@ function ModuleCard({ name, type, status, icon: Icon }: { name: string; type: st
 // ============================================================================
 // PIPELINE STATUS ITEM
 // ============================================================================
-function PipelineStatus({ name, desc, status, icon: Icon }: { name: string; desc: string; status: string; icon: React.ComponentType<{ className?: string }> }) {
+function PipelineStatus({
+  name,
+  desc,
+  status,
+  icon: Icon,
+}: {
+  name: string;
+  desc: string;
+  status: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
   const statusBgColor: Record<string, string> = {
     LIVE: "bg-green-50 border-l-4 border-l-green-500",
     QUEUED: "bg-orange-50 border-l-4 border-l-orange-500",
     IDLE: "bg-gray-50 border-l-4 border-l-gray-500",
     FAILED: "bg-red-50 border-l-4 border-l-red-500",
     SUCCESS: "bg-green-50 border-l-4 border-l-green-500",
-    PROCESSING: "bg-blue-50 border-l-4 border-l-blue-500"
+    PROCESSING: "bg-blue-50 border-l-4 border-l-blue-500",
   };
 
   const statusTextColor: Record<string, string> = {
@@ -127,18 +238,28 @@ function PipelineStatus({ name, desc, status, icon: Icon }: { name: string; desc
     IDLE: "text-gray-900",
     FAILED: "text-red-900",
     SUCCESS: "text-green-900",
-    PROCESSING: "text-blue-900"
+    PROCESSING: "text-blue-900",
   };
 
   return (
     <div className={`p-3 rounded-lg ${statusBgColor[status] || "bg-gray-50"}`}>
       <div className="flex items-start gap-2">
-        <Icon className={`w-4 h-4 flex-shrink-0 mt-0.5 ${statusTextColor[status]}`} />
+        <Icon
+          className={`w-4 h-4 flex-shrink-0 mt-0.5 ${statusTextColor[status]}`}
+        />
         <div className="flex-1">
-          <p className={`text-xs font-bold ${statusTextColor[status]}`}>{name}</p>
-          <p className={`text-xs font-medium mt-0.5 ${statusTextColor[status].replace("900", "800")}`}>{desc}</p>
+          <p className={`text-xs font-bold ${statusTextColor[status]}`}>
+            {name}
+          </p>
+          <p
+            className={`text-xs font-medium mt-0.5 ${statusTextColor[status].replace("900", "800")}`}
+          >
+            {desc}
+          </p>
         </div>
-        <span className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap ${statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-green-50" ? "bg-green-200 text-green-700" : statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-orange-50" ? "bg-orange-200 text-orange-700" : "bg-gray-200 text-gray-700"}`}>
+        <span
+          className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap ${statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-green-50" ? "bg-green-200 text-green-700" : statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-orange-50" ? "bg-orange-200 text-orange-700" : "bg-gray-200 text-gray-700"}`}
+        >
           {status}
         </span>
       </div>
@@ -156,9 +277,16 @@ function AdminDashboard() {
         {/* ── Header Section ── */}
         <div className="flex items-start justify-between mb-8 pl-2">
           <div>
-            <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">INSTITUTIONAL OPERATIONS</p>
-            <h1 className="text-4xl font-black text-[#002045] tracking-tight">System Hub</h1>
-            <p className="text-sm text-[#1a365d] font-medium mt-2">Comprehensive health and operational telemetry for institutional data infrastructure.</p>
+            <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">
+              INSTITUTIONAL OPERATIONS
+            </p>
+            <h1 className="text-4xl font-black text-[#002045] tracking-tight">
+              System Hub
+            </h1>
+            <p className="text-sm text-[#1a365d] font-medium mt-2">
+              Comprehensive health and operational telemetry for institutional
+              data infrastructure.
+            </p>
           </div>
           <button className="px-6 py-3 bg-gradient-to-br from-[#4CAF50] to-[#388E3C] text-white rounded-lg font-bold text-xs hover:shadow-lg transition-all h-fit whitespace-nowrap flex items-center gap-2">
             <span>⬇</span> Run Global Sync
@@ -172,13 +300,23 @@ function AdminDashboard() {
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Core System Health</p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">99.98<span className="text-lg">%</span></p>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
+                    Core System Health
+                  </p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">
+                    99.98<span className="text-lg">%</span>
+                  </p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-green-100 to-green-50 rounded-xl group-hover:scale-110 transition-transform"><Activity className="w-7 h-7 text-green-600" /></div>
+                <div className="p-4 bg-gradient-to-br from-green-100 to-green-50 rounded-xl group-hover:scale-110 transition-transform">
+                  <Activity className="w-7 h-7 text-green-600" />
+                </div>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-green-400 to-green-600"></div></div>
-              <p className="text-xs font-bold text-green-700">⚡ Nominal Performance</p>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
+                <div className="h-full w-full bg-gradient-to-r from-green-400 to-green-600"></div>
+              </div>
+              <p className="text-xs font-bold text-green-700">
+                ⚡ Nominal Performance
+              </p>
             </div>
           </div>
 
@@ -187,13 +325,23 @@ function AdminDashboard() {
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Active Pipelines</p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">42<span className="text-lg text-[#1a365d] ml-1">/42</span></p>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
+                    Active Pipelines
+                  </p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">
+                    42<span className="text-lg text-[#1a365d] ml-1">/42</span>
+                  </p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl group-hover:scale-110 transition-transform"><BookOpen className="w-7 h-7 text-blue-600" /></div>
+                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl group-hover:scale-110 transition-transform">
+                  <BookOpen className="w-7 h-7 text-blue-600" />
+                </div>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600"></div></div>
-              <p className="text-xs font-bold text-blue-700">All channels synchronized</p>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
+                <div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600"></div>
+              </div>
+              <p className="text-xs font-bold text-blue-700">
+                All channels synchronized
+              </p>
             </div>
           </div>
 
@@ -202,13 +350,23 @@ function AdminDashboard() {
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Connected Systems</p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">14</p>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
+                    Connected Systems
+                  </p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">
+                    14
+                  </p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl group-hover:scale-110 transition-transform"><CheckCircle2 className="w-7 h-7 text-cyan-600" /></div>
+                <div className="p-4 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl group-hover:scale-110 transition-transform">
+                  <CheckCircle2 className="w-7 h-7 text-cyan-600" />
+                </div>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-cyan-400 to-cyan-600"></div></div>
-              <p className="text-xs font-bold text-cyan-700">SIS, LMS, ERP Integrated</p>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
+                <div className="h-full w-full bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
+              </div>
+              <p className="text-xs font-bold text-cyan-700">
+                SIS, LMS, ERP Integrated
+              </p>
             </div>
           </div>
 
@@ -217,13 +375,23 @@ function AdminDashboard() {
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">Security Incidents</p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">0</p>
+                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
+                    Security Incidents
+                  </p>
+                  <p className="text-3xl font-black text-[#002045] tracking-tight">
+                    0
+                  </p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-red-100 to-red-50 rounded-xl group-hover:scale-110 transition-transform"><AlertCircle className="w-7 h-7 text-red-600" /></div>
+                <div className="p-4 bg-gradient-to-br from-red-100 to-red-50 rounded-xl group-hover:scale-110 transition-transform">
+                  <AlertCircle className="w-7 h-7 text-red-600" />
+                </div>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3"><div className="h-full w-full bg-gradient-to-r from-red-400 to-red-600"></div></div>
-              <p className="text-xs font-bold text-red-700">Last scan: 4 mins ago</p>
+              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
+                <div className="h-full w-full bg-gradient-to-r from-red-400 to-red-600"></div>
+              </div>
+              <p className="text-xs font-bold text-red-700">
+                Last scan: 4 mins ago
+              </p>
             </div>
           </div>
         </div>
@@ -234,21 +402,72 @@ function AdminDashboard() {
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-black text-[#002045]">Ecosystem Modules</h2>
-                <p className="text-xs text-[#1a365d] font-medium mt-0.5">9 systems</p>
+                <h2 className="text-lg font-black text-[#002045]">
+                  Ecosystem Modules
+                </h2>
+                <p className="text-xs text-[#1a365d] font-medium mt-0.5">
+                  9 systems
+                </p>
               </div>
-              <span className="text-xs font-bold text-[#4CAF50] bg-green-50 px-2 py-1 rounded-lg border border-green-200">✓ All Operational</span>
+              <span className="text-xs font-bold text-[#4CAF50] bg-green-50 px-2 py-1 rounded-lg border border-green-200">
+                ✓ All Operational
+              </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <ModuleCard name="Academic Registry" type="Status: Stable" status="STABLE" icon={BookOpen} />
-              <ModuleCard name="Financial Aid" type="Status: Active" status="ACTIVE" icon={DollarSign} />
-              <ModuleCard name="Admissions CRM" type="Status: Syncing" status="SYNCING" icon={Users} />
-              <ModuleCard name="LMS Connector" type="Status: Stable" status="STABLE" icon={CheckCircle2} />
-              <ModuleCard name="Predictive Analytics" type="Status: Training" status="TRAINING" icon={Activity} />
-              <ModuleCard name="Campus Housing" type="Status: Idle" status="IDLE" icon={AlertCircle} />
-              <ModuleCard name="Bursar System" type="Status: Stable" status="STABLE" icon={DollarSign} />
-              <ModuleCard name="Research Grants" type="Status: Stable" status="STABLE" icon={Award} />
-              <ModuleCard name="Alumni & Careers" type="Status: Updating" status="UPDATING" icon={Users} />
+              <ModuleCard
+                name="Academic Registry"
+                type="Status: Stable"
+                status="STABLE"
+                icon={BookOpen}
+              />
+              <ModuleCard
+                name="Financial Aid"
+                type="Status: Active"
+                status="ACTIVE"
+                icon={DollarSign}
+              />
+              <ModuleCard
+                name="Admissions CRM"
+                type="Status: Syncing"
+                status="SYNCING"
+                icon={Users}
+              />
+              <ModuleCard
+                name="LMS Connector"
+                type="Status: Stable"
+                status="STABLE"
+                icon={CheckCircle2}
+              />
+              <ModuleCard
+                name="Predictive Analytics"
+                type="Status: Training"
+                status="TRAINING"
+                icon={Activity}
+              />
+              <ModuleCard
+                name="Campus Housing"
+                type="Status: Idle"
+                status="IDLE"
+                icon={AlertCircle}
+              />
+              <ModuleCard
+                name="Bursar System"
+                type="Status: Stable"
+                status="STABLE"
+                icon={DollarSign}
+              />
+              <ModuleCard
+                name="Research Grants"
+                type="Status: Stable"
+                status="STABLE"
+                icon={Award}
+              />
+              <ModuleCard
+                name="Alumni & Careers"
+                type="Status: Updating"
+                status="UPDATING"
+                icon={Users}
+              />
             </div>
           </div>
 
@@ -257,26 +476,30 @@ function AdminDashboard() {
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="text-sm font-black text-[#002045]">Pipelines</h2>
-                <p className="text-xs text-[#1a365d] font-medium mt-0.5">Live</p>
+                <p className="text-xs text-[#1a365d] font-medium mt-0.5">
+                  Live
+                </p>
               </div>
-              <span className="text-xs text-white font-bold bg-green-500 px-2 py-0.5 rounded-full">🟢 LIVE</span>
+              <span className="text-xs text-white font-bold bg-green-500 px-2 py-0.5 rounded-full">
+                🟢 LIVE
+              </span>
             </div>
             <div className="space-y-3">
-              <PipelineStatus 
-                name="Banner SIS Integration" 
-                desc="Syncing student enrollment records..." 
+              <PipelineStatus
+                name="Banner SIS Integration"
+                desc="Syncing student enrollment records..."
                 status="LIVE"
                 icon={CheckCircle2}
               />
-              <PipelineStatus 
-                name="Canvas LMS Export" 
-                desc="Grade distributions for Fall 2024" 
+              <PipelineStatus
+                name="Canvas LMS Export"
+                desc="Grade distributions for Fall 2024"
                 status="QUEUED"
                 icon={Clock}
               />
-              <PipelineStatus 
-                name="Financial Reporting" 
-                desc="Scheduled for 02:00 AM" 
+              <PipelineStatus
+                name="Financial Reporting"
+                desc="Scheduled for 02:00 AM"
                 status="IDLE"
                 icon={Clock}
               />
@@ -284,9 +507,16 @@ function AdminDashboard() {
 
             {/* Security Alert Box */}
             <div className="mt-6 p-5 bg-gradient-to-br from-[#002045] via-[#1a365d] to-[#0d1f35] rounded-xl border border-[#4CAF50]/30 shadow-lg">
-              <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">🔒 Admin Security Protocol</p>
-              <p className="text-xs text-[#dce9ff] font-light leading-relaxed">MFA is active for all admins. Last suspicious activity: 7 days ago</p>
-              <p className="text-xs font-bold text-[#4CAF50] mt-3 tracking-tight">AUDITOR: SARAH CHEN</p>
+              <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">
+                🔒 Admin Security Protocol
+              </p>
+              <p className="text-xs text-[#dce9ff] font-light leading-relaxed">
+                MFA is active for all admins. Last suspicious activity: 7 days
+                ago
+              </p>
+              <p className="text-xs font-bold text-[#4CAF50] mt-3 tracking-tight">
+                AUDITOR: SARAH CHEN
+              </p>
             </div>
           </div>
         </div>
@@ -295,10 +525,16 @@ function AdminDashboard() {
         <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] shadow-md mt-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-black text-[#002045]">Recent Analytics</h2>
-              <p className="text-xs text-[#1a365d] font-medium mt-0.5">Last 24 hours</p>
+              <h2 className="text-lg font-black text-[#002045]">
+                Recent Analytics
+              </h2>
+              <p className="text-xs text-[#1a365d] font-medium mt-0.5">
+                Last 24 hours
+              </p>
             </div>
-            <span className="text-xs font-bold bg-blue-50 text-blue-700 px-2 py-1 rounded-lg border border-blue-200">24h</span>
+            <span className="text-xs font-bold bg-blue-50 text-blue-700 px-2 py-1 rounded-lg border border-blue-200">
+              24h
+            </span>
           </div>
           <DataTable
             columns={[
@@ -340,19 +576,35 @@ function AdminDashboard() {
         <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] overflow-hidden shadow-md mt-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h2 className="text-lg font-black text-[#002045]">Institutional Network</h2>
-              <p className="text-xs text-[#1a365d] font-medium mt-0.5">4 Nodes • 12 Centers</p>
+              <h2 className="text-lg font-black text-[#002045]">
+                Institutional Network
+              </h2>
+              <p className="text-xs text-[#1a365d] font-medium mt-0.5">
+                4 Nodes • 12 Centers
+              </p>
             </div>
-            <span className="text-xs font-bold bg-green-50 text-green-700 px-2 py-1 rounded-lg border border-green-200">Connected</span>
+            <span className="text-xs font-bold bg-green-50 text-green-700 px-2 py-1 rounded-lg border border-green-200">
+              Connected
+            </span>
           </div>
           <div className="relative h-56 rounded-lg overflow-hidden border border-[#e0e9ff] shadow-sm">
-            <img src="/campus-network.png" alt="Campus Network" className="w-full h-full object-cover" />
+            <img
+              src="/campus-network.png"
+              alt="Campus Network"
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/60 to-transparent">
               <div className="flex gap-2 flex-wrap">
-                <span className="px-2 py-1 bg-green-500/90 rounded text-xs font-bold">🟢 NORTH</span>
-                <span className="px-2 py-1 bg-blue-500/90 rounded text-xs font-bold">🔵 CLOUD</span>
-                <span className="px-2 py-1 bg-purple-500/90 rounded text-xs font-bold">🟣 EAST</span>
+                <span className="px-2 py-1 bg-green-500/90 rounded text-xs font-bold">
+                  🟢 NORTH
+                </span>
+                <span className="px-2 py-1 bg-blue-500/90 rounded text-xs font-bold">
+                  🔵 CLOUD
+                </span>
+                <span className="px-2 py-1 bg-purple-500/90 rounded text-xs font-bold">
+                  🟣 EAST
+                </span>
               </div>
             </div>
           </div>
@@ -370,44 +622,102 @@ function QADashboard() {
     <MainContent>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-black text-on-surface">Quality Assurance Console</h1>
-          <p className="text-xs text-on-surface-variant font-medium mt-1">Accreditation & compliance monitoring</p>
+          <h1 className="text-2xl font-black text-on-surface">
+            Quality Assurance Console
+          </h1>
+          <p className="text-xs text-on-surface-variant font-medium mt-1">
+            Accreditation & compliance monitoring
+          </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <SmallMetricCard label="Compliance Score" value="98.5%" icon={CheckCircle2} status="Excellent standing" color="emerald" />
-          <SmallMetricCard label="HEC Requirements" value="42/42" icon={CheckCircle2} status="All met" color="emerald" />
-          <SmallMetricCard label="FERPA Audit" value="Clean" icon={CheckCircle2} status="No issues" color="emerald" />
-          <SmallMetricCard label="Issues Found" value="3" icon={AlertCircle} status="-30% from last audit" color="red" />
+          <SmallMetricCard
+            label="Compliance Score"
+            value="98.5%"
+            icon={CheckCircle2}
+            status="Excellent standing"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="HEC Requirements"
+            value="42/42"
+            icon={CheckCircle2}
+            status="All met"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="FERPA Audit"
+            value="Clean"
+            icon={CheckCircle2}
+            status="No issues"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="Issues Found"
+            value="3"
+            icon={AlertCircle}
+            status="-30% from last audit"
+            color="red"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Accreditation Checklist</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Accreditation Checklist
+            </h2>
             <div className="space-y-2">
-              {["Institutional Mission & Vision", "Academic Programs (42)", "Student Support Services", "Financial Resources & Sustainability", "Quality Assurance System", "Faculty Credentials", "Library & Learning Resources", "Assessment Results"].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-2 bg-primary/5 rounded hover:bg-primary/10 transition-all">
+              {[
+                "Institutional Mission & Vision",
+                "Academic Programs (42)",
+                "Student Support Services",
+                "Financial Resources & Sustainability",
+                "Quality Assurance System",
+                "Faculty Credentials",
+                "Library & Learning Resources",
+                "Assessment Results",
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 p-2 bg-primary/5 rounded hover:bg-primary/10 transition-all"
+                >
                   <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                  <span className="text-xs font-medium text-on-surface">{item}</span>
+                  <span className="text-xs font-medium text-on-surface">
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Recent Audit Findings</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Recent Audit Findings
+            </h2>
             <div className="space-y-3">
               <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                <p className="text-xs font-bold text-yellow-900">Lab Equipment Maintenance (Medium)</p>
-                <p className="text-xs text-yellow-700 font-medium mt-1">5 of 12 labs require calibration by June 30</p>
+                <p className="text-xs font-bold text-yellow-900">
+                  Lab Equipment Maintenance (Medium)
+                </p>
+                <p className="text-xs text-yellow-700 font-medium mt-1">
+                  5 of 12 labs require calibration by June 30
+                </p>
               </div>
               <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <p className="text-xs font-bold text-blue-900">Documentation Complete (Low)</p>
-                <p className="text-xs text-blue-700 font-medium mt-1">Faculty handbooks updated for 2024-25</p>
+                <p className="text-xs font-bold text-blue-900">
+                  Documentation Complete (Low)
+                </p>
+                <p className="text-xs text-blue-700 font-medium mt-1">
+                  Faculty handbooks updated for 2024-25
+                </p>
               </div>
               <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                <p className="text-xs font-bold text-green-900">Resolved (Info)</p>
-                <p className="text-xs text-green-700 font-medium mt-1">15 previous findings now closed</p>
+                <p className="text-xs font-bold text-green-900">
+                  Resolved (Info)
+                </p>
+                <p className="text-xs text-green-700 font-medium mt-1">
+                  15 previous findings now closed
+                </p>
               </div>
             </div>
           </div>
@@ -418,44 +728,87 @@ function QADashboard() {
 }
 
 // ============================================================================
-// DATA ANALYST DASHBOARD  
+// DATA ANALYST DASHBOARD
 // ============================================================================
 function AnalystDashboard() {
   const hecStudents = generateHECStudents(1000);
   const programs = getHECPrograms();
-  const avgGPA = (hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length).toFixed(2);
-  const riskStudents = hecStudents.filter(s => s.riskIndicators.predictionStatus === "High Risk").length;
+  const avgGPA = (
+    hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length
+  ).toFixed(2);
+  const riskStudents = hecStudents.filter(
+    (s) => s.riskIndicators.predictionStatus === "High Risk",
+  ).length;
 
   return (
     <MainContent>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-black text-on-surface">Analytics Hub</h1>
-            <p className="text-xs text-on-surface-variant font-medium mt-1">Advanced institutional insights & predictions</p>
+            <h1 className="text-2xl font-black text-on-surface">
+              Analytics Hub
+            </h1>
+            <p className="text-xs text-on-surface-variant font-medium mt-1">
+              Advanced institutional insights & predictions
+            </p>
           </div>
-          <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">Generate Report</button>
+          <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">
+            Generate Report
+          </button>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <SmallMetricCard label="Total Students" value={hecStudents.length} icon={Users} status="+8.5% growth" color="sky" />
-          <SmallMetricCard label="Avg GPA" value={avgGPA} icon={Award} status="+0.5 this term" color="cyan" />
-          <SmallMetricCard label="Programs" value={programs.length} icon={BookOpen} status="Active enrollment" color="violet" />
-          <SmallMetricCard label="At Risk" value={riskStudents} icon={AlertCircle} status="-15% improvement" color="red" />
+          <SmallMetricCard
+            label="Total Students"
+            value={hecStudents.length}
+            icon={Users}
+            status="+8.5% growth"
+            color="sky"
+          />
+          <SmallMetricCard
+            label="Avg GPA"
+            value={avgGPA}
+            icon={Award}
+            status="+0.5 this term"
+            color="cyan"
+          />
+          <SmallMetricCard
+            label="Programs"
+            value={programs.length}
+            icon={BookOpen}
+            status="Active enrollment"
+            color="violet"
+          />
+          <SmallMetricCard
+            label="At Risk"
+            value={riskStudents}
+            icon={AlertCircle}
+            status="-15% improvement"
+            color="red"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Enrollment Trend</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Enrollment Trend
+            </h2>
             <div className="space-y-3">
               {enrollmentByProgram.map((prog, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between mb-1">
-                    <span className="text-xs font-semibold text-on-surface">{prog.program}</span>
-                    <span className="text-xs font-black text-on-surface">{prog.students}</span>
+                    <span className="text-xs font-semibold text-on-surface">
+                      {prog.program}
+                    </span>
+                    <span className="text-xs font-black text-on-surface">
+                      {prog.students}
+                    </span>
                   </div>
                   <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(prog.students / 350) * 100}%` }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-secondary"
+                      style={{ width: `${(prog.students / 350) * 100}%` }}
+                    />
                   </div>
                 </div>
               ))}
@@ -463,16 +816,31 @@ function AnalystDashboard() {
           </div>
 
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Success Metrics</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Success Metrics
+            </h2>
             <div className="space-y-3">
-              {[{ name: "Graduation Rate", value: 87.3, target: 90 }, { name: "Retention", value: 92.1, target: 95 }, { name: "Academic Pass", value: 88.5, target: 92 }].map((metric, idx) => (
+              {[
+                { name: "Graduation Rate", value: 87.3, target: 90 },
+                { name: "Retention", value: 92.1, target: 95 },
+                { name: "Academic Pass", value: 88.5, target: 92 },
+              ].map((metric, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between mb-1">
-                    <span className="text-xs font-semibold text-on-surface">{metric.name}</span>
-                    <span className="text-xs font-black text-on-surface">{metric.value}%</span>
+                    <span className="text-xs font-semibold text-on-surface">
+                      {metric.name}
+                    </span>
+                    <span className="text-xs font-black text-on-surface">
+                      {metric.value}%
+                    </span>
                   </div>
                   <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(metric.value / metric.target) * 100}%` }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-secondary"
+                      style={{
+                        width: `${(metric.value / metric.target) * 100}%`,
+                      }}
+                    />
                   </div>
                 </div>
               ))}
@@ -489,35 +857,77 @@ function AnalystDashboard() {
 // ============================================================================
 function HODDashboard() {
   const hecStudents = generateHECStudents(250);
-  const avgGPA = (hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length).toFixed(2);
+  const avgGPA = (
+    hecStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / hecStudents.length
+  ).toFixed(2);
 
   return (
     <MainContent>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-black text-on-surface">Department Overview</h1>
-          <p className="text-xs text-on-surface-variant font-medium mt-1">Science & Engineering Program Management</p>
+          <h1 className="text-2xl font-black text-on-surface">
+            Department Overview
+          </h1>
+          <p className="text-xs text-on-surface-variant font-medium mt-1">
+            Science & Engineering Program Management
+          </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <SmallMetricCard label="Total Enrollment" value={hecStudents.length} icon={Users} status="+4.2% from last" color="sky" />
-          <SmallMetricCard label="Faculty Count" value="18" icon={Award} status="All positions filled" color="cyan" />
-          <SmallMetricCard label="Avg GPA" value={avgGPA} icon={Award} status="+1.5 improvement" color="emerald" />
-          <SmallMetricCard label="Research Output" value="12" icon={BookOpen} status="Publications this year" color="violet" />
+          <SmallMetricCard
+            label="Total Enrollment"
+            value={hecStudents.length}
+            icon={Users}
+            status="+4.2% from last"
+            color="sky"
+          />
+          <SmallMetricCard
+            label="Faculty Count"
+            value="18"
+            icon={Award}
+            status="All positions filled"
+            color="cyan"
+          />
+          <SmallMetricCard
+            label="Avg GPA"
+            value={avgGPA}
+            icon={Award}
+            status="+1.5 improvement"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="Research Output"
+            value="12"
+            icon={BookOpen}
+            status="Publications this year"
+            color="violet"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Program Performance</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Program Performance
+            </h2>
             <div className="space-y-3">
-              {[{ name: "Bachelor Engineering", value: 87 }, { name: "Advanced Courses", value: 92 }, { name: "Lab Practicals", value: 78 }, { name: "Internships", value: 95 }].map((metric, idx) => (
+              {[
+                { name: "Bachelor Engineering", value: 87 },
+                { name: "Advanced Courses", value: 92 },
+                { name: "Lab Practicals", value: 78 },
+                { name: "Internships", value: 95 },
+              ].map((metric, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between mb-1">
-                    <span className="text-xs font-semibold text-on-surface">{metric.name}</span>
+                    <span className="text-xs font-semibold text-on-surface">
+                      {metric.name}
+                    </span>
                     <span className="text-xs font-black">{metric.value}%</span>
                   </div>
                   <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${metric.value}%` }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-secondary"
+                      style={{ width: `${metric.value}%` }}
+                    />
                   </div>
                 </div>
               ))}
@@ -525,9 +935,16 @@ function HODDashboard() {
           </div>
 
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Department Status</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Department Status
+            </h2>
             <div className="space-y-2">
-              {["24 student assignments submitted this week", "8 internship offers received", "3 research papers published", "Lab equipment 98% operational"].map((item, idx) => (
+              {[
+                "24 student assignments submitted this week",
+                "8 internship offers received",
+                "3 research papers published",
+                "Lab equipment 98% operational",
+              ].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2 p-2 text-xs">
                   <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                   <span className="text-on-surface font-medium">{item}</span>
@@ -546,52 +963,117 @@ function HODDashboard() {
 // ============================================================================
 function LecturerDashboard() {
   const lecturerStudents = generateHECStudents(32);
-  const avgGPA = (lecturerStudents.reduce((sum, s) => sum + s.academic.gpa, 0) / lecturerStudents.length).toFixed(2);
+  const avgGPA = (
+    lecturerStudents.reduce((sum, s) => sum + s.academic.gpa, 0) /
+    lecturerStudents.length
+  ).toFixed(2);
 
   return (
     <MainContent>
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-black text-on-surface">Welcome back, Dr. Rodriguez</h1>
-            <p className="text-xs text-on-surface-variant font-medium italic mt-1">"Excellence is the gradual result of always striving to do better."</p>
+            <h1 className="text-2xl font-black text-on-surface">
+              Welcome back, Dr. Rodriguez
+            </h1>
+            <p className="text-xs text-on-surface-variant font-medium italic mt-1">
+              "Excellence is the gradual result of always striving to do
+              better."
+            </p>
           </div>
           <div className="flex gap-2">
-            <button className="px-3 py-2 bg-secondary text-on-secondary rounded-lg font-semibold text-xs">Create Course Report</button>
-            <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">Message All Students</button>
+            <button className="px-3 py-2 bg-secondary text-on-secondary rounded-lg font-semibold text-xs">
+              Create Course Report
+            </button>
+            <button className="px-3 py-2 bg-primary text-on-primary rounded-lg font-semibold text-xs">
+              Message All Students
+            </button>
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <SmallMetricCard label="Current Load" value="224" icon={Activity} status="Across 2 sections" color="cyan" />
-          <SmallMetricCard label="Avg Class GPA" value={avgGPA} icon={Award} status="+0.3 improvement" color="emerald" />
-          <SmallMetricCard label="Attendance" value="94.2%" icon={Users} status="+2.1% this month" color="sky" />
-          <SmallMetricCard label="Pending Grades" value="18" icon={Clock} status="-8 from last week" color="red" />
+          <SmallMetricCard
+            label="Current Load"
+            value="224"
+            icon={Activity}
+            status="Across 2 sections"
+            color="cyan"
+          />
+          <SmallMetricCard
+            label="Avg Class GPA"
+            value={avgGPA}
+            icon={Award}
+            status="+0.3 improvement"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="Attendance"
+            value="94.2%"
+            icon={Users}
+            status="+2.1% this month"
+            color="sky"
+          />
+          <SmallMetricCard
+            label="Pending Grades"
+            value="18"
+            icon={Clock}
+            status="-8 from last week"
+            color="red"
+          />
         </div>
 
         {/* Courses Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { code: "CS-502-A", name: "Neural Networks & Cognition", status: "live", enrollment: 124, grade: "B+", time: "TUE 10:00" },
-            { code: "CS-614-B", name: "Advanced Machine Learning", status: "next", enrollment: 82, grade: "A-", time: "THU 14:00" },
+            {
+              code: "CS-502-A",
+              name: "Neural Networks & Cognition",
+              status: "live",
+              enrollment: 124,
+              grade: "B+",
+              time: "TUE 10:00",
+            },
+            {
+              code: "CS-614-B",
+              name: "Advanced Machine Learning",
+              status: "next",
+              enrollment: 82,
+              grade: "A-",
+              time: "THU 14:00",
+            },
           ].map((course, idx) => (
-            <div key={idx} className="p-4 bg-surface-light rounded-lg border border-on-surface/5 hover:border-primary/20 transition-all">
+            <div
+              key={idx}
+              className="p-4 bg-surface-light rounded-lg border border-on-surface/5 hover:border-primary/20 transition-all"
+            >
               <div className="flex items-start justify-between mb-2">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-on-surface-variant uppercase">{course.code}</span>
-                    <span className={`px-2 py-0.5 rounded text-xs font-bold ${course.status === "live" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}>
+                    <span className="text-xs font-bold text-on-surface-variant uppercase">
+                      {course.code}
+                    </span>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs font-bold ${course.status === "live" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}
+                    >
                       {course.status === "live" ? "LIVE NOW" : "NEXT"}
                     </span>
                   </div>
-                  <p className="text-xs font-semibold text-on-surface">{course.name}</p>
+                  <p className="text-xs font-semibold text-on-surface">
+                    {course.name}
+                  </p>
                 </div>
-                <span className="text-lg font-black text-primary">{course.grade}</span>
+                <span className="text-lg font-black text-primary">
+                  {course.grade}
+                </span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-xs">
                 <div className="text-center p-1 bg-primary/5 rounded">
-                  <p className="font-bold text-on-surface">{course.enrollment}</p>
-                  <p className="text-on-surface-variant font-medium">ENROLLMENT</p>
+                  <p className="font-bold text-on-surface">
+                    {course.enrollment}
+                  </p>
+                  <p className="text-on-surface-variant font-medium">
+                    ENROLLMENT
+                  </p>
                 </div>
                 <div className="text-center p-1 bg-secondary/5 rounded">
                   <p className="font-bold text-on-surface">{course.time}</p>
@@ -605,7 +1087,9 @@ function LecturerDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Tenure Readiness */}
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Tenure Readiness</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Tenure Readiness
+            </h2>
             <div className="space-y-3">
               {[
                 { task: "Peer Review Publications", status: 5, total: 6 },
@@ -614,31 +1098,65 @@ function LecturerDashboard() {
               ].map((item, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between mb-1">
-                    <span className="text-xs font-semibold text-on-surface">{item.task}</span>
-                    <span className="text-xs font-black text-on-surface">{item.status}/{item.total}</span>
+                    <span className="text-xs font-semibold text-on-surface">
+                      {item.task}
+                    </span>
+                    <span className="text-xs font-black text-on-surface">
+                      {item.status}/{item.total}
+                    </span>
                   </div>
                   <div className="h-2 bg-on-surface/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-primary to-secondary" style={{ width: `${(item.status / item.total) * 100}%` }} />
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-secondary"
+                      style={{ width: `${(item.status / item.total) * 100}%` }}
+                    />
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-on-surface-variant font-medium mt-4 p-2 bg-blue-50 rounded">Tenure Review: Spring 2025</p>
+            <p className="text-xs text-on-surface-variant font-medium mt-4 p-2 bg-blue-50 rounded">
+              Tenure Review: Spring 2025
+            </p>
           </div>
 
           {/* Engagement Alerts */}
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Student Engagement Alerts</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Student Engagement Alerts
+            </h2>
             <div className="space-y-3">
               {[
-                { name: "Marcus Thorne", issue: "Inactive in LMS for 3 days", severity: "high" },
-                { name: "Sarah Jenkins", issue: "Missed assignment due deadline", severity: "medium" },
+                {
+                  name: "Marcus Thorne",
+                  issue: "Inactive in LMS for 3 days",
+                  severity: "high",
+                },
+                {
+                  name: "Sarah Jenkins",
+                  issue: "Missed assignment due deadline",
+                  severity: "medium",
+                },
               ].map((alert, idx) => (
-                <div key={idx} className={`p-3 rounded-lg flex items-start gap-3 ${alert.severity === "high" ? "bg-red-50 border border-red-200" : "bg-yellow-50 border border-yellow-200"}`}>
-                  <img className="w-8 h-8 rounded-full flex-shrink-0" src={`https://i.pravatar.cc/32?img=${idx}`} alt="" />
+                <div
+                  key={idx}
+                  className={`p-3 rounded-lg flex items-start gap-3 ${alert.severity === "high" ? "bg-red-50 border border-red-200" : "bg-yellow-50 border border-yellow-200"}`}
+                >
+                  <img
+                    className="w-8 h-8 rounded-full flex-shrink-0"
+                    src={`https://i.pravatar.cc/32?img=${idx}`}
+                    alt=""
+                  />
                   <div>
-                    <p className={`text-xs font-bold ${alert.severity === "high" ? "text-red-900" : "text-yellow-900"}`}>{alert.name}</p>
-                    <p className={`text-xs font-medium ${alert.severity === "high" ? "text-red-700" : "text-yellow-700"}`}>{alert.issue}</p>
+                    <p
+                      className={`text-xs font-bold ${alert.severity === "high" ? "text-red-900" : "text-yellow-900"}`}
+                    >
+                      {alert.name}
+                    </p>
+                    <p
+                      className={`text-xs font-medium ${alert.severity === "high" ? "text-red-700" : "text-yellow-700"}`}
+                    >
+                      {alert.issue}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -648,7 +1166,9 @@ function LecturerDashboard() {
 
         {/* Performance Benchmarks */}
         <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-          <h2 className="text-sm font-black text-on-surface mb-4">Faculty Performance Benchmarks</h2>
+          <h2 className="text-sm font-black text-on-surface mb-4">
+            Faculty Performance Benchmarks
+          </h2>
           <DataTable
             columns={[
               { key: "indicator", label: "Indicator" },
@@ -657,9 +1177,24 @@ function LecturerDashboard() {
               { key: "trend", label: "Trend" },
             ]}
             data={[
-              { indicator: "Student Satisfaction", personal: "4.82 / 5.0", avg: "4.15 / 5.0", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
-              { indicator: "Grant Acquisition", personal: "1.2 yr", avg: "1.8 yr", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
-              { indicator: "LMS Content Engagement", personal: "92%", avg: "76%", trend: <TrendingUp className="w-4 h-4 text-green-600" /> },
+              {
+                indicator: "Student Satisfaction",
+                personal: "4.82 / 5.0",
+                avg: "4.15 / 5.0",
+                trend: <TrendingUp className="w-4 h-4 text-green-600" />,
+              },
+              {
+                indicator: "Grant Acquisition",
+                personal: "1.2 yr",
+                avg: "1.8 yr",
+                trend: <TrendingUp className="w-4 h-4 text-green-600" />,
+              },
+              {
+                indicator: "LMS Content Engagement",
+                personal: "92%",
+                avg: "76%",
+                trend: <TrendingUp className="w-4 h-4 text-green-600" />,
+              },
             ]}
           />
         </div>
@@ -673,10 +1208,15 @@ function LecturerDashboard() {
 // ============================================================================
 function StudentDashboard() {
   const studentCourses = [
-    { code: "CS-101", name: "Programming Fundamentals", grade: 4.0, credits: 3 },
+    {
+      code: "CS-101",
+      name: "Programming Fundamentals",
+      grade: 4.0,
+      credits: 3,
+    },
     { code: "MAT-201", name: "Calculus II", grade: 3.8, credits: 4 },
     { code: "PHY-101", name: "Physics I", grade: 3.5, credits: 4 },
-    { code: "ENG-101", name: "English Composition", grade: 3.9, credits: 3 }
+    { code: "ENG-101", name: "English Composition", grade: 3.9, credits: 3 },
   ];
   const cumulativeGPA = 3.8;
 
@@ -685,32 +1225,73 @@ function StudentDashboard() {
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-black text-on-surface">Academic Profile</h1>
-            <p className="text-xs text-on-surface-variant font-medium mt-1">Computer Science • Year 2 • AUCA</p>
+            <h1 className="text-2xl font-black text-on-surface">
+              Academic Profile
+            </h1>
+            <p className="text-xs text-on-surface-variant font-medium mt-1">
+              Computer Science • Year 2 • AUCA
+            </p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <SmallMetricCard label="Cumulative GPA" value={cumulativeGPA} icon={Award} status="+0.15 this semester" color="sky" />
-          <SmallMetricCard label="Credits Earned" value="84" icon={BookOpen} status="+12 this semester" color="cyan" />
-          <SmallMetricCard label="Current Courses" value="4" icon={Activity} status="2 major • 2 elective" color="emerald" />
-          <SmallMetricCard label="Graduation" value="2025" icon={CheckCircle2} status="On track" color="violet" />
+          <SmallMetricCard
+            label="Cumulative GPA"
+            value={cumulativeGPA}
+            icon={Award}
+            status="+0.15 this semester"
+            color="sky"
+          />
+          <SmallMetricCard
+            label="Credits Earned"
+            value="84"
+            icon={BookOpen}
+            status="+12 this semester"
+            color="cyan"
+          />
+          <SmallMetricCard
+            label="Current Courses"
+            value="4"
+            icon={Activity}
+            status="2 major • 2 elective"
+            color="emerald"
+          />
+          <SmallMetricCard
+            label="Graduation"
+            value="2025"
+            icon={CheckCircle2}
+            status="On track"
+            color="violet"
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-surface-light rounded-xl p-6 border border-on-surface/5">
-            <h2 className="text-sm font-black text-on-surface mb-4">Current Courses</h2>
+            <h2 className="text-sm font-black text-on-surface mb-4">
+              Current Courses
+            </h2>
             <div className="space-y-3">
               {studentCourses.map((course, idx) => (
-                <div key={idx} className="p-3 bg-primary/5 rounded-lg border border-primary/10 hover:border-primary/20 transition-all">
+                <div
+                  key={idx}
+                  className="p-3 bg-primary/5 rounded-lg border border-primary/10 hover:border-primary/20 transition-all"
+                >
                   <div className="flex justify-between items-start mb-1">
                     <div>
-                      <p className="text-xs font-bold text-on-surface uppercase">{course.code}</p>
-                      <p className="text-xs text-on-surface font-medium mt-1">{course.name}</p>
+                      <p className="text-xs font-bold text-on-surface uppercase">
+                        {course.code}
+                      </p>
+                      <p className="text-xs text-on-surface font-medium mt-1">
+                        {course.name}
+                      </p>
                     </div>
-                    <span className="text-lg font-black text-primary">{course.grade}</span>
+                    <span className="text-lg font-black text-primary">
+                      {course.grade}
+                    </span>
                   </div>
-                  <span className="text-xs text-on-surface-variant font-medium">{course.credits} credits</span>
+                  <span className="text-xs text-on-surface-variant font-medium">
+                    {course.credits} credits
+                  </span>
                 </div>
               ))}
             </div>
@@ -720,19 +1301,31 @@ function StudentDashboard() {
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-1">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <p className="text-xs font-bold text-green-900">Good Standing</p>
+                <p className="text-xs font-bold text-green-900">
+                  Good Standing
+                </p>
               </div>
-              <p className="text-xs text-green-700 font-medium">GPA meets academic standards</p>
+              <p className="text-xs text-green-700 font-medium">
+                GPA meets academic standards
+              </p>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-xs font-bold text-blue-900 mb-1">Next Semester</p>
-              <p className="text-xs text-blue-700 font-medium">5 courses registered • 15 credits • Confirmed</p>
+              <p className="text-xs font-bold text-blue-900 mb-1">
+                Next Semester
+              </p>
+              <p className="text-xs text-blue-700 font-medium">
+                5 courses registered • 15 credits • Confirmed
+              </p>
             </div>
 
             <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-              <p className="text-xs font-bold text-purple-900 mb-1">Opportunities</p>
-              <p className="text-xs text-purple-700 font-medium">Eligible for honors program • Deadline: May 15</p>
+              <p className="text-xs font-bold text-purple-900 mb-1">
+                Opportunities
+              </p>
+              <p className="text-xs text-purple-700 font-medium">
+                Eligible for honors program • Deadline: May 15
+              </p>
             </div>
           </div>
         </div>

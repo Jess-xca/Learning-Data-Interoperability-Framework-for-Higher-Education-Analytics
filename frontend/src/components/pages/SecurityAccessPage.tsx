@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MainContent } from "../layout";
 import Button from "../forms/Button";
+import { Settings, ClipboardCheck, Lock, Plus } from "lucide-react";
 
 export interface Role {
   id: string;
@@ -180,7 +181,7 @@ const SecurityAccessPage: React.FC = () => {
     <MainContent>
       {/* Main Content */}
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Security & Access Control</h1>
+        <h1 className="h-page text-primary">Security & Access Control</h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Manage roles, audit logs, and data encryption
         </p>
@@ -198,9 +199,7 @@ const SecurityAccessPage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">
-                admin_panel_settings
-              </span>
+              <Settings className="w-5 h-5" />
               Role-Based Access
             </span>
           </button>
@@ -214,7 +213,7 @@ const SecurityAccessPage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">fact_check</span>
+              <ClipboardCheck className="w-5 h-5" />
               Audit Logs
             </span>
           </button>
@@ -228,7 +227,7 @@ const SecurityAccessPage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">lock</span>
+              <Lock className="w-5 h-5" />
               Data Encryption
             </span>
           </button>
@@ -240,7 +239,7 @@ const SecurityAccessPage: React.FC = () => {
             <div className="mb-8">
               <Button variant="primary" className="w-full md:w-auto">
                 <span className="flex items-center gap-2">
-                  <span className="material-symbols-outlined">add</span>
+                  <Plus className="w-5 h-5" />
                   Create Role
                 </span>
               </Button>

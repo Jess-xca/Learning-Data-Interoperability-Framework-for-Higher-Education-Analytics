@@ -1,4 +1,5 @@
 import React from "react";
+import { ChevronDown } from "lucide-react";
 
 interface SelectInputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -42,8 +43,8 @@ export default function SelectInput({
             </option>
           ))}
         </select>
-        <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm pointer-events-none">
-          expand_more
+        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">
+          <ChevronDown className="w-5 h-5" />
         </span>
       </div>
       {error && <p className="text-xs text-error font-medium">{error}</p>}

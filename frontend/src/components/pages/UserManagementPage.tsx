@@ -11,6 +11,7 @@ import { MainContent, Footer } from "..";
 import Card from "../common/Card";
 import Badge from "../common/Badge";
 import Alert from "../common/Alert";
+import { UserPlus, Edit, Trash2 } from "lucide-react";
 
 const roleOptions: { value: User["role"]; label: string; color: string }[] = [
   { value: "admin", label: "Administrator", color: "error" },
@@ -209,133 +210,186 @@ export default function UserManagementPage() {
 
   return (
     <>
-    <MainContent>
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-on-surface">
-            User Management
-          </h1>
-          <p className="text-on-surface-variant mt-1">
-            Manage system users and permissions
-          </p>
-        </div>
-        {!showForm && (
-          <button
-            onClick={handleAddUser}
-            className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-semibold hover:opacity-90 transition-opacity"
-          >
-            <span className="material-symbols-outlined">person_add</span>
-            Add New User
-          </button>
-        )}
-      </div>
-
-      {/* Form */}
-      {showForm && (
-        <Card>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <MainContent>
+        <div className="space-y-6">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Full Name *
-              </label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
-              />
+              <h1 className="h-page text-primary">User Management</h1>
+              <p className="text-on-surface-variant mt-1">
+                Manage system users and permissions
+              </p>
             </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Email *
-              </label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Institution *
-              </label>
-              <input
-                type="text"
-                value={formData.institution}
-                onChange={(e) =>
-                  setFormData({ ...formData, institution: e.target.value })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Role
-              </label>
-              <select
-                value={formData.role}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    role: e.target.value as User["role"],
-                  })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+            {!showForm && (
+              <button
+                onClick={handleAddUser}
+                className="flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-semibold hover:opacity-90 transition-opacity"
               >
+                <UserPlus className="w-5 h-5" strokeWidth={2} />
+                Add New User
+              </button>
+            )}
+          </div>
+
+          {/* Form */}
+          {showForm && (
+            <Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Institution *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.institution}
+                    onChange={(e) =>
+                      setFormData({ ...formData, institution: e.target.value })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Role
+                  </label>
+                  <select
+                    value={formData.role}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        role: e.target.value as User["role"],
+                      })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  >
+                    {roleOptions.map((r) => (
+                      <option key={r.value} value={r.value}>
+                        {r.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Department
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.department}
+                    onChange={(e) =>
+                      setFormData({ ...formData, department: e.target.value })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-primary mb-2">
+                    Status
+                  </label>
+                  <select
+                    value={formData.status}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        status: e.target.value as SystemUser["status"],
+                      })
+                    }
+                    className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                  >
+                    {statusOptions.map((s) => (
+                      <option key={s} value={s}>
+                        {s.charAt(0).toUpperCase() + s.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-6">
+                <button
+                  onClick={handleSubmit}
+                  className="flex-1 h-10 bg-primary text-on-primary rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                >
+                  {editingId ? "Update User" : "Create User"}
+                </button>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="flex-1 h-10 bg-surface-container text-on-surface rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                >
+                  Cancel
+                </button>
+              </div>
+            </Card>
+          )}
+
+          {/* Filters */}
+          {!showForm && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input
+                type="text"
+                placeholder="Search by name or email..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
+              />
+              <select
+                value={filterRole}
+                onChange={(e) =>
+                  setFilterRole(e.target.value as User["role"] | "")
+                }
+                className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
+              >
+                <option value="">All Roles</option>
                 {roleOptions.map((r) => (
                   <option key={r.value} value={r.value}>
                     {r.label}
                   </option>
                 ))}
               </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Department
-              </label>
-              <input
-                type="text"
-                value={formData.department}
-                onChange={(e) =>
-                  setFormData({ ...formData, department: e.target.value })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Phone
-              </label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-primary mb-2">
-                Status
-              </label>
               <select
-                value={formData.status}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    status: e.target.value as SystemUser["status"],
-                  })
-                }
-                className="w-full h-10 px-3 border border-outline rounded-lg focus:outline-none focus:border-primary"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
               >
+                <option value="">All Status</option>
                 {statusOptions.map((s) => (
                   <option key={s} value={s}>
                     {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -343,200 +397,151 @@ export default function UserManagementPage() {
                 ))}
               </select>
             </div>
-          </div>
-          <div className="flex gap-3 mt-6">
-            <button
-              onClick={handleSubmit}
-              className="flex-1 h-10 bg-primary text-on-primary rounded-lg font-semibold hover:opacity-90 transition-opacity"
-            >
-              {editingId ? "Update User" : "Create User"}
-            </button>
-            <button
-              onClick={() => setShowForm(false)}
-              className="flex-1 h-10 bg-surface-container text-on-surface rounded-lg font-semibold hover:opacity-90 transition-opacity"
-            >
-              Cancel
-            </button>
-          </div>
-        </Card>
-      )}
-
-      {/* Filters */}
-      {!showForm && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            type="text"
-            placeholder="Search by name or email..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
-          />
-          <select
-            value={filterRole}
-            onChange={(e) => setFilterRole(e.target.value as User["role"] | "")}
-            className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
-          >
-            <option value="">All Roles</option>
-            {roleOptions.map((r) => (
-              <option key={r.value} value={r.value}>
-                {r.label}
-              </option>
-            ))}
-          </select>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="h-10 px-4 border border-outline rounded-lg focus:outline-none focus:border-primary"
-          >
-            <option value="">All Status</option>
-            {statusOptions.map((s) => (
-              <option key={s} value={s}>
-                {s.charAt(0).toUpperCase() + s.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Users Table */}
-      {!showForm && (
-        <>
-          {filteredUsers.length === 0 ? (
-            <Alert variant="info">
-              {allUsers.length === 0
-                ? "No users yet. Click 'Add New User' to create one."
-                : "No users match your filters."}
-            </Alert>
-          ) : (
-            <div className="overflow-x-auto rounded-lg border border-outline">
-              <table className="w-full">
-                <thead className="bg-surface-container border-b border-outline">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Name
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Email
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Institution
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Role
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Status
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-outline">
-                  {filteredUsers.map((user) => (
-                    <tr
-                      key={user.id}
-                      className="hover:bg-surface-container-low transition-colors"
-                    >
-                      <td className="px-4 py-3 text-sm font-medium text-on-surface">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
-                            {user.name.charAt(0).toUpperCase()}
-                          </div>
-                          {user.name}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-on-surface-variant">
-                        {user.email}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-on-surface-variant">
-                        {user.institution}
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        <Badge variant={getRoleBadgeColor(user.role)}>
-                          {roleOptions.find((r) => r.value === user.role)
-                            ?.label || user.role}
-                        </Badge>
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        <Badge variant={getStatusBadgeColor(user.status)}>
-                          {user.status.charAt(0).toUpperCase() +
-                            user.status.slice(1)}
-                        </Badge>
-                      </td>
-                      <td className="px-4 py-3 text-sm flex gap-2">
-                        <button
-                          onClick={() => handleEditUser(user)}
-                          className="p-2 hover:bg-surface-container rounded-lg transition-colors"
-                          title="Edit"
-                        >
-                          <span className="material-symbols-outlined text-primary text-lg">
-                            edit
-                          </span>
-                        </button>
-                        <button
-                          onClick={() => handleDeleteUser(user.id)}
-                          className="p-2 hover:bg-error-container rounded-lg transition-colors"
-                          title="Delete"
-                        >
-                          <span className="material-symbols-outlined text-error text-lg">
-                            delete
-                          </span>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           )}
 
-          {/* Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">
-                  {allUsers.length}
+          {/* Users Table */}
+          {!showForm && (
+            <>
+              {filteredUsers.length === 0 ? (
+                <Alert variant="info">
+                  {allUsers.length === 0
+                    ? "No users yet. Click 'Add New User' to create one."
+                    : "No users match your filters."}
+                </Alert>
+              ) : (
+                <div className="overflow-x-auto rounded-lg border border-outline">
+                  <table className="w-full">
+                    <thead className="bg-surface-container border-b border-outline">
+                      <tr>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Name
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Email
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Institution
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Role
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Status
+                        </th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold text-on-surface">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-outline">
+                      {filteredUsers.map((user) => (
+                        <tr
+                          key={user.id}
+                          className="hover:bg-surface-container-low transition-colors"
+                        >
+                          <td className="px-4 py-3 text-sm font-medium text-on-surface">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                                {user.name.charAt(0).toUpperCase()}
+                              </div>
+                              {user.name}
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-sm text-on-surface-variant">
+                            {user.email}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-on-surface-variant">
+                            {user.institution}
+                          </td>
+                          <td className="px-4 py-3 text-sm">
+                            <Badge variant={getRoleBadgeColor(user.role)}>
+                              {roleOptions.find((r) => r.value === user.role)
+                                ?.label || user.role}
+                            </Badge>
+                          </td>
+                          <td className="px-4 py-3 text-sm">
+                            <Badge variant={getStatusBadgeColor(user.status)}>
+                              {user.status.charAt(0).toUpperCase() +
+                                user.status.slice(1)}
+                            </Badge>
+                          </td>
+                          <td className="px-4 py-3 text-sm flex gap-2">
+                            <button
+                              onClick={() => handleEditUser(user)}
+                              className="p-2 hover:bg-surface-container rounded-lg transition-colors"
+                              title="Edit"
+                            >
+                              <Edit
+                                className="w-5 h-5 text-primary"
+                                strokeWidth={2}
+                              />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteUser(user.id)}
+                              className="p-2 hover:bg-error-container rounded-lg transition-colors"
+                              title="Delete"
+                            >
+                              <Trash2
+                                className="w-5 h-5 text-error"
+                                strokeWidth={2}
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <div className="text-sm text-on-surface-variant">
-                  Total Users
-                </div>
+              )}
+
+              {/* Summary */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <Card>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">
+                      {allUsers.length}
+                    </div>
+                    <div className="text-sm text-on-surface-variant">
+                      Total Users
+                    </div>
+                  </div>
+                </Card>
+                <Card>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-secondary">
+                      {allUsers.filter((u) => u.status === "active").length}
+                    </div>
+                    <div className="text-sm text-on-surface-variant">
+                      Active
+                    </div>
+                  </div>
+                </Card>
+                <Card>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-warning">
+                      {allUsers.filter((u) => u.mfaEnabled).length}
+                    </div>
+                    <div className="text-sm text-on-surface-variant">
+                      MFA Enabled
+                    </div>
+                  </div>
+                </Card>
+                <Card>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">
+                      {roleOptions.length}
+                    </div>
+                    <div className="text-sm text-on-surface-variant">
+                      Role Types
+                    </div>
+                  </div>
+                </Card>
               </div>
-            </Card>
-            <Card>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary">
-                  {allUsers.filter((u) => u.status === "active").length}
-                </div>
-                <div className="text-sm text-on-surface-variant">Active</div>
-              </div>
-            </Card>
-            <Card>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-warning">
-                  {allUsers.filter((u) => u.mfaEnabled).length}
-                </div>
-                <div className="text-sm text-on-surface-variant">
-                  MFA Enabled
-                </div>
-              </div>
-            </Card>
-            <Card>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">
-                  {roleOptions.length}
-                </div>
-                <div className="text-sm text-on-surface-variant">
-                  Role Types
-                </div>
-              </div>
-            </Card>
-          </div>
-        </>
-      )}
-    </div>
-    </MainContent>
-    <Footer variant="minimal" />
+            </>
+          )}
+        </div>
+      </MainContent>
+      <Footer variant="minimal" />
     </>
   );
 }

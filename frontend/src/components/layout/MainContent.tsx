@@ -7,7 +7,7 @@ interface MainContentProps {
 
 export default function MainContent({
   children,
-  maxWidth = "6xl",
+  maxWidth = "full",
 }: MainContentProps) {
   const maxWidthClass = {
     md: "max-w-md",
@@ -20,10 +20,12 @@ export default function MainContent({
   }[maxWidth];
 
   return (
-    <main className="ml-0 md:ml-72 pt-16 min-h-screen bg-surface">
-      <div className={`${maxWidthClass} mx-auto p-4 md:p-12 w-full`}>
+    <div className="pt-20 min-h-screen bg-slate-50/50 transition-all duration-300">
+      <div
+        className={`${maxWidthClass} mx-auto px-4 py-4 md:px-8 md:py-6 w-full`}
+      >
         {children}
       </div>
-    </main>
+    </div>
   );
 }

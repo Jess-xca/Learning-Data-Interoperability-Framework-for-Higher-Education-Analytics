@@ -1,9 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useRedux";
+import { Menu, Search, Bell, HelpCircle } from "lucide-react";
 
 interface HeaderProps {
   showSearch?: boolean;
   onSearch?: (query: string) => void;
+  onMenuClick?: () => void;
 }
 
 const roleBadge: Record<string, string> = {
@@ -15,8 +18,13 @@ const roleBadge: Record<string, string> = {
   student: "Student",
 };
 
-export default function Header({ showSearch = true, onSearch }: HeaderProps) {
+export default function Header({
+  showSearch = true,
+  onSearch,
+  onMenuClick,
+}: HeaderProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
+  const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,55 +33,67 @@ export default function Header({ showSearch = true, onSearch }: HeaderProps) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 md:ml-72 bg-white/70 backdrop-blur-xl border-b border-slate-100/10 shadow-sm flex items-center justify-between px-8 z-40">
+    <header className="fixed top-0 left-0 right-0 h-16 md:ml-64 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm flex items-center gap-4 px-4 md:px-8 z-40 transition-all">
+      {/* Mobile Menu Toggle */}
+      <button
+        onClick={onMenuClick}
+        className="md:hidden text-slate-500 hover:text-primary transition-colors p-2 rounded-lg hover:bg-slate-100"
+      >
+        <Menu className="w-5 h-5" strokeWidth={2} />
+      </button>
+
+      {/* Global Search */}
       {showSearch && (
-        <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
-            search
-          </span>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearch}
-            placeholder="Search system modules..."
-            className="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-          />
+        <div className="flex-1 max-w-xl">
+          <div className="relative">
+            <Search
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"
+              strokeWidth={2}
+            />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearch}
+              placeholder="Search system modules..."
+              className="w-full bg-slate-50 border border-slate-200/60 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-700 focus:ring-2 focus:ring-sky-200 focus:border-sky-300 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+            />
+          </div>
         </div>
       )}
 
-      <div className="flex items-center gap-4 ml-auto">
-        <div className="flex items-center gap-3 border-r border-slate-200 pr-5">
+      <div className="flex items-center gap-3 ml-auto flex-shrink-0">
+        <div className="flex items-center gap-1.5 border-r border-slate-200 pr-4">
           <button
+            onClick={() => navigate("/notifications")}
             aria-label="Notifications"
-            className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low relative"
+            className="text-slate-400 hover:text-primary transition-colors p-2 rounded-xl hover:bg-slate-50 relative"
+            title="Notifications"
           >
-            <span className="material-symbols-outlined text-xl">
-              notifications
-            </span>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border-2 border-white" />
+            <Bell className="w-5 h-5" strokeWidth={2} />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white" />
           </button>
           <button
-            aria-label="Help"
-            className="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-container-low"
+            onClick={() => navigate("/support")}
+            aria-label="Help & Support"
+            className="text-slate-400 hover:text-primary transition-colors p-2 rounded-xl hover:bg-slate-50"
+            title="Help & Support"
           >
-            <span className="material-symbols-outlined text-xl">
-              help_outline
-            </span>
+            <HelpCircle className="w-5 h-5" strokeWidth={2} />
           </button>
         </div>
-        <div className="flex items-center gap-3 pl-5">
-          <div>
-            <p className="text-sm font-semibold text-primary leading-tight">
-              {user?.name ?? "Admin User"}
+        <div className="flex items-center gap-3 pl-2">
+          <div className="text-right">
+            <p className="text-sm font-bold text-slate-700 leading-tight">
+              {user?.name ?? "System Admin"}
             </p>
-            <p className="text-[10px] text-on-tertiary-container font-bold bg-tertiary-container/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
+            <p className="text-[10px] text-sky-600 font-bold uppercase tracking-wider">
               {roleBadge[user?.role ?? "admin"]}
             </p>
           </div>
           <img
             src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${user?.id ?? "admin"}`}
             alt={user?.name ?? "User"}
-            className="w-9 h-9 rounded-full object-cover border border-outline-variant/30"
+            className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-200"
           />
         </div>
       </div>

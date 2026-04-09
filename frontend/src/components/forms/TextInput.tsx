@@ -24,20 +24,20 @@ export default function TextInput({
       )}
       <div className="relative">
         {icon && (
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">
+          <span className="material-symbols-outlined absolute left-1 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">
             {icon}
           </span>
         )}
         <input
-          className={`w-full h-12 ${icon ? "pl-10" : "pl-4"} pr-4 bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg transition-all font-medium ${
+          className={`w-full h-9 ${icon ? "pl-6" : "pl-3"} pr-3 bg-surface-container-low/80 backdrop-blur-sm border-0 border-b-2 border-primary/20 focus:border-primary focus:ring-0 rounded-t text-xs transition-all font-medium shadow-sm ${
             error ? "border-error focus:border-error" : ""
           } ${className || ""}`}
           {...props}
         />
       </div>
-      {error && <p className="text-xs text-error font-medium">{error}</p>}
+      {error && <p className="text-[9px] text-error font-medium">{error}</p>}
       {helperText && !error && (
-        <p className="text-xs text-on-surface-variant">{helperText}</p>
+        <p className="text-[9px] text-on-surface-variant">{helperText}</p>
       )}
     </div>
   );

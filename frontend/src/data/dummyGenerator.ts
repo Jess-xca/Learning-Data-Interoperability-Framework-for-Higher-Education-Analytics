@@ -40,6 +40,13 @@ export interface DummyStudent {
   status: "active" | "graduated" | "suspended";
   phone?: string;
   address?: string;
+  // Enhanced metrics
+  riskScore: number; // 0-100
+  predictionStatus: "low" | "medium" | "high" | "critical";
+  engagementScore: number; // 0-100
+  attendanceRate: number; // 0-100
+  lastActivity: string; // ISO date
+  activities: { date: string; type: string; details: string; impact: "positive" | "negative" | "neutral" }[];
 }
 
 const FIRST_NAMES = [
@@ -125,6 +132,16 @@ export function generateDummyStudents(count: number = 1000): DummyStudent[] {
     const semester = Math.floor(Math.random() * 2) + 1;
     const sequenceNum = (i % 999) + 1;
 
+    const riskScore = Math.floor(Math.random() * 100);
+    const predictionStatus =
+      riskScore < 30
+        ? "low"
+        : riskScore < 60
+          ? "medium"
+          : riskScore < 85
+            ? "high"
+            : "critical";
+
     const student: DummyStudent = {
       id: generateStudentId(enrollmentYear, semester, program, sequenceNum),
       name: `${firstName} ${lastName}`,
@@ -142,6 +159,33 @@ export function generateDummyStudents(count: number = 1000): DummyStudent[] {
         .toString()
         .padStart(9, "0")}`,
       address: `Kigali, Rwanda`,
+      riskScore,
+      predictionStatus,
+      engagementScore: Math.floor(Math.random() * 40) + 60,
+      attendanceRate: Math.floor(Math.random() * 30) + 70,
+      lastActivity: new Date(
+        Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000),
+      ).toISOString(),
+      activities: [
+        {
+          date: new Date(Date.now() - 86400000 * 2).toISOString(),
+          type: "Assignment",
+          details: "Submitted Quiz 4",
+          impact: "positive",
+        },
+        {
+          date: new Date(Date.now() - 86400000 * 5).toISOString(),
+          type: "LMS",
+          details: "Logged into Canvas LMS",
+          impact: "neutral",
+        },
+        {
+          date: new Date(Date.now() - 86400000 * 7).toISOString(),
+          type: "Attendance",
+          details: "Missed Calculus III lecture",
+          impact: "negative",
+        },
+      ],
     };
 
     students.push(student);

@@ -12,15 +12,9 @@ import {
   fetchReports,
 } from "../thunks/dataThunks";
 
-export interface Student {
-  id: string;
-  name: string;
-  email: string;
-  gpa: number;
-  program: string;
-  enrollmentYear: number;
-  status: "active" | "graduated" | "suspended";
-}
+import type { DummyStudent } from "../../data/dummyGenerator";
+
+export interface Student extends DummyStudent {}
 
 export interface Course {
   id: string;

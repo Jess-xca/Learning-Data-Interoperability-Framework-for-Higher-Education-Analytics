@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MainContent } from "../layout";
 import Button from "../forms/Button";
+import { Database, GitBranch, Zap, Plus } from "lucide-react";
 
 export interface DataDictionary {
   id: string;
@@ -176,12 +177,11 @@ const DataGovernancePage: React.FC = () => {
     <MainContent>
       {/* Main Content */}
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Data Governance</h1>
+        <h1 className="h-page text-primary">Data Governance</h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Manage data dictionaries, lineage, and governance policies
         </p>
       </div>
-
       <div className="flex-1 px-10 pb-10 max-w-7xl mx-auto w-full">
         {/* Tabs */}
         <div className="flex gap-4 mb-8 border-b border-gray-300">
@@ -194,7 +194,7 @@ const DataGovernancePage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">dataset</span>
+              <Database className="w-5 h-5" strokeWidth={2} />
               Data Dictionary
             </span>
           </button>
@@ -208,7 +208,7 @@ const DataGovernancePage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">account_tree</span>
+              <GitBranch className="w-5 h-5" strokeWidth={2} />
               Data Lineage
             </span>
           </button>
@@ -222,12 +222,11 @@ const DataGovernancePage: React.FC = () => {
             }`}
           >
             <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined">rule</span>
+              <Zap className="w-5 h-5" strokeWidth={2} />
               Governance Policies
             </span>
           </button>
         </div>
-
         {/* Data Dictionary Tab */}
         {activeTab === "dictionary" && (
           <div>
@@ -255,7 +254,7 @@ const DataGovernancePage: React.FC = () => {
 
               <Button variant="primary" className="w-full md:w-auto">
                 <span className="flex items-center gap-2">
-                  <span className="material-symbols-outlined">add</span>
+                  <Plus className="w-5 h-5" strokeWidth={2} />
                   Add Data Element
                 </span>
               </Button>
@@ -322,7 +321,6 @@ const DataGovernancePage: React.FC = () => {
             </div>
           </div>
         )}
-
         {/* Data Lineage Tab */}
         {activeTab === "lineage" && (
           <div>
@@ -386,14 +384,13 @@ const DataGovernancePage: React.FC = () => {
             </div>
           </div>
         )}
-
         {/* Governance Policies Tab */}
         {activeTab === "policies" && (
           <div>
             <div className="mb-8">
               <Button variant="primary" className="w-full md:w-auto">
                 <span className="flex items-center gap-2">
-                  <span className="material-symbols-outlined">add</span>
+                  <Plus className="w-5 h-5" strokeWidth={2} />
                   Create Policy
                 </span>
               </Button>
@@ -443,7 +440,9 @@ const DataGovernancePage: React.FC = () => {
               ))}
             </div>
           </div>
-        )}      </div>    </MainContent>
+        )}{" "}
+      </div>{" "}
+    </MainContent>
   );
 };
 

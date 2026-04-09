@@ -1,4 +1,5 @@
 import React from "react";
+import { ChevronDown } from "lucide-react";
 
 export interface TableColumn<T> {
   key: keyof T;
@@ -15,6 +16,7 @@ interface TableProps<T> {
   onRowClick?: (row: T) => void;
   striped?: boolean;
   hoverable?: boolean;
+  className?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,6 +27,7 @@ export default function Table<T extends Record<string, any>>({
   onRowClick,
   striped = true,
   hoverable = true,
+  className = "",
 }: TableProps<T>) {
   const getRowKey = (row: T, index: number) => {
     if (keyExtractor) return keyExtractor(row, index);
@@ -33,7 +36,7 @@ export default function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-outline-variant/20">
+    <div className={`overflow-x-auto rounded-lg border border-outline-variant/20 ${className}`}>
       <table className="w-full text-sm">
         <thead className="bg-primary-container text-on-primary-container border-b border-outline-variant/20">
           <tr>
@@ -45,9 +48,7 @@ export default function Table<T extends Record<string, any>>({
                 <div className="flex items-center gap-2">
                   {col.label}
                   {col.sortable && (
-                    <span className="material-symbols-outlined text-xs">
-                      unfold_more
-                    </span>
+                    <ChevronDown className="w-4 h-4" />
                   )}
                 </div>
               </th>

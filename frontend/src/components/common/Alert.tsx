@@ -1,4 +1,5 @@
 import React from "react";
+import { Info, AlertTriangle, AlertCircle, CheckCircle2 } from "lucide-react";
 
 interface AlertProps {
   children: React.ReactNode;
@@ -21,22 +22,25 @@ export default function Alert({
     success: "bg-tertiary-fixed text-on-tertiary",
   };
 
-  const defaultIcons = {
-    info: "info",
-    warning: "warning",
-    error: "error",
-    success: "check_circle",
+  const defaultIconComponents = {
+    info: Info,
+    warning: AlertTriangle,
+    error: AlertCircle,
+    success: CheckCircle2,
   };
 
   return (
     <div
       className={`flex items-center gap-3 p-3 rounded-lg ${variantClasses[variant]} ${className}`}
     >
-      {(icon || defaultIcons[variant]) && (
-        <span className="material-symbols-outlined flex-shrink-0 text-lg">
-          {icon || defaultIcons[variant]}
-        </span>
-      )}
+      {!icon &&
+        (() => {
+          const IconComponent = defaultIconComponents[variant];
+          return (
+            <IconComponent className="w-5 h-5 flex-shrink-0" strokeWidth={2} />
+          );
+        })()}
+      {icon && <span className="flex-shrink-0">{icon}</span>}
       <div className="text-sm font-medium leading-tight">{children}</div>
     </div>
   );

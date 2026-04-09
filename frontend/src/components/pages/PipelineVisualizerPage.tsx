@@ -129,7 +129,7 @@ const PipelineVisualizerPage: React.FC = () => {
   return (
     <MainContent>
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Data Pipeline Visualizer</h1>
+        <h1 className="h-page text-primary">Data Pipeline Visualizer</h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Monitor real-time data flow through integration standards
         </p>

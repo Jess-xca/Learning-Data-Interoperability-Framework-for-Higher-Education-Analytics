@@ -13,19 +13,20 @@ export default function ChartCard({
   subtitle,
   children,
   actions,
-}: ChartCardProps) {
+  className = "",
+}: ChartCardProps & { className?: string }) {
   return (
-    <Card className="space-y-4">
-      <div className="flex items-center justify-between">
+    <Card className={`glass border-none flex flex-col ${className}`}>
+      <div className="flex items-center justify-between p-6 pb-0">
         <div>
-          <h3 className="text-xl font-bold text-primary">{title}</h3>
+          <h3 className="text-xl font-black text-primary tracking-tight">{title}</h3>
           {subtitle && (
-            <p className="text-sm text-on-surface-variant mt-1">{subtitle}</p>
+            <p className="text-xs font-medium text-on-surface-variant mt-1">{subtitle}</p>
           )}
         </div>
         {actions && <div className="flex gap-2">{actions}</div>}
       </div>
-      <div className="h-80 w-full">{children}</div>
+      <div className="flex-1 w-full min-h-[300px] p-6">{children}</div>
     </Card>
   );
 }

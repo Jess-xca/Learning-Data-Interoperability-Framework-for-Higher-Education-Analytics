@@ -22,9 +22,20 @@ export interface AuthState {
 // Load persisted auth state
 const persistedAuth = loadPersistedAuth();
 
+// Default user for testing/development
+const defaultUser: User = {
+  id: "admin-001",
+  email: "admin@institution.edu",
+  name: "System Admin",
+  role: "admin",
+  institution: "AUCA",
+  department: "Administration",
+  mfaEnabled: false,
+};
+
 const initialState: AuthState = persistedAuth || {
-  user: null,
-  isAuthenticated: false,
+  user: defaultUser,
+  isAuthenticated: true,
   isLoading: false,
   error: null,
 };
