@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, TextInput } from "..";
+import { Lock, Loader, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function PasswordResetPage() {
   const [step, setStep] = useState<
@@ -85,16 +86,16 @@ export default function PasswordResetPage() {
   const strengthLabels = ["Weak", "Fair", "Good", "Strong"];
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center p-4">
-      <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-on-tertiary-container to-primary z-50" />
+    <div className="h-screen bg-surface flex items-center justify-center p-4 overflow-hidden">
+      <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary via-on-tertiary-container to-secondary z-50" />
 
-      <div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-8 shadow-glass">
+      <div className="w-full max-w-md bg-surface-container-lowest rounded-xl p-8 shadow-glass max-h-[90vh] overflow-y-auto">
         <div className="flex items-center gap-3 mb-8">
-          <span className="material-symbols-outlined text-primary text-3xl">
-            lock_reset
-          </span>
+          <Lock className="w-8 h-8 text-secondary" />
           <div>
-            <h1 className="text-2xl font-bold text-primary">Reset Password</h1>
+            <h1 className="text-2xl font-bold text-secondary">
+              Reset Password
+            </h1>
             <p className="text-sm text-on-surface-variant">
               Step{" "}
               {step === "email"
@@ -131,19 +132,17 @@ export default function PasswordResetPage() {
             <button
               onClick={handleEmailSubmit}
               disabled={loading}
-              className="w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-primary/20"
+              className="w-full h-12 bg-secondary text-on-secondary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
             >
               {loading ? (
-                <span className="material-symbols-outlined animate-spin">
-                  progress_activity
-                </span>
+                <Loader className="w-5 h-5 animate-spin" />
               ) : (
                 "Send Reset Code"
               )}
             </button>
             <a
               href="/login"
-              className="block text-center text-sm text-primary font-semibold hover:underline"
+              className="block text-center text-sm text-secondary font-semibold hover:underline"
             >
               ← Back to login
             </a>
@@ -156,7 +155,7 @@ export default function PasswordResetPage() {
               We've sent a 6-digit code to <strong>{email}</strong>
             </Alert>
             <div className="space-y-1.5">
-              <label className="block text-sm font-semibold text-primary">
+              <label className="block text-sm font-semibold text-secondary">
                 Reset Code
               </label>
               <input
@@ -171,19 +170,17 @@ export default function PasswordResetPage() {
             <button
               onClick={handleCodeSubmit}
               disabled={loading}
-              className="w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-primary/20"
+              className="w-full h-12 bg-secondary text-on-secondary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
             >
               {loading ? (
-                <span className="material-symbols-outlined animate-spin">
-                  progress_activity
-                </span>
+                <Loader className="w-5 h-5 animate-spin" />
               ) : (
                 "Verify Code"
               )}
             </button>
             <button
               onClick={() => setStep("email")}
-              className="w-full text-sm text-primary font-semibold hover:underline"
+              className="w-full text-sm text-secondary font-semibold hover:underline"
             >
               ← Back
             </button>
@@ -232,19 +229,17 @@ export default function PasswordResetPage() {
             <button
               onClick={handlePasswordSubmit}
               disabled={loading}
-              className="w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-primary/20"
+              className="w-full h-12 bg-secondary text-on-secondary rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
             >
               {loading ? (
-                <span className="material-symbols-outlined animate-spin">
-                  progress_activity
-                </span>
+                <Loader className="w-5 h-5 animate-spin" />
               ) : (
                 "Reset Password"
               )}
             </button>
             <button
               onClick={() => setStep("code")}
-              className="w-full text-sm text-primary font-semibold hover:underline"
+              className="w-full text-sm text-secondary font-semibold hover:underline"
             >
               ← Back
             </button>
@@ -254,12 +249,10 @@ export default function PasswordResetPage() {
         {step === "success" && (
           <div className="space-y-5 text-center">
             <div className="w-16 h-16 bg-tertiary-container/20 rounded-full flex items-center justify-center mx-auto">
-              <span className="material-symbols-outlined text-on-tertiary-container text-4xl">
-                check_circle
-              </span>
+              <CheckCircle2 className="w-10 h-10 text-on-tertiary-container" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-primary mb-2">
+              <h2 className="text-xl font-bold text-secondary mb-2">
                 Password Reset Complete
               </h2>
               <p className="text-on-surface-variant">
@@ -269,10 +262,10 @@ export default function PasswordResetPage() {
             </div>
             <a
               href="/login"
-              className="w-full h-12 bg-primary text-on-primary rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              className="w-full h-12 bg-secondary text-on-secondary rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
             >
               Sign In{" "}
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         )}
