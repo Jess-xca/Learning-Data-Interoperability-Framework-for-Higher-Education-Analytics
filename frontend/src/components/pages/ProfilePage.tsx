@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MainContent, Card, TextInput, Button, Alert, Badge, Footer } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { setUser } from "../../store/slices/authSlice";
+import { Edit2, Award, BookOpen, Save, Lock, CheckCircle2, X } from "lucide-react";
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -78,7 +79,7 @@ export default function ProfilePage() {
     <MainContent>
       <div className="mb-10 flex justify-between items-end">
         <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">Profile Settings</h1>
+          <h1 className="h-page text-primary">Profile Settings</h1>
           <p className="text-on-surface-variant font-medium mt-2">Manage your account information and security settings.</p>
         </div>
       </div>
@@ -94,7 +95,7 @@ export default function ProfilePage() {
               <h2 className="text-xl font-bold text-primary">Personal Information</h2>
               {!editing && (
                 <Button variant="secondary" size="sm" onClick={() => setEditing(true)}>
-                  <span className="material-symbols-outlined">edit</span>
+                  <Edit2 className="w-4 h-4" />
                   Edit
                 </Button>
               )}
@@ -107,7 +108,7 @@ export default function ProfilePage() {
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Role</label>
                 <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
-                  <span className="material-symbols-outlined text-primary">badge</span>
+                  <Award className="w-5 h-5 text-primary" />
                   <span className="font-semibold">{roleLabels[user?.role ?? "admin"]}</span>
                   <Badge variant="primary" className="ml-auto">{user?.role?.toUpperCase()}</Badge>
                 </div>
@@ -116,7 +117,7 @@ export default function ProfilePage() {
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Institution</label>
                 <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
-                  <span className="material-symbols-outlined text-primary">school</span>
+                  <BookOpen className="w-5 h-5 text-primary" />
                   <span className="font-semibold">{user?.institution}</span>
                 </div>
               </div>
@@ -124,7 +125,7 @@ export default function ProfilePage() {
               {editing && (
                 <div className="flex gap-3 pt-4">
                   <Button variant="primary" onClick={handleSave} isLoading={loading}>
-                    <span className="material-symbols-outlined">save</span>
+                    <Save className="w-4 h-4" />
                     Save Changes
                   </Button>
                   <Button variant="secondary" onClick={() => { setEditing(false); setName(user?.name ?? ""); setEmail(user?.email ?? ""); }}>
@@ -142,7 +143,7 @@ export default function ProfilePage() {
             <div className="space-y-5">
               <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary">lock</span>
+                  <Lock className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-bold text-on-surface">Password</p>
                     <p className="text-xs text-on-surface-variant">Last changed 30 days ago</p>
@@ -155,7 +156,7 @@ export default function ProfilePage() {
 
               <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary">verified_user</span>
+                  <CheckCircle2 className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-bold text-on-surface">Multi-Factor Authentication</p>
                     <p className="text-xs text-on-surface-variant">
@@ -209,7 +210,7 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-primary">Enable MFA</h3>
               <button onClick={() => setShowMfaSetup(false)} className="text-on-surface-variant hover:text-primary">
-                <span className="material-symbols-outlined">close</span>
+                <X className="w-5 h-5" />
               </button>
             </div>
 
@@ -226,7 +227,7 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <TextInput label="Enter 6-digit code" placeholder="000000" value={mfaCode} onChange={e => setMfaCode(e.target.value.slice(0, 6))} maxLength={6} />
               <Button variant="primary" onClick={handleMfaSetup} isLoading={loading} className="w-full">
-                <span className="material-symbols-outlined">verified_user</span>
+                <CheckCircle2 className="w-4 h-4" />
                 Enable MFA
               </Button>
             </div>
