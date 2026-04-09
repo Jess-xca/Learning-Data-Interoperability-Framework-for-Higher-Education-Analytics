@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MainContent, Card, Button, Badge, Footer } from "..";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
+import { Download, ArrowRight, X, CheckCircle, BarChart3 } from "lucide-react";
 import type { BadgeVariant } from "../common/Badge";
 
 interface AuditLog {
@@ -152,288 +153,295 @@ export default function GovernancePage() {
 
   return (
     <>
-    <MainContent>
-      {/* Page Header */}
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
-            Governance
-          </h1>
-          <p className="text-on-surface-variant font-medium mt-2">
-            Compliance, audit logs, and governance controls.
-          </p>
+      <MainContent>
+        {/* Page Header */}
+        <div className="mb-10 flex justify-between items-end">
+          <div>
+            <h1 className="h-page text-primary">Governance</h1>
+            <p className="text-on-surface-variant font-medium mt-2">
+              Compliance, audit logs, and governance controls.
+            </p>
+          </div>
+          <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+            <Download className="w-4 h-4" />
+            Export Audit Log
+          </button>
         </div>
-        <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
-          <span className="material-symbols-outlined text-sm">download</span>
-          Export Audit Log
-        </button>
-      </div>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Total Audits</p>
-          <p className="text-3xl font-bold text-primary">
-            {filteredLogs.length}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Successful</p>
-          <p className="text-3xl font-bold text-tertiary">
-            {auditLogs.filter((l) => l.status === "success").length}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Compliant</p>
-          <p className="text-3xl font-bold text-tertiary">
-            {complianceItems.filter((c) => c.status === "compliant").length}
-          </p>
-        </Card>
-        <Card className="p-6">
-          <p className="text-on-surface-variant text-sm mb-2">Warnings</p>
-          <p className="text-3xl font-bold text-error">
-            {complianceItems.filter((c) => c.status === "warning").length}
-          </p>
-        </Card>
-      </div>
+        {/* Summary Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">Total Audits</p>
+            <p className="text-3xl font-bold text-primary">
+              {filteredLogs.length}
+            </p>
+          </Card>
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">Successful</p>
+            <p className="text-3xl font-bold text-tertiary">
+              {auditLogs.filter((l) => l.status === "success").length}
+            </p>
+          </Card>
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">Compliant</p>
+            <p className="text-3xl font-bold text-tertiary">
+              {complianceItems.filter((c) => c.status === "compliant").length}
+            </p>
+          </Card>
+          <Card className="p-6">
+            <p className="text-on-surface-variant text-sm mb-2">Warnings</p>
+            <p className="text-3xl font-bold text-error">
+              {complianceItems.filter((c) => c.status === "warning").length}
+            </p>
+          </Card>
+        </div>
 
-      {/* Compliance Overview */}
-      <Card className="p-6 mb-8">
-        <h2 className="text-2xl font-bold text-primary mb-4">
-          Compliance Status
-        </h2>
-        <div className="space-y-3">
-          {complianceItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-start justify-between p-4 bg-surface-container-low rounded-lg cursor-pointer hover:shadow-md transition"
-              onClick={() => setSelectedCompliance(item)}
-            >
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="font-bold text-on-surface">{item.name}</h3>
-                  <Badge variant={getComplianceVariant(item.status)}>
-                    {item.status}
-                  </Badge>
+        {/* Compliance Overview */}
+        <Card className="p-6 mb-8">
+          <h2 className="text-2xl font-bold text-primary mb-4">
+            Compliance Status
+          </h2>
+          <div className="space-y-3">
+            {complianceItems.map((item) => (
+              <div
+                key={item.id}
+                className="flex items-start justify-between p-4 bg-surface-container-low rounded-lg cursor-pointer hover:shadow-md transition"
+                onClick={() => setSelectedCompliance(item)}
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="font-bold text-on-surface">{item.name}</h3>
+                    <Badge variant={getComplianceVariant(item.status)}>
+                      {item.status}
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-on-surface-variant mb-2">
+                    {item.description}
+                  </p>
+                  <p className="text-xs text-on-surface-variant">
+                    Framework: {item.framework} | Last Checked:{" "}
+                    {item.lastChecked}
+                  </p>
                 </div>
-                <p className="text-sm text-on-surface-variant mb-2">
-                  {item.description}
-                </p>
-                <p className="text-xs text-on-surface-variant">
-                  Framework: {item.framework} | Last Checked: {item.lastChecked}
-                </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCompliance(item);
+                  }}
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
               </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* Audit Logs */}
+        <Card className="p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-primary">Audit Log</h2>
+            <div className="flex gap-2">
+              <button
+                className={`px-3 py-1 text-sm font-bold rounded transition ${
+                  logFilter === "all"
+                    ? "bg-primary text-on-primary"
+                    : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
+                }`}
+                onClick={() => setLogFilter("all")}
+              >
+                All
+              </button>
+              <button
+                className={`px-3 py-1 text-sm font-bold rounded transition ${
+                  logFilter === "success"
+                    ? "bg-tertiary text-on-tertiary"
+                    : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
+                }`}
+                onClick={() => setLogFilter("success")}
+              >
+                Success
+              </button>
+              <button
+                className={`px-3 py-1 text-sm font-bold rounded transition ${
+                  logFilter === "failure"
+                    ? "bg-error text-on-error"
+                    : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
+                }`}
+                onClick={() => setLogFilter("failure")}
+              >
+                Failures
+              </button>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto rounded-lg border border-outline-variant/20">
+            <table className="w-full text-sm">
+              <thead className="bg-primary-container text-on-primary-container border-b border-outline-variant/20">
+                <tr>
+                  <th className="px-4 py-3 text-left font-bold uppercase text-xs">
+                    Timestamp
+                  </th>
+                  <th className="px-4 py-3 text-left font-bold uppercase text-xs">
+                    User
+                  </th>
+                  <th className="px-4 py-3 text-left font-bold uppercase text-xs">
+                    Action
+                  </th>
+                  <th className="px-4 py-3 text-left font-bold uppercase text-xs">
+                    Resource
+                  </th>
+                  <th className="px-4 py-3 text-left font-bold uppercase text-xs">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredLogs.map((log, idx) => (
+                  <tr
+                    key={log.id}
+                    className={`${
+                      idx % 2 === 0
+                        ? "bg-surface"
+                        : "bg-surface-container-lowest"
+                    } border-b border-outline-variant/20 hover:bg-surface-container-low transition cursor-pointer`}
+                    onClick={() => setSelectedLog(log)}
+                  >
+                    <td className="px-4 py-3 text-xs">{log.timestamp}</td>
+                    <td className="px-4 py-3 font-bold text-primary">
+                      {log.user}
+                    </td>
+                    <td className="px-4 py-3">{log.action}</td>
+                    <td className="px-4 py-3 font-mono text-xs">
+                      {log.resource}
+                    </td>
+                    <td
+                      className={`px-4 py-3 font-bold ${getStatusColor(log.status)}`}
+                    >
+                      {log.status.toUpperCase()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        {/* Selected Log Details */}
+        {selectedLog && (
+          <Card className="p-6 border-l-4 border-primary mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-primary">Audit Details</h3>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedCompliance(item);
-                }}
+                onClick={() => setSelectedLog(null)}
               >
-                <span className="material-symbols-outlined">arrow_forward</span>
+                <X className="w-4 h-4" />
               </Button>
             </div>
-          ))}
-        </div>
-      </Card>
-
-      {/* Audit Logs */}
-      <Card className="p-6 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-primary">Audit Log</h2>
-          <div className="flex gap-2">
-            <button
-              className={`px-3 py-1 text-sm font-bold rounded transition ${
-                logFilter === "all"
-                  ? "bg-primary text-on-primary"
-                  : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
-              }`}
-              onClick={() => setLogFilter("all")}
-            >
-              All
-            </button>
-            <button
-              className={`px-3 py-1 text-sm font-bold rounded transition ${
-                logFilter === "success"
-                  ? "bg-tertiary text-on-tertiary"
-                  : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
-              }`}
-              onClick={() => setLogFilter("success")}
-            >
-              Success
-            </button>
-            <button
-              className={`px-3 py-1 text-sm font-bold rounded transition ${
-                logFilter === "failure"
-                  ? "bg-error text-on-error"
-                  : "bg-surface-container-low text-on-surface hover:bg-outline-variant/20"
-              }`}
-              onClick={() => setLogFilter("failure")}
-            >
-              Failures
-            </button>
-          </div>
-        </div>
-
-        <div className="overflow-x-auto rounded-lg border border-outline-variant/20">
-          <table className="w-full text-sm">
-            <thead className="bg-primary-container text-on-primary-container border-b border-outline-variant/20">
-              <tr>
-                <th className="px-4 py-3 text-left font-bold uppercase text-xs">
-                  Timestamp
-                </th>
-                <th className="px-4 py-3 text-left font-bold uppercase text-xs">
-                  User
-                </th>
-                <th className="px-4 py-3 text-left font-bold uppercase text-xs">
-                  Action
-                </th>
-                <th className="px-4 py-3 text-left font-bold uppercase text-xs">
-                  Resource
-                </th>
-                <th className="px-4 py-3 text-left font-bold uppercase text-xs">
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredLogs.map((log, idx) => (
-                <tr
-                  key={log.id}
-                  className={`${
-                    idx % 2 === 0 ? "bg-surface" : "bg-surface-container-lowest"
-                  } border-b border-outline-variant/20 hover:bg-surface-container-low transition cursor-pointer`}
-                  onClick={() => setSelectedLog(log)}
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-on-surface-variant">Timestamp</p>
+                <p className="font-bold">{selectedLog.timestamp}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">User</p>
+                <p className="font-bold">{selectedLog.user}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Action</p>
+                <p className="font-bold">{selectedLog.action}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Resource</p>
+                <p className="font-bold font-mono">{selectedLog.resource}</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-on-surface-variant">Details</p>
+                <p className="font-bold">{selectedLog.details}</p>
+              </div>
+              <div>
+                <p className="text-on-surface-variant">Status</p>
+                <Badge
+                  variant={
+                    selectedLog.status === "success" ? "success" : "error"
+                  }
                 >
-                  <td className="px-4 py-3 text-xs">{log.timestamp}</td>
-                  <td className="px-4 py-3 font-bold text-primary">
-                    {log.user}
-                  </td>
-                  <td className="px-4 py-3">{log.action}</td>
-                  <td className="px-4 py-3 font-mono text-xs">
-                    {log.resource}
-                  </td>
-                  <td
-                    className={`px-4 py-3 font-bold ${getStatusColor(log.status)}`}
-                  >
-                    {log.status.toUpperCase()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+                  {selectedLog.status}
+                </Badge>
+              </div>
+            </div>
+          </Card>
+        )}
 
-      {/* Selected Log Details */}
-      {selectedLog && (
-        <Card className="p-6 border-l-4 border-primary mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-bold text-primary">Audit Details</h3>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSelectedLog(null)}
-            >
-              <span className="material-symbols-outlined">close</span>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-on-surface-variant">Timestamp</p>
-              <p className="font-bold">{selectedLog.timestamp}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">User</p>
-              <p className="font-bold">{selectedLog.user}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Action</p>
-              <p className="font-bold">{selectedLog.action}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Resource</p>
-              <p className="font-bold font-mono">{selectedLog.resource}</p>
-            </div>
-            <div className="col-span-2">
-              <p className="text-on-surface-variant">Details</p>
-              <p className="font-bold">{selectedLog.details}</p>
-            </div>
-            <div>
-              <p className="text-on-surface-variant">Status</p>
-              <Badge
-                variant={selectedLog.status === "success" ? "success" : "error"}
+        {/* Selected Compliance Details */}
+        {selectedCompliance && (
+          <Card className="p-6 border-l-4 border-primary">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-primary">
+                {selectedCompliance.name}
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedCompliance(null)}
               >
-                {selectedLog.status}
-              </Badge>
+                <X className="w-4 h-4" />
+              </Button>
             </div>
-          </div>
-        </Card>
-      )}
-
-      {/* Selected Compliance Details */}
-      {selectedCompliance && (
-        <Card className="p-6 border-l-4 border-primary">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-bold text-primary">
-              {selectedCompliance.name}
-            </h3>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSelectedCompliance(null)}
-            >
-              <span className="material-symbols-outlined">close</span>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-primary-container/10 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">Status</p>
-              <Badge variant={getComplianceVariant(selectedCompliance.status)}>
-                {selectedCompliance.status}
-              </Badge>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-primary-container/10 p-4 rounded-lg">
+                <p className="text-on-surface-variant text-sm mb-2">Status</p>
+                <Badge
+                  variant={getComplianceVariant(selectedCompliance.status)}
+                >
+                  {selectedCompliance.status}
+                </Badge>
+              </div>
+              <div className="bg-secondary-container/10 p-4 rounded-lg">
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Framework
+                </p>
+                <p className="font-bold text-secondary">
+                  {selectedCompliance.framework}
+                </p>
+              </div>
+              <div className="bg-tertiary-fixed/20 p-4 rounded-lg">
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Last Checked
+                </p>
+                <p className="font-bold text-tertiary">
+                  {selectedCompliance.lastChecked}
+                </p>
+              </div>
+              <div className="bg-primary-container/10 p-4 rounded-lg">
+                <p className="text-on-surface-variant text-sm mb-2">
+                  Next Review
+                </p>
+                <p className="font-bold text-primary">
+                  {selectedCompliance.nextReview}
+                </p>
+              </div>
             </div>
-            <div className="bg-secondary-container/10 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">Framework</p>
-              <p className="font-bold text-secondary">
-                {selectedCompliance.framework}
-              </p>
+            <p className="text-on-surface mb-4">
+              {selectedCompliance.description}
+            </p>
+            <div className="flex gap-3">
+              <Button variant="primary" size="md">
+                <CheckCircle className="w-4 h-4" />
+                Mark Compliant
+              </Button>
+              <Button variant="secondary" size="md">
+                <BarChart3 className="w-4 h-4" />
+                View Report
+              </Button>
             </div>
-            <div className="bg-tertiary-fixed/20 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">
-                Last Checked
-              </p>
-              <p className="font-bold text-tertiary">
-                {selectedCompliance.lastChecked}
-              </p>
-            </div>
-            <div className="bg-primary-container/10 p-4 rounded-lg">
-              <p className="text-on-surface-variant text-sm mb-2">
-                Next Review
-              </p>
-              <p className="font-bold text-primary">
-                {selectedCompliance.nextReview}
-              </p>
-            </div>
-          </div>
-          <p className="text-on-surface mb-4">
-            {selectedCompliance.description}
-          </p>
-          <div className="flex gap-3">
-            <Button variant="primary" size="md">
-              <span className="material-symbols-outlined">check_circle</span>
-              Mark Compliant
-            </Button>
-            <Button variant="secondary" size="md">
-              <span className="material-symbols-outlined">assessment</span>
-              View Report
-            </Button>
-          </div>
-        </Card>
-      )}
-    </MainContent>
-    <Footer variant="minimal" />
+          </Card>
+        )}
+      </MainContent>
+      <Footer variant="minimal" />
     </>
   );
 }

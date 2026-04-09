@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MainContent, Card, Button, TextInput, Badge, Footer } from "..";
 import { useAppSelector } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
+import { Save, Edit2, RefreshCw, Download } from "lucide-react";
 
 interface Setting {
   id: string;
@@ -139,157 +140,155 @@ export default function SettingsPage() {
 
   return (
     <>
-    <MainContent>
-      {/* Page Header */}
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <h1 className="text-[2.75rem] font-black text-primary leading-tight tracking-tight">
-            Settings
-          </h1>
-          <p className="text-on-surface-variant font-medium mt-2">
-            Configure system preferences and institutional settings.
-          </p>
+      <MainContent>
+        {/* Page Header */}
+        <div className="mb-10 flex justify-between items-end">
+          <div>
+            <h1 className="h-page text-primary">Settings</h1>
+            <p className="text-on-surface-variant font-medium mt-2">
+              Configure system preferences and institutional settings.
+            </p>
+          </div>
+          <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
+            <Save className="w-4 h-4" />
+            Save All Changes
+          </button>
         </div>
-        <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
-          <span className="material-symbols-outlined text-sm">save</span>
-          Save All Changes
-        </button>
-      </div>
 
-      {/* Settings Sections */}
-      <div className="space-y-8">
-        {categories.map((category) => {
-          const categorySettings = visibleSettings.filter(
-            (s) => s.category === category,
-          );
-          return (
-            <Card key={category} className="p-6">
-              <h2 className="text-2xl font-bold text-primary mb-6">
-                {category}
-              </h2>
-              <div className="space-y-4">
-                {categorySettings.map((setting) => (
-                  <div
-                    key={setting.id}
-                    className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition"
-                  >
-                    <div className="flex-1">
-                      <h3 className="font-bold text-on-surface mb-1">
-                        {setting.name}
-                      </h3>
-                      <p className="text-sm text-on-surface-variant">
-                        {setting.description}
-                      </p>
-                    </div>
-
-                    {editingId === setting.id ? (
-                      <div className="ml-4 flex items-center gap-2">
-                        {setting.type === "toggle" ? (
-                          <button
-                            className={`relative inline-flex h-8 w-14 items-center rounded-full transition ${
-                              tempValue ? "bg-primary" : "bg-outline-variant/30"
-                            }`}
-                            onClick={() => setTempValue(!tempValue)}
-                          >
-                            <span
-                              className={`inline-block h-6 w-6 transform rounded-full bg-white transition ${
-                                tempValue ? "translate-x-7" : "translate-x-1"
-                              }`}
-                            />
-                          </button>
-                        ) : setting.type === "select" ? (
-                          <select
-                            value={String(tempValue)}
-                            onChange={(e) => setTempValue(e.target.value)}
-                            className="px-3 py-2 border border-outline-variant rounded-lg text-on-surface text-sm"
-                          >
-                            {setting.options?.map((opt) => (
-                              <option key={opt.value} value={opt.value}>
-                                {opt.label}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <TextInput
-                            value={String(tempValue)}
-                            onChange={(e) => setTempValue(e.target.value)}
-                          />
-                        )}
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          onClick={() => handleSave(setting.id)}
-                        >
-                          Save
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={handleCancel}
-                        >
-                          Cancel
-                        </Button>
+        {/* Settings Sections */}
+        <div className="space-y-8">
+          {categories.map((category) => {
+            const categorySettings = visibleSettings.filter(
+              (s) => s.category === category,
+            );
+            return (
+              <Card key={category} className="p-6">
+                <h2 className="text-2xl font-bold text-primary mb-6">
+                  {category}
+                </h2>
+                <div className="space-y-4">
+                  {categorySettings.map((setting) => (
+                    <div
+                      key={setting.id}
+                      className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition"
+                    >
+                      <div className="flex-1">
+                        <h3 className="font-bold text-on-surface mb-1">
+                          {setting.name}
+                        </h3>
+                        <p className="text-sm text-on-surface-variant">
+                          {setting.description}
+                        </p>
                       </div>
-                    ) : (
-                      <div className="ml-4 flex items-center gap-3">
-                        {setting.type === "toggle" ? (
-                          <div
-                            className={`relative inline-flex h-8 w-14 items-center rounded-full transition pointer-events-none ${
-                              setting.value
-                                ? "bg-primary"
-                                : "bg-outline-variant/30"
-                            }`}
+
+                      {editingId === setting.id ? (
+                        <div className="ml-4 flex items-center gap-2">
+                          {setting.type === "toggle" ? (
+                            <button
+                              className={`relative inline-flex h-8 w-14 items-center rounded-full transition ${
+                                tempValue
+                                  ? "bg-primary"
+                                  : "bg-outline-variant/30"
+                              }`}
+                              onClick={() => setTempValue(!tempValue)}
+                            >
+                              <span
+                                className={`inline-block h-6 w-6 transform rounded-full bg-white transition ${
+                                  tempValue ? "translate-x-7" : "translate-x-1"
+                                }`}
+                              />
+                            </button>
+                          ) : setting.type === "select" ? (
+                            <select
+                              value={String(tempValue)}
+                              onChange={(e) => setTempValue(e.target.value)}
+                              className="px-3 py-2 border border-outline-variant rounded-lg text-on-surface text-sm"
+                            >
+                              {setting.options?.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                  {opt.label}
+                                </option>
+                              ))}
+                            </select>
+                          ) : (
+                            <TextInput
+                              value={String(tempValue)}
+                              onChange={(e) => setTempValue(e.target.value)}
+                            />
+                          )}
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => handleSave(setting.id)}
                           >
-                            <span
-                              className={`inline-block h-6 w-6 transform rounded-full bg-white transition ${
+                            Save
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleCancel}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="ml-4 flex items-center gap-3">
+                          {setting.type === "toggle" ? (
+                            <div
+                              className={`relative inline-flex h-8 w-14 items-center rounded-full transition pointer-events-none ${
                                 setting.value
-                                  ? "translate-x-7"
-                                  : "translate-x-1"
+                                  ? "bg-primary"
+                                  : "bg-outline-variant/30"
                               }`}
-                            />
-                          </div>
-                        ) : (
-                          <Badge variant="primary">
-                            {String(setting.value)}
-                          </Badge>
-                        )}
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => handleEdit(setting)}
-                        >
-                          <span className="material-symbols-outlined">
-                            edit
-                          </span>
-                          Edit
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </Card>
-          );
-        })}
-      </div>
+                            >
+                              <span
+                                className={`inline-block h-6 w-6 transform rounded-full bg-white transition ${
+                                  setting.value
+                                    ? "translate-x-7"
+                                    : "translate-x-1"
+                                }`}
+                              />
+                            </div>
+                          ) : (
+                            <Badge variant="primary">
+                              {String(setting.value)}
+                            </Badge>
+                          )}
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => handleEdit(setting)}
+                          >
+                            <Edit2 className="w-4 h-4" />
+                            Edit
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            );
+          })}
+        </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-3 mt-8">
-        <Button variant="primary" size="md">
-          <span className="material-symbols-outlined">save</span>
-          Save All Changes
-        </Button>
-        <Button variant="secondary" size="md">
-          <span className="material-symbols-outlined">refresh</span>
-          Reset to Defaults
-        </Button>
-        <Button variant="ghost" size="md">
-          <span className="material-symbols-outlined">download</span>
-          Export Settings
-        </Button>
-      </div>
-    </MainContent>
-    <Footer variant="minimal" />
+        {/* Action Buttons */}
+        <div className="flex gap-3 mt-8">
+          <Button variant="primary" size="md">
+            <Save className="w-4 h-4" />
+            Save All Changes
+          </Button>
+          <Button variant="secondary" size="md">
+            <RefreshCw className="w-4 h-4" />
+            Reset to Defaults
+          </Button>
+          <Button variant="ghost" size="md">
+            <Download className="w-4 h-4" />
+            Export Settings
+          </Button>
+        </div>
+      </MainContent>
+      <Footer variant="minimal" />
     </>
   );
 }

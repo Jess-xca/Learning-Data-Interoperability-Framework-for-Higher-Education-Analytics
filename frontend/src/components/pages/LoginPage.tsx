@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert, FormCard } from "..";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
+import { BookOpen, CheckCircle2, ChevronDown, Award, Loader, ArrowRight, Building2 } from "lucide-react";
 import type { User } from "../../store/slices/authSlice";
 
 const institutions = [
@@ -98,9 +99,7 @@ export default function LoginPage() {
           />
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-10">
-              <span className="material-symbols-outlined text-surface-container-lowest text-3xl">
-                school
-              </span>
+              <BookOpen className="w-8 h-8 text-surface-container-lowest" />
               <h1 className="text-lg font-extrabold tracking-tighter text-surface-container-lowest">
                 Academic Curator
               </h1>
@@ -129,20 +128,24 @@ export default function LoginPage() {
                 title: "Multi-System Integration",
                 sub: "LMS · SIS · ERP · Assessment Platforms",
               },
-            ].map((item) => (
-              <div
-                key={item.icon}
-                className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md"
-              >
-                <span className="material-symbols-outlined text-on-tertiary-container text-lg">
-                  {item.icon}
-                </span>
-                <div className="text-xs">
-                  <p className="text-surface-bright font-bold">{item.title}</p>
-                  <p className="text-on-secondary-container">{item.sub}</p>
+            ].map((item) => {
+              const iconMap: Record<string, React.ReactNode> = {
+                verified_user: <CheckCircle2 className="w-5 h-5 text-on-tertiary-container" />,
+                hub: <Award className="w-5 h-5 text-on-tertiary-container" />,
+              };
+              return (
+                <div
+                  key={item.icon}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md"
+                >
+                  {iconMap[item.icon]}
+                  <div className="text-xs">
+                    <p className="text-surface-bright font-bold">{item.title}</p>
+                    <p className="text-on-secondary-container">{item.sub}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -180,8 +183,8 @@ export default function LoginPage() {
                       </option>
                     ))}
                   </select>
-                  <span className="material-symbols-outlined absolute right-2 top-1.5 text-outline pointer-events-none text-sm">
-                    unfold_more
+                  <span className="absolute right-2 top-1.5 text-outline pointer-events-none">
+                    <ChevronDown className="w-4 h-4" />
                   </span>
                 </div>
               </div>
@@ -205,8 +208,8 @@ export default function LoginPage() {
                       </option>
                     ))}
                   </select>
-                  <span className="material-symbols-outlined absolute right-1 top-1 text-outline pointer-events-none text-xs">
-                    badge
+                  <span className="absolute right-1 top-1 text-outline pointer-events-none">
+                    <Award className="w-3 h-3" />
                   </span>
                 </div>
               </div>
@@ -251,15 +254,11 @@ export default function LoginPage() {
                 className="w-full h-10 bg-gradient-to-r from-primary to-primary/90 text-on-primary rounded-lg font-bold text-xs hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/30 border border-primary/20"
               >
                 {loading ? (
-                  <span className="material-symbols-outlined animate-spin text-xs">
-                    progress_activity
-                  </span>
+                  <Loader className="w-4 h-4 animate-spin" />
                 ) : (
                   <>
                     <span>Sign In</span>
-                    <span className="material-symbols-outlined text-xs">
-                      arrow_forward
-                    </span>
+                    <ArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>
@@ -341,9 +340,7 @@ export default function LoginPage() {
       </main>
 
       <div className="fixed bottom-8 right-8 pointer-events-none hidden lg:block opacity-5">
-        <span className="material-symbols-outlined text-[12rem] text-primary">
-          account_balance
-        </span>
+        <Building2 className="w-48 h-48 text-primary" />
       </div>
     </div>
   );
