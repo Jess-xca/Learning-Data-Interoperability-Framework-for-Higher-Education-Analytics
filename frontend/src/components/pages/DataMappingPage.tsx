@@ -6,7 +6,8 @@ import {
 import { useFieldMapping } from "../../hooks/useFieldMapping";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { MainContent } from "../layout";
-import FieldMappingEditor from "../FieldMappingEditor";
+// TODO: FieldMappingEditor to be redesigned in Phase 4
+// import FieldMappingEditor from "../FieldMappingEditor";
 import Button from "../forms/Button";
 
 const DataMappingPage: React.FC = () => {
@@ -18,10 +19,8 @@ const DataMappingPage: React.FC = () => {
     standards,
     selectedStandard,
     mapData,
-    addField,
     updateField,
     deleteField,
-    validationErrors,
   } = useFieldMapping();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -37,12 +36,6 @@ const DataMappingPage: React.FC = () => {
     dispatch(selectStandard(id));
     setIsEditing(false);
     setEditingFieldId(null);
-  };
-
-  const handleAddField = (field: FieldMapping) => {
-    if (addField(field)) {
-      setIsEditing(false);
-    }
   };
 
   const handleUpdateField = (
@@ -101,7 +94,7 @@ const DataMappingPage: React.FC = () => {
   return (
     <MainContent>
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">Field Mapping Configuration</h1>
+        <h1 className="h-page text-primary">Field Mapping Configuration</h1>
         <p className="text-on-surface-variant font-medium mt-2">
           Configure how source system fields map to standards formats
         </p>
@@ -297,13 +290,14 @@ const DataMappingPage: React.FC = () => {
             </>
           )}
 
-          {isEditing && (
+          {/* TODO: FieldMappingEditor - to be redesigned in Phase 4 */}
+          {/* {isEditing && (
             <FieldMappingEditor
               onSave={handleAddField}
               onCancel={() => setIsEditing(false)}
               validationErrors={validationErrors.map((e) => e.error)}
             />
-          )}
+          )} */}
 
           {editingField && (
             <div className="bg-blue-50 border border-blue-200 rounded p-6">

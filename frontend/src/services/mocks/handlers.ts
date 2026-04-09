@@ -1,37 +1,15 @@
 import { http, HttpResponse } from "msw";
+import { generateDummyStudents } from "../../data/dummyGenerator";
+import {
+  getHECPrograms,
+  getHECInstitutions,
+} from "../../data/hecDummyData";
 
-const API_BASE = "http://localhost:3000/api";
+// Use relative URLs for MSW to intercept properly
+const API_BASE = "/api";
 
 // Mock data
-const mockStudents = [
-  {
-    id: "202502SENG001",
-    name: "Jean Umucyo",
-    email: "jean@institution.edu",
-    gpa: 3.92,
-    program: "Engineering",
-    enrollmentYear: 2022,
-    status: "active" as const,
-  },
-  {
-    id: "202502SENG002",
-    name: "Claire Habimana",
-    email: "claire@institution.edu",
-    gpa: 3.65,
-    program: "Engineering",
-    enrollmentYear: 2022,
-    status: "active" as const,
-  },
-  {
-    id: "202502BUS001",
-    name: "David Mugisha",
-    email: "david@institution.edu",
-    gpa: 3.45,
-    program: "Business",
-    enrollmentYear: 2023,
-    status: "active" as const,
-  },
-];
+const mockStudents = generateDummyStudents(800); // Serve 800 rich dummy students
 
 const mockCourses = [
   {
@@ -57,6 +35,30 @@ const mockCourses = [
     instructor: "Prof. Tsingyun",
     credits: 3,
     enrollment: 52,
+  },
+  {
+    id: "MAT101",
+    code: "MAT101",
+    name: "Calculus I",
+    instructor: "Dr. Gasana",
+    credits: 4,
+    enrollment: 120,
+  },
+  {
+    id: "PHY101",
+    code: "PHY101",
+    name: "General Physics",
+    instructor: "Prof. Nsabimana",
+    credits: 4,
+    enrollment: 85,
+  },
+  {
+    id: "CSC201",
+    code: "CSC201",
+    name: "Algorithms",
+    instructor: "Eng. Kubwimana",
+    credits: 3,
+    enrollment: 30,
   },
 ];
 
@@ -135,6 +137,45 @@ export const handlers = [
     );
   }),
 
+  // Programs endpoints
+  http.get(`${API_BASE}/programs`, () => {
+    const heckPrograms = getHECPrograms();
+    // Transform HEC programs to match expected Program interface
+    const transformedPrograms = heckPrograms.map((prog) => ({
+      id: prog.id,
+      code: prog.id.replace("prog_", "").toUpperCase(),
+      name: prog.name,
+      department: prog.discipline,
+      totalCourses: Math.floor(prog.duration * 6), // Estimate: ~6 courses per year
+    }));
+    return HttpResponse.json({ success: true, data: transformedPrograms });
+  }),
+
+  http.get(`${API_BASE}/programs/:id`, ({ params }) => {
+    const heckPrograms = getHECPrograms();
+    const prog = heckPrograms.find((p) => p.id === params.id);
+    if (prog) {
+      const transformed = {
+        id: prog.id,
+        code: prog.id.replace("prog_", "").toUpperCase(),
+        name: prog.name,
+        department: prog.discipline,
+        totalCourses: Math.floor(prog.duration * 6),
+      };
+      return HttpResponse.json({ success: true, data: transformed });
+    }
+    return HttpResponse.json(
+      { success: false, error: "Program not found" },
+      { status: 404 },
+    );
+  }),
+
+  // Institutions endpoints
+  http.get(`${API_BASE}/institutions`, () => {
+    const institutions = getHECInstitutions();
+    return HttpResponse.json({ success: true, data: institutions });
+  }),
+
   // Dashboard metrics
   http.get(`${API_BASE}/metrics/dashboard`, () => {
     return HttpResponse.json({
@@ -154,7 +195,37 @@ export const handlers = [
     });
   }),
 
-  // Reports/Analytics
+  http.get(`${API_BASE}/dashboard`, () => {
+    return HttpResponse.json({
+      success: true,
+      data: {
+        totalStudents: 1250,
+        graduationRate: 84.2,
+        facultyToStudent: 18,
+        programsActive: 42,
+        trends: {
+          students: 5.2,
+          graduation: 2.1,
+          faculty: -1.5,
+          programs: 8.3,
+        },
+      },
+    });
+  }),
+
+  // Analytics endpoints
+  http.get(`${API_BASE}/analytics/summary`, () => {
+    return HttpResponse.json({
+      success: true,
+      data: {
+        students: 1250,
+        programs: 42,
+        courses: 284,
+        enrollment: 95.3,
+      },
+    });
+  }),
+
   http.get(`${API_BASE}/analytics/enrollment`, () => {
     return HttpResponse.json({
       success: true,
@@ -163,6 +234,27 @@ export const handlers = [
         { month: "Feb", engineering: 330, business: 250, science: 290 },
         { month: "Mar", engineering: 350, business: 270, science: 310 },
         { month: "Apr", engineering: 380, business: 290, science: 330 },
+      ],
+    });
+  }),
+
+  // Reports endpoints
+  http.get(`${API_BASE}/reports`, () => {
+    return HttpResponse.json({
+      success: true,
+      data: [
+        {
+          id: "rpt_001",
+          name: "Enrollment Report",
+          date: "2024-01-15",
+          status: "Generated",
+        },
+        {
+          id: "rpt_002",
+          name: "Performance Report",
+          date: "2024-01-20",
+          status: "Generated",
+        },
       ],
     });
   }),

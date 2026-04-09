@@ -3,8 +3,9 @@ import { MainContent } from "../layout";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { selectArea } from "../../store/slices/accreditationSlice";
 import Button from "../forms/Button";
-import EvidenceCollectionModal from "../EvidenceCollectionModal";
-import ReportGeneratorModal from "../ReportGeneratorModal";
+// TODO: Modals to be redesigned in Phase 8
+// import EvidenceCollectionModal from "../EvidenceCollectionModal";
+// import ReportGeneratorModal from "../ReportGeneratorModal";
 import type {
   Standard,
   ComplianceArea,
@@ -20,9 +21,6 @@ const AccreditationPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     "overview" | "standards" | "evidence" | "reports"
   >("overview");
-  const [showEvidenceModal, setShowEvidenceModal] = useState(false);
-  const [showReportModal, setShowReportModal] = useState(false);
-  const [selectedReportId, setSelectedReportId] = useState<string | null>(null);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -61,7 +59,7 @@ const AccreditationPage: React.FC = () => {
     <MainContent>
       {/* Main Content */}
       <div className="mb-10">
-        <h1 className="text-4xl font-black text-primary">
+        <h1 className="h-page text-primary">
           Accreditation & Quality Assurance
         </h1>
         <p className="text-on-surface-variant font-medium mt-2">
@@ -367,7 +365,6 @@ const AccreditationPage: React.FC = () => {
               </h2>
               <Button
                 variant="primary"
-                onClick={() => setShowEvidenceModal(true)}
               >
                 + Upload Evidence
               </Button>
@@ -445,10 +442,6 @@ const AccreditationPage: React.FC = () => {
               </h2>
               <Button
                 variant="primary"
-                onClick={() => {
-                  setSelectedReportId(reports[0]?.id || "");
-                  setShowReportModal(true);
-                }}
               >
                 + New Report
               </Button>
@@ -524,10 +517,6 @@ const AccreditationPage: React.FC = () => {
 
                   <Button
                     variant="primary"
-                    onClick={() => {
-                      setSelectedReportId(report.id);
-                      setShowReportModal(true);
-                    }}
                     className="w-full"
                   >
                     Continue Working on Report
@@ -538,18 +527,18 @@ const AccreditationPage: React.FC = () => {
           </div>
         )}
 
-        {/* Evidence Collection Modal */}
-        {showEvidenceModal && (
+        {/* TODO: Evidence Collection Modal - to be redesigned in Phase 8 */}
+        {/* {showEvidenceModal && (
           <EvidenceCollectionModal
             onClose={() => setShowEvidenceModal(false)}
             onSuccess={() => {
               setShowEvidenceModal(false);
             }}
           />
-        )}
+        )} */}
 
-        {/* Report Generator Modal */}
-        {showReportModal && selectedReportId && (
+        {/* TODO: Report Generator Modal - to be redesigned in Phase 8 */}
+        {/* {showReportModal && selectedReportId && (
           <ReportGeneratorModal
             reportId={selectedReportId}
             onClose={() => {
@@ -561,7 +550,7 @@ const AccreditationPage: React.FC = () => {
               setSelectedReportId(null);
             }}
           />
-        )}
+        )} */}
       </div>
     </MainContent>
   );
