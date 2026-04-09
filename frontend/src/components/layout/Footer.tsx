@@ -1,26 +1,36 @@
+
+
 interface FooterProps {
   variant?: "default" | "minimal";
+  className?: string;
 }
 
-export default function Footer({ variant = "default" }: FooterProps) {
+export default function Footer({ variant = "default", className = "" }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   if (variant === "minimal") {
     return (
-      <footer className="ml-0 md:ml-72 bg-surface-container-low border-t border-outline-variant py-4">
-        <div className="max-w-6xl mx-auto px-4 md:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-on-surface-variant">
-            <p>© {currentYear} Academic Curator. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a href="/privacy" className="hover:text-primary transition-colors">
-                Privacy
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                Terms
-              </a>
-              <a href="#" className="hover:text-primary transition-colors">
-                Support
-              </a>
+      <footer className={`bg-surface-container-lowest/30 border-t border-outline-variant/10 py-8 ${className}`}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-3">
+               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shadow-sm shadow-black/5">
+                  <span className="material-symbols-outlined text-lg">school</span>
+               </div>
+               <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] opacity-40 leading-none">
+                 © {currentYear} Academic Curator // Quantum Compliance
+               </p>
+            </div>
+            <div className="flex gap-8">
+              {[
+                { label: "Privacy Protocol", href: "/privacy" },
+                { label: "Terms of Synthesis", href: "#" },
+                { label: "Logic Support", href: "#" }
+              ].map(link => (
+                <a key={link.label} href={link.href} className="text-[9px] font-black text-on-surface-variant uppercase tracking-widest hover:text-primary transition-all opacity-40 hover:opacity-100">
+                   {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -29,120 +39,64 @@ export default function Footer({ variant = "default" }: FooterProps) {
   }
 
   return (
-    <footer className="ml-0 md:ml-72 bg-surface-container-low border-t border-outline-variant">
-      <div className="max-w-6xl mx-auto px-4 md:px-12 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer className={`bg-surface-container-lowest/40 border-t border-outline-variant/10 py-8 overflow-hidden ${className}`}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
           {/* Brand */}
-          <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="material-symbols-outlined text-primary text-2xl">
-                school
-              </span>
-              <span className="font-black text-primary text-sm tracking-tight">
-                Academic Curator
-              </span>
+          <div className="space-y-3">
+            <div>
+              <span className="text-sm font-black text-on-surface tracking-tight block">Academic Curator</span>
+              <span className="text-[9px] font-black text-primary uppercase tracking-widest opacity-60">LDIF v2.0</span>
             </div>
-            <p className="text-xs text-on-surface-variant leading-relaxed">
-              Learning Data Interoperability Framework for Higher Education
-              Analytics
+            <p className="text-[12px] font-medium text-on-surface-variant leading-snug opacity-70 max-w-xs">
+              Learning Data Interoperability Framework for Higher Education.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="font-bold text-primary text-sm mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Analytics
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Reports
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Settings
-                </a>
-              </li>
+          <div className="space-y-2">
+            <h3 className="text-[9px] font-black text-primary uppercase tracking-widest opacity-60 mb-3">Resources</h3>
+            <ul className="space-y-2">
+              {['Documentation', 'API Guide', 'Support', 'Status'].map(link => (
+                <li key={link}>
+                  <a href="#" className="text-[11px] font-medium text-on-surface-variant hover:text-primary transition-all opacity-70 hover:opacity-100">{link}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h3 className="font-bold text-primary text-sm mb-3">Resources</h3>
-            <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  API Reference
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  System Status
-                </a>
-              </li>
+          {/* Governance */}
+          <div className="space-y-2">
+            <h3 className="text-[9px] font-black text-primary uppercase tracking-widest opacity-60 mb-3">Governance</h3>
+            <ul className="space-y-2">
+              {['Privacy', 'Terms', 'FERPA', 'HEC'].map(link => (
+                <li key={link}>
+                  <a href="#" className="text-[11px] font-medium text-on-surface-variant hover:text-primary transition-all opacity-70 hover:opacity-100">{link}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Legal & Compliance */}
-          <div>
-            <h3 className="font-bold text-primary text-sm mb-3">
-              Legal & Compliance
-            </h3>
-            <ul className="space-y-2 text-xs text-on-surface-variant">
-              <li>
-                <a href="/privacy" className="hover:text-primary transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  FERPA Compliance
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  HEC Standards
-                </a>
-              </li>
-            </ul>
+          {/* Support */}
+          <div className="space-y-2">
+            <h3 className="text-[9px] font-black text-primary uppercase tracking-widest opacity-60 mb-3">Support</h3>
+            <div className="space-y-2">
+              <p className="text-[11px] font-medium text-on-surface-variant opacity-70">📧 support@ac.edu</p>
+              <p className="text-[11px] font-medium text-on-surface-variant opacity-70">📞 +1 (555) 0100</p>
+              <p className="text-[11px] font-medium text-on-surface-variant opacity-70">🌐 Help Center</p>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-on-surface-variant">
-            © {currentYear} Academic Curator Framework. All rights reserved.
+        {/* Bottom */}
+        <div className="border-t border-outline-variant/10 pt-4">
+          <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-50 mb-2">
+            © {currentYear} Academic Curator • LDIF Framework
           </p>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-on-surface-variant">Powered by</span>
-            <div className="flex items-center gap-2 text-xs font-bold text-primary">
-              <span className="material-symbols-outlined text-sm">cloud</span>
-              AWS Education
-            </div>
+          <div className="flex gap-6">
+            {['Privacy', 'Terms', 'Accessibility'].map(link => (
+              <a key={link} href="#" className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest opacity-50 hover:opacity-100 transition-all">{link}</a>
+            ))}
           </div>
         </div>
       </div>
