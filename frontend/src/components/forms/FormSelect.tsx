@@ -4,7 +4,6 @@ import { ChevronDown } from "lucide-react";
 interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   options: Array<{ value: string; label: string }>;
-  icon?: string;
   error?: string;
   required?: boolean;
   helperText?: string;
@@ -16,7 +15,6 @@ const fieldClass =
 export default function FormSelect({
   label,
   options,
-  icon,
   error,
   required = false,
   helperText,
