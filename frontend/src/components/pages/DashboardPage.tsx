@@ -294,229 +294,243 @@ function AdminDashboard() {
         </div>
 
         {/* ── Key Metrics Cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-green-300 transition-all duration-300 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-green-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
-                    Core System Health
-                  </p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">
-                    99.98<span className="text-lg">%</span>
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-green-100 to-green-50 rounded-xl group-hover:scale-110 transition-transform">
-                  <Activity className="w-7 h-7 text-green-600" />
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-tertiary shadow-sm hover:shadow-md transition-all">
+            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Core System Health</div>
+            <div className="flex items-center justify-between">
+              <div className="text-3xl font-black text-primary">99.98%</div>
+              <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary">
+                <span className="material-symbols-outlined">bolt</span>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
-                <div className="h-full w-full bg-gradient-to-r from-green-400 to-green-600"></div>
-              </div>
-              <p className="text-xs font-bold text-green-700">
-                ⚡ Nominal Performance
-              </p>
             </div>
+            <div className="text-xs mt-3 text-tertiary font-semibold">Nominal Performance</div>
           </div>
 
-          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-blue-300 transition-all duration-300 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
-                    Active Pipelines
-                  </p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">
-                    42<span className="text-lg text-[#1a365d] ml-1">/42</span>
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl group-hover:scale-110 transition-transform">
-                  <BookOpen className="w-7 h-7 text-blue-600" />
-                </div>
+          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-all">
+            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Active Pipelines</div>
+            <div className="flex items-center justify-between">
+              <div className="text-3xl font-black text-primary">42 <span className="text-sm font-normal text-slate-400">/ 42</span></div>
+              <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
+                <span className="material-symbols-outlined">conversion_path</span>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
-                <div className="h-full w-full bg-gradient-to-r from-blue-400 to-blue-600"></div>
-              </div>
-              <p className="text-xs font-bold text-blue-700">
-                All channels synchronized
-              </p>
             </div>
+            <div className="text-xs mt-3 text-slate-500 font-semibold">All channels synchronized</div>
           </div>
 
-          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-cyan-300 transition-all duration-300 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
-                    Connected Systems
-                  </p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">
-                    14
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl group-hover:scale-110 transition-transform">
-                  <CheckCircle2 className="w-7 h-7 text-cyan-600" />
-                </div>
+          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-secondary shadow-sm hover:shadow-md transition-all">
+            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Connected Systems</div>
+            <div className="flex items-center justify-between">
+              <div className="text-3xl font-black text-primary">14</div>
+              <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
+                <span className="material-symbols-outlined">hub</span>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
-                <div className="h-full w-full bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
-              </div>
-              <p className="text-xs font-bold text-cyan-700">
-                SIS, LMS, ERP Integrated
-              </p>
             </div>
+            <div className="text-xs mt-3 text-slate-500 font-semibold">SIS, LMS, ERP Integrated</div>
           </div>
 
-          <div className="group bg-gradient-to-br from-[#ffffff] to-[#f0f3ff] rounded-2xl p-8 border border-[#e0e9ff] shadow-lg hover:shadow-2xl hover:border-red-300 transition-all duration-300 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-100 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -mr-16 -mt-16"></div>
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <p className="text-xs font-bold text-[#1a365d] uppercase tracking-widest mb-2">
-                    Security Incidents
-                  </p>
-                  <p className="text-3xl font-black text-[#002045] tracking-tight">
-                    0
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-red-100 to-red-50 rounded-xl group-hover:scale-110 transition-transform">
-                  <AlertCircle className="w-7 h-7 text-red-600" />
-                </div>
+          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-error shadow-sm hover:shadow-md transition-all">
+            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Security Incidents</div>
+            <div className="flex items-center justify-between">
+              <div className="text-3xl font-black text-primary">0</div>
+              <div className="w-10 h-10 bg-error-container/30 rounded-full flex items-center justify-center text-error">
+                <span className="material-symbols-outlined">security</span>
               </div>
-              <div className="w-full h-1 bg-[#e0e9ff] rounded-full overflow-hidden mb-3">
-                <div className="h-full w-full bg-gradient-to-r from-red-400 to-red-600"></div>
-              </div>
-              <p className="text-xs font-bold text-red-700">
-                Last scan: 4 mins ago
-              </p>
             </div>
+            <div className="text-xs mt-3 text-slate-500 font-semibold">Last scan: 4 mins ago</div>
           </div>
         </div>
 
         {/* ── Ecosystem Modules & Pipelines ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
+        <div className="grid grid-cols-12 gap-8">
           {/* Modules Grid */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-lg font-black text-[#002045]">
-                  Ecosystem Modules
-                </h2>
-                <p className="text-xs text-[#1a365d] font-medium mt-0.5">
-                  9 systems
-                </p>
+          <div className="col-span-12 lg:col-span-8">
+            <div className="bg-surface-container-low rounded-xl p-8">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-xl font-black text-primary tracking-tight">Ecosystem Modules</h2>
+                <span className="text-xs font-bold text-on-surface-variant uppercase bg-surface-container-highest px-3 py-1 rounded-full">All Systems Operational</span>
               </div>
-              <span className="text-xs font-bold text-[#4CAF50] bg-green-50 px-2 py-1 rounded-lg border border-green-200">
-                ✓ All Operational
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <ModuleCard
-                name="Academic Registry"
-                type="Status: Stable"
-                status="STABLE"
-                icon={BookOpen}
-              />
-              <ModuleCard
-                name="Financial Aid"
-                type="Status: Active"
-                status="ACTIVE"
-                icon={DollarSign}
-              />
-              <ModuleCard
-                name="Admissions CRM"
-                type="Status: Syncing"
-                status="SYNCING"
-                icon={Users}
-              />
-              <ModuleCard
-                name="LMS Connector"
-                type="Status: Stable"
-                status="STABLE"
-                icon={CheckCircle2}
-              />
-              <ModuleCard
-                name="Predictive Analytics"
-                type="Status: Training"
-                status="TRAINING"
-                icon={Activity}
-              />
-              <ModuleCard
-                name="Campus Housing"
-                type="Status: Idle"
-                status="IDLE"
-                icon={AlertCircle}
-              />
-              <ModuleCard
-                name="Bursar System"
-                type="Status: Stable"
-                status="STABLE"
-                icon={DollarSign}
-              />
-              <ModuleCard
-                name="Research Grants"
-                type="Status: Stable"
-                status="STABLE"
-                icon={Award}
-              />
-              <ModuleCard
-                name="Alumni & Careers"
-                type="Status: Updating"
-                status="UPDATING"
-                icon={Users}
-              />
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">school</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Academic Registry</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">finance_chip</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Financial Aid</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Active</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">diversity_3</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Admissions CRM</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Syncing</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">library_books</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">LMS Connector</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">psychology</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Predictive Analytics</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Training</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">home_work</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Campus Housing</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Idle</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">payments</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Bursar System</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">biotech</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Research Grants</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">work</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Alumni & Careers</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Updating</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">sports_soccer</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Athletics Hub</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">health_and_safety</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Student Wellness</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Protected</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined">map</span>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">Space Management</div>
+                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Active Pipelines */}
-          <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] shadow-md">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h2 className="text-sm font-black text-[#002045]">Pipelines</h2>
-                <p className="text-xs text-[#1a365d] font-medium mt-0.5">
-                  Live
-                </p>
+          {/* Right Sidebar: Insight Rail */}
+          <div className="col-span-12 lg:col-span-4 space-y-6">
+            <div className="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-slate-100">
+              <div className="text-sm font-black text-primary uppercase tracking-widest mb-6 flex justify-between items-center">
+                <span>Active Data Pipelines</span>
+                <span className="text-[10px] text-slate-400 font-bold">REAL-TIME</span>
               </div>
-              <span className="text-xs text-white font-bold bg-green-500 px-2 py-0.5 rounded-full">
-                🟢 LIVE
-              </span>
-            </div>
-            <div className="space-y-3">
-              <PipelineStatus
-                name="Banner SIS Integration"
-                desc="Syncing student enrollment records..."
-                status="LIVE"
-                icon={CheckCircle2}
-              />
-              <PipelineStatus
-                name="Canvas LMS Export"
-                desc="Grade distributions for Fall 2024"
-                status="QUEUED"
-                icon={Clock}
-              />
-              <PipelineStatus
-                name="Financial Reporting"
-                desc="Scheduled for 02:00 AM"
-                status="IDLE"
-                icon={Clock}
-              />
+              <div className="space-y-6">
+                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-tertiary before:rounded-full">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm font-bold">Banner SIS Integration</span>
+                    <span className="text-[10px] font-bold text-tertiary">LIVE</span>
+                  </div>
+                  <div className="text-xs text-slate-500 mb-2">Syncing student enrollment records...</div>
+                  <div className="w-full bg-surface-container rounded-full h-1">
+                    <div className="bg-tertiary h-1 rounded-full w-[85%]"></div>
+                  </div>
+                </div>
+
+                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-primary before:rounded-full">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm font-bold">Canvas LMS Export</span>
+                    <span className="text-[10px] font-bold text-primary">QUEUED</span>
+                  </div>
+                  <div className="text-xs text-slate-500 mb-2">Grade distributions for Fall 2024</div>
+                  <div className="w-full bg-surface-container rounded-full h-1">
+                    <div className="bg-primary h-1 rounded-full w-[30%]"></div>
+                  </div>
+                </div>
+
+                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-slate-300 before:rounded-full opacity-60">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm font-bold">Financial Reporting</span>
+                    <span className="text-[10px] font-bold text-slate-400">IDLE</span>
+                  </div>
+                  <div className="text-xs text-slate-500">Scheduled for 02:00 AM</div>
+                </div>
+              </div>
+
+              <button className="w-full mt-8 py-3 border-2 border-primary-container/20 text-primary-container font-bold rounded-xl text-sm hover:bg-primary-container/5 transition-colors">
+                Manage All Pipelines
+              </button>
             </div>
 
-            {/* Security Alert Box */}
-            <div className="mt-6 p-5 bg-gradient-to-br from-[#002045] via-[#1a365d] to-[#0d1f35] rounded-xl border border-[#4CAF50]/30 shadow-lg">
-              <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">
-                🔒 Admin Security Protocol
+            <div className="bg-primary-container p-6 rounded-xl text-white shadow-lg shadow-primary/10">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="material-symbols-outlined text-on-primary-container">verified_user</span>
+                <div className="text-xs font-bold uppercase tracking-widest text-on-primary-container">Admin Security Protocol</div>
+              </div>
+              <p className="text-sm text-blue-100 font-medium leading-relaxed">
+                MFA is active for all superusers. Last security audit performed 3 days ago by Institutional Compliance.
               </p>
-              <p className="text-xs text-[#dce9ff] font-light leading-relaxed">
-                MFA is active for all admins. Last suspicious activity: 7 days
-                ago
-              </p>
-              <p className="text-xs font-bold text-[#4CAF50] mt-3 tracking-tight">
-                AUDITOR: SARAH CHEN
-              </p>
+              <div className="mt-6 flex items-center gap-4">
+                <img className="w-8 h-8 rounded-full border-2 border-on-primary-container shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhAwnfe4bOkpQnho3pzAELrsX5SAgJhlB7kM5OYvi5DqryTZ4QWLsQ7n46vmRt8vmSYW6wBJr0zu8xaaNEYYCW5Ryp1s7TCB5nGOk6mSlbR798R_qs00qmg2dDvtz4mpEwJf8FVQtXt4doYWSnYxAoDdqmwAnTTVIa6Cq9OC3sATiUKoQordaVxdXbkcbTYwkuAqybLpqrO_tyXZ1NdTUGhEaPR9Snq9W60BKUAj6T7c7s4-29F-ffS4Ia0zj0F5K1sprTvdAHNxU" alt="Auditor" />
+                <div className="text-[10px] uppercase font-bold tracking-wider">
+                  Auditor: Sarah Chen
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -572,32 +586,35 @@ function AdminDashboard() {
           />
         </div>
 
-        {/* ── Institutional Network Visualization ── */}
-        <div className="bg-gradient-to-br from-[#ffffff] to-[#f8f9ff] rounded-xl p-5 border border-[#e0e9ff] overflow-hidden shadow-md mt-6">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-lg font-black text-[#002045]">
-                Institutional Network
-              </h2>
-              <p className="text-xs text-[#1a365d] font-medium mt-0.5">
-                4 Nodes • 12 Centers
-              </p>
+        {/* ── Institution Visualization Map Section (Bento style) ── */}
+        <div className="mt-8 grid grid-cols-12 gap-8 mb-12">
+          <div className="col-span-12">
+            <div className="bg-surface-container-low rounded-xl p-8 overflow-hidden relative min-h-[300px] flex items-center shadow-sm">
+              <div className="z-10 relative max-w-lg">
+                <h3 className="text-2xl font-black text-primary mb-4 tracking-tight">Institutional Network</h3>
+                <p className="text-on-surface-variant font-medium mb-6">Visualizing connectivity across 4 campus nodes and 12 remote data centers. All regions reporting nominal latency.</p>
+                <div className="flex flex-wrap gap-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
+                    <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
+                    <span className="text-xs font-bold uppercase tracking-tighter">North Campus: <span className="text-primary">ACTIVE</span></span>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
+                    <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
+                    <span className="text-xs font-bold uppercase tracking-tighter">Cloud Mirror: <span className="text-primary">SYNCED</span></span>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
+                    <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
+                    <span className="text-xs font-bold uppercase tracking-tighter">Europe Node: <span className="text-primary">STABLE</span></span>
+                  </div>
+                </div>
+              </div>
+              {/* Background map decoration */}
+              <div className="absolute right-0 top-0 bottom-0 w-2/3 opacity-40 grayscale overflow-hidden">
+                <img className="w-full h-full object-cover" src="/campus-network.png" alt="Campus Network Map" />
+              </div>
             </div>
-            <span className="text-xs font-bold bg-green-50 text-green-700 px-2 py-1 rounded-lg border border-green-200">
-              Connected
-            </span>
           </div>
-          <div className="relative h-56 rounded-lg overflow-hidden border border-[#e0e9ff] shadow-sm">
-            <img
-              src="/campus-network.png"
-              alt="Campus Network"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-3 text-white bg-gradient-to-t from-black/60 to-transparent">
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-2 py-1 bg-green-500/90 rounded text-xs font-bold">
-                  🟢 NORTH
+        </div>
                 </span>
                 <span className="px-2 py-1 bg-blue-500/90 rounded text-xs font-bold">
                   🔵 CLOUD
