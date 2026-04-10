@@ -249,124 +249,124 @@ function AdminDashboard() {
                 <h2 className="text-xl font-black text-primary tracking-tight">Ecosystem Modules</h2>
                 <span className="text-xs font-bold text-on-surface-variant uppercase bg-surface-container-highest px-3 py-1 rounded-full">All Systems Operational</span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">school</span>
+              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">school</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Academic Registry</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">finance_chip</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">Financial Aid</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Active</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Academic Registry</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">diversity_3</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">finance_chip</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Admissions CRM</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Syncing</div>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">library_books</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">LMS Connector</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Financial Aid</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Active</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">psychology</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">diversity_3</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Predictive Analytics</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Training</div>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">home_work</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">Campus Housing</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Idle</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Admissions CRM</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Syncing</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">payments</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">library_books</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Bursar System</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">biotech</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">Research Grants</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">LMS Connector</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">work</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">psychology</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Alumni & Careers</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Updating</div>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">sports_soccer</span>
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">Athletics Hub</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Predictive Analytics</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Training</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">health_and_safety</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">home_work</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Student Wellness</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Protected</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Campus Housing</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Idle</div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-lowest p-4 rounded-lg flex items-start gap-4 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
-                  <div className="w-10 h-10 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined">map</span>
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">payments</span>
                   </div>
-                  <div>
-                    <div className="text-sm font-bold">Space Management</div>
-                    <div className="text-[10px] text-slate-500 group-hover:text-blue-200 uppercase mt-1">Status: Stable</div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Bursar System</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">biotech</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Research Grants</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">work</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Alumni & Careers</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Updating</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">sports_soccer</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Athletics Hub</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">health_and_safety</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Student Wellness</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Protected</div>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
+                  <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
+                    <span className="material-symbols-outlined text-lg">map</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-bold leading-tight">Space Management</div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
                   </div>
                 </div>
               </div>
