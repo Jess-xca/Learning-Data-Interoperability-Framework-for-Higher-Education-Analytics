@@ -194,49 +194,49 @@ function AdminDashboard() {
         </div>
 
         {/* ── Key Metrics Cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-tertiary shadow-sm hover:shadow-md transition-all">
-            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Core System Health</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
+          <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-tertiary shadow-sm hover:shadow-md transition-all">
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Core System Health</div>
             <div className="flex items-center justify-between">
-              <div className="text-3xl font-black text-primary">99.98%</div>
-              <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary">
-                <span className="material-symbols-outlined">bolt</span>
+              <div className="text-2xl font-black text-primary">99.98%</div>
+              <div className="w-8 h-8 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary flex-shrink-0">
+                <span className="material-symbols-outlined text-sm">bolt</span>
               </div>
             </div>
-            <div className="text-xs mt-3 text-tertiary font-semibold">Nominal Performance</div>
+            <div className="text-[10px] mt-2 text-tertiary font-semibold">Nominal</div>
           </div>
 
-          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-all">
-            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Active Pipelines</div>
+          <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-primary shadow-sm hover:shadow-md transition-all">
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Active Pipelines</div>
             <div className="flex items-center justify-between">
-              <div className="text-3xl font-black text-primary">42 <span className="text-sm font-normal text-slate-400">/ 42</span></div>
-              <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined">conversion_path</span>
+              <div className="text-2xl font-black text-primary">42 <span className="text-xs font-normal text-slate-400">/ 42</span></div>
+              <div className="w-8 h-8 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                <span className="material-symbols-outlined text-sm">conversion_path</span>
               </div>
             </div>
-            <div className="text-xs mt-3 text-slate-500 font-semibold">All channels synchronized</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Synced</div>
           </div>
 
-          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-secondary shadow-sm hover:shadow-md transition-all">
-            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Connected Systems</div>
+          <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-secondary shadow-sm hover:shadow-md transition-all">
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Connected Systems</div>
             <div className="flex items-center justify-between">
-              <div className="text-3xl font-black text-primary">14</div>
-              <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
-                <span className="material-symbols-outlined">hub</span>
+              <div className="text-2xl font-black text-primary">14</div>
+              <div className="w-8 h-8 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary flex-shrink-0">
+                <span className="material-symbols-outlined text-sm">hub</span>
               </div>
             </div>
-            <div className="text-xs mt-3 text-slate-500 font-semibold">SIS, LMS, ERP Integrated</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Integrated</div>
           </div>
 
-          <div className="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-error shadow-sm hover:shadow-md transition-all">
-            <div className="text-xs font-bold uppercase text-slate-500 tracking-widest mb-4">Security Incidents</div>
+          <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-error shadow-sm hover:shadow-md transition-all">
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Security Incidents</div>
             <div className="flex items-center justify-between">
-              <div className="text-3xl font-black text-primary">0</div>
-              <div className="w-10 h-10 bg-error-container/30 rounded-full flex items-center justify-center text-error">
-                <span className="material-symbols-outlined">security</span>
+              <div className="text-2xl font-black text-primary">0</div>
+              <div className="w-8 h-8 bg-error-container/30 rounded-full flex items-center justify-center text-error flex-shrink-0">
+                <span className="material-symbols-outlined text-sm">security</span>
               </div>
             </div>
-            <div className="text-xs mt-3 text-slate-500 font-semibold">Last scan: 4 mins ago</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Secure</div>
           </div>
         </div>
 
@@ -374,61 +374,61 @@ function AdminDashboard() {
           </div>
 
           {/* Right Sidebar: Insight Rail */}
-          <div className="col-span-12 lg:col-span-4 space-y-6">
-            <div className="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-slate-100">
-              <div className="text-sm font-black text-primary uppercase tracking-widest mb-6 flex justify-between items-center">
+          <div className="col-span-12 lg:col-span-4 space-y-3">
+            <div className="bg-surface-container-lowest rounded-lg p-3 shadow-sm border border-slate-100">
+              <div className="text-xs font-black text-primary uppercase tracking-widest mb-3 flex justify-between items-center">
                 <span>Active Data Pipelines</span>
-                <span className="text-[10px] text-slate-400 font-bold">REAL-TIME</span>
+                <span className="text-[8px] text-slate-400 font-bold">REAL-TIME</span>
               </div>
-              <div className="space-y-6">
-                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-tertiary before:rounded-full">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-bold">Banner SIS Integration</span>
-                    <span className="text-[10px] font-bold text-tertiary">LIVE</span>
+              <div className="space-y-3">
+                <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-tertiary before:rounded-full">
+                  <div className="flex justify-between items-center mb-0.5">
+                    <span className="text-xs font-bold truncate">Banner SIS Integration</span>
+                    <span className="text-[8px] font-bold text-tertiary flex-shrink-0 ml-2">LIVE</span>
                   </div>
-                  <div className="text-xs text-slate-500 mb-2">Syncing student enrollment records...</div>
-                  <div className="w-full bg-surface-container rounded-full h-1">
-                    <div className="bg-tertiary h-1 rounded-full w-[85%]"></div>
-                  </div>
-                </div>
-
-                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-primary before:rounded-full">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-bold">Canvas LMS Export</span>
-                    <span className="text-[10px] font-bold text-primary">QUEUED</span>
-                  </div>
-                  <div className="text-xs text-slate-500 mb-2">Grade distributions for Fall 2024</div>
-                  <div className="w-full bg-surface-container rounded-full h-1">
-                    <div className="bg-primary h-1 rounded-full w-[30%]"></div>
+                  <div className="text-[10px] text-slate-500 mb-1 truncate">Student enrollment...</div>
+                  <div className="w-full bg-surface-container rounded-full h-0.5">
+                    <div className="bg-tertiary h-0.5 rounded-full w-[85%]"></div>
                   </div>
                 </div>
 
-                <div className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-slate-300 before:rounded-full opacity-60">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-bold">Financial Reporting</span>
-                    <span className="text-[10px] font-bold text-slate-400">IDLE</span>
+                <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-primary before:rounded-full">
+                  <div className="flex justify-between items-center mb-0.5">
+                    <span className="text-xs font-bold truncate">Canvas LMS Export</span>
+                    <span className="text-[8px] font-bold text-primary flex-shrink-0 ml-2">QUEUED</span>
                   </div>
-                  <div className="text-xs text-slate-500">Scheduled for 02:00 AM</div>
+                  <div className="text-[10px] text-slate-500 mb-1 truncate">Grade distributions for Fall 2024</div>
+                  <div className="w-full bg-surface-container rounded-full h-0.5">
+                    <div className="bg-primary h-0.5 rounded-full w-[30%]"></div>
+                  </div>
+                </div>
+
+                <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-slate-300 before:rounded-full opacity-60">
+                  <div className="flex justify-between items-center mb-0.5">
+                    <span className="text-xs font-bold truncate">Financial Reporting</span>
+                    <span className="text-[8px] font-bold text-slate-400 flex-shrink-0 ml-2">IDLE</span>
+                  </div>
+                  <div className="text-[10px] text-slate-500 truncate">Scheduled for 02:00 AM</div>
                 </div>
               </div>
 
-              <button className="w-full mt-8 py-3 border-2 border-primary-container/20 text-primary-container font-bold rounded-xl text-sm hover:bg-primary-container/5 transition-colors">
+              <button className="w-full mt-3 py-2 border-2 border-primary-container/20 text-primary-container font-bold rounded-lg text-xs hover:bg-primary-container/5 transition-colors">
                 Manage All Pipelines
               </button>
             </div>
 
-            <div className="bg-primary-container p-6 rounded-xl text-white shadow-lg shadow-primary/10">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="material-symbols-outlined text-on-primary-container">verified_user</span>
-                <div className="text-xs font-bold uppercase tracking-widest text-on-primary-container">Admin Security Protocol</div>
+            <div className="bg-primary-container p-3 rounded-lg text-white shadow-lg shadow-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="material-symbols-outlined text-on-primary-container text-sm flex-shrink-0">verified_user</span>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-on-primary-container">Admin Security</div>
               </div>
-              <p className="text-sm text-blue-100 font-medium leading-relaxed">
-                MFA is active for all superusers. Last security audit performed 3 days ago by Institutional Compliance.
+              <p className="text-xs text-blue-100 font-medium leading-tight mb-3">
+                MFA active. Last audit 3 days ago.
               </p>
-              <div className="mt-6 flex items-center gap-4">
-                <img className="w-8 h-8 rounded-full border-2 border-on-primary-container shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhAwnfe4bOkpQnho3pzAELrsX5SAgJhlB7kM5OYvi5DqryTZ4QWLsQ7n46vmRt8vmSYW6wBJr0zu8xaaNEYYCW5Ryp1s7TCB5nGOk6mSlbR798R_qs00qmg2dDvtz4mpEwJf8FVQtXt4doYWSnYxAoDdqmwAnTTVIa6Cq9OC3sATiUKoQordaVxdXbkcbTYwkuAqybLpqrO_tyXZ1NdTUGhEaPR9Snq9W60BKUAj6T7c7s4-29F-ffS4Ia0zj0F5K1sprTvdAHNxU" alt="Auditor" />
-                <div className="text-[10px] uppercase font-bold tracking-wider">
-                  Auditor: Sarah Chen
+              <div className="flex items-center gap-2 text-[8px]">
+                <img className="w-6 h-6 rounded-full border border-on-primary-container shadow-md flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhAwnfe4bOkpQnho3pzAELrsX5SAgJhlB7kM5OYvi5DqryTZ4QWLsQ7n46vmRt8vmSYW6wBJr0zu8xaaNEYYCW5Ryp1s7TCB5nGOk6mSlbR798R_qs00qmg2dDvtz4mpEwJf8FVQtXt4doYWSnYxAoDdqmwAnTTVIa6Cq9OC3sATiUKoQordaVxdXbkcbTYwkuAqybLpqrO_tyXZ1NdTUGhEaPR9Snq9W60BKUAj6T7c7s4-29F-ffS4Ia0zj0F5K1sprTvdAHNxU" alt="Auditor" />
+                <div className="uppercase font-bold tracking-wider">
+                  Sarah Chen
                 </div>
               </div>
             </div>
