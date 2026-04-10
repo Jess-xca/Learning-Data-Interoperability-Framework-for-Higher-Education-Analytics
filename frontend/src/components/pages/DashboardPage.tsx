@@ -10,7 +10,6 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
-  DollarSign,
 } from "lucide-react";
 
 // Mock enrollment data
@@ -165,105 +164,6 @@ function StatusBadge({
     <span className={`px-2 py-1 rounded text-xs font-bold ${colors[status]}`}>
       {text[status]}
     </span>
-  );
-}
-
-// ============================================================================
-// MODULE CARD COMPONENT
-// ============================================================================
-function ModuleCard({
-  name,
-  type,
-  status,
-  icon: Icon,
-}: {
-  name: string;
-  type: string;
-  status: string;
-  icon: React.ComponentType<{ className?: string }>;
-}) {
-  const statusColors: Record<string, string> = {
-    STABLE: "bg-green-100 text-green-700",
-    ACTIVE: "bg-blue-100 text-blue-700",
-    SYNCING: "bg-orange-100 text-orange-700",
-    TRAINING: "bg-purple-100 text-purple-700",
-    IDLE: "bg-gray-100 text-gray-700",
-    UPDATING: "bg-cyan-100 text-cyan-700",
-    PROTECTED: "bg-red-100 text-red-700",
-  };
-  return (
-    <div className="bg-surface-light rounded-lg p-4 border border-on-surface/5 hover:border-primary/20 transition-all hover:shadow-md">
-      <div className="flex items-start gap-3 mb-3">
-        <div className="p-2 bg-primary/10 rounded-lg">
-          <Icon className="w-5 h-5 text-primary" />
-        </div>
-      </div>
-      <p className="text-sm font-bold text-on-surface mb-1">{name}</p>
-      <p className="text-xs text-on-surface-variant font-medium mb-2">{type}</p>
-      <span
-        className={`px-2 py-1 rounded text-xs font-bold ${statusColors[status] || "bg-gray-100 text-gray-700"}`}
-      >
-        {status}
-      </span>
-    </div>
-  );
-}
-
-// ============================================================================
-// PIPELINE STATUS ITEM
-// ============================================================================
-function PipelineStatus({
-  name,
-  desc,
-  status,
-  icon: Icon,
-}: {
-  name: string;
-  desc: string;
-  status: string;
-  icon: React.ComponentType<{ className?: string }>;
-}) {
-  const statusBgColor: Record<string, string> = {
-    LIVE: "bg-green-50 border-l-4 border-l-green-500",
-    QUEUED: "bg-orange-50 border-l-4 border-l-orange-500",
-    IDLE: "bg-gray-50 border-l-4 border-l-gray-500",
-    FAILED: "bg-red-50 border-l-4 border-l-red-500",
-    SUCCESS: "bg-green-50 border-l-4 border-l-green-500",
-    PROCESSING: "bg-blue-50 border-l-4 border-l-blue-500",
-  };
-
-  const statusTextColor: Record<string, string> = {
-    LIVE: "text-green-900",
-    QUEUED: "text-orange-900",
-    IDLE: "text-gray-900",
-    FAILED: "text-red-900",
-    SUCCESS: "text-green-900",
-    PROCESSING: "text-blue-900",
-  };
-
-  return (
-    <div className={`p-3 rounded-lg ${statusBgColor[status] || "bg-gray-50"}`}>
-      <div className="flex items-start gap-2">
-        <Icon
-          className={`w-4 h-4 flex-shrink-0 mt-0.5 ${statusTextColor[status]}`}
-        />
-        <div className="flex-1">
-          <p className={`text-xs font-bold ${statusTextColor[status]}`}>
-            {name}
-          </p>
-          <p
-            className={`text-xs font-medium mt-0.5 ${statusTextColor[status].replace("900", "800")}`}
-          >
-            {desc}
-          </p>
-        </div>
-        <span
-          className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap ${statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-green-50" ? "bg-green-200 text-green-700" : statusBgColor[status].split(" ")[0].replace("bg-", "bg-") === "bg-orange-50" ? "bg-orange-200 text-orange-700" : "bg-gray-200 text-gray-700"}`}
-        >
-          {status}
-        </span>
-      </div>
-    </div>
   );
 }
 
@@ -615,17 +515,8 @@ function AdminDashboard() {
             </div>
           </div>
         </div>
-                </span>
-                <span className="px-2 py-1 bg-blue-500/90 rounded text-xs font-bold">
-                  🔵 CLOUD
-                </span>
-                <span className="px-2 py-1 bg-purple-500/90 rounded text-xs font-bold">
-                  🟣 EAST
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        {/* ── Recent Analytics Jobs ── */}
       </div>
     </MainContent>
   );
