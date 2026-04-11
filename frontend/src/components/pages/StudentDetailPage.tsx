@@ -63,28 +63,32 @@ export default function StudentDetailPage() {
           onClick={() => navigate("/students")}
           className="px-4 py-2 text-sm font-semibold border border-outline rounded-lg hover:bg-surface-container transition-colors flex items-center gap-2"
         >
-          <span className="material-symbols-outlined text-base">arrow_back</span>
+          <span className="material-symbols-outlined text-base">
+            arrow_back
+          </span>
           Back to Students
         </button>
 
         {/* Student 360 Profile */}
-        <Student360Profile studentData={{
-          name: student.name,
-          semester: `Year ${Math.floor(Math.random() * 4) + 1}`,
-          id: student.id,
-          department: student.program,
-          concentration: `${student.program} Specialization`,
-          cumulativeGPA: student.gpa,
-          majorGPA: student.gpa + (Math.random() * 0.3 - 0.15),
-          creditsEarned: Math.floor(Math.random() * 120),
-          creditsRequired: 120,
-          successProbability: Math.floor(Math.random() * 100),
-          trendPercentage: Math.random() * 5,
-          advisorName: `Dr. ${['Smith', 'Johnson', 'Williams', 'Brown'][Math.floor(Math.random() * 4)]}`,
-          lmsLogins: Math.floor(Math.random() * 40),
-          assessmentAvg: Math.floor(Math.random() * 40) + 60,
-          attendance: Math.floor(Math.random() * 30) + 70,
-        }} />
+        <Student360Profile
+          studentData={{
+            name: student.name,
+            semester: `Year ${Math.floor(Math.random() * 4) + 1}`,
+            id: student.id,
+            department: student.program,
+            concentration: `${student.program} Specialization`,
+            cumulativeGPA: student.gpa,
+            majorGPA: student.gpa + (Math.random() * 0.3 - 0.15),
+            creditsEarned: Math.floor(Math.random() * 120),
+            creditsRequired: 120,
+            successProbability: Math.floor(Math.random() * 100),
+            trendPercentage: Math.random() * 5,
+            advisorName: `Dr. ${["Smith", "Johnson", "Williams", "Brown"][Math.floor(Math.random() * 4)]}`,
+            lmsLogins: Math.floor(Math.random() * 40),
+            assessmentAvg: Math.floor(Math.random() * 40) + 60,
+            attendance: Math.floor(Math.random() * 30) + 70,
+          }}
+        />
       </div>
     </MainContent>
   );

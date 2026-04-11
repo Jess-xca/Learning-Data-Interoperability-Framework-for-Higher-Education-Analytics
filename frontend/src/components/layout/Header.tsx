@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks/useRedux";
+import { useAuth } from "../../context/AuthContext";
 import { Menu, Search, Bell, HelpCircle } from "lucide-react";
 
 interface HeaderProps {
@@ -10,12 +10,11 @@ interface HeaderProps {
 }
 
 const roleBadge: Record<string, string> = {
-  admin: "Superuser",
-  qa: "QA Officer",
-  analyst: "Analyst",
-  hod: "Dept. Head",
-  lecturer: "Lecturer",
-  student: "Student",
+  academic_admin: "Academic Admin",
+  qa_officer: "QA Officer",
+  data_analyst: "Data Analyst",
+  department_head: "Dept. Head",
+  system_admin: "System Admin",
 };
 
 export default function Header({
@@ -25,7 +24,8 @@ export default function Header({
 }: HeaderProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.auth.user);
+  const { state } = useAuth();
+  const user = state.user;
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -55,7 +55,7 @@ export default function Header({
               value={searchQuery}
               onChange={handleSearch}
               placeholder="Search system modules..."
-              className="w-full bg-slate-50 border border-slate-200/60 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-700 focus:ring-2 focus:ring-sky-200 focus:border-sky-300 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+              className="w-full bg-slate-50 border border-slate-200/60 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-700 focus:ring-2 focus:ring-sky-200 focus:border-sky-300 outline-none transition-all placeholder:text-slate-400"
             />
           </div>
         </div>
@@ -84,15 +84,15 @@ export default function Header({
         <div className="flex items-center gap-3 pl-2">
           <div className="text-right">
             <p className="text-sm font-bold text-slate-700 leading-tight">
-              {user?.name ?? "System Admin"}
+              {user?.fullName ?? "System Admin"}
             </p>
             <p className="text-[10px] text-sky-600 font-bold uppercase tracking-wider">
-              {roleBadge[user?.role ?? "admin"]}
+              {roleBadge[user?.role ?? "system_admin"]}
             </p>
           </div>
           <img
             src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${user?.id ?? "admin"}`}
-            alt={user?.name ?? "User"}
+            alt={user?.fullName ?? "User"}
             className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-200"
           />
         </div>

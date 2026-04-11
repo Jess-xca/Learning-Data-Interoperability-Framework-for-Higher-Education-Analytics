@@ -1,585 +1,265 @@
-import { useState } from "react";
-import { MainContent, Card, Button, Badge, Footer } from "..";
-import { useRoleGuard } from "../../hooks/useRoleGuard";
+/**
+ * Data Sources Page (M3)
+ * Main management dashboard for configuring and monitoring data source connections
+ */
 
-interface DataSource {
-  id: string;
-  name: string;
-  type: "lms" | "sis" | "library" | "crm" | "custom";
-  status: "connected" | "warning" | "error" | "disconnected";
-  lastSync: string;
-  reliability: number;
-  recordsPerMinute: number;
-  icon: string;
-}
-
-const dataSources: DataSource[] = [
-  {
-    id: "ds_001",
-    name: "Canvas LMS",
-    type: "lms",
-    status: "connected",
-    lastSync: "2m ago",
-    reliability: 99.9,
-    recordsPerMinute: 1402,
-    icon: "school",
-  },
-  {
-    id: "ds_002",
-    name: "Banner SIS",
-    type: "sis",
-    status: "connected",
-    lastSync: "14m ago",
-    reliability: 98.4,
-    recordsPerMinute: 421,
-    icon: "person_search",
-  },
-  {
-    id: "ds_003",
-    name: "ExLibris Alma",
-    type: "library",
-    status: "warning",
-    lastSync: "1h ago",
-    reliability: 92.1,
-    recordsPerMinute: 0,
-    icon: "local_library",
-  },
-  {
-    id: "ds_004",
-    name: "Salesforce CRM",
-    type: "crm",
-    status: "connected",
-    lastSync: "5m ago",
-    reliability: 99.7,
-    recordsPerMinute: 8103,
-    icon: "handshake",
-  },
-];
-
-interface IngestionLog {
-  id: string;
-  transactionId: string;
-  source: string;
-  entityType: string;
-  volume: number;
-  duration: string;
-  status: "success" | "error";
-  timestamp: string;
-}
-
-const ingestionLogs: IngestionLog[] = [
-  {
-    id: "log_001",
-    transactionId: "#TX-88219-CANV",
-    source: "Canvas LMS",
-    entityType: "Student Gradebook",
-    volume: 1402,
-    duration: "12.4s",
-    status: "success",
-    timestamp: "2025-04-03 14:32:15",
-  },
-  {
-    id: "log_002",
-    transactionId: "#TX-88220-BANN",
-    source: "Banner SIS",
-    entityType: "Course Registration",
-    volume: 421,
-    duration: "4.1s",
-    status: "success",
-    timestamp: "2025-04-03 14:18:42",
-  },
-  {
-    id: "log_003",
-    transactionId: "#TX-88221-ALMA",
-    source: "ExLibris Alma",
-    entityType: "Bibliographic Data",
-    volume: 0,
-    duration: "--",
-    status: "error",
-    timestamp: "2025-04-03 13:45:20",
-  },
-  {
-    id: "log_004",
-    transactionId: "#TX-88222-SFOR",
-    source: "Salesforce CRM",
-    entityType: "Alumni Engagement",
-    volume: 8103,
-    duration: "45.2s",
-    status: "success",
-    timestamp: "2025-04-03 13:22:35",
-  },
-];
+import { useState, useEffect } from "react";
+import { MainContent, Card, DataSourceWizard } from "..";
+import { Plus, RefreshCw, CheckCircle2, AlertCircle, Trash2, Edit2 } from "lucide-react";
+import { dataSourceService } from "../../services/DataSourceService";
+import type { DataSource as DataSourceType } from "../../types/datasources";
 
 export default function DataSourcesPage() {
-  useRoleGuard(["admin"]);
+  const [dataSources, setDataSources] = useState<DataSourceType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAddWizard, setShowAddWizard] = useState(false);
 
-  const [selectedSource, setSelectedSource] = useState<DataSource | null>(null);
-  const [showWizard, setShowWizard] = useState(false);
+  useEffect(() => {
+    loadDataSources();
+  }, []);
 
-  const getStatusColor = (status: DataSource["status"]) => {
-    switch (status) {
-      case "connected":
-        return "success";
-      case "warning":
-        return "warning";
-      case "error":
-        return "error";
-      case "disconnected":
-        return "error";
-      default:
-        return "primary";
+  const loadDataSources = async () => {
+    setLoading(true);
+    let sources = dataSourceService.getAllDataSources();
+    
+    // Load sample data if no sources exist
+    if (sources.length === 0) {
+      dataSourceService.createSampleDataSources();
+      sources = dataSourceService.getAllDataSources();
+    }
+    
+    setDataSources(sources);
+    setLoading(false);
+  };
+
+  const handleTestConnection = async (sourceId: string) => {
+    const result = await dataSourceService.testConnection(sourceId);
+    if (result.success) {
+      await loadDataSources();
+      alert(`✅ ${result.message}`);
+    } else {
+      alert(`❌ Connection test failed: ${result.message}`);
     }
   };
 
-  const getStatusLabel = (status: DataSource["status"]) => {
+  const handleSyncNow = async (sourceId: string) => {
+    const result = await dataSourceService.syncNow(sourceId);
+    if (result.success) {
+      await loadDataSources();
+      alert(`✅ ${result.message}`);
+    } else {
+      alert(`❌ Sync failed: ${result.message}`);
+    }
+  };
+
+  const handleDeleteSource = async (sourceId: string) => {
+    if (confirm("Are you sure you want to delete this data source?")) {
+      const success = await dataSourceService.deleteDataSource(sourceId);
+      if (success) {
+        await loadDataSources();
+        alert("✅ Data source deleted");
+      }
+    }
+  };
+
+  const stats = dataSourceService.getStatistics();
+
+  const getStatusBg = (status: string) => {
     switch (status) {
       case "connected":
-        return "LIVE";
-      case "warning":
-        return "WARNING";
+        return "bg-green-50";
       case "error":
-        return "ERROR";
-      case "disconnected":
-        return "OFFLINE";
+        return "bg-red-50";
       default:
-        return "UNKNOWN";
+        return "bg-yellow-50";
     }
   };
 
   return (
-    <>
-      <MainContent>
-        {/* Page Header */}
-        <div className="mb-10 flex justify-between items-end">
+    <MainContent>
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="flex items-start justify-between">
           <div>
-            <h1 className="h-page text-primary">
-              Data Sources
-            </h1>
-            <p className="text-on-surface-variant font-medium mt-2 text-lg">
-              Manage institutional pipeline architecture and synchronization
-              health
+            <p className="text-xs font-bold text-[#4CAF50] uppercase tracking-widest mb-2">
+              DATA MANAGEMENT - PHASE 3
+            </p>
+            <h1 className="text-4xl font-black text-[#002045] tracking-tight">Data Sources</h1>
+            <p className="text-sm text-[#1a365d] font-medium mt-2">
+              Connect and manage learning management systems, student information systems, and other data sources.
             </p>
           </div>
-          <Button
-            variant="primary"
-            size="md"
-            onClick={() => setShowWizard(true)}
+          <button
+            onClick={() => setShowAddWizard(true)}
+            className="px-6 py-3 bg-gradient-to-br from-[#4CAF50] to-[#388E3C] text-white rounded-lg font-bold text-xs hover:shadow-lg transition-all h-fit whitespace-nowrap flex items-center gap-2"
           >
-            <span className="material-symbols-outlined">add</span>
-            Connect New Source
-          </Button>
+            <Plus className="w-4 h-4" />
+            Add Data Source
+          </button>
         </div>
 
-        {/* Health Overview */}
-        <div className="grid grid-cols-12 gap-6 mb-8">
-          {/* Main Health Graph */}
-          <Card className="col-span-8 p-6 h-[400px] flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-xs font-bold text-primary uppercase tracking-widest">
-                  Global Pipeline Health
-                </h3>
-                <p className="text-3xl font-black text-on-surface mt-2">
-                  99.84%{" "}
-                  <Badge variant="success" className="ml-2">
-                    +0.02%
-                  </Badge>
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button className="px-3 py-1 text-xs font-bold bg-primary text-on-primary rounded">
-                  24h
-                </button>
-                <button className="px-3 py-1 text-xs font-bold text-outline hover:bg-surface-container-low rounded">
-                  7d
-                </button>
-              </div>
-            </div>
-
-            {/* Simulated Bar Chart */}
-            <div className="flex-1 mt-6 relative flex items-end gap-1">
-              {[60, 65, 55, 70, 80, 75, 90, 85, 88, 95, 92, 94].map(
-                (height, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 bg-primary/10 rounded-t hover:bg-primary/20 transition-colors cursor-pointer"
-                    style={{ height: `${height}%` }}
-                    title={`${height}% uptime`}
-                  />
-                ),
-              )}
-              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-outline-variant/30" />
-            </div>
-
-            <div className="flex justify-between mt-4 text-[10px] font-bold text-outline uppercase tracking-tighter">
-              <span>00:00</span>
-              <span>06:00</span>
-              <span>12:00</span>
-              <span>18:00</span>
-              <span>Current</span>
-            </div>
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card className="p-4 border-l-4 border-blue-500">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">Total Sources</p>
+            <p className="text-3xl font-black text-slate-700">{stats.totalSources}</p>
           </Card>
-
-          {/* Stats Rail */}
-          <div className="col-span-4 flex flex-col gap-6">
-            <Card className="flex-1 bg-primary-container p-6 flex flex-col justify-between">
-              <div>
-                <span className="material-symbols-outlined text-on-primary-container text-3xl">
-                  sync
-                </span>
-                <h4 className="text-xs font-bold uppercase tracking-widest mt-2 text-on-primary-container/70">
-                  Active Ingestions
-                </h4>
-              </div>
-              <div className="mt-4">
-                <span className="text-4xl font-black text-on-primary-container">
-                  14,282
-                </span>
-                <p className="text-sm text-on-primary-container/80">
-                  Records / minute
-                </p>
-              </div>
-            </Card>
-
-            <Card className="flex-1 p-6 flex flex-col justify-between">
-              <div>
-                <span className="material-symbols-outlined text-error text-3xl">
-                  warning
-                </span>
-                <h4 className="text-xs font-bold text-primary uppercase tracking-widest mt-2">
-                  Open Issues
-                </h4>
-              </div>
-              <div className="mt-4">
-                <span className="text-4xl font-black text-on-surface">02</span>
-                <p className="text-sm text-secondary">
-                  Schema mismatches detected
-                </p>
-              </div>
-            </Card>
-          </div>
+          <Card className="p-4 border-l-4 border-green-500">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">Connected</p>
+            <p className="text-3xl font-black text-green-600">{stats.connectedSources}</p>
+          </Card>
+          <Card className="p-4 border-l-4 border-red-500">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">Errors</p>
+            <p className="text-3xl font-black text-red-600">{stats.errorSources}</p>
+          </Card>
+          <Card className="p-4 border-l-4 border-purple-500">
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">Total Students</p>
+            <p className="text-3xl font-black text-purple-600">{stats.totalRecords.students}</p>
+          </Card>
         </div>
 
-        {/* Connected Ecosystem Grid */}
-        <section className="mb-8">
-          <h2 className="text-xl font-bold text-primary mb-6">
-            Connected Ecosystem
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {dataSources.map((source) => (
-              <Card
-                key={source.id}
-                className="p-1 group hover:bg-primary-container transition-colors duration-300 cursor-pointer"
-                onClick={() => setSelectedSource(source)}
+        {/* Data Sources Table */}
+        <Card className="overflow-hidden">
+          <div className="p-6 border-b border-slate-200">
+            <h2 className="text-lg font-bold text-slate-700">Connected Sources</h2>
+          </div>
+
+          {loading ? (
+            <div className="p-8 text-center">
+              <p className="text-slate-500">Loading data sources...</p>
+            </div>
+          ) : dataSources.length === 0 ? (
+            <div className="p-8 text-center">
+              <p className="text-slate-500 mb-4">No data sources configured yet</p>
+              <button
+                onClick={() => setShowAddWizard(true)}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-bold hover:bg-blue-600 transition-all"
               >
-                <div className="bg-surface-container-lowest p-5 rounded-lg h-full border border-transparent group-hover:border-primary-container transition-all">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center">
-                      <span className="material-symbols-outlined text-primary text-2xl">
-                        {source.icon}
-                      </span>
-                    </div>
-                    <Badge variant={getStatusColor(source.status)}>
-                      {getStatusLabel(source.status)}
-                    </Badge>
-                  </div>
-
-                  <h3 className="font-black text-primary text-lg mb-1">
-                    {source.name}
-                  </h3>
-                  <p className="text-xs text-secondary mb-4 capitalize">
-                    {source.type.replace("_", " ")}
-                  </p>
-
-                  <div className="space-y-3 pt-4 border-t border-outline-variant/20">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-outline">Last Sync</span>
-                      <span className="font-bold text-on-surface">
-                        {source.lastSync}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-outline">Reliability</span>
-                      <span
-                        className={`font-bold ${
-                          source.reliability >= 99
-                            ? "text-tertiary"
-                            : source.reliability >= 95
-                              ? "text-primary"
-                              : "text-error"
-                        }`}
-                      >
-                        {source.reliability}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Detailed Ingestion Logs */}
-        <Card className="overflow-hidden mb-8">
-          <div className="px-6 py-4 border-b border-surface-container flex items-center justify-between">
-            <h2 className="text-sm font-black text-primary uppercase tracking-widest">
-              Recent Ingestion Activity
-            </h2>
-            <button className="text-xs font-bold text-primary hover:underline">
-              Download Report
-            </button>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-primary-container text-on-primary-container text-[10px] font-black uppercase tracking-widest">
-                <tr>
-                  <th className="px-6 py-4">Transaction ID</th>
-                  <th className="px-6 py-4">Source System</th>
-                  <th className="px-6 py-4">Entity Type</th>
-                  <th className="px-6 py-4">Volume</th>
-                  <th className="px-6 py-4">Duration</th>
-                  <th className="px-6 py-4 text-right">Status</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm">
-                {ingestionLogs.map((log, idx) => (
-                  <tr
-                    key={log.id}
-                    className={`${
-                      idx % 2 === 0 ? "bg-surface" : "bg-surface-container-low"
-                    } hover:bg-surface-container-high transition-colors`}
-                  >
-                    <td className="px-6 py-4 font-mono text-xs">
-                      {log.transactionId}
-                    </td>
-                    <td className="px-6 py-4 font-semibold text-primary">
-                      {log.source}
-                    </td>
-                    <td className="px-6 py-4 text-secondary">
-                      {log.entityType}
-                    </td>
-                    <td className="px-6 py-4">
-                      {log.volume > 0 ? `${log.volume} records` : "0 records"}
-                    </td>
-                    <td className="px-6 py-4">{log.duration}</td>
-                    <td className="px-6 py-4 text-right">
-                      <Badge
-                        variant={log.status === "success" ? "success" : "error"}
-                      >
-                        {log.status === "success" ? "SUCCESS" : "AUTH ERROR"}
-                      </Badge>
-                    </td>
+                Add Your First Source
+              </button>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200 bg-slate-50">
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Type</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Students</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Last Sync</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {dataSources.map((source) => (
+                    <tr
+                      key={source.id}
+                      className="border-b border-slate-100 hover:bg-slate-50 transition-colors"
+                    >
+                      <td className="px-6 py-4">
+                        <div>
+                          <p className="font-semibold text-slate-700">{source.name}</p>
+                          <p className="text-xs text-slate-500">{source.organization}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase">
+                          {source.type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold ${getStatusBg(source.status)} ${source.status === "connected" ? "text-green-600" : "text-red-600"}`}>
+                          {source.status === "connected" ? (
+                            <>
+                              <CheckCircle2 className="w-4 h-4" />
+                              Connected
+                            </>
+                          ) : (
+                            <>
+                              <AlertCircle className="w-4 h-4" />
+                              {source.status}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-semibold text-slate-700">
+                          {source.recordCounts.students.toLocaleString()}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-600">
+                        {source.lastSync
+                          ? new Date(source.lastSync).toLocaleDateString()
+                          : "Never"}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleTestConnection(source.id)}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                            title="Test Connection"
+                          >
+                            <RefreshCw className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleSyncNow(source.id)}
+                            className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-all"
+                            title="Sync Now"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => {}}
+                            className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all"
+                            title="Edit"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteSource(source.id)}
+                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </Card>
 
-        {/* Selected Source Details */}
-        {selectedSource && (
-          <Card className="p-8 border-l-4 border-primary">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-2xl font-bold text-primary mb-2">
-                  {selectedSource.name}
-                </h3>
-                <p className="text-on-surface-variant capitalize">
-                  {selectedSource.type} Integration
-                </p>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSelectedSource(null)}
-              >
-                <span className="material-symbols-outlined">close</span>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-primary-container/10 p-4 rounded-lg">
-                <p className="text-on-surface-variant text-sm mb-2">Status</p>
-                <Badge variant={getStatusColor(selectedSource.status)}>
-                  {getStatusLabel(selectedSource.status)}
-                </Badge>
-              </div>
-              <div className="bg-secondary-container/10 p-4 rounded-lg">
-                <p className="text-on-surface-variant text-sm mb-2">
-                  Last Sync
-                </p>
-                <p className="font-bold text-secondary">
-                  {selectedSource.lastSync}
-                </p>
-              </div>
-              <div className="bg-tertiary-fixed/20 p-4 rounded-lg">
-                <p className="text-on-surface-variant text-sm mb-2">
-                  Reliability
-                </p>
-                <p className="font-bold text-tertiary">
-                  {selectedSource.reliability}%
-                </p>
-              </div>
-              <div className="bg-primary-container/10 p-4 rounded-lg">
-                <p className="text-on-surface-variant text-sm mb-2">
-                  Throughput
-                </p>
-                <p className="font-bold text-primary">
-                  {selectedSource.recordsPerMinute} rec/min
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <Button variant="primary" size="md">
-                <span className="material-symbols-outlined">sync</span>
-                Sync Now
-              </Button>
-              <Button variant="secondary" size="md">
-                <span className="material-symbols-outlined">settings</span>
-                Configure
-              </Button>
-              <Button variant="ghost" size="md">
-                <span className="material-symbols-outlined">bug_report</span>
-                View Logs
-              </Button>
-            </div>
-          </Card>
+        {/* Add Source Wizard */}
+        {showAddWizard && (
+          <DataSourceWizard
+            onComplete={async (wizardData) => {
+              try {
+                const source = await dataSourceService.addDataSource({
+                  type: wizardData.sourceType,
+                  name: wizardData.name,
+                  url: wizardData.url,
+                  organization: wizardData.organization,
+                  contactEmail: wizardData.contactEmail,
+                  credentials: {
+                    username: wizardData.username,
+                    password: wizardData.password,
+                  },
+                });
+                await loadDataSources();
+                setShowAddWizard(false);
+                alert(`✅ Successfully added ${source.name}`);
+              } catch (error) {
+                alert(`❌ Error adding data source: ${error}`);
+              }
+            }}
+            onCancel={() => setShowAddWizard(false)}
+          />
         )}
-
-        {/* Integration Wizard Modal */}
-        {showWizard && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <Card className="max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-8">
-                  <div>
-                    <h2 className="text-3xl font-bold text-primary">
-                      Integration Wizard
-                    </h2>
-                    <p className="text-on-surface-variant mt-2">
-                      Connect a new data source to Academic Curator
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowWizard(false)}
-                  >
-                    <span className="material-symbols-outlined">close</span>
-                  </Button>
-                </div>
-
-                {/* Step Indicator */}
-                <div className="mb-8 flex items-center justify-between relative">
-                  <div className="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-high -z-10 -translate-y-1/2" />
-                  {[
-                    "Select Source",
-                    "Configure API",
-                    "Field Mapping",
-                    "Finalize",
-                  ].map((step, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-3 bg-surface pr-4"
-                    >
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                          idx === 0
-                            ? "bg-primary text-on-primary shadow-lg shadow-primary/20"
-                            : "bg-surface-container-high text-on-surface-variant"
-                        }`}
-                      >
-                        {idx + 1}
-                      </div>
-                      <span
-                        className={`text-sm uppercase tracking-wider ${
-                          idx === 0
-                            ? "font-bold text-primary"
-                            : "font-medium text-on-surface-variant"
-                        }`}
-                      >
-                        {step}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Source Selection */}
-                <div className="mb-8">
-                  <h3 className="text-sm font-bold text-primary uppercase tracking-widest mb-6">
-                    Choose Ecosystem
-                  </h3>
-                  <div className="grid grid-cols-3 gap-6">
-                    {[
-                      {
-                        name: "Canvas LMS",
-                        icon: "school",
-                        desc: "LTI 1.3 Compliant",
-                      },
-                      {
-                        name: "Moodle",
-                        icon: "hub",
-                        desc: "Modular Integration",
-                      },
-                      {
-                        name: "Blackboard",
-                        icon: "auto_stories",
-                        desc: "Ultra Experience",
-                      },
-                    ].map((source, idx) => (
-                      <button
-                        key={idx}
-                        className={`p-6 rounded-xl border-2 text-left transition-all ${
-                          idx === 0
-                            ? "bg-surface-container-low border-primary ring-4 ring-primary/5"
-                            : "bg-surface-container-low border-transparent hover:border-outline-variant"
-                        }`}
-                      >
-                        <div className="w-12 h-12 mb-4 flex items-center justify-center rounded-lg bg-white shadow-sm">
-                          <span className="material-symbols-outlined text-primary text-3xl">
-                            {source.icon}
-                          </span>
-                        </div>
-                        <p className="font-bold text-primary mb-1">
-                          {source.name}
-                        </p>
-                        <p className="text-xs text-on-surface-variant">
-                          {source.desc}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center justify-between pt-6 border-t border-outline-variant/20">
-                  <Button variant="ghost" size="md">
-                    Save Draft
-                  </Button>
-                  <div className="flex gap-3">
-                    <Button
-                      variant="secondary"
-                      size="md"
-                      onClick={() => setShowWizard(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button variant="primary" size="md">
-                      Continue to Configuration
-                      <span className="material-symbols-outlined">
-                        arrow_forward
-                      </span>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        )}
-      </MainContent>
-      <Footer variant="minimal" />
-    </>
+      </div>
+    </MainContent>
   );
 }

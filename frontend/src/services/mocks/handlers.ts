@@ -255,4 +255,19 @@ export const handlers = [
       ],
     });
   }),
+
+  // External API: DiceBear Avatars (used for user profile pictures)
+  http.get("https://api.dicebear.com/9.x/avataaars/svg", () => {
+    // Return a simple SVG placeholder avatar
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#6366f1"/>
+        <circle cx="50" cy="35" r="15" fill="#fff"/>
+        <ellipse cx="50" cy="65" rx="25" ry="20" fill="#fff"/>
+      </svg>
+    `;
+    return HttpResponse.text(svg, {
+      headers: { "Content-Type": "image/svg+xml" },
+    });
+  }),
 ];

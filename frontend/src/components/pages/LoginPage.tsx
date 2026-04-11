@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, FormCard } from "..";
-import { useAppDispatch } from "../../hooks/useRedux";
-import { loginSuccess } from "../../store/slices/authSlice";
+import { useAuth, DEMO_USERS } from "../../context/AuthContext";
+import type { User } from "../../context/AuthContext";
 import {
   BookOpen,
   CheckCircle2,
@@ -11,7 +11,6 @@ import {
   ArrowRight,
   Building2,
 } from "lucide-react";
-import type { User } from "../../store/slices/authSlice";
 
 const institutions = [
   { value: "univ-kigali", label: "Université de Kigali" },
@@ -24,24 +23,23 @@ const institutions = [
 ];
 
 const roles: { value: User["role"]; label: string }[] = [
-  { value: "admin", label: "Academic Administrator" },
-  { value: "qa", label: "Quality Assurance Officer" },
-  { value: "analyst", label: "Data Analyst" },
-  { value: "hod", label: "Department Head" },
-  { value: "lecturer", label: "Lecturer" },
+  { value: "academic_admin", label: "Academic Administrator" },
+  { value: "qa_officer", label: "Quality Assurance Officer" },
+  { value: "data_analyst", label: "Data Analyst" },
+  { value: "department_head", label: "Department Head" },
+  { value: "system_admin", label: "System Administrator" },
 ];
 
 const roleNames: Record<User["role"], string> = {
-  admin: "Academic Administrator",
-  qa: "QA Officer",
-  analyst: "Data Analyst",
-  hod: "Department Head",
-  lecturer: "Lecturer",
-  student: "Student",
+  academic_admin: "Academic Administrator",
+  qa_officer: "QA Officer",
+  data_analyst: "Data Analyst",
+  department_head: "Department Head",
+  system_admin: "System Admin",
 };
 
 export default function LoginPage() {
-  const dispatch = useAppDispatch();
+  const { login } = useAuth();
   const [institution, setInstitution] = useState("");
   const [role, setRole] = useState<User["role"] | "">("");
   const [email, setEmail] = useState("");
@@ -50,8 +48,6 @@ export default function LoginPage() {
   const [step, setStep] = useState<"form" | "mfa">("form");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const selectedInstitution = institutions.find((i) => i.value === institution);
 
   const handleSubmit = () => {
     if (!institution || !role || !email || !password) {
@@ -66,29 +62,25 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  const handleMFA = () => {
+  const handleMFA = async () => {
     if (!mfaCode) {
       setError("Please enter your MFA code.");
       return;
     }
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      dispatch(
-        loginSuccess({
-          id: `${role}-001`,
-          email,
-          name: email
-            .split("@")[0]
-            .replace(/\./g, " ")
-            .replace(/\b\w/g, (c) => c.toUpperCase()),
-          role: role as User["role"],
-          institution: selectedInstitution?.label ?? institution,
-          mfaEnabled: true,
-        }),
+    try {
+      // Use the email and password to login via AuthContext
+      // The App component's useEffect will handle redirect to dashboard
+      await login(email, password);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Login failed. Please try again.",
       );
-    }, 1000);
+      setStep("form");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // const fieldClass = (no longer used - now using inline classes);
@@ -173,6 +165,23 @@ export default function LoginPage() {
               <Alert variant="error">{error}</Alert>
             </div>
           )}
+
+          {/* Demo Credentials Banner */}
+          <div className="mb-4 p-3 bg-on-tertiary-container/10 border border-on-tertiary-container/30 rounded-lg">
+            <p className="text-[10px] font-bold text-on-tertiary-container uppercase tracking-wide mb-1">
+              📋 Demo Account
+            </p>
+            <p className="text-xs text-on-surface font-medium">
+              Email:{" "}
+              <span className="font-bold text-primary">
+                demo@university.edu
+              </span>
+            </p>
+            <p className="text-xs text-on-surface font-medium">
+              Password:{" "}
+              <span className="font-bold text-primary">password123</span>
+            </p>
+          </div>
 
           {step === "form" ? (
             <div className="space-y-3.5">
@@ -336,6 +345,66 @@ export default function LoginPage() {
               </button>
             </div>
           )}
+
+          {/* Demo Accounts Section */}
+          <div className="mt-6 pt-6 border-t border-outline-variant/20">
+            <p className="text-[10px] font-bold text-primary uppercase tracking-wide mb-3">
+              📊 Demo Accounts by Role
+            </p>
+            <div className="space-y-2 max-h-52 overflow-y-auto">
+              {DEMO_USERS.map((user) => (
+                <div
+                  key={user.email}
+                  onClick={async () => {
+                    // Auto-fill all credentials
+                    setEmail(user.email);
+                    setPassword(user.password);
+                    setInstitution("demo");
+                    setRole(user.role);
+                    setError("");
+                    setLoading(true);
+                    setMfaCode("000000"); // Demo MFA code
+
+                    // Simulate auth flow and auto-login
+                    // The App component's useEffect will handle redirect to dashboard
+                    try {
+                      await new Promise((resolve) => setTimeout(resolve, 800));
+                      await login(user.email, user.password);
+                      setLoading(false);
+                    } catch (err) {
+                      setError(
+                        err instanceof Error ? err.message : "Login failed",
+                      );
+                      setLoading(false);
+                    }
+                  }}
+                  className="p-2.5 bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/20 rounded-lg cursor-pointer transition-all hover:border-primary/30 group active:scale-95"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-primary truncate">
+                        {user.fullName}
+                      </p>
+                      <p className="text-[10px] text-on-surface-variant font-medium truncate">
+                        {user.email}
+                      </p>
+                      <p className="text-[9px] text-on-surface-variant uppercase tracking-wider font-bold">
+                        {user.role.replace(/_/g, " ")}
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <span className="inline-block px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-bold rounded uppercase tracking-wider group-hover:bg-primary/20 transition-colors">
+                        {user.department?.split(" ")[0] || "Demo"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-[9px] text-on-surface-variant mt-2 italic">
+              ⚡ Click any account for instant login • Password auto-filled
+            </p>
+          </div>
 
           <footer className="pt-6 flex flex-col items-center gap-3">
             <p className="text-on-surface-variant text-xs">

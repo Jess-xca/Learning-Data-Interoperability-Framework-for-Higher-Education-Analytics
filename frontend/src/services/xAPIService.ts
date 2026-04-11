@@ -363,6 +363,181 @@ class xAPIServiceClass {
       errors,
     };
   }
+
+  /**
+   * Generate enrollment statements for multiple students
+   */
+  batchCreateEnrollmentStatements(
+    enrollments: Array<{
+      studentEmail: string;
+      studentName: string;
+      courseId: string;
+      courseName: string;
+    }>,
+  ): xAPIStatement[] {
+    return enrollments.map((enrollment) =>
+      this.createEnrollmentStatement(
+        enrollment.studentEmail,
+        enrollment.studentName,
+        enrollment.courseId,
+        enrollment.courseName,
+      ),
+    );
+  }
+
+  /**
+   * Generate completion statements for multiple students
+   */
+  batchCreateCompletionStatements(
+    completions: Array<{
+      studentEmail: string;
+      studentName: string;
+      courseId: string;
+      courseName: string;
+      score: number;
+      totalScore: number;
+    }>,
+  ): xAPIStatement[] {
+    return completions.map((completion) =>
+      this.createCompletionStatement(
+        completion.studentEmail,
+        completion.studentName,
+        completion.courseId,
+        completion.courseName,
+        completion.score,
+        completion.totalScore,
+      ),
+    );
+  }
+
+  /**
+   * Create verbs dictionary for common learning activities
+   */
+  getStandardVerbs(): { [key: string]: Verb } {
+    return {
+      enrolled: {
+        id: "http://adlnet.gov/expapi/verbs/enrolled",
+        display: { "en-US": "enrolled" },
+      },
+      completed: {
+        id: "http://adlnet.gov/expapi/verbs/completed",
+        display: { "en-US": "completed" },
+      },
+      submitted: {
+        id: "http://adlnet.gov/expapi/verbs/submitted",
+        display: { "en-US": "submitted" },
+      },
+      attempted: {
+        id: "http://adlnet.gov/expapi/verbs/attempted",
+        display: { "en-US": "attempted" },
+      },
+      passed: {
+        id: "http://adlnet.gov/expapi/verbs/passed",
+        display: { "en-US": "passed" },
+      },
+      failed: {
+        id: "http://adlnet.gov/expapi/verbs/failed",
+        display: { "en-US": "failed" },
+      },
+      viewed: {
+        id: "http://adlnet.gov/expapi/verbs/viewed",
+        display: { "en-US": "viewed" },
+      },
+      interacted: {
+        id: "http://adlnet.gov/expapi/verbs/interacted",
+        display: { "en-US": "interacted" },
+      },
+      responded: {
+        id: "http://adlnet.gov/expapi/verbs/responded",
+        display: { "en-US": "responded" },
+      },
+      graded: {
+        id: "http://adlnet.gov/expapi/verbs/graded",
+        display: { "en-US": "graded" },
+      },
+    };
+  }
+
+  /**
+   * Export statements as JSON-LD (Linked Data format)
+   */
+  exportAsJSONLD(statements: xAPIStatement[]): string {
+    return JSON.stringify(
+      {
+        "@context": "https://w3id.org/xapi/schema/jsonld",
+        statements: statements,
+        exportedAt: new Date().toISOString(),
+      },
+      null,
+      2,
+    );
+  }
+
+  /**
+   * Export statements as CSV
+   */
+  exportAsCSV(statements: xAPIStatement[]): string {
+    const headers = [
+      "timestamp",
+      "actor_name",
+      "actor_email",
+      "verb_id",
+      "verb_display",
+      "object_id",
+      "object_type",
+      "result_score",
+    ];
+
+    const rows = statements.map((stmt) => [
+      stmt.timestamp || new Date().toISOString(),
+      stmt.actor?.name || "",
+      stmt.actor?.mbox?.replace("mailto:", "") || "",
+      stmt.verb?.id || "",
+      stmt.verb?.display?.["en-US"] || "",
+      stmt.object?.id || "",
+      stmt.object?.definition?.type || "",
+      stmt.result?.score?.raw?.toString() || "",
+    ]);
+
+    const csv = [
+      headers.join(","),
+      ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+    ];
+
+    return csv.join("\n");
+  }
+
+  /**
+   * Validate batch of statements
+   */
+  validateBatch(statements: xAPIStatement[]): {
+    totalStatements: number;
+    validStatements: number;
+    invalidStatements: number;
+    errors: Array<{ statementIndex: number; errors: string[] }>;
+  } {
+    const errors: Array<{ statementIndex: number; errors: string[] }> = [];
+    let validCount = 0;
+
+    statements.forEach((stmt, index) => {
+      const validation = this.validateStatement(stmt);
+      if (validation.valid) {
+        validCount++;
+      } else {
+        errors.push({
+          statementIndex: index,
+          errors: validation.errors,
+        });
+      }
+    });
+
+    return {
+      totalStatements: statements.length,
+      validStatements: validCount,
+      invalidStatements: statements.length - validCount,
+      errors,
+    };
+  }
 }
 
 export const xAPIService = new xAPIServiceClass();

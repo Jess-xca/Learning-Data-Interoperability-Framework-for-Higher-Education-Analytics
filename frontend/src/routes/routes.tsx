@@ -7,6 +7,7 @@ import {
   ProgramsPage,
   CoursesPage,
   AnalyticsPage,
+  StudentRiskPage,
   GovernancePage,
   SettingsPage,
   UserManagementPage,
@@ -18,15 +19,11 @@ import {
   AccreditationPage,
   DataGovernancePage,
   SecurityAccessPage,
-  StudentSuccessPredictionPage,
   NotificationsPage,
   SupportPage,
-  LoginPage,
 } from "../components/pages";
 
 export const appRoutes: RouteObject[] = [
-  { path: "/login", element: <LoginPage /> },
-  { path: "/", element: <DashboardPage /> },
   { path: "/dashboard", element: <DashboardPage /> },
   { path: "/notifications", element: <NotificationsPage /> },
   { path: "/support", element: <SupportPage /> },
@@ -47,5 +44,5 @@ export const appRoutes: RouteObject[] = [
   { path: "/accreditation", element: <AccreditationPage /> },
   { path: "/data-governance", element: <DataGovernancePage /> },
   { path: "/security-access", element: <SecurityAccessPage /> },
-  { path: "/success-prediction", element: <StudentSuccessPredictionPage /> },
+  { path: "/success-prediction", element: <StudentRiskPage /> },
 ];

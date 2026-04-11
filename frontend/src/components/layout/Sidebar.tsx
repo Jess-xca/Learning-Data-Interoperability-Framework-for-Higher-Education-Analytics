@@ -1,7 +1,5 @@
-import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
-import { logout } from "../../store/slices/authSlice";
 import { useLocation } from "react-router-dom";
-import type { User } from "../../store/slices/authSlice";
+import { useAuth, type UserRole } from "../../context/AuthContext";
 import {
   LayoutDashboard,
   Users,
@@ -150,9 +148,9 @@ function wrapFlat(items: NavItem[]): NavSection[] {
   return [{ label: "", items }];
 }
 
-const sectionsByRole: Record<User["role"], NavSection[]> = {
-  admin: adminSections,
-  qa: wrapFlat([
+const sectionsByRole: Record<UserRole, NavSection[]> = {
+  academic_admin: adminSections,
+  qa_officer: wrapFlat([
     { iconName: "dashboard_customize", label: "Dashboard", id: "dashboard" },
     {
       iconName: "psychology",
@@ -166,7 +164,7 @@ const sectionsByRole: Record<User["role"], NavSection[]> = {
     { iconName: "data_check", label: "Data Governance", id: "data-governance" },
     { iconName: "school", label: "Programs", id: "programs" },
   ]),
-  analyst: wrapFlat([
+  data_analyst: wrapFlat([
     { iconName: "dashboard_customize", label: "Dashboard", id: "dashboard" },
     {
       iconName: "psychology",
@@ -177,7 +175,7 @@ const sectionsByRole: Record<User["role"], NavSection[]> = {
     { iconName: "people", label: "Students", id: "students" },
     { iconName: "school", label: "Programs", id: "programs" },
   ]),
-  hod: wrapFlat([
+  department_head: wrapFlat([
     { iconName: "dashboard_customize", label: "Dashboard", id: "dashboard" },
     { iconName: "people", label: "Students", id: "students" },
     { iconName: "library_books", label: "Courses", id: "courses" },
@@ -189,16 +187,12 @@ const sectionsByRole: Record<User["role"], NavSection[]> = {
     },
     { iconName: "analytics", label: "Faculty Analytics", id: "analytics" },
   ]),
-  lecturer: wrapFlat([
+  system_admin: wrapFlat([
     { iconName: "dashboard_customize", label: "Dashboard", id: "dashboard" },
-    { iconName: "library_books", label: "My Courses", id: "courses" },
-    { iconName: "people", label: "My Students", id: "students" },
-    { iconName: "analytics", label: "Performance", id: "analytics" },
-  ]),
-  student: wrapFlat([
-    { iconName: "dashboard_customize", label: "Dashboard", id: "dashboard" },
-    { iconName: "library_books", label: "My Courses", id: "courses" },
-    { iconName: "analytics", label: "My Progress", id: "analytics" },
+    { iconName: "lock", label: "Security", id: "security" },
+    { iconName: "settings", label: "System Settings", id: "settings" },
+    { iconName: "people", label: "User Management", id: "users" },
+    { iconName: "data_usage", label: "Data Mapping", id: "data-mapping" },
   ]),
 };
 
@@ -207,13 +201,12 @@ const bottomItems: NavItem[] = [
   { iconName: "lock", label: "Security", id: "security" },
 ];
 
-const roleLabels: Record<User["role"], string> = {
-  admin: "System Administration",
-  qa: "Quality Assurance",
-  analyst: "Data Analytics",
-  hod: "Department Head",
-  lecturer: "Lecturer Portal",
-  student: "Student Portal",
+const roleLabels: Record<UserRole, string> = {
+  academic_admin: "Academic Administration",
+  qa_officer: "Quality Assurance",
+  data_analyst: "Data Analytics",
+  department_head: "Department Head",
+  system_admin: "System Administration",
 };
 
 export default function Sidebar({
@@ -221,10 +214,10 @@ export default function Sidebar({
   isOpen = false,
   onClose,
 }: SidebarProps) {
-  const dispatch = useAppDispatch();
+  const { state, logout } = useAuth();
   const location = useLocation();
-  const user = useAppSelector((state) => state.auth.user);
-  const role = (user?.role ?? "admin") as User["role"];
+  const user = state.user;
+  const role = user?.role ?? "system_admin";
   const sections = sectionsByRole[role];
 
   // Determine active nav based on current location
@@ -315,7 +308,10 @@ export default function Sidebar({
         {/* Support & Logout */}
         <div className="px-3 py-2 space-y-0.5 border-t border-on-primary/10">
           <button
-            onClick={() => dispatch(logout())}
+            onClick={() => {
+              logout();
+              window.location.href = "/login";
+            }}
             className="flex items-center gap-3 px-4 py-2.5 rounded-lg w-full text-left text-on-primary/60 hover:text-error hover:bg-error/10 transition-all duration-200 text-sm border-l-[3px] border-transparent"
           >
             <LogOut className="w-5 h-5" strokeWidth={2} />
@@ -327,16 +323,16 @@ export default function Sidebar({
         <div className="px-4 pb-5 pt-3 border-t border-on-primary/10">
           <div className="flex items-center gap-3 p-3 bg-primary-container/20 rounded-xl">
             <img
-              src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${user?.id ?? "admin"}`}
-              alt={user?.name ?? "User"}
+              src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${user?.id ?? "user"}`}
+              alt={user?.fullName ?? "User"}
               className="w-9 h-9 rounded-full flex-shrink-0 ring-2 ring-on-primary/20"
             />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-on-primary truncate">
-                {user?.name ?? "Admin User"}
+                {user?.fullName ?? "Guest User"}
               </p>
               <p className="text-[9px] text-on-primary/60 font-bold uppercase tracking-widest">
-                {role === "admin" ? "Superuser" : role}
+                {roleLabels[role]}
               </p>
             </div>
           </div>

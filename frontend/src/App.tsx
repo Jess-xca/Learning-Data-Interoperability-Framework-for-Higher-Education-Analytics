@@ -6,6 +6,7 @@ import {
   useNavigate,
   useLocation,
   Outlet,
+  Navigate,
 } from "react-router-dom";
 import { Sidebar, Header, Footer } from "./components";
 import {
@@ -15,9 +16,11 @@ import {
   PrivacyPolicyPage,
 } from "./components/pages";
 import { appRoutes } from "./routes/routes";
-import { useAppSelector } from "./hooks/useRedux";
 import { ToastProvider } from "./context/ToastContext";
 import { ToastContainer } from "./components/common/ToastContainer";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { SessionManager } from "./components/SessionManager";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function AppLayout() {
   const navigate = useNavigate();
@@ -53,30 +56,44 @@ function AppLayout() {
   );
 }
 
-function Routes_() {
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+function AppRoutes() {
+  const { state } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Redirect to dashboard only if user is on public routes while authenticated
+  // Redirect to dashboard when authenticated and trying to access public routes
   useEffect(() => {
-    if (
-      isAuthenticated &&
-      (location.pathname === "/" ||
+    if (state.isAuthenticated) {
+      const isPublicRoute =
+        location.pathname === "/" ||
         location.pathname === "/login" ||
         location.pathname === "/register" ||
-        location.pathname === "/reset-password")
-    ) {
-      navigate("/dashboard", { replace: true });
+        location.pathname === "/reset-password";
+
+      if (isPublicRoute) {
+        // Use setTimeout to ensure routes have been re-rendered
+        const timer = setTimeout(() => {
+          navigate("/dashboard", { replace: true });
+        }, 50);
+        return () => clearTimeout(timer);
+      }
     }
-  }, [isAuthenticated, location.pathname, navigate]);
+  }, [state.isAuthenticated, location.pathname, navigate]);
 
   return (
     <Routes>
       {/* Public Routes */}
       <Route path="/privacy" element={<PrivacyPolicyPage />} />
+      <Route
+        path="/unauthorized"
+        element={
+          <div className="flex items-center justify-center min-h-screen">
+            <h1>Unauthorized</h1>
+          </div>
+        }
+      />
 
-      {!isAuthenticated ? (
+      {!state.isAuthenticated ? (
         <>
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -86,22 +103,32 @@ function Routes_() {
       ) : (
         <Route element={<AppLayout />}>
           {appRoutes.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<ProtectedRoute>{route.element}</ProtectedRoute>}
+            />
           ))}
         </Route>
       )}
+
+      {/* Catch-all: redirect to login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
 
-function App() {
+function AppWrapper() {
   return (
     <ToastProvider>
       <BrowserRouter>
-        <Routes_ />
+        <AuthProvider>
+          <SessionManager />
+          <AppRoutes />
+        </AuthProvider>
       </BrowserRouter>
     </ToastProvider>
   );
 }
 
-export default App;
+export default AppWrapper;

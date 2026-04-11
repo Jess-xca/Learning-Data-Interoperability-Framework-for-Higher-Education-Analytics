@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, TextInput, FormCard } from "..";
-import { useAppDispatch } from "../../hooks/useRedux";
-import { loginSuccess } from "../../store/slices/authSlice";
+import { useAuth } from "../../context/AuthContext";
+import type { User } from "../../context/AuthContext";
 import {
   BookOpen,
   CheckCircle2,
@@ -11,7 +11,6 @@ import {
   ArrowRight,
   BarChart3,
 } from "lucide-react";
-import type { User } from "../../store/slices/authSlice";
 
 const institutions = [
   { value: "univ-kigali", label: "Université de Kigali" },
@@ -24,15 +23,15 @@ const institutions = [
 ];
 
 const roles: { value: User["role"]; label: string }[] = [
-  { value: "admin", label: "Academic Administrator" },
-  { value: "qa", label: "Quality Assurance Officer" },
-  { value: "analyst", label: "Data Analyst" },
-  { value: "hod", label: "Department Head" },
-  { value: "lecturer", label: "Lecturer" },
+  { value: "academic_admin", label: "Academic Administrator" },
+  { value: "qa_officer", label: "Quality Assurance Officer" },
+  { value: "data_analyst", label: "Data Analyst" },
+  { value: "department_head", label: "Department Head" },
+  { value: "system_admin", label: "System Administrator" },
 ];
 
 export default function RegistrationPage() {
-  const dispatch = useAppDispatch();
+  const { register, login } = useAuth();
   const [step, setStep] = useState<
     "institution" | "credentials" | "verification"
   >("institution");
@@ -100,26 +99,34 @@ export default function RegistrationPage() {
     }, 1000);
   };
 
-  const handleVerification = () => {
+  const handleVerification = async () => {
     if (!verificationCode || verificationCode.length !== 6) {
       setError("Please enter the 6-digit verification code");
       return;
     }
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      dispatch(
-        loginSuccess({
-          id: `${role}-${Date.now()}`,
-          email,
-          name: fullName,
-          role: role as User["role"],
-          institution: selectedInstitution?.label ?? institution,
-          mfaEnabled: true,
-        }),
+    try {
+      // First register the user
+      await register({
+        email,
+        fullName,
+        role: role as User["role"],
+        institution: selectedInstitution?.label ?? institution,
+      });
+
+      // Then log them in
+      await login(email, password);
+      // If successful, the App component will redirect to dashboard
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again.",
       );
-    }, 1000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fieldClass =

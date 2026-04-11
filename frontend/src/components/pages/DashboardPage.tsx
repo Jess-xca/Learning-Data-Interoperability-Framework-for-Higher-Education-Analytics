@@ -1,5 +1,5 @@
 import { MainContent, Card } from "..";
-import { useAppSelector } from "../../hooks/useRedux";
+import { useAuth } from "../../context/AuthContext";
 import { generateHECStudents, getHECPrograms } from "../../data/hecDummyData";
 import {
   TrendingUp,
@@ -196,47 +196,70 @@ function AdminDashboard() {
         {/* ── Key Metrics Cards ── */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
           <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-tertiary shadow-sm hover:shadow-md transition-all">
-            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Core System Health</div>
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">
+              Core System Health
+            </div>
             <div className="flex items-center justify-between">
               <div className="text-2xl font-black text-primary">99.98%</div>
               <div className="w-8 h-8 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary flex-shrink-0">
                 <span className="material-symbols-outlined text-sm">bolt</span>
               </div>
             </div>
-            <div className="text-[10px] mt-2 text-tertiary font-semibold">Nominal</div>
+            <div className="text-[10px] mt-2 text-tertiary font-semibold">
+              Nominal
+            </div>
           </div>
 
           <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-primary shadow-sm hover:shadow-md transition-all">
-            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Active Pipelines</div>
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">
+              Active Pipelines
+            </div>
             <div className="flex items-center justify-between">
-              <div className="text-2xl font-black text-primary">42 <span className="text-xs font-normal text-slate-400">/ 42</span></div>
+              <div className="text-2xl font-black text-primary">
+                42{" "}
+                <span className="text-xs font-normal text-slate-400">/ 42</span>
+              </div>
               <div className="w-8 h-8 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary flex-shrink-0">
-                <span className="material-symbols-outlined text-sm">conversion_path</span>
+                <span className="material-symbols-outlined text-sm">
+                  conversion_path
+                </span>
               </div>
             </div>
-            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Synced</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">
+              Synced
+            </div>
           </div>
 
           <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-secondary shadow-sm hover:shadow-md transition-all">
-            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Connected Systems</div>
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">
+              Connected Systems
+            </div>
             <div className="flex items-center justify-between">
               <div className="text-2xl font-black text-primary">14</div>
               <div className="w-8 h-8 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary flex-shrink-0">
                 <span className="material-symbols-outlined text-sm">hub</span>
               </div>
             </div>
-            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Integrated</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">
+              Integrated
+            </div>
           </div>
 
           <div className="bg-surface-container-lowest p-3 rounded-lg border-l-4 border-error shadow-sm hover:shadow-md transition-all">
-            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">Security Incidents</div>
+            <div className="text-[10px] font-bold uppercase text-slate-500 tracking-widest mb-2">
+              Security Incidents
+            </div>
             <div className="flex items-center justify-between">
               <div className="text-2xl font-black text-primary">0</div>
               <div className="w-8 h-8 bg-error-container/30 rounded-full flex items-center justify-center text-error flex-shrink-0">
-                <span className="material-symbols-outlined text-sm">security</span>
+                <span className="material-symbols-outlined text-sm">
+                  security
+                </span>
               </div>
             </div>
-            <div className="text-[10px] mt-2 text-slate-500 font-semibold">Secure</div>
+            <div className="text-[10px] mt-2 text-slate-500 font-semibold">
+              Secure
+            </div>
           </div>
         </div>
 
@@ -246,127 +269,203 @@ function AdminDashboard() {
           <div className="col-span-12 lg:col-span-8">
             <div className="bg-surface-container-low rounded-xl p-8">
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-xl font-black text-primary tracking-tight">Ecosystem Modules</h2>
-                <span className="text-xs font-bold text-on-surface-variant uppercase bg-surface-container-highest px-3 py-1 rounded-full">All Systems Operational</span>
+                <h2 className="text-xl font-black text-primary tracking-tight">
+                  Ecosystem Modules
+                </h2>
+                <span className="text-xs font-bold text-on-surface-variant uppercase bg-surface-container-highest px-3 py-1 rounded-full">
+                  All Systems Operational
+                </span>
               </div>
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">school</span>
+                    <span className="material-symbols-outlined text-lg">
+                      school
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Academic Registry</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Academic Registry
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">finance_chip</span>
+                    <span className="material-symbols-outlined text-lg">
+                      finance_chip
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Financial Aid</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Active</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Financial Aid
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Active
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">diversity_3</span>
+                    <span className="material-symbols-outlined text-lg">
+                      diversity_3
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Admissions CRM</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Syncing</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Admissions CRM
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Syncing
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">library_books</span>
+                    <span className="material-symbols-outlined text-lg">
+                      library_books
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">LMS Connector</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      LMS Connector
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">psychology</span>
+                    <span className="material-symbols-outlined text-lg">
+                      psychology
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Predictive Analytics</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Training</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Predictive Analytics
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Training
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">home_work</span>
+                    <span className="material-symbols-outlined text-lg">
+                      home_work
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Campus Housing</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Idle</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Campus Housing
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Idle
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">payments</span>
+                    <span className="material-symbols-outlined text-lg">
+                      payments
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Bursar System</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Bursar System
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">biotech</span>
+                    <span className="material-symbols-outlined text-lg">
+                      biotech
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Research Grants</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Research Grants
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">work</span>
+                    <span className="material-symbols-outlined text-lg">
+                      work
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Alumni & Careers</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Updating</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Alumni & Careers
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Updating
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">sports_soccer</span>
+                    <span className="material-symbols-outlined text-lg">
+                      sports_soccer
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Athletics Hub</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Athletics Hub
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">health_and_safety</span>
+                    <span className="material-symbols-outlined text-lg">
+                      health_and_safety
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Student Wellness</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Protected</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Student Wellness
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Protected
+                    </div>
                   </div>
                 </div>
 
                 <div className="bg-surface-container-lowest p-3 rounded-lg flex flex-col items-center gap-2 group hover:bg-primary-container hover:text-white transition-all duration-200 border border-transparent hover:border-primary-container shadow-sm">
                   <div className="w-8 h-8 shrink-0 bg-surface-container-high rounded-lg flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary-container">
-                    <span className="material-symbols-outlined text-lg">map</span>
+                    <span className="material-symbols-outlined text-lg">
+                      map
+                    </span>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs font-bold leading-tight">Space Management</div>
-                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">Stable</div>
+                    <div className="text-xs font-bold leading-tight">
+                      Space Management
+                    </div>
+                    <div className="text-[8px] text-slate-500 group-hover:text-blue-200 uppercase mt-0.5">
+                      Stable
+                    </div>
                   </div>
                 </div>
               </div>
@@ -378,15 +477,23 @@ function AdminDashboard() {
             <div className="bg-surface-container-lowest rounded-lg p-3 shadow-sm border border-slate-100">
               <div className="text-xs font-black text-primary uppercase tracking-widest mb-3 flex justify-between items-center">
                 <span>Active Data Pipelines</span>
-                <span className="text-[8px] text-slate-400 font-bold">REAL-TIME</span>
+                <span className="text-[8px] text-slate-400 font-bold">
+                  REAL-TIME
+                </span>
               </div>
               <div className="space-y-3">
                 <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-tertiary before:rounded-full">
                   <div className="flex justify-between items-center mb-0.5">
-                    <span className="text-xs font-bold truncate">Banner SIS Integration</span>
-                    <span className="text-[8px] font-bold text-tertiary flex-shrink-0 ml-2">LIVE</span>
+                    <span className="text-xs font-bold truncate">
+                      Banner SIS Integration
+                    </span>
+                    <span className="text-[8px] font-bold text-tertiary flex-shrink-0 ml-2">
+                      LIVE
+                    </span>
                   </div>
-                  <div className="text-[10px] text-slate-500 mb-1 truncate">Student enrollment...</div>
+                  <div className="text-[10px] text-slate-500 mb-1 truncate">
+                    Student enrollment...
+                  </div>
                   <div className="w-full bg-surface-container rounded-full h-0.5">
                     <div className="bg-tertiary h-0.5 rounded-full w-[85%]"></div>
                   </div>
@@ -394,10 +501,16 @@ function AdminDashboard() {
 
                 <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-primary before:rounded-full">
                   <div className="flex justify-between items-center mb-0.5">
-                    <span className="text-xs font-bold truncate">Canvas LMS Export</span>
-                    <span className="text-[8px] font-bold text-primary flex-shrink-0 ml-2">QUEUED</span>
+                    <span className="text-xs font-bold truncate">
+                      Canvas LMS Export
+                    </span>
+                    <span className="text-[8px] font-bold text-primary flex-shrink-0 ml-2">
+                      QUEUED
+                    </span>
                   </div>
-                  <div className="text-[10px] text-slate-500 mb-1 truncate">Grade distributions for Fall 2024</div>
+                  <div className="text-[10px] text-slate-500 mb-1 truncate">
+                    Grade distributions for Fall 2024
+                  </div>
                   <div className="w-full bg-surface-container rounded-full h-0.5">
                     <div className="bg-primary h-0.5 rounded-full w-[30%]"></div>
                   </div>
@@ -405,10 +518,16 @@ function AdminDashboard() {
 
                 <div className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-slate-300 before:rounded-full opacity-60">
                   <div className="flex justify-between items-center mb-0.5">
-                    <span className="text-xs font-bold truncate">Financial Reporting</span>
-                    <span className="text-[8px] font-bold text-slate-400 flex-shrink-0 ml-2">IDLE</span>
+                    <span className="text-xs font-bold truncate">
+                      Financial Reporting
+                    </span>
+                    <span className="text-[8px] font-bold text-slate-400 flex-shrink-0 ml-2">
+                      IDLE
+                    </span>
                   </div>
-                  <div className="text-[10px] text-slate-500 truncate">Scheduled for 02:00 AM</div>
+                  <div className="text-[10px] text-slate-500 truncate">
+                    Scheduled for 02:00 AM
+                  </div>
                 </div>
               </div>
 
@@ -419,14 +538,22 @@ function AdminDashboard() {
 
             <div className="bg-primary-container p-3 rounded-lg text-white shadow-lg shadow-primary/10">
               <div className="flex items-center gap-2 mb-2">
-                <span className="material-symbols-outlined text-on-primary-container text-sm flex-shrink-0">verified_user</span>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-on-primary-container">Admin Security</div>
+                <span className="material-symbols-outlined text-on-primary-container text-sm flex-shrink-0">
+                  verified_user
+                </span>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-on-primary-container">
+                  Admin Security
+                </div>
               </div>
               <p className="text-xs text-blue-100 font-medium leading-tight mb-3">
                 MFA active. Last audit 3 days ago.
               </p>
               <div className="flex items-center gap-2 text-[8px]">
-                <img className="w-6 h-6 rounded-full border border-on-primary-container shadow-md flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhAwnfe4bOkpQnho3pzAELrsX5SAgJhlB7kM5OYvi5DqryTZ4QWLsQ7n46vmRt8vmSYW6wBJr0zu8xaaNEYYCW5Ryp1s7TCB5nGOk6mSlbR798R_qs00qmg2dDvtz4mpEwJf8FVQtXt4doYWSnYxAoDdqmwAnTTVIa6Cq9OC3sATiUKoQordaVxdXbkcbTYwkuAqybLpqrO_tyXZ1NdTUGhEaPR9Snq9W60BKUAj6T7c7s4-29F-ffS4Ia0zj0F5K1sprTvdAHNxU" alt="Auditor" />
+                <img
+                  className="w-6 h-6 rounded-full border border-on-primary-container shadow-md flex-shrink-0"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhAwnfe4bOkpQnho3pzAELrsX5SAgJhlB7kM5OYvi5DqryTZ4QWLsQ7n46vmRt8vmSYW6wBJr0zu8xaaNEYYCW5Ryp1s7TCB5nGOk6mSlbR798R_qs00qmg2dDvtz4mpEwJf8FVQtXt4doYWSnYxAoDdqmwAnTTVIa6Cq9OC3sATiUKoQordaVxdXbkcbTYwkuAqybLpqrO_tyXZ1NdTUGhEaPR9Snq9W60BKUAj6T7c7s4-29F-ffS4Ia0zj0F5K1sprTvdAHNxU"
+                  alt="Auditor"
+                />
                 <div className="uppercase font-bold tracking-wider">
                   Sarah Chen
                 </div>
@@ -491,26 +618,41 @@ function AdminDashboard() {
           <div className="col-span-12">
             <div className="bg-surface-container-low rounded-xl p-8 overflow-hidden relative min-h-[300px] flex items-center shadow-sm">
               <div className="z-10 relative max-w-lg">
-                <h3 className="text-2xl font-black text-primary mb-4 tracking-tight">Institutional Network</h3>
-                <p className="text-on-surface-variant font-medium mb-6">Visualizing connectivity across 4 campus nodes and 12 remote data centers. All regions reporting nominal latency.</p>
+                <h3 className="text-2xl font-black text-primary mb-4 tracking-tight">
+                  Institutional Network
+                </h3>
+                <p className="text-on-surface-variant font-medium mb-6">
+                  Visualizing connectivity across 4 campus nodes and 12 remote
+                  data centers. All regions reporting nominal latency.
+                </p>
                 <div className="flex flex-wrap gap-4">
                   <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
                     <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
-                    <span className="text-xs font-bold uppercase tracking-tighter">North Campus: <span className="text-primary">ACTIVE</span></span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">
+                      North Campus: <span className="text-primary">ACTIVE</span>
+                    </span>
                   </div>
                   <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
                     <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
-                    <span className="text-xs font-bold uppercase tracking-tighter">Cloud Mirror: <span className="text-primary">SYNCED</span></span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">
+                      Cloud Mirror: <span className="text-primary">SYNCED</span>
+                    </span>
                   </div>
                   <div className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-3 border border-slate-100">
                     <div className="w-2 h-2 bg-tertiary rounded-full animate-pulse"></div>
-                    <span className="text-xs font-bold uppercase tracking-tighter">Europe Node: <span className="text-primary">STABLE</span></span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">
+                      Europe Node: <span className="text-primary">STABLE</span>
+                    </span>
                   </div>
                 </div>
               </div>
               {/* Background map decoration */}
               <div className="absolute right-0 top-0 bottom-0 w-2/3 opacity-40 grayscale overflow-hidden">
-                <img className="w-full h-full object-cover" src="/campus-network.png" alt="Campus Network Map" />
+                <img
+                  className="w-full h-full object-cover"
+                  src="/campus-network.png"
+                  alt="Campus Network Map"
+                />
               </div>
             </div>
           </div>
@@ -1114,6 +1256,8 @@ function LecturerDashboard() {
 // ============================================================================
 // STUDENT DASHBOARD
 // ============================================================================
+// StudentDashboard component - Not used in current demo (no student role)
+/*
 function StudentDashboard() {
   const studentCourses = [
     {
@@ -1241,27 +1385,27 @@ function StudentDashboard() {
     </MainContent>
   );
 }
+*/
 
 // ============================================================================
 // MAIN COMPONENT - Role-Based Router
 // ============================================================================
 export default function DashboardPage() {
-  const user = useAppSelector((state) => state.auth.user);
+  const { state } = useAuth();
+  const user = state.user;
   const userRole = user?.role;
 
   switch (userRole) {
-    case "admin":
+    case "academic_admin":
       return <AdminDashboard />;
-    case "qa":
+    case "qa_officer":
       return <QADashboard />;
-    case "analyst":
+    case "data_analyst":
       return <AnalystDashboard />;
-    case "hod":
+    case "department_head":
       return <HODDashboard />;
-    case "lecturer":
+    case "system_admin":
       return <LecturerDashboard />;
-    case "student":
-      return <StudentDashboard />;
     default:
       return (
         <MainContent>

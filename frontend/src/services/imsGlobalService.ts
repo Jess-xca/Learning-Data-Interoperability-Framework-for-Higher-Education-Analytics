@@ -440,6 +440,305 @@ class IMSGlobalServiceClass {
       return false;
     }
   }
+
+  /**
+   * Transform generic user data to LIS User format
+   */
+  transformToLISUser(sourceUser: any): LISUser {
+    const id = sourceUser.id || `user-${Date.now()}`;
+    const email = sourceUser.email || sourceUser.userEmail || '';
+    const firstName = sourceUser.firstName || sourceUser.givenName || '';
+    const lastName = sourceUser.lastName || sourceUser.familyName || '';
+
+    return {
+      sourcedId: id,
+      userId: sourceUser.userId || id,
+      email: email,
+      givenName: firstName,
+      familyName: lastName,
+      fullName: `${firstName} ${lastName}`.trim() || sourceUser.fullName || sourceUser.name || 'Unknown User',
+      tel: sourceUser.phone || sourceUser.tel,
+      sms: sourceUser.sms,
+      timezone: sourceUser.timezone || 'UTC',
+      userSourcedIds: [id],
+      cidSource: 'academic-curator',
+    };
+  }
+
+  /**
+   * Transform generic user data to OneRoster User format
+   */
+  transformToOneRosterUser(sourceUser: any): OneRosterUser {
+    const id = sourceUser.id || `user-${Date.now()}`;
+    const email = sourceUser.email || sourceUser.userEmail || '';
+    const firstName = sourceUser.firstName || sourceUser.givenName || '';
+    const lastName = sourceUser.lastName || sourceUser.familyName || '';
+    const username = sourceUser.username || email.split('@')[0] || id;
+
+    return {
+      sourcedId: id,
+      username: username,
+      email: email,
+      givenName: firstName,
+      familyName: lastName,
+      middleName: sourceUser.middleName,
+      identifiers: {
+        userId: sourceUser.userId || id,
+        systemId: 'academic-curator',
+      },
+      orgSourcedIds: sourceUser.orgIds || [],
+    };
+  }
+
+  /**
+   * Transform generic course data to LIS Course format
+   */
+  transformToLISCourse(sourceCourse: any): LISCourse {
+    const id = sourceCourse.id || `course-${Date.now()}`;
+    const code = sourceCourse.code || sourceCourse.courseCode || id;
+
+    return {
+      sourcedId: id,
+      courseCode: code,
+      label: code,
+      title: sourceCourse.title || sourceCourse.name || 'Unknown Course',
+      shortDescription: sourceCourse.shortDescription || sourceCourse.description,
+      longDescription: sourceCourse.description || sourceCourse.longDescription,
+      term: sourceCourse.term || sourceCourse.semester || 'Unknown',
+      subjectAreas: sourceCourse.subjectAreas || [sourceCourse.subject || 'General'],
+      credits: sourceCourse.credits?.toString() || '3',
+      dept: sourceCourse.department || sourceCourse.dept || 'Unknown',
+    };
+  }
+
+  /**
+   * Transform generic enrollment data to LIS Enrollment format
+   */
+  transformToLISEnrollment(sourceEnrollment: any): LISEnrollment {
+    const roleMap: { [key: string]: LISEnrollment['role'] } = {
+      student: '01',
+      instructor: '02',
+      teacher: '02',
+      ta: '03',
+      aide: '03',
+      parent: '04',
+      admin: '05',
+      administrator: '05',
+    };
+
+    const role =
+      roleMap[sourceEnrollment.role?.toLowerCase() || 'student'] || '01';
+
+    return {
+      sourcedId: sourceEnrollment.id || `enroll-${Date.now()}`,
+      classSourcedId: sourceEnrollment.courseId || sourceEnrollment.classId || '',
+      userSourcedId: sourceEnrollment.userId || sourceEnrollment.studentId || '',
+      role: role,
+      status:
+        sourceEnrollment.status === 'active' ||
+        sourceEnrollment.status === 'Active'
+          ? 'Active'
+          : sourceEnrollment.status === 'inactive' ||
+              sourceEnrollment.status === 'Inactive'
+            ? 'Inactive'
+            : 'Pending',
+      dateTime: sourceEnrollment.enrolledDate || new Date().toISOString(),
+    };
+  }
+
+  /**
+   * Transform generic course data to OneRoster Class format
+   */
+  transformToOneRosterClass(sourceCourse: any): OneRosterClass {
+    const id = sourceCourse.id || `course-${Date.now()}`;
+    const code = sourceCourse.code || sourceCourse.courseCode || id;
+
+    return {
+      sourcedId: id,
+      schoolSourcedId: sourceCourse.schoolId || 'school-001',
+      title: sourceCourse.title || sourceCourse.name || 'Unknown Class',
+      description: sourceCourse.description,
+      grades: sourceCourse.grades || ['9-12'],
+      subjectCodes: sourceCourse.subjectAreas || [sourceCourse.subject || 'GENERAL'],
+      classCode: code,
+      classType: sourceCourse.classType || 'scheduled',
+    };
+  }
+
+  /**
+   * Transform generic enrollment data to OneRoster Enrollment format
+   */
+  transformToOneRosterEnrollment(
+    sourceEnrollment: any,
+  ): OneRosterEnrollment {
+    const roleMap: { [key: string]: OneRosterEnrollment['role'] } = {
+      student: 'student',
+      instructor: 'teacher',
+      teacher: 'teacher',
+      ta: 'aide',
+      aide: 'aide',
+      parent: 'parent',
+      guardian: 'guardian',
+      admin: 'proctor',
+    };
+
+    const role =
+      roleMap[sourceEnrollment.role?.toLowerCase() || 'student'] || 'student';
+
+    return {
+      sourcedId: sourceEnrollment.id || `enroll-${Date.now()}`,
+      classSourcedId: sourceEnrollment.courseId || sourceEnrollment.classId || '',
+      userSourcedId: sourceEnrollment.userId || sourceEnrollment.studentId || '',
+      role: role,
+      status:
+        sourceEnrollment.status === 'active' ||
+        sourceEnrollment.status === 'Active'
+          ? 'active'
+          : sourceEnrollment.status === 'inactive' ||
+              sourceEnrollment.status === 'Inactive'
+            ? 'inactive'
+            : 'pending',
+      primary: sourceEnrollment.primary || true,
+    };
+  }
+
+  /**
+   * Batch transform users to LIS format
+   */
+  batchTransformToLISUsers(sourceUsers: any[]): LISUser[] {
+    return sourceUsers.map((user) => this.transformToLISUser(user));
+  }
+
+  /**
+   * Batch transform courses to LIS format
+   */
+  batchTransformToLISCourses(sourceCourses: any[]): LISCourse[] {
+    return sourceCourses.map((course) => this.transformToLISCourse(course));
+  }
+
+  /**
+   * Batch transform enrollments to LIS format
+   */
+  batchTransformToLISEnrollments(sourceEnrollments: any[]): LISEnrollment[] {
+    return sourceEnrollments.map((enrollment) =>
+      this.transformToLISEnrollment(enrollment),
+    );
+  }
+
+  /**
+   * Batch transform users to OneRoster format
+   */
+  batchTransformToOneRosterUsers(sourceUsers: any[]): OneRosterUser[] {
+    return sourceUsers.map((user) => this.transformToOneRosterUser(user));
+  }
+
+  /**
+   * Batch transform courses to OneRoster format
+   */
+  batchTransformToOneRosterClasses(sourceCourses: any[]): OneRosterClass[] {
+    return sourceCourses.map((course) =>
+      this.transformToOneRosterClass(course),
+    );
+  }
+
+  /**
+   * Batch transform enrollments to OneRoster format
+   */
+  batchTransformToOneRosterEnrollments(
+    sourceEnrollments: any[],
+  ): OneRosterEnrollment[] {
+    return sourceEnrollments.map((enrollment) =>
+      this.transformToOneRosterEnrollment(enrollment),
+    );
+  }
+
+  /**
+   * Export data in XML format (IMS-compliant)
+   */
+  exportAsXML(
+    users: LISUser[],
+    courses: LISCourse[],
+    enrollments: LISEnrollment[],
+  ): string {
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<LearningInformationServices version="2.0">
+  <Users>
+`;
+
+    users.forEach((user) => {
+      xml += `    <User sourcedId="${user.sourcedId}">
+      <UserId>${user.userId}</UserId>
+      <Email>${user.email}</Email>
+      <GivenName>${user.givenName}</GivenName>
+      <FamilyName>${user.familyName}</FamilyName>
+      <FullName>${user.fullName}</FullName>
+    </User>
+`;
+    });
+
+    xml += `  </Users>
+  <Courses>
+`;
+
+    courses.forEach((course) => {
+      xml += `    <Course sourcedId="${course.sourcedId}">
+      <CourseCode>${course.courseCode}</CourseCode>
+      <Label>${course.label}</Label>
+      <Title>${course.title}</Title>
+    </Course>
+`;
+    });
+
+    xml += `  </Courses>
+  <Enrollments>
+`;
+
+    enrollments.forEach((enrollment) => {
+      xml += `    <Enrollment sourcedId="${enrollment.sourcedId}">
+      <ClassSourcedId>${enrollment.classSourcedId}</ClassSourcedId>
+      <UserSourcedId>${enrollment.userSourcedId}</UserSourcedId>
+      <Role>${enrollment.role}</Role>
+      <Status>${enrollment.status}</Status>
+    </Enrollment>
+`;
+    });
+
+    xml += `  </Enrollments>
+</LearningInformationServices>`;
+
+    return xml;
+  }
+
+  /**
+   * Export data as JSON
+   */
+  exportAsJSON(
+    users: LISUser[],
+    courses: LISCourse[],
+    enrollments: LISEnrollment[],
+  ): string {
+    return JSON.stringify(
+      {
+        users,
+        courses,
+        enrollments,
+        exportedAt: new Date().toISOString(),
+      },
+      null,
+      2,
+    );
+  }
+
+  /**
+   * Export data as CSV
+   */
+  exportAsCSV(data: any[], headers: string[]): string {
+    const csvHeaders = headers.join(',');
+    const csvRows = data.map((row) =>
+      headers.map((header) => `"${row[header] || ''}"`).join(','),
+    );
+    return [csvHeaders, ...csvRows].join('\n');
+  }
 }
 
 export const imsGlobalService = new IMSGlobalServiceClass();

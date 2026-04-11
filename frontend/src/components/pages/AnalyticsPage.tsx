@@ -1,4 +1,4 @@
-import { MainContent, Card, Button, Footer } from "..";
+import { MainContent, Card, Button, Footer, PerformanceTrendChart, PredictiveInsights, CohortComparison } from "..";
 import { ChartCard } from "../dashboard";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
 import { generateDummyStudents } from "../../data/dummyGenerator";
@@ -318,6 +318,19 @@ export default function AnalyticsPage() {
             </table>
           </div>
         </Card>
+
+        {/* Enhanced Phase 6 Analytics Components */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <PerformanceTrendChart />
+          </div>
+          <div>
+            <PredictiveInsights />
+          </div>
+        </div>
+
+        {/* Cohort Comparison */}
+        <CohortComparison />
 
         {/* Actions */}
         <div className="flex gap-3">

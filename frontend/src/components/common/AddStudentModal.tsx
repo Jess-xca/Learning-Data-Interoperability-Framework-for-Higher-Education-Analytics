@@ -34,12 +34,17 @@ export function AddStudentModal({ isOpen, onClose }: AddStudentModalProps) {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "gpa" ? parseFloat(value) : name === "enrollmentYear" ? parseInt(value) : value,
+      [name]:
+        name === "gpa"
+          ? parseFloat(value)
+          : name === "enrollmentYear"
+            ? parseInt(value)
+            : value,
     }));
   };
 

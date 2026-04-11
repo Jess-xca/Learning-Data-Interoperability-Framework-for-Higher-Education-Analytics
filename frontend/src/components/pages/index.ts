@@ -11,6 +11,7 @@ export { Student360Profile } from "./Student360Profile";
 export { default as ProgramsPage } from "./ProgramsPage";
 export { default as CoursesPage } from "./CoursesPage";
 export { default as AnalyticsPage } from "./AnalyticsPage";
+export { StudentRiskPage } from "./StudentRiskPage";
 export { default as GovernancePage } from "./GovernancePage";
 export { default as SettingsPage } from "./SettingsPage";
 export { default as UserManagementPage } from "./UserManagementPage";

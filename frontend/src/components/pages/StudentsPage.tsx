@@ -264,7 +264,7 @@ export default function StudentsPage() {
                 </h2>
                 <div className="flex items-center gap-4">
                   <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
-                  {`${filteredStudents.length} results`}
+                    {`${filteredStudents.length} results`}
                   </span>
                   <div className="flex gap-1 bg-surface-container-highest rounded-lg p-1">
                     <button
@@ -275,7 +275,9 @@ export default function StudentsPage() {
                           : "text-on-surface-variant hover:text-on-surface"
                       }`}
                     >
-                      <span className="material-symbols-outlined text-sm">table_chart</span>
+                      <span className="material-symbols-outlined text-sm">
+                        table_chart
+                      </span>
                     </button>
                     <button
                       onClick={() => setViewMode("card")}
@@ -285,7 +287,9 @@ export default function StudentsPage() {
                           : "text-on-surface-variant hover:text-on-surface"
                       }`}
                     >
-                      <span className="material-symbols-outlined text-sm">view_module</span>
+                      <span className="material-symbols-outlined text-sm">
+                        view_module
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -303,20 +307,27 @@ export default function StudentsPage() {
                     columns={columns}
                     data={paginatedStudents}
                     keyExtractor={(row) => row.id}
-                    onRowClick={(student) => navigate(`/students/${student.id}`)}
+                    onRowClick={(student) =>
+                      navigate(`/students/${student.id}`)
+                    }
                   />
                   {/* Pagination Controls */}
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-6">
                       <button
-                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        onClick={() =>
+                          setCurrentPage(Math.max(1, currentPage - 1))
+                        }
                         disabled={currentPage === 1}
                         className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
                       >
                         <ChevronDown className="w-4 h-4 rotate-90" />
                       </button>
                       <div className="flex gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        {Array.from(
+                          { length: totalPages },
+                          (_, i) => i + 1,
+                        ).map((page) => (
                           <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
@@ -331,7 +342,9 @@ export default function StudentsPage() {
                         ))}
                       </div>
                       <button
-                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        onClick={() =>
+                          setCurrentPage(Math.min(totalPages, currentPage + 1))
+                        }
                         disabled={currentPage === totalPages}
                         className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
                       >
@@ -363,17 +376,29 @@ export default function StudentsPage() {
                         </div>
                         <div className="space-y-1.5 mb-2 text-[10px]">
                           <div>
-                            <p className="text-on-surface-variant uppercase font-bold">Program</p>
-                            <p className="text-primary font-bold truncate">{student.program}</p>
+                            <p className="text-on-surface-variant uppercase font-bold">
+                              Program
+                            </p>
+                            <p className="text-primary font-bold truncate">
+                              {student.program}
+                            </p>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <div>
-                              <p className="text-on-surface-variant uppercase font-bold">GPA</p>
-                              <p className="text-primary font-bold">{student.gpa.toFixed(2)}</p>
+                              <p className="text-on-surface-variant uppercase font-bold">
+                                GPA
+                              </p>
+                              <p className="text-primary font-bold">
+                                {student.gpa.toFixed(2)}
+                              </p>
                             </div>
                             <div>
-                              <p className="text-on-surface-variant uppercase font-bold">Year</p>
-                              <p className="text-primary font-bold">{student.enrollmentYear}</p>
+                              <p className="text-on-surface-variant uppercase font-bold">
+                                Year
+                              </p>
+                              <p className="text-primary font-bold">
+                                {student.enrollmentYear}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -398,14 +423,19 @@ export default function StudentsPage() {
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2">
                       <button
-                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        onClick={() =>
+                          setCurrentPage(Math.max(1, currentPage - 1))
+                        }
                         disabled={currentPage === 1}
                         className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
                       >
                         <ChevronDown className="w-4 h-4 rotate-90" />
                       </button>
                       <div className="flex gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        {Array.from(
+                          { length: totalPages },
+                          (_, i) => i + 1,
+                        ).map((page) => (
                           <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
@@ -420,7 +450,9 @@ export default function StudentsPage() {
                         ))}
                       </div>
                       <button
-                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        onClick={() =>
+                          setCurrentPage(Math.min(totalPages, currentPage + 1))
+                        }
                         disabled={currentPage === totalPages}
                         className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
                       >
