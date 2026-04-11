@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator - Curriculum &amp; Accreditation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#f9f9ff",
+              "surface-container-low": "#f0f3ff",
+              "surface-bright": "#f9f9ff",
+              "on-surface-variant": "#43474e",
+              "tertiary-fixed": "#6ffbbe",
+              "surface-tint": "#455f88",
+              "secondary": "#545f72",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#adc7f7",
+              "surface-container": "#e7eeff",
+              "on-primary-fixed": "#001b3c",
+              "background": "#f9f9ff",
+              "outline-variant": "#c4c6cf",
+              "secondary-fixed-dim": "#bcc7dd",
+              "secondary-fixed": "#d8e3fa",
+              "primary-container": "#1a365d",
+              "surface-dim": "#cfdaf1",
+              "outline": "#74777f",
+              "on-tertiary-fixed": "#002113",
+              "on-secondary-container": "#586377",
+              "surface-variant": "#d8e3fa",
+              "on-background": "#111c2c",
+              "inverse-on-surface": "#ebf1ff",
+              "on-surface": "#111c2c",
+              "on-tertiary-container": "#00b47d",
+              "on-primary-container": "#86a0cd",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#003e28",
+              "secondary-container": "#d5e0f7",
+              "on-tertiary-fixed-variant": "#005236",
+              "error-container": "#ffdad6",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-highest": "#d8e3fa",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#4edea3",
+              "on-tertiary": "#ffffff",
+              "tertiary": "#002617",
+              "on-secondary-fixed": "#111c2c",
+              "on-primary-fixed-variant": "#2d476f",
+              "inverse-surface": "#263142",
+              "error": "#ba1a1a",
+              "on-secondary-fixed-variant": "#3c475a",
+              "on-primary": "#ffffff",
+              "primary-fixed": "#d6e3ff",
+              "primary": "#002045",
+              "inverse-primary": "#adc7f7",
+              "surface-container-high": "#dee8ff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dee8ff; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="flex flex-col h-screen w-64 border-r-0 bg-slate-50 dark:bg-slate-900 py-6 shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden">
+<img alt="University Crest" class="w-full h-full object-cover" data-alt="high resolution heraldic shield crest for a prestigious modern university in deep navy and silver colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-CdI4SsM-iKvtMwIbNpMeEOfgmSHPFed3YKAWY2NnY89wc5p16nC1wH5o3XvQ1AqxpDPpymkrKi7FhHH4vcJQvd2bKs-wcf3uislRRMDSxen91kQiVX_CVH_njmO0VPRKEBUR7uAf2DDRbw9zcR22ucWF_jZdtc_Xv7JomYmPkZH3RagXZ9qxhvZYk8nwKeq6l6_IGKAEidvTum9c9WxSvChLrBUwDzL2DUQEJXMtHyo5iBYA1yjmn7TEjOZ5APOykFAIZp98xw4"/>
+</div>
+<div>
+<h1 class="text-xl font-bold text-blue-900 dark:text-blue-100 tracking-tighter">Academic Curator</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Higher Ed Analytics</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">database</span>
+<span>Data Sources</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">sync_alt</span>
+<span>Interoperability</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span>Analytics</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">school</span>
+<span>Student Success</span>
+</div>
+<!-- Active Tab: Curriculum -->
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-900 dark:text-blue-400 font-bold border-r-4 border-blue-900 dark:border-blue-400 bg-slate-200/50 dark:bg-slate-800/50 translate-x-1 transition-transform font-sans text-sm tracking-tight">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span>Curriculum</span>
+</div>
+<!-- Active Tab: Accreditation -->
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span>Accreditation</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span>Reporting</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer font-sans text-sm font-medium tracking-tight">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Settings</span>
+</div>
+</nav>
+<div class="mt-auto px-6">
+<div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800">
+<p class="text-xs font-bold text-blue-900 dark:text-blue-300 mb-2 uppercase tracking-wider">Storage Usage</p>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-blue-600 h-full w-[72%]"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2">7.2 GB of 10 GB used</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-surface overflow-y-auto">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center px-8 w-full border-b-0 h-16 bg-white dark:bg-slate-950 sticky top-0 z-10">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search curriculum or artifacts..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-500">
+<button class="hover:text-blue-700 dark:hover:text-blue-300 transition-opacity">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="relative hover:text-blue-700 dark:hover:text-blue-300 transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+</div>
+<div class="h-8 w-px bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-semibold text-primary">QA Officer</p>
+<p class="text-[10px] text-secondary">Academic Affairs</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="professional headshot of a middle aged male academic officer with glasses in a formal office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWCD3JLnwGyg67qdSwgcA0Apsly0qA0-YtOEAG_3p7tc_IxzYQ7jq9bp5epAGhZ_qLgmlYtN5YOiNxj6SeWfYTXSBPorPuEGBHOu-bl49uyplV7ULVcdQvgwhhFdT3OUhJjDziWEdDaoN8Ed6NL1SzQPgNevxqCuB8JjoU0OHk1bTUdJN3VJ4TrMXxqSGiAr-rNqH8_W4A34JUeyT71tbeXWJSPqbEJaV-iAvslGe6TBlWPDigrZbKQHM_nqJf5o8LGLgabfwUSVs"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-8 space-y-8">
+<!-- Hero Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="text-4xl font-extrabold text-primary tracking-tight leading-none mb-2">Curriculum &amp; Accreditation</h2>
+<p class="text-on-surface-variant font-medium">Cycle 2024-2025 • ABET Readiness Phase</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 bg-secondary-container text-on-secondary-container rounded-xl font-semibold text-sm hover:opacity-90 transition-all">
+                        Export Report
+                    </button>
+<button class="px-5 py-2.5 bg-primary text-on-primary rounded-xl font-semibold text-sm shadow-lg shadow-primary/10 hover:opacity-95 transition-all">
+                        Update Mapping
+                    </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Accreditation Readiness Checklist (Span 4) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-none">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-primary">Accreditation Framework</h3>
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold rounded-full uppercase tracking-widest">ABET</span>
+</div>
+<div class="space-y-5">
+<div class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded border-2 border-on-tertiary-container flex items-center justify-center bg-tertiary-container">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">Criterion 1: Students</p>
+<p class="text-xs text-secondary">Student performance and monitoring protocols documented.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded border-2 border-primary-container flex items-center justify-center"></div>
+<div>
+<p class="text-sm font-bold text-primary">Criterion 2: PEOs</p>
+<p class="text-xs text-secondary">Program Educational Objectives review scheduled for Oct 12.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded border-2 border-on-tertiary-container flex items-center justify-center bg-tertiary-container">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">Criterion 3: Student Outcomes</p>
+<p class="text-xs text-secondary">Mapping of ILOs to SOs finalized.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 opacity-50">
+<div class="mt-1 w-5 h-5 rounded border-2 border-slate-300"></div>
+<div>
+<p class="text-sm font-bold text-primary">Criterion 4: Continuous Improvement</p>
+<p class="text-xs text-secondary">Assessment results collection in progress.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-100">
+<div class="flex justify-between text-xs font-bold text-primary mb-2">
+<span>Total Readiness</span>
+<span>68%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[68%]"></div>
+</div>
+</div>
+</div>
+<!-- Self-Study Tracker -->
+<div class="bg-primary p-6 rounded-xl text-on-primary">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder_special</span>
+<h3 class="text-lg font-bold">Self-Study Evidence</h3>
+</div>
+<p class="text-primary-fixed-dim text-sm mb-6">Track artifacts collected for the 2025 review cycle.</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">description</span>
+<span class="text-xs font-medium">Syllabi Repo</span>
+</div>
+<span class="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded">42/42</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">assignment_turned_in</span>
+<span class="text-xs font-medium">Student Work Samples</span>
+</div>
+<span class="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded">18/30</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-bold text-center border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
+                            Manage Artifacts
+                        </button>
+</div>
+</div>
+<!-- Curriculum Mapping Matrix (Span 8) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-lg font-bold text-primary">Curriculum Mapping Interface</h3>
+<p class="text-xs text-secondary">Intersections of core courses and institutional learning outcomes.</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-2 mr-4">
+<div class="w-3 h-3 bg-primary rounded-full"></div>
+<span class="text-[10px] text-secondary font-bold">INTRODUCED</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-tertiary-fixed-dim rounded-full"></div>
+<span class="text-[10px] text-secondary font-bold">MASTERED</span>
+</div>
+</div>
+</div>
+<!-- Matrix Grid -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead>
+<tr>
+<th class="p-4 bg-surface-container-low rounded-tl-xl text-xs font-bold text-primary uppercase tracking-wider border-none">Course Identifier</th>
+<th class="p-4 bg-surface-container-low text-xs font-bold text-primary text-center border-none">ILO 1: Ethics</th>
+<th class="p-4 bg-surface-container-low text-xs font-bold text-primary text-center border-none">ILO 2: Comm.</th>
+<th class="p-4 bg-surface-container-low text-xs font-bold text-primary text-center border-none">ILO 3: Problem Solving</th>
+<th class="p-4 bg-surface-container-low text-xs font-bold text-primary text-center border-none">ILO 4: Theory</th>
+<th class="p-4 bg-surface-container-low rounded-tr-xl text-xs font-bold text-primary text-center border-none">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-4 text-sm font-bold text-primary">Course CS101: Data Structures</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-bold">I</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-slate-100 rounded-full"></div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-bold">I</div>
+</td>
+<td class="p-4 text-center">
+<span class="text-[10px] px-2 py-1 bg-surface-container-high text-primary rounded-full font-bold">Mapped</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="p-4 text-sm font-bold text-primary">Course CS210: Algorithms</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-slate-100 rounded-full"></div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-bold">I</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<span class="text-[10px] px-2 py-1 bg-surface-container-high text-primary rounded-full font-bold">Mapped</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-4 text-sm font-bold text-primary">Course CS305: Ethics in Comp</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-slate-100 rounded-full"></div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-bold">I</div>
+</td>
+<td class="p-4 text-center">
+<span class="text-[10px] px-2 py-1 bg-surface-container-high text-primary rounded-full font-bold">Mapped</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="p-4 text-sm font-bold text-primary">Course CS499: Capstone</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<div class="w-6 h-6 mx-auto bg-tertiary-fixed-dim rounded-full flex items-center justify-center text-[10px] text-primary font-bold">M</div>
+</td>
+<td class="p-4 text-center">
+<span class="text-[10px] px-2 py-1 bg-surface-container-high text-primary rounded-full font-bold">Mapped</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Performance Overview Table -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-none">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-primary">Performance Summary</h3>
+<div class="flex gap-2">
+<span class="p-2 bg-surface-container-low rounded-lg text-secondary material-symbols-outlined text-sm cursor-pointer">filter_list</span>
+<span class="p-2 bg-surface-container-low rounded-lg text-secondary material-symbols-outlined text-sm cursor-pointer">download</span>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4 mb-6">
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Pass Rate</p>
+<p class="text-2xl font-extrabold text-primary">94.2%</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Mapping Gap</p>
+<p class="text-2xl font-extrabold text-error">12%</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Artifacts</p>
+<p class="text-2xl font-extrabold text-primary">124</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-wider mb-1">Assessors</p>
+<p class="text-2xl font-extrabold text-primary">18</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-3 px-4 bg-surface rounded-lg">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary-container text-on-primary-container rounded font-bold text-xs">MA</div>
+<div>
+<p class="text-sm font-bold text-primary">ILO 3: Problem Solving</p>
+<p class="text-[10px] text-secondary">Target: 80% Mastery | Actual: 84%</p>
+</div>
+</div>
+<span class="text-xs font-bold text-on-tertiary-container bg-tertiary-container/10 px-3 py-1 rounded-full">Above Target</span>
+</div>
+<div class="flex items-center justify-between py-3 px-4 bg-surface rounded-lg">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary-container text-on-primary-container rounded font-bold text-xs">CO</div>
+<div>
+<p class="text-sm font-bold text-primary">ILO 2: Communication</p>
+<p class="text-[10px] text-secondary">Target: 75% Mastery | Actual: 72%</p>
+</div>
+</div>
+<span class="text-xs font-bold text-error bg-error-container/20 px-3 py-1 rounded-full">Action Required</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Insight Rail (Right Side Context) -->
+<aside class="fixed right-8 top-24 w-72 hidden xl:block">
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-2xl shadow-primary/5 space-y-6">
+<div>
+<h4 class="text-sm font-bold text-primary mb-4 border-b border-slate-100 pb-2">Institutional Context</h4>
+<img class="w-full rounded-lg mb-4" data-alt="minimal line graph showing upward curriculum alignment trends with soft blue and emerald green strokes on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXt2bO7-A5MGPg68K1NWWQDQ7HVtVsd3dogyQ59oK9KXBPbKujwbi2OuwUfpdSt6q_d7NYykfSQ2RSFpebq8DCfshvGbVnv4uV4OB6NYdRDGgxftOulhFIn7PY2QNDBVIDLu8YzVsXwx8tDyja_iWV_pHcIhNIMwQB60NIeFQYTWh8IwxyzrRZn32ARjT95Epazkc5CSU9xWSuC-gTIzZzJmbS1GRk7666tLeldByP8tI0fBIuCVjQo0QkP84oJje-I0KiVMK7pFc"/>
+<p class="text-xs text-secondary leading-relaxed">Curriculum alignment has increased by <span class="text-on-tertiary-container font-bold">14%</span> since the last QA audit in Spring 2023.</p>
+</div>
+<div>
+<h4 class="text-sm font-bold text-primary mb-3">Key Stakeholders</h4>
+<div class="flex -space-x-2">
+<img alt="Dean 1" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-200" data-alt="portrait of a woman in academic regalia with a warm smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBht3z2zHM-_FoNbMFNwm_iMHzVbVg1ttCBZcah05HlNEV85wLMCoTlWIAsnqqHeCPQ8HA6S2yZUOTmhe3yVx-FtO1gm0znvP0_mQJS1dnihf8FGkPVSQTCvVj8kKh0-_A8anKl26IyVlcphcPW3Q_6ANeHr-r-f6UQoieBM-DDHuzUXi1xcUtSH5vkbIe_LiA_IQCPV4LQHS-XApMo5YCEHEhKJyAyOKn4UV6yyDnfobAQi_AAVDmUOfuPoWryNwOJhKRoquE0PAI"/>
+<img alt="Head 1" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-200" data-alt="portrait of a distinguished elderly man in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJbmR9Q4V3sOCiwfz8rLs7Gg8rGyQhIeguVELZzcJbf_gyW41Bn_qwsRl-6QqqRIcLhVY4OCmzt362l-RKH7XibB7bfxky6TxAnNv4xN64z7QrRRnNz1JdvsoaJdW6t4DyWl_ji8Nt1W1K7yQnUN4UV7ruci6pCLHJ_W1AS1UmMA2qP1lmLdtCYD11nYnihQuqJQu33PW8B_kiJ47O7RNklC5RuA6doB40BfT68vv9cp-4EHv8wdlsSxDl4hT5V3Y6EMx2sR6CUy8"/>
+<img alt="Chair 1" class="w-8 h-8 rounded-full border-2 border-white ring-1 ring-slate-200" data-alt="portrait of a young professional woman in a modern library" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARNXkmQIsPq6jyMHU8cHYBpzyef-hEZxI8bws56xq7q9PUiz2-rwqQ5ImCclfGxvfr8zSfroY6ZUMuL_H_vWK1mjFkaoX_mBxEOk8VJiUiHtyle1EzJnGBvUSUTX3APtVgMrz2SPTpI_SleWarueDSstbMxM9Q6KyWiclLn_QySvZbKX8zkRso4Ls--eyXkMKhU6RTSsXxhjfR_4tdKyt0D_eOqeWW64CPXXyty62o9m9KDhAb1NudVMExNbLgaaXvet33S4R0KzU"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 ring-1 ring-slate-200 flex items-center justify-center text-[10px] font-bold text-secondary">+12</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm text-primary">event_note</span>
+<h4 class="text-xs font-bold text-primary">Upcoming Milestones</h4>
+</div>
+<ul class="text-[10px] text-secondary space-y-2">
+<li class="flex items-center justify-between">
+<span>Syllabi Review</span>
+<span class="font-bold">Oct 10</span>
+</li>
+<li class="flex items-center justify-between">
+<span>Board Meeting</span>
+<span class="font-bold">Oct 15</span>
+</li>
+<li class="flex items-center justify-between">
+<span>Self-Study Draft</span>
+<span class="font-bold">Nov 01</span>
+</li>
+</ul>
+</div>
+</div>
+</aside>
+</main>
+<!-- Contextual FAB (Only on Dashboard/Main focus) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

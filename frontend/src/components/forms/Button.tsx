@@ -2,7 +2,13 @@ import React from "react";
 import { Loader } from "lucide-react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "tertiary" | "danger" | "ghost" | "outline";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "danger"
+    | "ghost"
+    | "outline";
   size?: "sm" | "md" | "lg" | "xl";
   isLoading?: boolean;
   icon?: string | React.ReactNode;
@@ -29,10 +35,10 @@ export default function Button({
       "bg-secondary text-on-secondary hover:shadow-xl hover:shadow-secondary/30",
     tertiary:
       "bg-tertiary text-on-tertiary hover:shadow-xl hover:shadow-tertiary/30",
-    danger:
-      "bg-error text-on-error hover:shadow-xl hover:shadow-error/30",
+    danger: "bg-error text-on-error hover:shadow-xl hover:shadow-error/30",
     ghost: "text-primary hover:bg-primary/5 rounded-xl",
-    outline: "bg-transparent border-2 border-primary/20 text-primary hover:border-primary/40 hover:bg-primary/5",
+    outline:
+      "bg-transparent border-2 border-primary/20 text-primary hover:border-primary/40 hover:bg-primary/5",
   };
 
   const sizeClasses = {
@@ -48,16 +54,14 @@ export default function Button({
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className || ""}`}
       {...props}
     >
-      {icon && !isLoading && (
-        typeof icon === "string" ? (
+      {icon &&
+        !isLoading &&
+        (typeof icon === "string" ? (
           <span className="material-symbols-outlined text-lg">{icon}</span>
         ) : (
           <div className="flex items-center">{icon}</div>
-        )
-      )}
-      {isLoading && (
-        <Loader className="w-5 h-5 animate-spin" />
-      )}
+        ))}
+      {isLoading && <Loader className="w-5 h-5 animate-spin" />}
       {children}
     </button>
   );

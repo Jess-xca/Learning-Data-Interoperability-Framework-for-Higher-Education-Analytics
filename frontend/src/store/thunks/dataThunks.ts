@@ -1,20 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../api/client";
+import { generateDummyStudents } from "../../data/dummyGenerator";
 
 // Student thunks
 export const fetchStudents = createAsyncThunk(
   "data/fetchStudents",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await api.get("/students");
-      const data = response.data;
-      // Handle both direct array and wrapped {data: [...]} responses
-      return Array.isArray(data) ? data : data?.data || [];
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : "Failed to fetch students";
-      return rejectWithValue(message);
-    }
+  async () => {
+    // Using dummy data only - no backend available
+    return generateDummyStudents(20);
   },
 );
 

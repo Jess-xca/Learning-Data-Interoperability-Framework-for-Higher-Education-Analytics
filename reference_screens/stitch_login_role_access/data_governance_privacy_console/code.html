@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator | Data Governance &amp; Privacy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for clean editorial look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d8e3fa; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f9f9ff",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-bright": "#f9f9ff",
+                        "on-surface-variant": "#43474e",
+                        "tertiary-fixed": "#6ffbbe",
+                        "surface-tint": "#455f88",
+                        "secondary": "#545f72",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#adc7f7",
+                        "surface-container": "#e7eeff",
+                        "on-primary-fixed": "#001b3c",
+                        "background": "#f9f9ff",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed-dim": "#bcc7dd",
+                        "secondary-fixed": "#d8e3fa",
+                        "primary-container": "#1a365d",
+                        "surface-dim": "#cfdaf1",
+                        "outline": "#74777f",
+                        "on-tertiary-fixed": "#002113",
+                        "on-secondary-container": "#586377",
+                        "surface-variant": "#d8e3fa",
+                        "on-background": "#111c2c",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-surface": "#111c2c",
+                        "on-tertiary-container": "#00b47d",
+                        "on-primary-container": "#86a0cd",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#003e28",
+                        "secondary-container": "#d5e0f7",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d8e3fa",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#002617",
+                        "on-secondary-fixed": "#111c2c",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "inverse-surface": "#263142",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "primary": "#002045",
+                        "inverse-primary": "#adc7f7",
+                        "surface-container-high": "#dee8ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface flex overflow-hidden">
+<!-- SideNavBar Component -->
+<aside class="flex flex-col h-full py-6 bg-slate-50 dark:bg-slate-900 h-screen w-64 border-r-0 flex-shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white overflow-hidden">
+<img alt="University Crest" class="w-full h-full object-cover" data-alt="Official university crest emblem in deep navy and gold with scholarly symbols and sharp details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjULHSdwplqnOh5q2TUUVQrQ1QzYncPyAsaCiMFiptVMzEK1p9-n8q_Ojn18IvjnkHpuf3wx7J3lHNHoz6qY_DpRki1JfJ25UYkj596af-MWU8xFYME5V5jT8GIJpfT9rNJoHeSrVwWojWz_teAipBpD97pv9HytiBSPqzym4aqozcY9p668qhybggQibn2kU6bc6HWFVkETLy6b8LuSKR0wQ-lSZgnfJhWnuYWC2xLxJ8O5RJmJhykjg0RRjr-X6qL7nqrwGvOTc"/>
+</div>
+<div>
+<h1 class="text-xl font-bold text-blue-900 dark:text-blue-100 tracking-tighter">Academic Curator</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Higher Ed Analytics</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-3 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span>Data Sources</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+<span>Interoperability</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-blue-900 dark:text-blue-400 font-bold border-r-4 border-blue-900 dark:border-blue-400 bg-slate-200/50 dark:bg-slate-800/50 font-sans text-sm tracking-tight translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Data Governance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Curriculum</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span>Accreditation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Reporting</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 font-sans text-sm font-medium tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-4">
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm">
+<div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-100 text-sm" data-icon="person">person</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Academic Registrar</p>
+<p class="text-[10px] text-slate-500">Admin Mode</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-surface">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center px-8 w-full border-b-0 docked full-width top-0 h-16 bg-white dark:bg-slate-950 flex-shrink-0">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search data entities or lineage sources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-opacity p-2">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</button>
+<button class="text-slate-500 hover:text-blue-700 dark:hover:text-blue-300 transition-opacity p-2 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3">
+<span class="font-sans text-base font-semibold text-blue-900 dark:text-blue-400">QA Officer</span>
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-blue-50" data-alt="Professional portrait of a male higher education administrator with a clean business casual look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJs3lS2rh6wnk6SebXT04DNeis00mZDCiey8Irv_mckmCh1PqlHDnYaBZNfAWmcPltnsXVjIl9qfR6QXc9MVG8buih1ITgsvKt1iUc6vx8vJJLRoHFxIz1rTzJRVztg14S6xeXO9zDozBFTalfaNby7KpIMFm1ebFYQJZEmXt_3MQisDmPDAdjipWZgXXnHtzi25PdM1X2xi9p8SJzCUzf4hi8dnb-xbd6PG1QKOIBXoEdwt1viay9eMqnVyKTUhheU1eizOUxq-g"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Hero Header -->
+<section class="space-y-2">
+<h2 class="text-4xl font-extrabold text-primary tracking-tight font-headline">Data Governance &amp; Privacy</h2>
+<p class="text-on-surface-variant max-w-2xl text-lg">Manage institutional data lifecycle, maintain regulatory compliance, and audit data lineage from source to discovery.</p>
+</section>
+<!-- Top Grid: KPI & Compliance Checklist -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Quality Scorecards (Bento Style) -->
+<div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-transparent shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Canvas LMS</p>
+<h3 class="text-2xl font-bold text-primary">Data Quality</h3>
+</div>
+<span class="bg-tertiary-container text-on-tertiary-container text-xs font-bold px-2 py-1 rounded">Optimal</span>
+</div>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-5xl font-black text-primary">98%</span>
+<span class="text-on-tertiary-container text-sm font-bold flex items-center pb-2">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_up">trending_up</span> +2.4%
+                            </span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-on-tertiary-container h-full w-[98%]"></div>
+</div>
+<p class="mt-4 text-xs text-on-surface-variant">Last sync: <span class="font-bold">Canvas LMS Sync Job #901</span></p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-transparent shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Student Information System (SIS)</p>
+<h3 class="text-2xl font-bold text-primary">Data Quality</h3>
+</div>
+<span class="bg-error-container text-on-error-container text-xs font-bold px-2 py-1 rounded">Attention</span>
+</div>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-5xl font-black text-primary">85%</span>
+<span class="text-on-error-container text-sm font-bold flex items-center pb-2">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_down">trending_down</span> -5.1%
+                            </span>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[85%]"></div>
+</div>
+<p class="mt-4 text-xs text-on-surface-variant">Issue: <span class="font-bold text-error">Missing demographic descriptors in 12% of records.</span></p>
+</div>
+</div>
+<!-- Compliance Checklist (Glassmorphism inspired) -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-transparent flex flex-col">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+<h3 class="text-xl font-bold text-primary">Regulatory Checklist</h3>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex items-start gap-3">
+<div class="mt-0.5 h-5 w-5 rounded border-2 border-on-tertiary-container bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container text-xs font-bold" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">FERPA Privacy Masking</p>
+<p class="text-xs text-on-surface-variant">Active on all SIS/LMS endpoints</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="mt-0.5 h-5 w-5 rounded border-2 border-on-tertiary-container bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container text-xs font-bold" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">GDPR Right to be Forgotten</p>
+<p class="text-xs text-on-surface-variant">Deletion protocols verified Q3</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="mt-0.5 h-5 w-5 rounded border-2 border-outline"></div>
+<div>
+<p class="text-sm font-bold text-primary">Data Retention Audit</p>
+<p class="text-xs text-on-surface-variant">Scheduled for Nov 14th</p>
+</div>
+</div>
+<div class="flex items-start gap-3 opacity-60">
+<div class="mt-0.5 h-5 w-5 rounded border-2 border-outline"></div>
+<div>
+<p class="text-sm font-bold text-primary">PII Masking Status</p>
+<p class="text-xs text-on-surface-variant font-mono">Verification ID: #PII-901-X</p>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-primary text-white font-bold rounded-xl text-sm">Full Audit Report</button>
+</div>
+</div>
+<!-- Middle Section: Lineage Visualization (Asymmetric) -->
+<section class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+<div class="xl:col-span-3 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-transparent">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-2xl font-bold text-primary tracking-tight">Data Lineage Visualization</h3>
+<p class="text-sm text-on-surface-variant">Mapping SIS records through Analytics Warehouse to Student Success Dashboards.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 bg-surface-container text-primary font-bold text-xs rounded-lg">Source View</button>
+<button class="px-3 py-1.5 bg-primary text-white font-bold text-xs rounded-lg">Flow Map</button>
+</div>
+</div>
+<!-- Simplified Flow Diagram -->
+<div class="relative py-12 px-4 flex justify-between items-center bg-surface rounded-xl overflow-hidden">
+<!-- Connecting Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+<path d="M 120 100 Q 250 100 380 100" fill="none" stroke="#002045" stroke-width="2"></path>
+<path d="M 480 100 Q 610 100 740 100" fill="none" stroke="#002045" stroke-width="2"></path>
+<circle cx="120" cy="100" fill="#002045" r="4"></circle>
+<circle cx="430" cy="100" fill="#002045" r="4"></circle>
+<circle cx="740" cy="100" fill="#002045" r="4"></circle>
+</svg>
+<!-- Node 1: Origin -->
+<div class="relative z-10 w-48 p-4 bg-white rounded-lg shadow-lg border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="storage">storage</span>
+<span class="text-xs font-black uppercase text-primary">Origin</span>
+</div>
+<p class="text-sm font-bold truncate">Banner SIS SQL</p>
+<p class="text-[10px] text-on-surface-variant">Raw Student Records</p>
+</div>
+<!-- Arrow Icon -->
+<div class="relative z-10 text-primary opacity-40">
+<span class="material-symbols-outlined text-4xl" data-icon="arrow_right_alt">arrow_right_alt</span>
+</div>
+<!-- Node 2: Transformation -->
+<div class="relative z-10 w-48 p-4 bg-white rounded-lg shadow-lg border-l-4 border-on-tertiary-container">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-sm" data-icon="settings_ethernet">settings_ethernet</span>
+<span class="text-xs font-black uppercase text-on-tertiary-container">Transformation</span>
+</div>
+<p class="text-sm font-bold truncate">ETL: PII Scrubber</p>
+<p class="text-[10px] text-on-surface-variant">Hashing &amp; Tokenization</p>
+</div>
+<!-- Arrow Icon -->
+<div class="relative z-10 text-primary opacity-40">
+<span class="material-symbols-outlined text-4xl" data-icon="arrow_right_alt">arrow_right_alt</span>
+</div>
+<!-- Node 3: Target -->
+<div class="relative z-10 w-48 p-4 bg-white rounded-lg shadow-lg border-l-4 border-surface-tint">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-surface-tint text-sm" data-icon="insights">insights</span>
+<span class="text-xs font-black uppercase text-surface-tint">Target</span>
+</div>
+<p class="text-sm font-bold truncate">Data Warehouse</p>
+<p class="text-[10px] text-on-surface-variant">Ready for Reporting</p>
+</div>
+</div>
+<!-- Flow Stats -->
+<div class="mt-8 grid grid-cols-3 gap-6">
+<div class="p-4 rounded-lg bg-surface-container-low">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Latency</p>
+<p class="text-xl font-bold text-primary">12.4ms</p>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Volume (24h)</p>
+<p class="text-xl font-bold text-primary">2.1M Rows</p>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Schema Drift</p>
+<p class="text-xl font-bold text-on-tertiary-container">None Detected</p>
+</div>
+</div>
+</div>
+<!-- Insight Rail: Data Stewards -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-transparent">
+<h3 class="text-lg font-bold text-primary mb-6">Data Stewards</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<img alt="Steward" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a professional woman, data steward, with a confident and focused expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfTDt2uRkQICmikUYXt3Li8_nyiRZIoMlByzQVHA-5WoKxCQFTv0WWS2uanV_j1PwgY2E4s466xS_LeaprnUIRoGxyGebVmZvP-bkyZycnNZVzZ4aOHDDUqQFqU_e6fPZJqw2yJnKCQg22rBi7fyg5Hkcx5ef6CJSeWsOohsIPAmknx8Ut9piR4DGqy2hnqA_yn_fZqNaNxzT33rNPL-YxqSyyF2q4mQ3zmTSxupR_to1nvK_zoF1ih0bsZ9xtTXAk6XoaUmwduZw"/>
+<div>
+<p class="text-sm font-bold text-primary">Dr. Elena Rossi</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Academic Affairs</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Steward" class="w-10 h-10 rounded-full object-cover" data-alt="Close up of a man with glasses and a professional look, tech-savvy administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_-r_Qdll2tpfX4GXLOag1zNF27JvUAi66O4qAPjGxluuR_wMthhsypZqhpYcJxtXBJgihjUMGV8i0ZC3Fcde65jP4uMRCg5ncz0bDHJQSG8PhdXxNYY3xCo9ThOevEdduR8muKGbkgBiw4qFdymDIFXUH0TqM_h-Lt7xklle4nip10qV2WXbUo9f7DXQsL1nkw4PGvq3tpA1pf1eOVCZHwwEdOffAe1PjbhcnjLGAzsEcL1TzAnWfOIepYNf0K0dvvF9nHl5aUow"/>
+<div>
+<p class="text-sm font-bold text-primary">Marcus Thorne</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">IT Infrastructure</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Steward" class="w-10 h-10 rounded-full object-cover" data-alt="Professional woman in business attire, clean modern setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ0H7bXNIaJxFZ24cNmRlyTtKofsXraQt4APPB9J4guCxIA1yuYRkeJIv7WgSe-X0pGDanYl8LJnA0ybcT799Vcg0a3CCaUpMi870cZFWrjhTFOl0cw3Fy1zLC1hBWOzDR5Nv3Td1DRqF_o_Sumu_QJaiAs657KLVD8pswKPANoxcABlDL5jOccEdGlMQHbq5cTsji1n_JDsRNH9opfOI_ltLkX8FE3Z5HgCeSqtWSOgcZkLlIsjMZcz2iBf8-RyG8qxD82vBypwk"/>
+<div>
+<p class="text-sm font-bold text-primary">Sarah Jenkins</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Compliance Officer</p>
+</div>
+</div>
+<div class="pt-4 border-t border-surface-container">
+<p class="text-xs text-on-surface-variant leading-relaxed italic">"Data integrity is the bedrock of our institutional trust."</p>
+<p class="mt-2 text-[10px] font-bold text-primary">— Provost Policy</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Table: Issue Tracking -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-transparent overflow-hidden">
+<div class="p-6 border-b border-surface-container flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<h3 class="text-xl font-bold text-primary">Data Anomaly Logs</h3>
+</div>
+<button class="text-sm text-primary font-bold flex items-center gap-1 hover:underline">
+                        Export Full Log <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-primary-container text-on-primary-container">
+<tr>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">Incident ID</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">System</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">Anomalies Detected</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">Severity</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">#901-X-SYNC</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">Canvas LMS Sync</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Partial PII Masking Failure in Course ID 404</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-black rounded uppercase">Critical</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-error">
+<span class="w-2 h-2 rounded-full bg-error"></span> Open
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">View</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">#882-S-SIS</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">Oracle SIS</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Schema drift in 'EnrolledUnits' field</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-black rounded uppercase">Medium</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-on-tertiary-fixed-variant">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-fixed-variant"></span> Resolved
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">Details</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">#879-A-AD</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">Active Directory</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Orphaned user accounts (12 count)</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-black rounded uppercase">Low</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-xs font-bold text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline"></span> Pending
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">Assign</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>

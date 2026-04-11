@@ -363,11 +363,7 @@ const AccreditationPage: React.FC = () => {
               <h2 className="text-2xl font-bold text-gray-900">
                 Evidence Collection
               </h2>
-              <Button
-                variant="primary"
-              >
-                + Upload Evidence
-              </Button>
+              <Button variant="primary">+ Upload Evidence</Button>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -440,11 +436,7 @@ const AccreditationPage: React.FC = () => {
               <h2 className="text-2xl font-bold text-gray-900">
                 Accreditation Reports
               </h2>
-              <Button
-                variant="primary"
-              >
-                + New Report
-              </Button>
+              <Button variant="primary">+ New Report</Button>
             </div>
 
             {reports.map((report: AccreditationReport) => (
@@ -515,10 +507,7 @@ const AccreditationPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <Button
-                    variant="primary"
-                    className="w-full"
-                  >
+                  <Button variant="primary" className="w-full">
                     Continue Working on Report
                   </Button>
                 </div>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator | Security Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#74777f",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#2d476f",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#002617",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#00b47d",
+              "tertiary-fixed-dim": "#4edea3",
+              "on-primary": "#ffffff",
+              "surface-bright": "#f9f9ff",
+              "on-secondary": "#ffffff",
+              "surface": "#f9f9ff",
+              "tertiary-fixed": "#6ffbbe",
+              "background": "#f9f9ff",
+              "secondary-fixed": "#d8e3fa",
+              "on-primary-fixed": "#001b3c",
+              "secondary": "#545f72",
+              "tertiary-container": "#003e28",
+              "surface-tint": "#455f88",
+              "inverse-primary": "#adc7f7",
+              "on-surface-variant": "#43474e",
+              "surface-container-highest": "#d8e3fa",
+              "on-secondary-container": "#586377",
+              "surface-container-low": "#f0f3ff",
+              "on-background": "#111c2c",
+              "primary-fixed-dim": "#adc7f7",
+              "on-surface": "#111c2c",
+              "inverse-on-surface": "#ebf1ff",
+              "on-secondary-fixed": "#111c2c",
+              "inverse-surface": "#263142",
+              "on-error-container": "#93000a",
+              "surface-container-high": "#dee8ff",
+              "secondary-container": "#d5e0f7",
+              "primary": "#002045",
+              "on-secondary-fixed-variant": "#3c475a",
+              "on-primary-container": "#86a0cd",
+              "on-tertiary-fixed": "#002113",
+              "primary-fixed": "#d6e3ff",
+              "outline-variant": "#c4c6cf",
+              "secondary-fixed-dim": "#bcc7dd",
+              "surface-variant": "#d8e3fa",
+              "error": "#ba1a1a",
+              "surface-container": "#e7eeff",
+              "primary-container": "#1a365d",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-dim": "#cfdaf1"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex">
+<!-- SideNavBar (JSON Derived) -->
+<aside class="h-screen w-72 flex-col fixed left-0 top-0 bg-[#f0f3ff] dark:bg-slate-900 font-['Inter'] font-medium antialiased tracking-tight text-sm flex z-50">
+<div class="flex flex-col gap-2 p-6 h-full">
+<div class="mb-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-[#1A365D] dark:text-white uppercase tracking-wider">Academic Curator</h1>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">System Administration</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard_customize</span>
+<span>System Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Data Sources</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Interoperability</span>
+</a>
+<!-- Active Tab: Security -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-[#1A365D] dark:text-white font-bold rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">group_work</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg group scale-100 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200/50">
+<div class="flex items-center gap-3 px-4">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="professional portrait of an academic administrator in a suit with a soft office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXp1fePem8xAxd9iateVpKMCCSC-B8WensxNvtZqAirDya9JEw6FasBAiNcWDroJNiSOEnqnstELqC6Ay5N6hl8V-dBKj09g64aQNdF0RxgcZJTJUENML-_62lRQw4nb4jcxUELNapb6lK1F9h7oentxbNiebZVLEu5j8x9UONzFVOzVwCbEeYcy8SRnAKjqLHKsc4t4-lF5rHMmCpAC0jdus9Tlu-DkFXg1PPtpV0iZFYau62S7_U-ma_KHY0uXYrS3L7ZNXVfSs"/>
+<div>
+<p class="text-xs font-bold text-[#1A365D]">Institution Admin</p>
+<p class="text-[10px] text-slate-500">Global Permissions</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar (JSON Derived) -->
+<header class="w-full sticky top-0 z-40 h-16 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-slate-100/10 shadow-sm dark:shadow-none flex items-center justify-between px-8">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Search security logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tight">System Secure</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-slate-400 hover:text-[#1A365D] ease-out duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-[#1A365D] ease-out duration-200">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-slate-100 mx-2"></div>
+<span class="font-['Inter'] text-sm font-semibold text-[#1A365D]">System Admin</span>
+</div>
+</header>
+<!-- Content Body -->
+<div class="p-8 max-w-7xl mx-auto w-full space-y-8">
+<!-- Hero Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-black text-primary tracking-tight font-headline">Security &amp; Access Control</h2>
+<p class="text-on-surface-variant mt-2 text-lg">Manage role-based permissions and monitor institutional data integrity.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add_moderator</span>
+<span>Create Security Policy</span>
+</button>
+</div>
+<!-- Bento Grid Section -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Security Health Metrics -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-6 rounded-xl space-y-6">
+<h3 class="text-xs font-black uppercase tracking-widest text-primary/60">Authentication Health</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="text-sm font-bold">2FA Adoption</p>
+<p class="text-[10px] text-on-surface-variant">Active Staff &amp; Faculty</p>
+</div>
+</div>
+<span class="text-xl font-black text-primary">94%</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<p class="text-sm font-bold">Failed Attempts</p>
+<p class="text-[10px] text-on-surface-variant">Last 24 Hours</p>
+</div>
+</div>
+<span class="text-xl font-black text-error">12</span>
+</div>
+</div>
+<div class="pt-4">
+<div class="h-2 w-full bg-outline-variant/20 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[88%]"></div>
+</div>
+<p class="text-[10px] mt-2 font-medium text-on-surface-variant">88% Security Compliance against Institutional Standards</p>
+</div>
+</div>
+<!-- RBAC Matrix Card -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold text-primary">Role-Based Access Matrix</h3>
+<button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+                            View Definitions <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary-container text-on-primary-container">
+<th class="p-4 text-[10px] font-black uppercase tracking-widest rounded-tl-lg">Resource</th>
+<th class="p-4 text-[10px] font-black uppercase tracking-widest text-center">Registrar</th>
+<th class="p-4 text-[10px] font-black uppercase tracking-widest text-center">Faculty</th>
+<th class="p-4 text-[10px] font-black uppercase tracking-widest text-center">IT Admin</th>
+<th class="p-4 text-[10px] font-black uppercase tracking-widest text-center rounded-tr-lg">Student</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">PII Student Data</td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">remove_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">block</span></td>
+</tr>
+<tr class="border-b border-surface-container-low bg-surface hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">Grade Submission</td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">remove_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">remove_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">block</span></td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-bold">Financial Records</td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">block</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-outline-variant">remove_circle</span></td>
+<td class="p-4 text-center"><span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Audit Trail (Asymmetric Insight) -->
+<div class="col-span-12 lg:col-span-9 space-y-4">
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-lg font-bold text-primary">Live Audit Trail: Sensitive Data Access</h3>
+<p class="text-xs text-on-surface-variant">Real-time monitoring of institutional information security.</p>
+</div>
+<div class="flex gap-2">
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded">LIVE</span>
+<button class="text-xs font-bold px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition-colors">Export Logs</button>
+</div>
+</div>
+<div class="space-y-3">
+<!-- Audit Item 1 -->
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg group hover:translate-x-1 transition-transform">
+<div class="w-2 h-10 bg-on-tertiary-container rounded-full"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="text-sm font-bold">Dr. Elena Rodriguez <span class="font-normal text-on-surface-variant">accessed</span> Financial Aid Batch #9921</p>
+<span class="text-[10px] font-mono text-on-surface-variant">2 mins ago</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="text-[10px] flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[12px]">fingerprint</span> AUTH: 2FA_SAML</span>
+<span class="text-[10px] flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[12px]">public</span> IP: 192.168.1.44</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-2 text-primary">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<!-- Audit Item 2 -->
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg group hover:translate-x-1 transition-transform">
+<div class="w-2 h-10 bg-on-tertiary-container rounded-full"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="text-sm font-bold">System Automator <span class="font-normal text-on-surface-variant">decrypted</span> SSL Key Cluster B</p>
+<span class="text-[10px] font-mono text-on-surface-variant">14 mins ago</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="text-[10px] flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[12px]">settings_suggest</span> AUTH: TOKEN_ROOT</span>
+<span class="text-[10px] flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[12px]">dns</span> INTERNAL_SVC</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-2 text-primary">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<!-- Audit Item 3 -->
+<div class="flex items-center gap-4 p-4 bg-white rounded-lg border-l-4 border-error/40 group hover:translate-x-1 transition-transform">
+<div class="w-2 h-10 bg-error rounded-full"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="text-sm font-bold">Unauthorized IP <span class="font-normal text-on-surface-variant">attempted access</span> to Student Records</p>
+<span class="text-[10px] font-mono text-error font-bold tracking-tighter">FLAGGED 28 mins ago</span>
+</div>
+<div class="flex items-center gap-4 mt-1">
+<span class="text-[10px] flex items-center gap-1 text-error"><span class="material-symbols-outlined text-[12px]">gpp_bad</span> AUTH: FAILED</span>
+<span class="text-[10px] flex items-center gap-1 text-on-surface-variant"><span class="material-symbols-outlined text-[12px]">public</span> IP: 45.12.8.212 (External)</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 p-2 text-error">
+<span class="material-symbols-outlined">security_update_warning</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border-2 border-dashed border-outline-variant text-sm font-bold text-on-surface-variant hover:bg-surface transition-colors rounded-lg">
+                            Load Previous 50 Audit Logs
+                        </button>
+</div>
+</div>
+<!-- Insight Rail (Contextual Side Info) -->
+<aside class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined">tips_and_updates</span>
+<h4 class="font-bold text-sm">Security Insight</h4>
+</div>
+<p class="text-xs leading-relaxed opacity-80">
+                            Current 2FA adoption among "Registrar" roles is 100%. However, "Visiting Faculty" roles remain at 62%. 
+                        </p>
+<button class="mt-4 text-xs font-bold underline">Force MFA Enrollment</button>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-primary/5">
+<h4 class="text-xs font-black uppercase tracking-widest text-primary/60 mb-4">Active Sessions</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
+<span class="text-xs font-bold">142 Web Users</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-container"></div>
+<span class="text-xs font-bold">38 API Clients</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-xs font-bold">3 Expired Tokens</span>
+</div>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-32 object-cover" data-alt="close-up of futuristic green glowing circuit board reflecting a sense of cybersecurity and high technology" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmKPNI8rG5ENkCTjg6Zuh0LrT4T4NcsYPDgSJbduVplCiU1tUMPB66_jHb2kEiW-3krc6xvVxIUwnLSnSu9pCNNPt7VH1F35x-5XFlHnv8oGWhtYDvuiLr9S4ko6xe9DqEGGgPP7n_eqblT0nCQZXFRzFr-476w-FasvxNdUOPtIjX0rUBbpiZV3oz4VUcSlKrxKpqcKcAAoBzhKRtVspcwAJx2zTIwYyL0GbuZeybJ_ZnrKVyL7nMGQvBPqA-VByfV4l-lHHaxns"/>
+<div class="p-4 bg-surface-container-highest">
+<p class="text-[10px] font-bold uppercase tracking-widest text-primary">Encryption Status</p>
+<p class="text-sm font-medium mt-1">AES-256 Bit Active</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Institutional Footer -->
+<footer class="mt-auto bg-surface-container-low border-t border-primary/5 px-8 py-12">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+<div class="max-w-xs">
+<h5 class="text-sm font-black text-primary uppercase tracking-widest mb-4">Academic Curator</h5>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                        A proprietary institutional data governance platform. Designed for the rigorous demands of higher education security and analytics.
+                    </p>
+</div>
+<div class="grid grid-cols-2 gap-12">
+<div>
+<h6 class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Compliance</h6>
+<ul class="text-xs space-y-2 text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">FERPA Standards</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GDPR Privacy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Data Retention Policy</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-[10px] font-black text-primary uppercase tracking-widest mb-4">Support</h6>
+<ul class="text-xs space-y-2 text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">Emergency IT Protocol</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Knowledge Base</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security Briefings</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-outline-variant/10 flex justify-between items-center text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<span>© 2024 Institutional Systems Administration</span>
+<div class="flex gap-6">
+<a href="#">Privacy Engine</a>
+<a href="#">Terms of Access</a>
+<a href="#">Audit Registry</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

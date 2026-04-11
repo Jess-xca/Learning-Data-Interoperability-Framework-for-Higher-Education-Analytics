@@ -2,12 +2,20 @@ import { useState } from "react";
 import { MainContent, Card, TextInput, Button, Alert, Badge, Footer } from "..";
 import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
 import { setUser } from "../../store/slices/authSlice";
-import { Edit2, Award, BookOpen, Save, Lock, CheckCircle2, X } from "lucide-react";
+import {
+  Edit2,
+  Award,
+  BookOpen,
+  Save,
+  Lock,
+  CheckCircle2,
+  X,
+} from "lucide-react";
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
-  
+
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user?.name ?? "");
   const [email, setEmail] = useState(user?.email ?? "");
@@ -76,166 +84,250 @@ export default function ProfilePage() {
 
   return (
     <>
-    <MainContent>
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <h1 className="h-page text-primary">Profile Settings</h1>
-          <p className="text-on-surface-variant font-medium mt-2">Manage your account information and security settings.</p>
+      <MainContent>
+        <div className="mb-10 flex justify-between items-end">
+          <div>
+            <h1 className="h-page text-primary">Profile Settings</h1>
+            <p className="text-on-surface-variant font-medium mt-2">
+              Manage your account information and security settings.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {success && <div className="mb-6"><Alert variant="success">{success}</Alert></div>}
-      {error && <div className="mb-6"><Alert variant="error">{error}</Alert></div>}
+        {success && (
+          <div className="mb-6">
+            <Alert variant="success">{success}</Alert>
+          </div>
+        )}
+        {error && (
+          <div className="mb-6">
+            <Alert variant="error">{error}</Alert>
+          </div>
+        )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Profile Info */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-primary">Personal Information</h2>
-              {!editing && (
-                <Button variant="secondary" size="sm" onClick={() => setEditing(true)}>
-                  <Edit2 className="w-4 h-4" />
-                  Edit
-                </Button>
-              )}
-            </div>
-
-            <div className="space-y-5">
-              <TextInput label="Full Name" value={name} onChange={e => setName(e.target.value)} disabled={!editing} icon="person" />
-              <TextInput label="Email Address" value={email} onChange={e => setEmail(e.target.value)} disabled={!editing} icon="mail" type="email" />
-              
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Role</label>
-                <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
-                  <Award className="w-5 h-5 text-primary" />
-                  <span className="font-semibold">{roleLabels[user?.role ?? "admin"]}</span>
-                  <Badge variant="primary" className="ml-auto">{user?.role?.toUpperCase()}</Badge>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Profile Info */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-primary">
+                  Personal Information
+                </h2>
+                {!editing && (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setEditing(true)}
+                  >
+                    <Edit2 className="w-4 h-4" />
+                    Edit
+                  </Button>
+                )}
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">Institution</label>
-                <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
-                  <BookOpen className="w-5 h-5 text-primary" />
-                  <span className="font-semibold">{user?.institution}</span>
-                </div>
-              </div>
+              <div className="space-y-5">
+                <TextInput
+                  label="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={!editing}
+                  icon="person"
+                />
+                <TextInput
+                  label="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={!editing}
+                  icon="mail"
+                  type="email"
+                />
 
-              {editing && (
-                <div className="flex gap-3 pt-4">
-                  <Button variant="primary" onClick={handleSave} isLoading={loading}>
-                    <Save className="w-4 h-4" />
-                    Save Changes
-                  </Button>
-                  <Button variant="secondary" onClick={() => { setEditing(false); setName(user?.name ?? ""); setEmail(user?.email ?? ""); }}>
-                    Cancel
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Card>
-
-          {/* Security Settings */}
-          <Card className="p-8">
-            <h2 className="text-xl font-bold text-primary mb-6">Security Settings</h2>
-            
-            <div className="space-y-5">
-              <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
-                <div className="flex items-center gap-3">
-                  <Lock className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-bold text-on-surface">Password</p>
-                    <p className="text-xs text-on-surface-variant">Last changed 30 days ago</p>
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+                    Role
+                  </label>
+                  <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
+                    <Award className="w-5 h-5 text-primary" />
+                    <span className="font-semibold">
+                      {roleLabels[user?.role ?? "admin"]}
+                    </span>
+                    <Badge variant="primary" className="ml-auto">
+                      {user?.role?.toUpperCase()}
+                    </Badge>
                   </div>
                 </div>
-                <Button variant="secondary" size="sm">
-                  Change
-                </Button>
-              </div>
 
-              <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-bold text-on-surface">Multi-Factor Authentication</p>
-                    <p className="text-xs text-on-surface-variant">
-                      {mfaEnabled ? "Enabled - Extra layer of security" : "Disabled - Recommended to enable"}
-                    </p>
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+                    Institution
+                  </label>
+                  <div className="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg">
+                    <BookOpen className="w-5 h-5 text-primary" />
+                    <span className="font-semibold">{user?.institution}</span>
                   </div>
                 </div>
-                <Button variant={mfaEnabled ? "danger" : "primary"} size="sm" onClick={handleMfaToggle} isLoading={loading}>
-                  {mfaEnabled ? "Disable" : "Enable"}
+
+                {editing && (
+                  <div className="flex gap-3 pt-4">
+                    <Button
+                      variant="primary"
+                      onClick={handleSave}
+                      isLoading={loading}
+                    >
+                      <Save className="w-4 h-4" />
+                      Save Changes
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setEditing(false);
+                        setName(user?.name ?? "");
+                        setEmail(user?.email ?? "");
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+
+            {/* Security Settings */}
+            <Card className="p-8">
+              <h2 className="text-xl font-bold text-primary mb-6">
+                Security Settings
+              </h2>
+
+              <div className="space-y-5">
+                <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <Lock className="w-5 h-5 text-primary" />
+                    <div>
+                      <p className="font-bold text-on-surface">Password</p>
+                      <p className="text-xs text-on-surface-variant">
+                        Last changed 30 days ago
+                      </p>
+                    </div>
+                  </div>
+                  <Button variant="secondary" size="sm">
+                    Change
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <div>
+                      <p className="font-bold text-on-surface">
+                        Multi-Factor Authentication
+                      </p>
+                      <p className="text-xs text-on-surface-variant">
+                        {mfaEnabled
+                          ? "Enabled - Extra layer of security"
+                          : "Disabled - Recommended to enable"}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant={mfaEnabled ? "danger" : "primary"}
+                    size="sm"
+                    onClick={handleMfaToggle}
+                    isLoading={loading}
+                  >
+                    {mfaEnabled ? "Disable" : "Enable"}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card className="p-6 text-center">
+              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-on-primary text-4xl font-black">
+                  {user?.name?.charAt(0) ?? "A"}
+                </span>
+              </div>
+              <h3 className="font-bold text-primary text-lg">{user?.name}</h3>
+              <p className="text-sm text-on-surface-variant">{user?.email}</p>
+              <Badge variant="success" className="mt-3">
+                Active
+              </Badge>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="font-bold text-primary mb-4">Account Activity</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-on-surface-variant">Last Login</span>
+                  <span className="font-bold">Today, 9:42 AM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-on-surface-variant">
+                    Account Created
+                  </span>
+                  <span className="font-bold">Jan 15, 2025</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-on-surface-variant">Sessions</span>
+                  <span className="font-bold">2 active</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        {/* MFA Setup Modal */}
+        {showMfaSetup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="max-w-md w-full p-8">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-primary">Enable MFA</h3>
+                <button
+                  onClick={() => setShowMfaSetup(false)}
+                  className="text-on-surface-variant hover:text-primary"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <Alert variant="info" icon="info" className="mb-6">
+                Scan this QR code with your authenticator app (Google
+                Authenticator, Authy, etc.)
+              </Alert>
+
+              <div className="bg-surface-container-low p-6 rounded-lg mb-6 flex items-center justify-center">
+                <div className="w-48 h-48 bg-white rounded-lg flex items-center justify-center">
+                  <span className="text-xs text-on-surface-variant">
+                    QR Code Placeholder
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <TextInput
+                  label="Enter 6-digit code"
+                  placeholder="000000"
+                  value={mfaCode}
+                  onChange={(e) => setMfaCode(e.target.value.slice(0, 6))}
+                  maxLength={6}
+                />
+                <Button
+                  variant="primary"
+                  onClick={handleMfaSetup}
+                  isLoading={loading}
+                  className="w-full"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Enable MFA
                 </Button>
               </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Sidebar */}
-        <div className="space-y-6">
-          <Card className="p-6 text-center">
-            <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-on-primary text-4xl font-black">{user?.name?.charAt(0) ?? "A"}</span>
-            </div>
-            <h3 className="font-bold text-primary text-lg">{user?.name}</h3>
-            <p className="text-sm text-on-surface-variant">{user?.email}</p>
-            <Badge variant="success" className="mt-3">Active</Badge>
-          </Card>
-
-          <Card className="p-6">
-            <h3 className="font-bold text-primary mb-4">Account Activity</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-on-surface-variant">Last Login</span>
-                <span className="font-bold">Today, 9:42 AM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-on-surface-variant">Account Created</span>
-                <span className="font-bold">Jan 15, 2025</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-on-surface-variant">Sessions</span>
-                <span className="font-bold">2 active</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-
-      {/* MFA Setup Modal */}
-      {showMfaSetup && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <Card className="max-w-md w-full p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-primary">Enable MFA</h3>
-              <button onClick={() => setShowMfaSetup(false)} className="text-on-surface-variant hover:text-primary">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <Alert variant="info" icon="info" className="mb-6">
-              Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.)
-            </Alert>
-
-            <div className="bg-surface-container-low p-6 rounded-lg mb-6 flex items-center justify-center">
-              <div className="w-48 h-48 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-xs text-on-surface-variant">QR Code Placeholder</span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <TextInput label="Enter 6-digit code" placeholder="000000" value={mfaCode} onChange={e => setMfaCode(e.target.value.slice(0, 6))} maxLength={6} />
-              <Button variant="primary" onClick={handleMfaSetup} isLoading={loading} className="w-full">
-                <CheckCircle2 className="w-4 h-4" />
-                Enable MFA
-              </Button>
-            </div>
-          </Card>
-        </div>
-      )}
-    </MainContent>
-    <Footer variant="minimal" />
+            </Card>
+          </div>
+        )}
+      </MainContent>
+      <Footer variant="minimal" />
     </>
   );
 }

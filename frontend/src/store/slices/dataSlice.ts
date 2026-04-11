@@ -13,6 +13,7 @@ import {
 } from "../thunks/dataThunks";
 
 import type { DummyStudent } from "../../data/dummyGenerator";
+import { generateDummyStudents } from "../../data/dummyGenerator";
 
 export interface Student extends DummyStudent {}
 
@@ -44,7 +45,7 @@ export interface DataState {
 }
 
 const initialState: DataState = {
-  students: [],
+  students: generateDummyStudents(20), // Initialize with 20 dummy students for testing
   courses: [],
   programs: [],
   analytics: null,

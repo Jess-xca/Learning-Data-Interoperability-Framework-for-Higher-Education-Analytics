@@ -204,10 +204,7 @@ const sectionsByRole: Record<User["role"], NavSection[]> = {
 
 // Bottom nav items (always shown)
 const bottomItems: NavItem[] = [
-  { iconName: "notifications", label: "Notifications", id: "notifications" },
-  { iconName: "person", label: "Profile", id: "profile" },
   { iconName: "lock", label: "Security", id: "security" },
-  { iconName: "settings", label: "Settings", id: "settings" },
 ];
 
 const roleLabels: Record<User["role"], string> = {

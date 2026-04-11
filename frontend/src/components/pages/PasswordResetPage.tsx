@@ -264,8 +264,7 @@ export default function PasswordResetPage() {
               href="/login"
               className="w-full h-12 bg-secondary text-on-secondary rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-secondary/20 flex items-center justify-center gap-2"
             >
-              Sign In{" "}
-              <ArrowRight className="w-4 h-4" />
+              Sign In <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         )}

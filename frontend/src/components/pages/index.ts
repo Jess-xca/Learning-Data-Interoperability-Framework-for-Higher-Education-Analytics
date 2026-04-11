@@ -6,6 +6,8 @@ export { default as MFASetupPage } from "./MFASetupPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as StudentsPage } from "./StudentsPage";
+export { default as StudentDetailPage } from "./StudentDetailPage";
+export { Student360Profile } from "./Student360Profile";
 export { default as ProgramsPage } from "./ProgramsPage";
 export { default as CoursesPage } from "./CoursesPage";
 export { default as AnalyticsPage } from "./AnalyticsPage";

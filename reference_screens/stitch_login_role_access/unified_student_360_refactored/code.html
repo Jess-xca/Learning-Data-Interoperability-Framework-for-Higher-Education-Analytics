@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student 360 - Marcus Wright | Academic Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#5b6577",
+              "on-tertiary-container": "#c6955e",
+              "surface-container": "#e6eeff",
+              "on-tertiary-fixed": "#2b1700",
+              "error-container": "#ffdad6",
+              "surface-dim": "#ccdbf3",
+              "on-secondary": "#ffffff",
+              "primary-fixed": "#d6e3ff",
+              "surface-container-lowest": "#ffffff",
+              "secondary": "#555f70",
+              "tertiary": "#321b00",
+              "secondary-fixed-dim": "#bdc7db",
+              "primary-fixed-dim": "#adc7f7",
+              "background": "#f8f9ff",
+              "tertiary-fixed-dim": "#f2bc82",
+              "on-primary-fixed": "#001b3c",
+              "surface-bright": "#f8f9ff",
+              "surface-container-high": "#dce9ff",
+              "surface-tint": "#455f88",
+              "inverse-on-surface": "#eaf1ff",
+              "secondary-container": "#d9e3f8",
+              "on-error": "#ffffff",
+              "error": "#ba1a1a",
+              "tertiary-fixed": "#ffddba",
+              "outline": "#74777f",
+              "on-primary-container": "#86a0cd",
+              "on-surface": "#0d1c2e",
+              "on-surface-variant": "#43474e",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-background": "#0d1c2e",
+              "surface-container-highest": "#d5e3fc",
+              "on-tertiary-fixed-variant": "#633f0f",
+              "primary": "#002045",
+              "surface-variant": "#d5e3fc",
+              "inverse-surface": "#233144",
+              "secondary-fixed": "#d9e3f8",
+              "surface": "#f8f9ff",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#c4c6cf",
+              "on-secondary-fixed-variant": "#3e4758",
+              "primary-container": "#1a365d",
+              "on-primary-fixed-variant": "#2d476f",
+              "on-secondary-fixed": "#121c2b",
+              "inverse-primary": "#adc7f7",
+              "surface-container-low": "#eff4ff",
+              "tertiary-container": "#4f2e00"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #d5e3fc; border-radius: 10px; }
+      .heatmap-cell { width: 12px; height: 12px; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- Sidebar Navigation (Lecturer/HOD Role) -->
+<aside class="h-screen w-72 left-0 top-0 fixed overflow-y-auto bg-[#eff4ff] flex flex-col py-6 pr-4 z-40 hidden md:flex">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<h1 class="font-headline text-lg font-semibold text-[#1A365D]">Academic Curator</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">HOD: Cognitive Science</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-4 px-8 py-3 bg-[#dce9ff] text-[#1A365D] font-semibold rounded-r-full scale-[0.98] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="text-sm">Student Insights</span>
+</a>
+<a class="flex items-center gap-4 px-8 py-3 text-slate-600 hover:text-[#1A365D] hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-sm">Cohort Analysis</span>
+</a>
+<a class="flex items-center gap-4 px-8 py-3 text-slate-600 hover:text-[#1A365D] hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-sm">Curriculum Manager</span>
+</a>
+<a class="flex items-center gap-4 px-8 py-3 text-slate-600 hover:text-[#1A365D] hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm">Grading Queue</span>
+</a>
+<a class="flex items-center gap-4 px-8 py-3 text-slate-600 hover:text-[#1A365D] hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm">Dept. Performance</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-medium shadow-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="mail">mail</span>
+<span>Dept. Broadcast</span>
+</button>
+<div class="mt-6 pt-6 border-t border-slate-200">
+<a class="flex items-center gap-4 px-4 py-2 text-slate-500 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-sm">Sign Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-72 min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-30 bg-[#f8f9ff]/80 backdrop-blur-xl flex justify-between items-center w-full px-8 py-3 border-b border-slate-200/50">
+<div class="flex items-center gap-6">
+<h2 class="font-headline italic text-2xl font-bold text-[#1A365D]">Student 360 Profile</h2>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-80 focus:ring-1 focus:ring-primary" placeholder="Find another student..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-[#dce9ff]/50 rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-slate-500 hover:bg-[#dce9ff]/50 rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<div class="h-8 w-8 rounded-full overflow-hidden ml-2 bg-surface-container-high border border-outline-variant/20">
+<img alt="HOD Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALrLO_zk8_cl8SMpZHplZA_DnUosnMFCGOt5VgLrb0LNC7uqHobqPkBYkRCMQY6F4kRpRuPd_5_3x2QmoMuImsrdE8elcuNeAMFWsby8qIkVR5UncoPH3gLDpXluhoLEH2ZYABF3APZumx3JvykYVwlv2-zYX8GfCF2nQlq7E9m9WmhT3DINd0WFgPqXqDKgioVD8TP7Q0NCrTrbrFGnUvwpWZvu697hj4SDIetS6dTM26IlnZ8qqnq4zylipbXpVRK4b4Et1lDkY"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-8 max-w-7xl mx-auto space-y-8 flex-grow">
+<!-- Student Profile Header Card -->
+<section class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/10 shadow-sm flex flex-col md:flex-row gap-8 items-start relative overflow-hidden">
+<div class="relative z-10">
+<div class="w-36 h-44 rounded-xl overflow-hidden shadow-xl ring-4 ring-white">
+<img class="w-full h-full object-cover" data-alt="Marcus Wright student portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA_a8HdKVSJgF9NQ0R_qFOoX5qCbHA8h7TsylQ1UOAG7IhMGufBrtDBlLfXAOCVQKuemVTn81C2yuwFlkmmQu23mH_RZOwHaOH9X15P24eYvebhyEY6qRTcSwQq3c1r8906mQdIhEPO2rTqQL9CygmYytQ8wf8l_E_27skOqFLZCX5PCbndUoRtqSPy2K763kCNvvP_IuccQT5DQJ4Sserc23wV3cnOjf2hWG7iJVFXHPD8Vj4t0InXYqXN_PkzurvtD5zJNIvVXc"/>
+</div>
+<div class="absolute -bottom-2 inset-x-0 flex justify-center">
+<span class="bg-emerald-500 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest shadow-lg">In Good Standing</span>
+</div>
+</div>
+<div class="flex-grow space-y-4 z-10">
+<div>
+<span class="text-xs font-bold text-on-primary-container tracking-widest uppercase">Senior • ID: 884-291-002</span>
+<h1 class="font-headline text-5xl font-bold text-primary tracking-tight mt-1">Marcus Wright</h1>
+<p class="text-slate-500 font-medium">B.S. Cognitive Science • Neuro-Informatics Concentration</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-slate-100">
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Cumulative GPA</p>
+<p class="text-2xl font-bold text-primary">3.82</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Major GPA</p>
+<p class="text-2xl font-bold text-primary">3.95</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Credits Earned</p>
+<p class="text-2xl font-bold text-primary">102 <span class="text-xs font-normal text-slate-400">/ 120</span></p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400">Advisor</p>
+<p class="text-sm font-semibold text-primary">Dr. Elena Rostova</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 w-full md:w-auto z-10">
+<button class="w-full px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-lg flex items-center justify-center gap-2 hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="mail">mail</span> Send Message
+                    </button>
+<button class="w-full px-6 py-3 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span> Schedule Review
+                    </button>
+<button class="w-full px-6 py-3 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span> Full Transcript
+                    </button>
+</div>
+<!-- Background decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Engagement & Heatmaps -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Real-time LMS Activity Heatmap -->
+<section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-headline text-xl font-bold text-primary">LMS Activity Engagement</h3>
+<p class="text-xs text-slate-500">Platform interactions over the last 90 days</p>
+</div>
+<div class="flex gap-4 items-center text-xs font-medium text-slate-400">
+<span>Less</span>
+<div class="flex gap-1">
+<div class="heatmap-cell bg-slate-100"></div>
+<div class="heatmap-cell bg-blue-100"></div>
+<div class="heatmap-cell bg-blue-300"></div>
+<div class="heatmap-cell bg-blue-500"></div>
+<div class="heatmap-cell bg-primary"></div>
+</div>
+<span>More</span>
+</div>
+</div>
+<div class="overflow-x-auto pb-4">
+<div class="flex gap-1.5 min-w-[700px]">
+<!-- Heatmap Mockup Columns (Weekly) -->
+<script>
+                                    // Simulated heatmap generation for visual
+                                    const grid = document.currentScript.parentElement;
+                                    for(let i=0; i<24; i++) {
+                                        let col = document.createElement('div');
+                                        col.className = 'flex flex-col gap-1.5';
+                                        for(let j=0; j<7; j++) {
+                                            let intensity = Math.floor(Math.random() * 5);
+                                            let colors = ['bg-slate-50', 'bg-blue-100', 'bg-blue-200', 'bg-blue-400', 'bg-primary'];
+                                            let cell = document.createElement('div');
+                                            cell.className = `heatmap-cell ${colors[intensity]}`;
+                                            col.appendChild(cell);
+                                        }
+                                        grid.appendChild(col);
+                                    }
+                                </script>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-50 grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase">Current Streak</p>
+<p class="text-lg font-bold text-primary">14 Days</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase">Avg Daily Session</p>
+<p class="text-lg font-bold text-primary">2.4 Hours</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase">Peak Activity</p>
+<p class="text-lg font-bold text-primary">8 PM - 11 PM</p>
+</div>
+</div>
+</section>
+<!-- Academic Progress & Pathways -->
+<section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline text-xl font-bold text-primary">Degree Pathway Analytics</h3>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-primary px-3 py-1 bg-primary/10 rounded-full">DEGREE MAP</button>
+<button class="text-xs font-bold text-slate-400 px-3 py-1 hover:bg-slate-100 rounded-full">AUDIT REPORT</button>
+</div>
+</div>
+<div class="relative space-y-8">
+<!-- Visual Progress Bar -->
+<div class="w-full h-3 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%] relative">
+<div class="absolute right-0 top-0 h-full w-2 bg-white/20 animate-pulse"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<h4 class="text-sm font-bold text-slate-700 flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-500 text-sm" data-icon="check_circle">check_circle</span> 
+                                        Core Requirements
+                                    </h4>
+<div class="pl-6 space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">General Education</span>
+<span class="font-bold text-emerald-600">COMPLETED</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Math &amp; Foundations</span>
+<span class="font-bold text-emerald-600">COMPLETED</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Ethics &amp; Society</span>
+<span class="font-bold text-emerald-600">COMPLETED</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="text-sm font-bold text-slate-700 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500 text-sm" data-icon="pending">pending</span> 
+                                        Major Requirements
+                                    </h4>
+<div class="pl-6 space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Neural Informatics Lab</span>
+<span class="font-bold text-blue-600 uppercase">In Progress</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Cognitive Robotics</span>
+<span class="font-bold text-slate-400 uppercase">Upcoming (Sp 25)</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Senior Thesis</span>
+<span class="font-bold text-slate-400 uppercase">Awaiting Prereq</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Support Intervention Log -->
+<section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-xl font-bold text-primary">Support &amp; Intervention Log</h3>
+<button class="text-sm font-bold text-white bg-error px-4 py-2 rounded-lg flex items-center gap-2 hover:opacity-90">
+<span class="material-symbols-outlined text-xs" data-icon="add">add</span> New Intervention
+                            </button>
+</div>
+<div class="space-y-4">
+<!-- Entry 1 -->
+<div class="p-4 bg-slate-50 rounded-lg border-l-4 border-emerald-500">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">RESOLVED</span>
+<span class="text-[10px] font-medium text-slate-400">SEP 12, 2024</span>
+</div>
+<h4 class="text-sm font-bold text-primary">Academic Advising: Course Overload</h4>
+<p class="text-xs text-slate-600 mt-1">Met with Marcus regarding 18-credit load. Student adjusted schedule to 15 credits to focus on Research Assistantship. Confidence high.</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-slate-200"></div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase">Advisor: Elena Rostova</span>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="p-4 bg-slate-50 rounded-lg border-l-4 border-amber-400">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">IN REVIEW</span>
+<span class="text-[10px] font-medium text-slate-400">AUG 28, 2024</span>
+</div>
+<h4 class="text-sm font-bold text-primary">Financial Aid: Scholarship Renewal</h4>
+<p class="text-xs text-slate-600 mt-1">Automatic flag for renewal documents. Marcus notified via portal. Deadline approaching but student is responsive.</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-slate-200"></div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase">FinAid: Mark Thompson</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 text-xs font-bold text-slate-400 hover:text-primary transition-colors border-t border-slate-100 mt-4">
+                            VIEW FULL HISTORY (12 ENTRIES)
+                        </button>
+</section>
+</div>
+<!-- Right Column: Predictive Trends & Status -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Success Prediction Trend -->
+<section class="bg-primary text-white p-6 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-blue-300" data-icon="auto_awesome">auto_awesome</span>
+<p class="text-[10px] font-bold uppercase tracking-widest text-blue-200">Success Probability Index</p>
+</div>
+<div class="flex items-end gap-3">
+<h3 class="text-6xl font-headline font-bold">94%</h3>
+<div class="mb-2 text-emerald-400 flex items-center text-xs font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span> +2.1%
+                                </div>
+</div>
+<p class="text-blue-100 mt-4 text-sm leading-relaxed">High likelihood of graduating with Honors. Trending upwards due to consistent assessment scores above 90%.</p>
+<!-- Simplified Trend Graph -->
+<div class="mt-8 flex items-end justify-between h-20 gap-1">
+<div class="w-full bg-blue-400/20 rounded-t h-[40%]"></div>
+<div class="w-full bg-blue-400/20 rounded-t h-[55%]"></div>
+<div class="w-full bg-blue-400/30 rounded-t h-[50%]"></div>
+<div class="w-full bg-blue-400/40 rounded-t h-[65%]"></div>
+<div class="w-full bg-blue-400/50 rounded-t h-[80%]"></div>
+<div class="w-full bg-blue-200 rounded-t h-[94%]"></div>
+</div>
+<div class="flex justify-between text-[8px] uppercase tracking-tighter text-blue-300/60 mt-2">
+<span>Freshman</span>
+<span>Sophomore</span>
+<span>Junior</span>
+<span>Current</span>
+</div>
+</div>
+<div class="absolute -right-16 -bottom-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+</section>
+<!-- Quick Actions & Status -->
+<section class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 space-y-6">
+<div>
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest mb-4">Institutional Status</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500" data-icon="task_alt">task_alt</span>
+<span class="text-xs font-semibold text-slate-700">Tuition Settled</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FY 24/25</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500" data-icon="task_alt">task_alt</span>
+<span class="text-xs font-semibold text-slate-700">Housing Assigned</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400">West Hall</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-500" data-icon="warning">warning</span>
+<span class="text-xs font-semibold text-slate-700">Lab Clearance</span>
+</div>
+<span class="text-[10px] font-bold text-amber-600">RENEW SOON</span>
+</div>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest mb-4">Privacy Controls</h4>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs text-slate-600">
+<span>FERPA Data Access</span>
+<span class="font-bold text-emerald-600">AUTHORIZED</span>
+</div>
+<div class="flex items-center justify-between text-xs text-slate-600">
+<span>Research Usage</span>
+<span class="font-bold text-emerald-600">CONSENTED</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-200">
+<button class="w-full py-4 text-error bg-error-container hover:bg-error-container/80 font-bold rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="emergency_home">emergency_home</span> Raise Crisis Flag
+                            </button>
+</div>
+</section>
+<!-- Engagement Milestones (Stacked) -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10">
+<h3 class="font-headline text-lg font-bold text-primary mb-6">Key Milestones</h3>
+<div class="space-y-6 relative before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-px before:bg-slate-100">
+<div class="flex gap-4 relative">
+<div class="w-5 h-5 rounded-full bg-primary ring-4 ring-white z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" data-icon="check">check</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-primary">Dean's List Honoree</h4>
+<p class="text-[10px] text-slate-400">Spring Semester 2024</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-5 h-5 rounded-full bg-primary ring-4 ring-white z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" data-icon="check">check</span>
+</div>
+<div>
+<h4 class="text-xs font-bold text-primary">Research Grant Award</h4>
+<p class="text-[10px] text-slate-400">Neuro-Ethics Grant • June 2024</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-5 h-5 rounded-full bg-slate-200 ring-4 ring-white z-10"></div>
+<div>
+<h4 class="text-xs font-bold text-slate-400">Capstone Proposal</h4>
+<p class="text-[10px] text-slate-400 italic">Target: Nov 2024</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- Institutional Footer -->
+<footer class="mt-12 bg-white border-t border-slate-200 py-10 px-8">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<p class="font-headline font-bold text-primary">University of Advanced Systems</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Office of Student Success &amp; Analytics</p>
+</div>
+</div>
+<div class="flex gap-8 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">FERPA Guidelines</a>
+<a class="hover:text-primary transition-colors" href="#">Support Portal</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Registrar</a>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-400">© 2024 Academic Curator Platform. v4.2.0-stable</p>
+<p class="text-[10px] text-slate-300">Data refreshed: 4 minutes ago</p>
+</div>
+</div>
+</footer>
+</main>
+<!-- Mobile Navigation -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-[#f8f9ff]/90 backdrop-blur-xl flex justify-around items-center py-4 px-6 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] border-t border-slate-100">
+<a class="flex flex-col items-center gap-1 text-[#1A365D]" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="text-[10px] font-medium">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="text-[10px] font-medium">Inbox</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="text-[10px] font-medium">Menu</span>
+</a>
+</div>
+</body></html>

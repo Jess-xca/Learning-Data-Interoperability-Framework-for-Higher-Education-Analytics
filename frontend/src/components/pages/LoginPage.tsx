@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Alert, FormCard } from "..";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
-import { BookOpen, CheckCircle2, ChevronDown, Award, Loader, ArrowRight, Building2 } from "lucide-react";
+import {
+  BookOpen,
+  CheckCircle2,
+  ChevronDown,
+  Award,
+  Loader,
+  ArrowRight,
+  Building2,
+} from "lucide-react";
 import type { User } from "../../store/slices/authSlice";
 
 const institutions = [
@@ -130,7 +138,9 @@ export default function LoginPage() {
               },
             ].map((item) => {
               const iconMap: Record<string, React.ReactNode> = {
-                verified_user: <CheckCircle2 className="w-5 h-5 text-on-tertiary-container" />,
+                verified_user: (
+                  <CheckCircle2 className="w-5 h-5 text-on-tertiary-container" />
+                ),
                 hub: <Award className="w-5 h-5 text-on-tertiary-container" />,
               };
               return (
@@ -140,7 +150,9 @@ export default function LoginPage() {
                 >
                   {iconMap[item.icon]}
                   <div className="text-xs">
-                    <p className="text-surface-bright font-bold">{item.title}</p>
+                    <p className="text-surface-bright font-bold">
+                      {item.title}
+                    </p>
                     <p className="text-on-secondary-container">{item.sub}</p>
                   </div>
                 </div>

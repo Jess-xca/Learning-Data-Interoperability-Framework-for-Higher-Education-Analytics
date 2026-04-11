@@ -1,9 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { generateDummyStudents } from "../../data/dummyGenerator";
-import {
-  getHECPrograms,
-  getHECInstitutions,
-} from "../../data/hecDummyData";
+import { getHECPrograms, getHECInstitutions } from "../../data/hecDummyData";
 
 // Use relative URLs for MSW to intercept properly
 const API_BASE = "/api";

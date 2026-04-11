@@ -15,13 +15,8 @@ const DataMappingPage: React.FC = () => {
   const selectedStandardId = useAppSelector(
     (state) => state.mappings.selectedStandardId,
   );
-  const {
-    standards,
-    selectedStandard,
-    mapData,
-    updateField,
-    deleteField,
-  } = useFieldMapping();
+  const { standards, selectedStandard, mapData, updateField, deleteField } =
+    useFieldMapping();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editingFieldId, setEditingFieldId] = useState<string | null>(null);

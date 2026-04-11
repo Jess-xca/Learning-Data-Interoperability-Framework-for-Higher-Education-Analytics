@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Alert, TextInput, FormCard } from "..";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { loginSuccess } from "../../store/slices/authSlice";
-import { BookOpen, CheckCircle2, ChevronDown, Award, Loader, ArrowRight, BarChart3 } from "lucide-react";
+import {
+  BookOpen,
+  CheckCircle2,
+  ChevronDown,
+  Award,
+  Loader,
+  ArrowRight,
+  BarChart3,
+} from "lucide-react";
 import type { User } from "../../store/slices/authSlice";
 
 const institutions = [
@@ -165,8 +173,12 @@ export default function RegistrationPage() {
               },
             ].map((item) => {
               const iconMap: Record<string, React.ReactNode> = {
-                verified_user: <CheckCircle2 className="w-5 h-5 text-on-tertiary-container" />,
-                analytics: <BarChart3 className="w-5 h-5 text-on-tertiary-container" />,
+                verified_user: (
+                  <CheckCircle2 className="w-5 h-5 text-on-tertiary-container" />
+                ),
+                analytics: (
+                  <BarChart3 className="w-5 h-5 text-on-tertiary-container" />
+                ),
               };
               return (
                 <div
@@ -175,7 +187,9 @@ export default function RegistrationPage() {
                 >
                   {iconMap[item.icon]}
                   <div className="text-xs">
-                    <p className="text-surface-bright font-bold">{item.title}</p>
+                    <p className="text-surface-bright font-bold">
+                      {item.title}
+                    </p>
                     <p className="text-on-primary-container">{item.sub}</p>
                   </div>
                 </div>
@@ -254,8 +268,7 @@ export default function RegistrationPage() {
                 disabled={loading}
                 className="w-full h-10 bg-gradient-to-r from-primary to-primary/90 text-on-primary rounded-lg font-bold text-xs hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-primary/30 border border-primary/20"
               >
-                Continue{" "}
-                <ArrowRight className="w-4 h-4" />
+                Continue <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}
@@ -321,8 +334,7 @@ export default function RegistrationPage() {
                   <Loader className="w-4 h-4 animate-spin" />
                 ) : (
                   <>
-                    Create Account{" "}
-                    <ArrowRight className="w-4 h-4" />
+                    Create Account <ArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>
@@ -365,8 +377,7 @@ export default function RegistrationPage() {
                   <Loader className="w-4 h-4 animate-spin" />
                 ) : (
                   <>
-                    Verify &amp; Complete{" "}
-                    <CheckCircle2 className="w-4 h-4" />
+                    Verify &amp; Complete <CheckCircle2 className="w-4 h-4" />
                   </>
                 )}
               </button>

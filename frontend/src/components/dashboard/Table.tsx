@@ -36,7 +36,9 @@ export default function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className={`overflow-x-auto rounded-lg border border-outline-variant/20 ${className}`}>
+    <div
+      className={`overflow-x-auto rounded-lg border border-outline-variant/20 ${className}`}
+    >
       <table className="w-full text-sm">
         <thead className="bg-primary-container text-on-primary-container border-b border-outline-variant/20">
           <tr>
@@ -47,9 +49,7 @@ export default function Table<T extends Record<string, any>>({
               >
                 <div className="flex items-center gap-2">
                   {col.label}
-                  {col.sortable && (
-                    <ChevronDown className="w-4 h-4" />
-                  )}
+                  {col.sortable && <ChevronDown className="w-4 h-4" />}
                 </div>
               </th>
             ))}

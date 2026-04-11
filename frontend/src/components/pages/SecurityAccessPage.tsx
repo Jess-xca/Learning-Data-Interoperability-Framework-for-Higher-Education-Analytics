@@ -186,7 +186,6 @@ const SecurityAccessPage: React.FC = () => {
           Manage roles, audit logs, and data encryption
         </p>
       </div>
-
       <div className="flex-1 px-10 pb-10 max-w-7xl mx-auto w-full">
         {/* Tabs */}
         <div className="flex gap-4 mb-8 border-b border-gray-300">
@@ -232,7 +231,6 @@ const SecurityAccessPage: React.FC = () => {
             </span>
           </button>
         </div>
-
         {/* RBAC Tab */}
         {activeTab === "rbac" && (
           <div>
@@ -328,7 +326,6 @@ const SecurityAccessPage: React.FC = () => {
             </div>
           </div>
         )}
-
         {/* Audit Logs Tab */}
         {activeTab === "audit" && (
           <div>
@@ -357,7 +354,9 @@ const SecurityAccessPage: React.FC = () => {
                   </label>
                   <select
                     value={dateRange}
-                    onChange={(e) => setDateRange(e.target.value as 'today' | 'week' | 'month')}
+                    onChange={(e) =>
+                      setDateRange(e.target.value as "today" | "week" | "month")
+                    }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-500/30"
                   >
                     <option value="today">Today</option>
@@ -440,7 +439,6 @@ const SecurityAccessPage: React.FC = () => {
             </div>
           </div>
         )}
-
         {/* Encryption Tab */}
         {activeTab === "encryption" && (
           <div>
@@ -582,7 +580,9 @@ const SecurityAccessPage: React.FC = () => {
               </p>
             </div>
           </div>
-        )}      </div>    </MainContent>
+        )}{" "}
+      </div>{" "}
+    </MainContent>
   );
 };
 

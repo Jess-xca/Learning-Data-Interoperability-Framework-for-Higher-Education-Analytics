@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator | Interoperability Module</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#74777f",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#2d476f",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#002617",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#00b47d",
+              "tertiary-fixed-dim": "#4edea3",
+              "on-primary": "#ffffff",
+              "surface-bright": "#f9f9ff",
+              "on-secondary": "#ffffff",
+              "surface": "#f9f9ff",
+              "tertiary-fixed": "#6ffbbe",
+              "background": "#f9f9ff",
+              "secondary-fixed": "#d8e3fa",
+              "on-primary-fixed": "#001b3c",
+              "secondary": "#545f72",
+              "tertiary-container": "#003e28",
+              "surface-tint": "#455f88",
+              "inverse-primary": "#adc7f7",
+              "on-surface-variant": "#43474e",
+              "surface-container-highest": "#d8e3fa",
+              "on-secondary-container": "#586377",
+              "surface-container-low": "#f0f3ff",
+              "on-background": "#111c2c",
+              "primary-fixed-dim": "#adc7f7",
+              "on-surface": "#111c2c",
+              "inverse-on-surface": "#ebf1ff",
+              "on-secondary-fixed": "#111c2c",
+              "inverse-surface": "#263142",
+              "on-error-container": "#93000a",
+              "surface-container-high": "#dee8ff",
+              "secondary-container": "#d5e0f7",
+              "primary": "#002045",
+              "on-secondary-fixed-variant": "#3c475a",
+              "on-primary-container": "#86a0cd",
+              "on-tertiary-fixed": "#002113",
+              "primary-fixed": "#d6e3ff",
+              "outline-variant": "#c4c6cf",
+              "secondary-fixed-dim": "#bcc7dd",
+              "surface-variant": "#d8e3fa",
+              "error": "#ba1a1a",
+              "surface-container": "#e7eeff",
+              "primary-container": "#1a365d",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-dim": "#cfdaf1"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex">
+<!-- SideNavBar (Predicted & Structured from JSON) -->
+<aside class="h-screen w-72 flex flex-col fixed left-0 top-0 bg-[#f0f3ff] dark:bg-slate-900 font-['Inter'] font-medium antialiased tracking-tight text-sm z-50">
+<div class="flex flex-col gap-2 p-6 h-full">
+<div class="mb-8 px-2">
+<span class="text-lg font-bold text-[#1A365D] dark:text-white uppercase tracking-wider block">Academic Curator</span>
+<span class="text-xs text-slate-500 uppercase tracking-widest mt-1 block">System Administration</span>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+<span>System Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span>Data Sources</span>
+</a>
+<!-- Active Tab: Interoperability -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-[#1A365D] dark:text-white font-bold rounded-lg scale-100 active:scale-95 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Interoperability</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span>Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group_work">group_work</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-[#1A365D] hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 rounded-lg scale-100 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200/50">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">SA</div>
+<div>
+<p class="text-xs font-bold text-[#1A365D] dark:text-white">Admin Portal</p>
+<p class="text-[10px] text-slate-500">v4.2.0-stable</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 ml-72 flex flex-col min-w-0">
+<!-- TopNavBar (Predicted & Structured from JSON) -->
+<header class="w-full sticky top-0 z-40 h-16 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-slate-100/10 shadow-sm dark:shadow-none flex items-center justify-between px-8">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search systems, mappings, or schemas..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary font-semibold text-sm">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</div>
+<div class="h-8 w-px bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-semibold text-[#1A365D]">System Admin</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a male system administrator in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJBFnxZ_edfAkaWLZZBb3jwJHXlA6qzB0rokniskzJjP_0hY-uX0VucpBb6pfziiz6YRgH9J6wSFiSm3cNVMuj8X5Bg0-6Wycpv51idxc5x32DABHbOjwbRg63Lf9xYPQIVaSvRB-V42pxUlszWAUnVb04oovxTw6Ukwkmxt4QYljxt9dAyp-ePXxwUv6SUsiECJD6mZWbxtS17zCPsm9lB21BgCiHdoTFVOUn0VxB2-v6a0eiX8QK2pztMzcEZ2LAJambg8VldCA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-black text-primary tracking-tight mb-2">Interoperability Standards</h1>
+<p class="text-secondary font-medium">Configure and validate real-time data transformations between Canvas LMS and Banner SIS.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-xl border border-outline-variant text-primary font-bold hover:bg-surface-container-low transition-colors">
+                        Export Schema
+                    </button>
+<button class="px-6 py-2.5 rounded-xl bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Deploy Mapping
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Mapping Interface (Main Area) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-slate-100/50">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="sync_alt">sync_alt</span>
+                                Schema Mapping: Canvas LMS ↔ Banner SIS
+                            </h2>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-wider">Active Stream</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-primary text-[10px] font-bold uppercase tracking-wider">Caliper v1.2</span>
+</div>
+</div>
+<!-- Visual Mapping Rows -->
+<div class="space-y-4">
+<!-- Row 1 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Canvas (Source)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-outline-variant font-mono text-sm text-primary">user_id</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+<span class="text-[8px] font-bold text-slate-400 uppercase">Direct</span>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Banner (Destination)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-outline-variant font-mono text-sm text-primary">STU_PIDM</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Canvas (Source)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-outline-variant font-mono text-sm text-primary">course_code</div>
+</div>
+<div class="flex flex-col items-center gap-1 px-4">
+<span class="material-symbols-outlined text-primary" data-icon="transform">transform</span>
+<span class="text-[8px] font-bold text-primary uppercase">Regex</span>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Banner (Destination)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-outline-variant font-mono text-sm text-primary">CRN_IDENTIFIER</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border-l-4 border-error/30">
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Canvas (Source)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-error/50 font-mono text-sm text-error">enrollment_term</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<span class="text-[8px] font-bold text-error uppercase">Conflict</span>
+</div>
+<div class="flex-1">
+<label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Banner (Destination)</label>
+<div class="bg-white px-3 py-2 rounded border-b-2 border-error/50 font-mono text-sm text-error">TERM_CODE_EFF</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                                Add New Mapping Field
+                            </button>
+</div>
+</div>
+<!-- Validation Test Bench -->
+<div class="bg-primary-container text-white rounded-xl p-8 shadow-xl">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h3 class="text-2xl font-black mb-2">Run Validation Test Bench</h3>
+<p class="text-on-primary-container text-sm">Simulate a high-load sync to identify schema mismatches before deployment.</p>
+</div>
+<button class="bg-white text-primary px-8 py-3 rounded-xl font-bold hover:bg-surface transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+                                Execute Test
+                            </button>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-white/10 p-4 rounded-lg border border-white/5">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-primary-container mb-1 block">Sync Latency</span>
+<div class="text-2xl font-bold">142ms</div>
+<div class="w-full h-1 bg-white/20 mt-2 rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-on-tertiary-container"></div>
+</div>
+</div>
+<div class="bg-white/10 p-4 rounded-lg border border-white/5">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-primary-container mb-1 block">Data Integrity</span>
+<div class="text-2xl font-bold">99.98%</div>
+<div class="w-full h-1 bg-white/20 mt-2 rounded-full overflow-hidden">
+<div class="w-[99%] h-full bg-on-tertiary-container"></div>
+</div>
+</div>
+<div class="bg-white/10 p-4 rounded-lg border border-white/5">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-primary-container mb-1 block">Standards Match</span>
+<div class="text-2xl font-bold">Compliant</div>
+<div class="flex gap-1 mt-2">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar (Insight Rail) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- IMS Global Standards Compliance -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-slate-100/50">
+<h3 class="text-sm font-black text-primary uppercase tracking-widest mb-6">Standards Compliance</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="data_exploration">data_exploration</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">Caliper Analytics</p>
+<p class="text-[10px] text-slate-500">Event Store Mapping</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="list_alt">list_alt</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">LIS v2.0</p>
+<p class="text-[10px] text-slate-500">Learning Info Services</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="school">school</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary">OneRoster 1.1</p>
+<p class="text-[10px] text-slate-500">Gradebook Sync</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+</div>
+<div class="mt-8 p-4 bg-surface-container rounded-lg">
+<p class="text-xs text-secondary italic">"Maintaining compliance with LIS v2.0 ensures 100% reliability for end-of-term grade transmissions."</p>
+</div>
+</div>
+<!-- Visual System Architecture Placeholder -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm relative group h-80">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-30" data-alt="Close up of high-performance server hardware with blue and white indicator lights in a dark data center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_j7HVimHSmZUA_CCgfjbmmeKa-5H6MJ8i7DLawaV6OuDWm_ivqVci5WOfJPjR7ucmDFAjZn8chEdMbzL-BIadU3VDFbu840Ox4EiiYdbciXMk8njrPjSXTwujHSPiS_x5JejkAt7KrSPvbnMApBPEIKnY-lCd0BpLm8FhMJ_U8D473LmUREQNyfBeuXJpyXwdLhRhJM3KIw35l69np37eE4Aq3S6d4-DU_tA70lY9oSgroVzDVt9WLB2iljtk_OJjtqsov-w6gig"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-primary/80 to-transparent">
+<h4 class="text-white font-bold text-lg">System Topography</h4>
+<p class="text-white/70 text-xs">View the physical node distribution of your interoperability layer across institutional clusters.</p>
+<button class="mt-4 w-full py-2 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded hover:bg-white/30 transition-all">
+                                Open Map View
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Institutional Footer -->
+<footer class="mt-auto bg-white border-t border-slate-100 px-8 py-10">
+<div class="grid grid-cols-4 gap-8">
+<div class="col-span-2">
+<span class="text-lg font-black text-primary uppercase tracking-tighter">Academic Curator</span>
+<p class="text-sm text-slate-500 mt-4 max-w-sm">The unified intelligence layer for higher education management. Secure, interoperable, and standards-compliant by design.</p>
+</div>
+<div>
+<h5 class="text-[10px] font-bold text-primary uppercase tracking-widest mb-4">Resources</h5>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">API Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security Whitepaper</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">IMS Global Registry</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-[10px] font-bold text-primary uppercase tracking-widest mb-4">Support</h5>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">Admin Console</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Incident Report</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">System Status</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-50 flex justify-between items-center text-[10px] font-medium text-slate-400 uppercase tracking-widest">
+<span>© 2024 Institutional Analytics &amp; Standards Council</span>
+<div class="flex gap-6">
+<a href="#">Privacy Policy</a>
+<a href="#">Governance</a>
+<a href="#">Accessibility</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

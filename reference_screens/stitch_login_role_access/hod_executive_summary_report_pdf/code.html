@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Curator - HOD Executive Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-surface": "#111c2c",
+                "on-surface-variant": "#43474e",
+                "on-tertiary-fixed": "#002113",
+                "on-secondary": "#ffffff",
+                "secondary-fixed-dim": "#bcc7dd",
+                "on-error-container": "#93000a",
+                "on-background": "#111c2c",
+                "outline-variant": "#c4c6cf",
+                "secondary-fixed": "#d8e3fa",
+                "inverse-primary": "#adc7f7",
+                "tertiary": "#002617",
+                "surface-tint": "#455f88",
+                "inverse-surface": "#263142",
+                "surface-container-highest": "#d8e3fa",
+                "on-tertiary-container": "#00b47d",
+                "surface-container-low": "#f0f3ff",
+                "surface-dim": "#cfdaf1",
+                "error-container": "#ffdad6",
+                "primary-fixed-dim": "#adc7f7",
+                "primary-fixed": "#d6e3ff",
+                "inverse-on-surface": "#ebf1ff",
+                "background": "#f9f9ff",
+                "secondary-container": "#d5e0f7",
+                "outline": "#74777f",
+                "primary": "#002045",
+                "on-secondary-container": "#586377",
+                "surface-container-high": "#dee8ff",
+                "on-primary": "#ffffff",
+                "tertiary-container": "#003e28",
+                "secondary": "#545f72",
+                "primary-container": "#1a365d",
+                "error": "#ba1a1a",
+                "surface-variant": "#d8e3fa",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-fixed-variant": "#2d476f",
+                "on-primary-container": "#86a0cd",
+                "surface-bright": "#f9f9ff",
+                "on-primary-fixed": "#001b3c",
+                "surface-container": "#e7eeff",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#3c475a",
+                "tertiary-fixed": "#6ffbbe",
+                "surface": "#f9f9ff",
+                "on-secondary-fixed": "#111c2c",
+                "tertiary-fixed-dim": "#4edea3",
+                "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Inter"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-inter tracking-tight flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-6">
+<span class="text-xl font-bold tracking-tighter text-blue-900 dark:text-blue-100">Academic Curator</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Dashboard</a>
+<a class="text-blue-900 dark:text-blue-200 border-b-2 border-blue-900 dark:border-blue-200 pb-1 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Reports</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Archives</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Institutional Access</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1">
+<span class="material-symbols-outlined text-sm opacity-50 mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm py-1" placeholder="Search records..." type="text"/>
+</div>
+<span class="material-symbols-outlined cursor-pointer hover:text-blue-700 transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-blue-700 transition-colors">settings</span>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-blue-900/10" data-alt="Close-up portrait of a middle-aged male administrator in a professional suit, soft library lighting in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4989i3aRZtkXY_Db2P8zwNSLZ6lKGldt_rGEcezmfL_wpWOqnCFJ9mH6YOGznze44SHTNPh6D7nWzOSERD3Gk_Ayr8Mv7lw69KDTYpy0XOChcm6DEWMy6z07xW2NbAQgyfCXKPJPK8jepUOYtbiATOetCSd51zYs5GtA-ff8TxDGNrW3N9QCnTdEGbMhxVjOvgBEHgm0FrFXn7DSxb3JQnuX7I_ZCeS5dxJGjWwBzqrOOAKeMVdnrLdvtINJW3rAOql_0wEvFkIk"/>
+</div>
+</header>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-16 h-full w-64 bg-slate-100 dark:bg-slate-950 flex flex-col py-6 pl-4 hidden md:flex">
+<div class="mb-10 pr-4">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-blue-950 dark:text-white leading-tight">Office of Registry</h2>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Institutional Analytics</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                Generate New Report
+            </button>
+</div>
+<nav class="flex-grow">
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 py-3 px-4 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-transform duration-200 rounded-l-lg text-sm font-medium" href="#"><span class="material-symbols-outlined">school</span>Faculty Insights</a></li>
+<li><a class="flex items-center gap-3 py-3 px-4 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-transform duration-200 rounded-l-lg text-sm font-medium" href="#"><span class="material-symbols-outlined">analytics</span>Enrollment Trends</a></li>
+<li><a class="flex items-center gap-3 py-3 px-4 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-transform duration-200 rounded-l-lg text-sm font-medium" href="#"><span class="material-symbols-outlined">payments</span>Research Funding</a></li>
+<li><a class="flex items-center gap-3 py-3 px-4 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-transform duration-200 rounded-l-lg text-sm font-medium" href="#"><span class="material-symbols-outlined">workspace_premium</span>Student Success</a></li>
+<li><a class="flex items-center gap-3 py-3 px-4 bg-white dark:bg-slate-800 text-blue-900 dark:text-blue-100 font-semibold rounded-l-lg text-sm" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>Departmental Audit</a></li>
+</ul>
+</nav>
+<div class="mt-auto pr-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+<ul class="space-y-1">
+<li><a class="flex items-center gap-3 py-2 px-4 text-slate-600 dark:text-slate-400 text-xs hover:text-blue-900 transition-colors" href="#"><span class="material-symbols-outlined text-lg">help</span>Help Center</a></li>
+<li><a class="flex items-center gap-3 py-2 px-4 text-slate-600 dark:text-slate-400 text-xs hover:text-blue-900 transition-colors" href="#"><span class="material-symbols-outlined text-lg">check_circle</span>System Status</a></li>
+</ul>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-0 md:ml-64 mt-16 p-8 flex-grow">
+<!-- Report Navigation / Actions -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<nav class="flex gap-2 text-xs font-medium text-on-surface-variant mb-2">
+<span>REPORTS</span>
+<span>/</span>
+<span>EXECUTIVE SUMMARIES</span>
+<span>/</span>
+<span class="text-primary font-bold">Q4 FISCAL 2024</span>
+</nav>
+<h1 class="text-4xl font-extrabold text-primary tracking-tight">HOD Executive Summary</h1>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-low text-primary px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                    EXPORT PDF
+                </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">print</span>
+                    PRINT REPORT
+                </button>
+</div>
+</div>
+<!-- PDF Style Report Preview -->
+<div class="max-w-5xl mx-auto bg-surface-container-lowest shadow-[0px_8px_24px_rgba(17,28,44,0.06)] min-h-[1414px] p-16 flex flex-col relative overflow-hidden border border-outline-variant/10">
+<!-- Report Header -->
+<header class="mb-16 border-b-2 border-primary pb-8 flex justify-between items-start">
+<div class="flex items-center gap-6">
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center p-3">
+<img alt="University Seal" class="w-full h-full object-contain" data-alt="Elegant classic university crest embossed in gold foil on dark navy circular emblem" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx-0LN2XP_LFSvoi7pl1bSjzYbsrodG-JXj9z1gGWu0oPZ7bSclDWAaUrv-D-Xekl8El2woNJcdDB8COWTEUdyRhNtGjRMRbqYp8-ZBlNMF1vKmmS1LyETwXEzHLOTNN738VyQGI6NHOR1dhBGwoQeLVVlSnYz7EsK46ZGEEyy-ZxDO2otSVTT9gJYBwGTM4nxJVqch5sVS1Tlt6ijAMB8zIZP9G8EOKPzRVbitTY7aIW0ejVw__m7ctaFdvQatopWFIfU6kJZk-s"/>
+</div>
+<div>
+<p class="text-sm font-bold text-primary tracking-[0.2em] mb-1">OFFICE OF INSTITUTIONAL RESEARCH</p>
+<h2 class="text-2xl font-black text-primary leading-tight">OFFICIAL REPORT: Quarterly Faculty &amp; Budget ROI</h2>
+<div class="flex gap-6 mt-2 text-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="font-bold">Period:</span> Q4 2024</span>
+<span class="flex items-center gap-1"><span class="font-bold">ID:</span> IR-EXEC-9920-F</span>
+<span class="flex items-center gap-1"><span class="font-bold">Security:</span> Restricted</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface-variant mb-1">DATED</p>
+<p class="text-sm font-bold">OCTOBER 24, 2024</p>
+</div>
+</header>
+<!-- Report Body -->
+<div class="flex flex-col gap-12 flex-grow">
+<!-- Summary Metrics (Bento Style) -->
+<section>
+<h3 class="text-xs font-black text-on-surface-variant tracking-widest uppercase mb-6 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                        Executive Financial Overview
+                    </h3>
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container-low p-8 rounded-xl border-l-4 border-primary">
+<p class="text-sm font-semibold text-primary mb-1">Total Departmental Spend vs Budget</p>
+<div class="flex items-end gap-4 mb-6">
+<span class="text-5xl font-black text-primary tracking-tighter">$4.28M</span>
+<span class="text-on-tertiary-container font-bold text-sm bg-tertiary-container px-2 py-1 rounded mb-2">+2.4% Under Budget</span>
+</div>
+<!-- Simple Bar Mockup -->
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>ALLOCATED BUDGET: $4.40M</span>
+<span>97% UTILIZED</span>
+</div>
+<div class="w-full h-3 bg-white rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 97%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 pt-4">
+<div class="text-center p-3 bg-white/50 rounded-lg">
+<p class="text-[10px] font-bold text-on-surface-variant opacity-60">FACULTY PAYROLL</p>
+<p class="text-lg font-black text-primary">$2.85M</p>
+</div>
+<div class="text-center p-3 bg-white/50 rounded-lg">
+<p class="text-[10px] font-bold text-on-surface-variant opacity-60">RESEARCH LABS</p>
+<p class="text-lg font-black text-primary">$1.12M</p>
+</div>
+<div class="text-center p-3 bg-white/50 rounded-lg">
+<p class="text-[10px] font-bold text-on-surface-variant opacity-60">OPEX/ADMIN</p>
+<p class="text-lg font-black text-primary">$0.31M</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-4 bg-primary p-8 rounded-xl flex flex-col justify-between text-white relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-xs font-bold opacity-60 mb-1">ANNUAL ROI PROJECTION</p>
+<p class="text-3xl font-black tracking-tighter">14.8%</p>
+<p class="text-[10px] mt-2 opacity-80 leading-relaxed">Projected value based on grant procurement and enrollment growth metrics.</p>
+</div>
+<div class="mt-8 pt-4 border-t border-white/20 z-10">
+<button class="text-xs font-bold flex items-center gap-2">
+                                    VIEW ROI BREAKDOWN <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+<!-- Background texture logic -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 -mr-16 -mt-16 rounded-full"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 -ml-12 -mb-12 rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Research Output Table -->
+<section>
+<h3 class="text-xs font-black text-on-surface-variant tracking-widest uppercase mb-6 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                        Faculty Research Output Summary
+                    </h3>
+<div class="overflow-hidden rounded-xl bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary-container text-on-primary-container">
+<th class="px-6 py-4 text-xs font-black tracking-widest uppercase">Faculty Member</th>
+<th class="px-6 py-4 text-xs font-black tracking-widest uppercase">Department</th>
+<th class="px-6 py-4 text-xs font-black tracking-widest uppercase text-center">Publications</th>
+<th class="px-6 py-4 text-xs font-black tracking-widest uppercase text-right">Grant Value</th>
+<th class="px-6 py-4 text-xs font-black tracking-widest uppercase text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary text-sm">Dr. Julian Thorne</p>
+<p class="text-[10px] text-on-surface-variant">Senior Lead Researcher</p>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant font-medium">Applied Physics</td>
+<td class="px-6 py-4 text-sm font-bold text-center">12</td>
+<td class="px-6 py-4 text-sm font-black text-right tracking-tighter">$840,000</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary text-sm">Dr. Elena Rodriguez</p>
+<p class="text-[10px] text-on-surface-variant">Associate Professor</p>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant font-medium">Biotech Engineering</td>
+<td class="px-6 py-4 text-sm font-bold text-center">08</td>
+<td class="px-6 py-4 text-sm font-black text-right tracking-tighter">$1,250,000</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary text-sm">Dr. Sarah Al-Fayed</p>
+<p class="text-[10px] text-on-surface-variant">Lead Theorist</p>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant font-medium">Quantum Computing</td>
+<td class="px-6 py-4 text-sm font-bold text-center">15</td>
+<td class="px-6 py-4 text-sm font-black text-right tracking-tighter">$420,000</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4">
+<p class="font-bold text-primary text-sm">Prof. Marcus Halloway</p>
+<p class="text-[10px] text-on-surface-variant">Dean of Research</p>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant font-medium">Ethics &amp; Policy</td>
+<td class="px-6 py-4 text-sm font-bold text-center">04</td>
+<td class="px-6 py-4 text-sm font-black text-right tracking-tighter">$120,500</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Strategic Insights (Editorial Design) -->
+<section class="grid grid-cols-2 gap-12 items-start mt-4">
+<div>
+<h3 class="text-xs font-black text-on-surface-variant tracking-widest uppercase mb-6 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                            Strategic Resource Allocation
+                        </h3>
+<div class="space-y-6">
+<div class="relative pl-6">
+<div class="absolute left-0 top-0 bottom-0 w-0.5 bg-primary-container"></div>
+<h4 class="text-sm font-bold text-primary mb-2">Inter-Departmental Synergy</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                                    Allocating additional 15% of discretionary funds to the Physics-Quantum joint lab initiative. Expected ROI increase of 4.2% by Q2 2025 through cross-discipline grants.
+                                </p>
+</div>
+<div class="relative pl-6">
+<div class="absolute left-0 top-0 bottom-0 w-0.5 bg-primary-container"></div>
+<h4 class="text-sm font-bold text-primary mb-2">Infrastructure Optimization</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                                    Consolidation of underutilized compute clusters has resulted in a $12k monthly reduction in operational overhead without affecting faculty processing bandwidth.
+                                </p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+<h4 class="text-sm font-black text-primary uppercase tracking-tight">HOD Recommended Action</h4>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-xs text-on-tertiary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-xs text-on-surface font-medium">Re-allocate $45k from travel reserves to high-impact journal publication fees.</p>
+</li>
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-xs text-on-tertiary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-xs text-on-surface font-medium">Initiate 'Faculty Incentive Program' for NIH-track grant applications.</p>
+</li>
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-xs text-on-tertiary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-xs text-on-surface font-medium">Audit the Phase 2 Lab expansion for Q1 procurement alignment.</p>
+</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- Report Footer -->
+<footer class="mt-20 pt-8 border-t border-outline-variant flex justify-between items-end opacity-60">
+<div class="text-[9px] uppercase tracking-widest font-bold leading-relaxed">
+<p>© 2024 OFFICE OF INSTITUTIONAL RESEARCH &amp; STRATEGIC ANALYTICS</p>
+<p>CONFIDENTIAL DOCUMENT — INTERNAL FACULTY ACCESS ONLY</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-black">PAGE 01 OF 04</p>
+</div>
+</footer>
+<!-- Glassmorphism Floating Detail (The Curator Touch) -->
+<div class="absolute top-[20%] right-10 w-48 bg-surface-variant/70 backdrop-blur-xl p-4 rounded-xl shadow-xl hidden lg:block border border-white/20">
+<p class="text-[10px] font-bold text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">info</span> DATA INSIGHT
+                </p>
+<p class="text-[11px] leading-relaxed text-on-primary-fixed-variant">
+                    Grant success rates have improved by <span class="font-bold">12%</span> since the implementation of the New Faculty Mentorship program in Jan 2024.
+                </p>
+</div>
+</div>
+</main>
+<!-- Institutional Footer (Shared Component) -->
+<footer class="w-full py-8 mt-auto bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-4 text-center">
+<p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-inter">© 2024 Office of Institutional Research &amp; Strategic Analytics. All Rights Reserved. Confidential Document.</p>
+<div class="flex gap-8">
+<a class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 no-underline hover:text-blue-900 dark:hover:text-blue-200 transition-colors opacity-80" href="#">Privacy Policy</a>
+<a class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 no-underline hover:text-blue-900 dark:hover:text-blue-200 transition-colors opacity-80" href="#">Compliance Standards</a>
+<a class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 no-underline hover:text-blue-900 dark:hover:text-blue-200 transition-colors opacity-80" href="#">Data Governance</a>
+</div>
+</footer>
+</body></html>

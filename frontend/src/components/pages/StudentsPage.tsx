@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MainContent, Card, Button, TextInput, Badge, Footer } from "..";
 import { Table } from "../dashboard";
 import type { TableColumn } from "../dashboard/Table";
-import { useAppSelector, useAppDispatch } from "../../hooks/useRedux";
+import { useAppSelector } from "../../hooks/useRedux";
 import { useRoleGuard } from "../../hooks/useRoleGuard";
-import { useToast } from "../../context/useToast";
-import { fetchStudents } from "../../store/thunks/dataThunks";
-import { SkeletonTable, SkeletonMetricCard } from "../common/SkeletonLoaders";
+import { AddStudentModal } from "../common/AddStudentModal";
 import {
   UserPlus,
   Users,
@@ -25,8 +24,7 @@ import type { Student } from "../../store/slices/dataSlice";
 export default function StudentsPage() {
   // Role guard - only admin, hod, lecturer can access
   useRoleGuard(["admin", "hod", "lecturer"]);
-  const dispatch = useAppDispatch();
-  const { addToast } = useToast();
+  const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.auth.user);
   const userRole = user?.role;
@@ -34,8 +32,6 @@ export default function StudentsPage() {
     const data = state.data.students;
     return Array.isArray(data) ? data : [];
   });
-  const loading = useAppSelector((state) => state.data.loading);
-  const error = useAppSelector((state) => state.data.error);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
@@ -43,18 +39,9 @@ export default function StudentsPage() {
   const [activeTab, setActiveTab] = useState<"database" | "reports">(
     "database",
   );
-
-  // Fetch students on component mount
-  useEffect(() => {
-    dispatch(fetchStudents());
-  }, [dispatch]);
-
-  // Handle error display
-  useEffect(() => {
-    if (error) {
-      addToast(error, "error", 3000);
-    }
-  }, [error, addToast]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false);
 
   // Filter students based on role
   let filteredByRole = students;
@@ -79,6 +66,14 @@ export default function StudentsPage() {
   const programs = Array.from(
     new Set(filteredByRole.map((s) => s.program)),
   ).sort();
+
+  // Pagination logic
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.ceil(filteredStudents.length / ITEMS_PER_PAGE);
+  const paginatedStudents = filteredStudents.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   // Role-aware page header
   const headerConfig: Record<string, { title: string; desc: string }> = {
@@ -136,66 +131,61 @@ export default function StudentsPage() {
             </p>
           </div>
           {userRole === "admin" && (
-            <button className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-lg shadow-primary/10 transition-all text-sm">
-              <UserPlus className="w-4 h-4" />
+            <button
+              onClick={() => setIsAddStudentModalOpen(true)}
+              className="px-4 py-2 rounded-lg bg-primary text-on-primary font-semibold flex items-center gap-2 hover:opacity-90 shadow-md shadow-primary/10 transition-all text-xs"
+            >
+              <UserPlus className="w-3.5 h-3.5" />
               Add Student
             </button>
           )}
         </div>
 
-        {/* Stats - Show skeletons while loading */}
-        {loading && students.length === 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <SkeletonMetricCard />
-            <SkeletonMetricCard />
-            <SkeletonMetricCard />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="border-l-4 border-on-tertiary-container">
-              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-                Total Students
+        {/* Stats - Always show since we have dummy data */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="border-l-4 border-on-tertiary-container">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Total Students
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {filteredStudents.length}
+              </p>
+              <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
+                <Users className="w-5 h-5" />
               </div>
-              <div className="flex items-center justify-between">
-                <p className="text-3xl font-black text-primary">
-                  {filteredStudents.length}
-                </p>
-                <div className="w-10 h-10 bg-tertiary-container/10 rounded-full flex items-center justify-center text-on-tertiary-container">
-                  <Users className="w-5 h-5" />
-                </div>
+            </div>
+          </Card>
+          <Card className="border-l-4 border-primary">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Active
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {filteredStudents.filter((s) => s.status === "active").length}
+              </p>
+              <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
+                <CheckCircle className="w-5 h-5" />
               </div>
-            </Card>
-            <Card className="border-l-4 border-primary">
-              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-                Active
+            </div>
+          </Card>
+          <Card className="border-l-4 border-secondary">
+            <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
+              Avg GPA
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-3xl font-black text-primary">
+                {(
+                  filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
+                  (filteredStudents.length || 1)
+                ).toFixed(2)}
+              </p>
+              <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
+                <Award className="w-5 h-5" />
               </div>
-              <div className="flex items-center justify-between">
-                <p className="text-3xl font-black text-primary">
-                  {filteredStudents.filter((s) => s.status === "active").length}
-                </p>
-                <div className="w-10 h-10 bg-primary-fixed/30 rounded-full flex items-center justify-center text-primary">
-                  <CheckCircle className="w-5 h-5" />
-                </div>
-              </div>
-            </Card>
-            <Card className="border-l-4 border-secondary">
-              <div className="text-xs font-bold uppercase text-on-surface-variant tracking-widest mb-3">
-                Avg GPA
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="text-3xl font-black text-primary">
-                  {(
-                    filteredStudents.reduce((sum, s) => sum + s.gpa, 0) /
-                    (filteredStudents.length || 1)
-                  ).toFixed(2)}
-                </p>
-                <div className="w-10 h-10 bg-secondary-container/30 rounded-full flex items-center justify-center text-secondary">
-                  <Award className="w-5 h-5" />
-                </div>
-              </div>
-            </Card>
-          </div>
-        )}
+            </div>
+          </Card>
+        </div>
 
         {/* Tab Navigation */}
         <div className="flex gap-6 mb-8 border-b-2 border-outline-variant/10">
@@ -231,15 +221,17 @@ export default function StudentsPage() {
           <div>
             {/* Filters */}
             <div className="bg-surface-container-low rounded-xl p-5 mb-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Search by Name or ID"
-                  placeholder="Search students..."
-                  icon="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <div className="flex flex-col gap-1">
+              <div className="flex flex-col md:flex-row gap-4 items-end">
+                <div className="flex-1">
+                  <TextInput
+                    label="Search by Name or ID"
+                    placeholder="Search students..."
+                    icon="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                <div className="w-full md:w-56">
                   <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
                     Filter by Program
                   </label>
@@ -270,31 +262,173 @@ export default function StudentsPage() {
                 <h2 className="text-xl font-black text-primary tracking-tight">
                   Student Records
                 </h2>
-                <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
-                  {loading && students.length === 0
-                    ? "Loading..."
-                    : `${filteredStudents.length} results`}
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full uppercase">
+                  {`${filteredStudents.length} results`}
+                  </span>
+                  <div className="flex gap-1 bg-surface-container-highest rounded-lg p-1">
+                    <button
+                      onClick={() => setViewMode("table")}
+                      className={`px-2 py-1 rounded text-xs font-bold transition-colors ${
+                        viewMode === "table"
+                          ? "bg-primary text-white"
+                          : "text-on-surface-variant hover:text-on-surface"
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-sm">table_chart</span>
+                    </button>
+                    <button
+                      onClick={() => setViewMode("card")}
+                      className={`px-2 py-1 rounded text-xs font-bold transition-colors ${
+                        viewMode === "card"
+                          ? "bg-primary text-white"
+                          : "text-on-surface-variant hover:text-on-surface"
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-sm">view_module</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              {loading && students.length === 0 ? (
-                <SkeletonTable />
-              ) : students.length === 0 ? (
+              {students.length === 0 ? (
                 <Card className="p-8 text-center">
                   <p className="text-on-surface-variant">
-                    No students found.{" "}
-                    {error
-                      ? "Try loading again."
-                      : "Start by adding a student."}
+                    No students found. Start by adding a student.
                   </p>
                 </Card>
+              ) : viewMode === "table" ? (
+                <>
+                  <Table
+                    columns={columns}
+                    data={paginatedStudents}
+                    keyExtractor={(row) => row.id}
+                    onRowClick={(student) => navigate(`/students/${student.id}`)}
+                  />
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 mt-6">
+                      <button
+                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
+                      >
+                        <ChevronDown className="w-4 h-4 rotate-90" />
+                      </button>
+                      <div className="flex gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 rounded text-xs font-bold transition-colors ${
+                              currentPage === page
+                                ? "bg-primary text-on-primary"
+                                : "border border-outline-variant text-on-surface hover:bg-surface-container-high"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
+                      >
+                        <ChevronDown className="w-4 h-4 -rotate-90" />
+                      </button>
+                    </div>
+                  )}
+                </>
               ) : (
-                <Table
-                  columns={columns}
-                  data={filteredStudents}
-                  keyExtractor={(row) => row.id}
-                  onRowClick={setSelectedStudent}
-                />
+                <>
+                  {/* Card View - Mobile First Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                    {paginatedStudents.map((student) => (
+                      <Card
+                        key={student.id}
+                        className="p-3 cursor-pointer hover:shadow-md border-l-4 border-primary hover:border-primary/80 transition-all"
+                        onClick={() => navigate(`/students/${student.id}`)}
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-sm text-primary truncate">
+                              {student.name}
+                            </h3>
+                            <p className="text-[10px] text-on-surface-variant truncate">
+                              {student.id}
+                            </p>
+                          </div>
+                          <ExternalLink className="w-3 h-3 text-primary flex-shrink-0 ml-2" />
+                        </div>
+                        <div className="space-y-1.5 mb-2 text-[10px]">
+                          <div>
+                            <p className="text-on-surface-variant uppercase font-bold">Program</p>
+                            <p className="text-primary font-bold truncate">{student.program}</p>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div>
+                              <p className="text-on-surface-variant uppercase font-bold">GPA</p>
+                              <p className="text-primary font-bold">{student.gpa.toFixed(2)}</p>
+                            </div>
+                            <div>
+                              <p className="text-on-surface-variant uppercase font-bold">Year</p>
+                              <p className="text-primary font-bold">{student.enrollmentYear}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="pt-2 border-t border-outline-variant/20">
+                          <Badge
+                            variant={
+                              student.status === "active"
+                                ? "success"
+                                : student.status === "graduated"
+                                  ? "primary"
+                                  : "error"
+                            }
+                          >
+                            {student.status.charAt(0).toUpperCase() +
+                              student.status.slice(1)}
+                          </Badge>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                  {/* Pagination Controls for Card View */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
+                      >
+                        <ChevronDown className="w-4 h-4 rotate-90" />
+                      </button>
+                      <div className="flex gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 rounded text-xs font-bold transition-colors ${
+                              currentPage === page
+                                ? "bg-primary text-on-primary"
+                                : "border border-outline-variant text-on-surface hover:bg-surface-container-high"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-lg border border-outline-variant text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-high transition-colors"
+                      >
+                        <ChevronDown className="w-4 h-4 -rotate-90" />
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -647,6 +781,10 @@ export default function StudentsPage() {
         )}
       </MainContent>
       <Footer variant="minimal" />
+      <AddStudentModal
+        isOpen={isAddStudentModalOpen}
+        onClose={() => setIsAddStudentModalOpen(false)}
+      />
     </>
   );
 }
