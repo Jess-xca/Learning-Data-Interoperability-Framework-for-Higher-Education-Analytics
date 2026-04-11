@@ -4,7 +4,7 @@
  * Handles concat, split, format, lookup, and custom transformations
  */
 
-import { DataRecord, TransformationRule } from '../types/etl-extended';
+import type { DataRecord, TransformationRule } from '../types/etl-extended';
 
 interface TransformationContext {
   recordId: string;

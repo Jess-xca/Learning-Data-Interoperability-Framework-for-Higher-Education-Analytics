@@ -3,7 +3,7 @@
  * Handles error classification, retry logic, and dead letter queue management
  */
 
-import { PipelineError, DataRecord } from '../types/etl-extended';
+import type { PipelineError, DataRecord } from '../types/etl-extended';
 
 interface RetryPolicy {
   maxRetries: number;

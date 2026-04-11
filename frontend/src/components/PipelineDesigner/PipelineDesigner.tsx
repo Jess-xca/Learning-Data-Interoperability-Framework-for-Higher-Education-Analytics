@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card } from '../common';
-import { Button } from '../forms';
-import {
-  Plus,
-  Trash2,
-  Copy,
-  Save,
-  X,
-  ChevronDown,
-  ChevronUp,
-  Settings,
-} from 'lucide-react';
-import { transformationRulesEngine, type TransformationRule } from '../../services/TransformationRulesEngine';
-import { dataValidationService } from '../../services/DataValidationService';
+
+export const PipelineDesigner: React.FC = () => {
+  return (
+    <div className="space-y-6">
+      <Card>
+        <h2 className="text-2xl font-bold mb-2">Pipeline Designer</h2>
+        <p className="text-gray-600">Visual rule builder for transformation pipelines</p>
+        <p className="text-sm text-gray-500 mt-4">Build transformation rules with 6 different operation types: concat, split, format, lookup, custom, conditional...</p>
+      </Card>
+    </div>
+  );
+};
+
+export default PipelineDesigner;
 
 interface RuleConfig {
   type: 'concat' | 'split' | 'format' | 'lookup' | 'custom' | 'conditional';

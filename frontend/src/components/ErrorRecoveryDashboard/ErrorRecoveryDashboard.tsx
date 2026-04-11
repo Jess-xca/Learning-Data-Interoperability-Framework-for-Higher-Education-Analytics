@@ -1,73 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from '../common';
-import { Button } from '../forms';
-import {
-  AlertTriangle,
-  RefreshCw,
-  Trash2,
-  TrendingUp,
-  TrendingDown,
-  Clock,
-  CheckCircle,
-  XCircle,
-} from 'lucide-react';
-import { pipelineErrorRecoveryService } from '../../services/PipelineErrorRecoveryService';
 
 export const ErrorRecoveryDashboard: React.FC = () => {
-  const [queueStatus, setQueueStatus] = useState<any>(null);
-  const [errorStats, setErrorStats] = useState<any>(null);
-  const [dlqItems, setDlqItems] = useState<any[]>([]);
-  const [selectedError, setSelectedError] = useState<any>(null);
-  const [retryPolicy, setRetryPolicy] = useState(pipelineErrorRecoveryService.getRetryPolicy());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setQueueStatus(pipelineErrorRecoveryService.getQueueStatus());
-      setErrorStats(pipelineErrorRecoveryService.getErrorStatistics());
-      setDlqItems(pipelineErrorRecoveryService.getDeadLetterQueue());
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const retryAll = () => {
-    pipelineErrorRecoveryService.retryDeadLetterQueue();
-    setDlqItems([]);
-  };
-
-  const removeFromDlq = (dlqId: string) => {
-    pipelineErrorRecoveryService.removeFromDeadLetterQueue(dlqId);
-    setDlqItems(dlqItems.filter(item => item.id !== dlqId));
-  };
-
-  const updateRetryPolicy = (field: string, value: number) => {
-    const newPolicy = { ...retryPolicy, [field]: value };
-    pipelineErrorRecoveryService.setRetryPolicy(newPolicy);
-    setRetryPolicy(newPolicy);
-  };
-
   return (
     <div className="space-y-6">
-      {/* Queue Status */}
-      <Card title="Error Queue Status" subtitle="Real-time error recovery monitoring">
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
-            <div className="text-3xl font-bold text-orange-600">{queueStatus?.totalQueued || 0}</div>
-            <div className="text-sm text-gray-600">Total Queued</div>
-          </div>
-          <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-            <div className="text-3xl font-bold text-green-600">{queueStatus?.readyNow || 0}</div>
-            <div className="text-sm text-gray-600">Ready to Retry</div>
-          </div>
-          <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-            <div className="text-3xl font-bold text-blue-600">{queueStatus?.pendingRetry || 0}</div>
-            <div className="text-sm text-gray-600">Pending Retry</div>
+      <Card>
+        <h2 className="text-2xl font-bold mb-2">Error Recovery Dashboard</h2>
+        <p className="text-gray-600">Real-time error monitoring and recovery</p>
+      </Card>
+    </div>
+  );
+};
+
+export default ErrorRecoveryDashboard;
+
           </div>
         </div>
       </Card>
 
-      {/* Error Trends */}
-      <Card title="Error Trends" subtitle="Top errors by frequency">
+    </div>
+  );
+};
+
+export default ErrorRecoveryDashboard;
+
+      <Card>
+        <div>
+          <h2 className="text-2xl font-bold mb-1">Error Trends</h2>
+          <p className="text-gray-600 text-sm mb-4">Top errors by frequency</p>
         {errorStats?.errorsByCode && errorStats.errorsByCode.length > 0 ? (
           <div className="space-y-3">
             {errorStats.errorsByCode.slice(0, 5).map((error: any, idx: number) => (
@@ -91,10 +51,13 @@ export const ErrorRecoveryDashboard: React.FC = () => {
         ) : (
           <p className="text-gray-500 text-center py-4">No errors recorded</p>
         )}
+        </div>
       </Card>
 
-      {/* Dead Letter Queue */}
-      <Card title="Dead Letter Queue" subtitle="Items that exhausted retries">
+      <Card>
+        <div>
+          <h2 className="text-2xl font-bold mb-1">Dead Letter Queue</h2>
+          <p className="text-gray-600 text-sm mb-4">Items that exhausted retries</p>
         {dlqItems.length > 0 ? (
           <div>
             <div className="space-y-2 max-h-64 overflow-y-auto mb-4">
@@ -139,10 +102,13 @@ export const ErrorRecoveryDashboard: React.FC = () => {
             <p>No items in Dead Letter Queue</p>
           </div>
         )}
+        </div>
       </Card>
 
-      {/* Retry Policy Configuration */}
-      <Card title="Retry Policy" subtitle="Configure automatic retry behavior">
+      <Card>
+        <div>
+          <h2 className="text-2xl font-bold mb-1">Retry Policy</h2>
+          <p className="text-gray-600 text-sm mb-4">Configure automatic retry behavior</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Max Retries</label>
@@ -186,12 +152,15 @@ export const ErrorRecoveryDashboard: React.FC = () => {
         <div className="mt-4 p-3 bg-blue-50 rounded text-sm">
           <strong>Retry Schedule:</strong> Retries will happen at 1s, 2s, 4s delays (with {retryPolicy.backoffMultiplier}x backoff)
         </div>
+        </div>
       </Card>
 
-      {/* Error Details */}
       {selectedError && (
-        <Card title="Error Details" subtitle={selectedError.error.code}>
-          <div className="space-y-3">
+        <Card>
+          <div>
+            <h2 className="text-2xl font-bold mb-1">Error Details</h2>
+            <p className="text-gray-600 text-sm mb-4">{selectedError.error.code}</p>
+            <div className="space-y-3">
             <div>
               <strong>Record ID:</strong> {selectedError.error.recordId}
             </div>

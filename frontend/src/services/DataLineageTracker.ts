@@ -3,7 +3,7 @@
  * Tracks data provenance, transformations, and quality history
  */
 
-import { DataRecord } from '../types/etl-extended';
+import type { DataRecord } from '../types/etl-extended';
 
 interface LineageNode {
   id: string;

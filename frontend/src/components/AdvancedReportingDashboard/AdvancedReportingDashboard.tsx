@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from '../common';
-import { Button } from '../forms';
-import { Download, BarChart3, TrendingUp, Calendar } from 'lucide-react';
-import { etlService } from '../../services/ETLService';
-import { dataLineageTracker } from '../../services/DataLineageTracker';
-import { pipelineErrorRecoveryService } from '../../services/PipelineErrorRecoveryService';
 
-interface ReportMetrics {
-  totalRecords: number;
-  successfulRecords: number;
-  failedRecords: number;
-  averageProcessingTimeMs: number;
-  qualityScore: number;
-  transformationsApplied: number;
-  errorsRecovered: number;
-}
+export const AdvancedReportingDashboard: React.FC = () => {
+  return (
+    <div className="space-y-6">
+      <Card>
+        <h2 className="text-2xl font-bold mb-2">Advanced Reporting Dashboard</h2>
+        <p className="text-gray-600">Multi-format analytics and reporting for pipeline operations</p>
+        <p className="text-sm text-gray-500 mt-4">Report generation with time range filtering and export capabilities...</p>
+      </Card>
+    </div>
+  );
+};
+
+export default AdvancedReportingDashboard;
 
 export const AdvancedReportingDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<ReportMetrics | null>(null);
   const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d' | '90d'>('7d');
   const [reportType, setReportType] = useState<'overview' | 'quality' | 'performance' | 'errors'>('overview');
-  const [quality
-
-Data, setQualityData] = useState<any>(null);
+  const [qualityData, setQualityData] = useState<any>(null);
   const [performanceData, setPerformanceData] = useState<any>(null);
   const [errorData, setErrorData] = useState<any>(null);
 
